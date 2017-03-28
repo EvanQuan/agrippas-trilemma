@@ -11,7 +11,10 @@
 # Currently working on for 1.5.0
 # Spaghetti code update
 # Rework much of program to be Object Oriented
+<<<<<<< HEAD
 # Redistribute Main.py to other files
+=======
+>>>>>>> fe2990e0032be5da1b9f277e03b443043ef57ddd
 # Balancing numbers during playthrough
 # POTENTIALLY: Change cave layout to be less confusing?
 #   Remove south and inward dead ends
