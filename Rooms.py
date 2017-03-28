@@ -1,4 +1,8 @@
+from Player import *
 from Constants import *
+from Main import *
+from MainMenu import *
+from Functions import *
 import random
 
 #______Rooms____________________________________________________
@@ -285,6 +289,33 @@ class Room(object):
         elif self.bird:
             print("    a wooden bird")
 
+# Has own inventory
+class Shop(Room):
+    def __init__(self):
+        Room.__init__(self)
+
+
+class Cave(Room)
+
+class Mine(Cave)
+
+class Crevasse(Cave)
+
+# Has vault information
+class Vault(Room)
+    def __init__(self):
+        Room.__init__(self)
+        self.vaultAnswer_1 = vaultAnswer_1
+        self.vaultAnswer_2 = vaultAnswer_2
+        self.vaultAnswer_3 = vaultAnswer_3
+        self.vaultAnswer_4 = vaultAnswer_4
+        self.vaultCurrent_1 = vaultCurrent_1
+        self.vaultCurrent_2 = vaultCurrent_2
+        self.vaultCurrent_3 = vaultCurrent_3
+        self.vaultCurrent_4 = vaultCurrent_4
+
+
+
 #_______Jail____________________________________________________________________
 # Cell
 class classJailCell(Room):
@@ -340,7 +371,7 @@ class classJailEntrance(Room):
             firsttime = "Finally, outside! This is the first time you've felt sunlight in ages. "
         else:
             firsttime = ""
-        print("\nJail Entrance\n\n%sA wall surrounds the prison from all sides, with a gate leading north.\n" % (firsttime))
+        print("\nJail Entrance\n\n%sA wall surrounds the prison from all sides, with a gate leading West.\n" % (firsttime))
         # Adjacent Rooms
         print("    East is the foyer.")
         print("    West is the courtyard.")

@@ -2,6 +2,12 @@ VERSION = "1.4.2"
 DATE = "Feb. 18, 2017"
 CHANGELOG = """
 Changelog
+1.4.4 - March 26, 2017
+    - Fixed main menu and repeat() not working as intended
+    - Fixed name being 'False' when not ask name
+        - Now works with DEFAULT_NAME as intended
+    - Fixed classJailEntrance description
+    - Moved first Roquefort message to roomJailCorridor
 1.4.3 - March 25, 2017
     Spaghetti code update
     - Main menu is now its own class MainMenu

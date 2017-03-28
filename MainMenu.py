@@ -22,7 +22,7 @@ class MainMenu(object):
         self.howToPlay = ("2","2.","how to play","2. how to play")
         self.aboutThisGame = ("3","3.","about","about game","about this game")
         self.quit = ("4","4.","quit","4. quit","q")
-        self.debug = ("debug")
+        self.debug = "debug"
     def printSplashArt(self):
         print("                                                                              .---.")
         print("                                                                             /  .  \ ")
@@ -87,8 +87,6 @@ class MainMenu(object):
             option = input("\nWould you like to see the changelog?\n(WARNING: Changelog contains spoilers)\n> ")
         if option in yes:
             print(Changelog.CHANGELOG)
-            input("Press ENTER to return to the Main Menu.\n> ")
-        self.printSplashArt()
     def askSelection(self):
         option = ""
         outSelection = 0
@@ -144,12 +142,10 @@ class MainMenu(object):
             else:
                 print("Select 1, 2, or 3.")
         if option in ("1","play","play again"):
-            Main.inGame(debug)
+            self.processSelection(self.STARTGAME)
         elif option in ("2","return","menu","main menu","return to main menu"):
-            choice_made = True
+            self.printSplashArt()
         elif option in ("3","quit","q"):
             print("Okay. Bye!")
         elif debug:
-            Main.inGame(debug)
-        if option != self.QUIT:
-            self.printSplashArt()
+            self.processSelection(self.DEBUG)

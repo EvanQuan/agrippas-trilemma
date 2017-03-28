@@ -251,7 +251,7 @@ def inGame(debug):
 
     #_______Inventory init
     if playerName:
-        inv = Inventory(key = 1,porridge = 1,letter = 1)
+        inv = Inventory(key = 1, porridge = 1, letter = 1, note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
         roomJailCell.porridge = 0
     else:
         inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
@@ -290,8 +290,240 @@ def inGame(debug):
     # Starting room
     # Default: roomJailCell
     if debug:
-        roomID = "roomJailCell"
-        roomCurrent = roomJailCell
+        print("Enter starting room (Default: roomJailCell)")
+        option = input("> ")
+        roomID = option
+        # Jail
+        if roomID == "roomJailCell":
+            roomCurrent = roomJailCell
+        elif roomID == "roomJailCorridor":
+            roomCurrent = roomJailCorridor
+        elif roomID == "roomJailFoyer":
+            roomCurrent = roomJailFoyer
+        elif roomID == "roomJailAntechamber":
+            roomCurrent = roomJailAntechamber
+        elif roomID == "roomJailHallway":
+            roomCurrent = roomJailHallway
+        elif roomID == "roomJailBreakRoom":
+            roomCurrent = roomJailBreakRoom
+        elif roomID == "roomJailEntrance":
+            roomCurrent = roomJailEntrance
+        # Town
+        elif roomID == "roomCourtyardNorth":
+            roomCurrent = roomCourtyardNorth
+        elif roomID == "roomCourtyardSouth":
+            roomCurrent = roomCourtyardSouth
+        elif roomID == "roomBlacksmith":
+            roomCurrent = roomBlacksmith
+        elif roomID == "roomAlchemist":
+            roomCurrent = roomAlchemist
+        elif roomID == "roomCarnival":
+            roomCurrent = roomCarnival
+        elif roomID == "roomCarnivalShellGame":
+            roomCurrent = roomCarnivalShellGame
+        elif roomID == "roomCarnivalFood":
+            roomCurrent = roomCarnivalFood
+        elif roomID == "roomCarnivalWheelGame":
+            roomCurrent = roomCarnivalWheelGame
+        elif roomID == "roomGeneralStore":
+            roomCurrent = roomGeneralStore
+        elif roomID == "roomGate":
+            roomCurrent = roomGate
+        # Road
+        elif roomID == "roomRoadSouth":
+            roomCurrent = roomRoadSouth
+        elif roomID == "roomRoadMid":
+            roomCurrent = roomRoadMid
+        elif roomID == "roomRoadNorth":
+            roomCurrent = roomRoadNorth
+        elif roomID == "roomRoadEast":
+            roomCurrent = roomRoadEast
+        elif roomID == "roomRoadWest":
+            roomCurrent = roomRoadWest
+        elif roomID == "roomRoadCorner":
+            roomCurrent = roomRoadCorner
+        elif roomID == "roomLake":
+            roomCurrent = roomLake
+        elif roomID == "roomForest":
+            roomCurrent = roomForest
+        elif roomID == "roomShrineSouth":
+            roomCurrent = roomShrineSouth
+            demonWords.add(wordDarkness)
+        # Bridge
+        elif roomID == "roomBridge":
+            roomCurrent = roomBridge
+        # Temple
+        elif roomID == "roomTempleEntrance":
+            roomCurrent = roomTempleEntrance
+        elif roomID == "roomTempleInside":
+            roomCurrent = roomTempleInside
+        elif roomID == "roomTempleBasement":
+            roomCurrent = roomTempleBasement
+        # Cave
+        elif roomID == "roomMountEntrance":
+            roomCurrent = roomMountEntrance
+        # 1
+        elif roomID == "roomCave_1_m":
+            roomCurrent = roomCave_1_m
+        # 2
+        elif roomID == "roomCave_2_m":
+            roomCurrent = roomCave_2_m
+        elif roomID == "roomCave_2_mr":
+            roomCurrent = roomCave_2_mr
+        elif roomID == "roomCave_2_lm":
+            roomCurrent = roomCave_2_lm
+        elif roomID == "roomCave_2_llm":
+            roomCurrent = roomCave_2_llm
+        # 3
+        elif roomID == "roomCave_3_m_coalmine":
+            roomCurrent = roomCave_3_m_coalmine
+        elif roomID == "roomCave_3_mr":
+            roomCurrent = roomCave_3_mr
+        elif roomID == "roomCave_3_mrr_coalmine":
+            roomCurrent = roomCave_3_mrr_coalmine
+        elif roomID == "roomCave_3_lm_coalmine":
+            roomCurrent = roomCave_3_lm_coalmine
+        elif roomID == "roomCave_3_llm_crevasse":
+            roomCurrent = roomCave_3_llm_crevasse
+        elif roomID == "roomCave__3_lllm_treasure_crevasse":
+            roomCurrent = roomCave__3_lllm_treasure_crevasse
+        # 4
+        elif roomID == "roomCave_4_m":
+            roomCurrent = roomCave_4_m
+        elif roomID == "roomCave_4_mr":
+            roomCurrent = roomCave_4_mr
+        elif roomID == "roomCave_4_lm":
+            roomCurrent = roomCave_4_lm
+        elif roomID == "roomCave_4_llm":
+            roomCurrent = roomCave_4_llm
+        # 5
+        elif roomID == "roomCave_5_m":
+            roomCurrent = roomCave_5_m
+        elif roomID == "roomCave_5_mr_coalmine":
+            roomCurrent = roomCave_5_mr_coalmine
+        elif roomID == "roomCave_5_lm_coalmine":
+            roomCurrent = roomCave_5_lm_coalmine
+        elif roomID == "roomCave_5_llm":
+            roomCurrent = roomCave_5_llm
+        elif roomID == "roomCave_5_lllm":
+            roomCurrent = roomCave_5_lllm
+        # 6
+        elif roomID == "roomCave_6_m":
+            roomCurrent = roomCave_6_m
+        elif roomID == "roomCave_6_mr":
+            roomCurrent = roomCave_6_mr
+        elif roomID == "roomCave_6_lm_coalmine":
+            roomCurrent = roomCave_6_lm_coalmine
+        elif roomID == "roomCave_6_llm_coalmine":
+            roomCurrent = roomCave_6_llm_coalmine
+        elif roomID == "roomCave_6_lllm":
+            roomCurrent = roomCave_6_lllm
+        # 7
+        elif roomID == "roomCave_7_m":
+            roomCurrent = roomCave_7_m
+        elif roomID == "roomCave_7_mr":
+            roomCurrent = roomCave_7_mr
+        elif roomID == "roomCave_7_lm":
+            roomCurrent = roomCave_7_lm
+        elif roomID == "roomCave_7_llm":
+            roomCurrent = roomCave_7_llm
+        elif roomID == "roomCave_7_lllm":
+            roomCurrent = roomCave_7_lllm
+        # 8
+        elif roomID == "roomCave_8_mr_crevasse":
+            roomCurrent = roomCave_8_mr_crevasse
+        elif roomID == "roomCave_8_llm_coalmine":
+            roomCurrent = roomCave_8_llm_coalmine
+        # 9
+        elif roomID == "roomCave_9_mr_crevasse":
+            roomCurrent = roomCave_9_mr_crevasse
+        # 10
+        elif roomID == "roomCave__10_m":
+            roomCurrent = roomCave__10_m
+        elif roomID == "roomCave__10_mr":
+            roomCurrent = roomCave__10_mr
+        elif roomID == "roomCave__10_mrr":
+            roomCurrent = roomCave__10_mrr
+        elif roomID == "roomCave__10_mrrr":
+            roomCurrent = roomCave__10_mrrr
+        elif roomID == "roomCave__10_lm":
+            roomCurrent = roomCave__10_lm
+        # 11
+        elif roomID == "roomCave__11_mrrr":
+            roomCurrent = roomCave__11_mrrr
+        elif roomID == "roomCave__11_lm":
+            roomCurrent = roomCave__11_lm
+        # Darkness
+        elif roomID == "roomDarkness":
+            roomCurrent = roomDarkness
+        # Lair
+        elif roomID == "roomLairMid":
+            roomCurrent = roomLairMid
+        elif roomID == "roomLairEast":
+            roomCurrent = roomLairEast
+        elif roomID == "roomLairWest":
+            roomCurrent = roomLairWest
+        elif roomID == "roomLairHole":
+            roomCurrent = roomLairHole
+        # Field
+        elif roomID == "roomRoad2South":
+            roomCurrent = roomRoad2South
+        elif roomID == "roomRoad2Mid":
+            roomCurrent = roomRoad2Mid
+        elif roomID == "roomFarm":
+            roomCurrent = roomFarm
+        elif roomID == "roomBarn":
+            roomCurrent = roomBarn
+        elif roomID == "roomBarnUp":
+            roomCurrent = roomBarnUp
+        elif roomID == "roomHouseGate":
+            roomCurrent = roomHouseGate
+        elif roomID == "roomField":
+            roomCurrent = roomField
+        elif roomID == "roomShrineNorth":
+            roomCurrent = roomShrineNorth
+            demonWords.add(wordDarkness)
+        # House
+        elif roomID == "roomHouseEntrance":
+            roomCurrent = roomHouseEntrance
+        elif roomID == "roomHouseFoyer":
+            roomCurrent = roomHouseFoyer
+        elif roomID == "roomHouseKitchen":
+            roomCurrent = roomHouseKitchen
+        elif roomID == "roomHousePantry":
+            roomCurrent = roomHousePantry
+        elif roomID == "roomHouseHallway":
+            roomCurrent = roomHouseHallway
+        elif roomID == "roomHouseOffice":
+            roomCurrent = roomHouseOffice
+        # Mysterious book
+        elif roomID == "roomBookAnimal":
+            roomCurrent = roomBookAnimal
+        elif roomID == "roomBookMirror":
+            roomCurrent = roomBookMirror
+        elif roomID == "roomBook_3_1":
+            roomCurrent = roomBook_3_1
+        elif roomID == "roomBook_3_2":
+            roomCurrent = roomBook_3_2
+        elif roomID == "roomBook_3_3":
+            roomCurrent = roomBook_3_3
+        elif roomID == "roomBook_3_4":
+            roomCurrent = roomBook_3_4
+        elif roomID == "roomBook_3_5":
+            roomCurrent = roomBook_3_5
+        elif roomID == "roomBook_3_6":
+            roomCurrent = roomBook_3_6
+        elif roomID == "roomBook_3_7":
+            roomCurrent = roomBook_3_7
+        elif roomID == "roomBook_3_8":
+            roomCurrent = roomBook_3_8
+        elif roomID == "roomBook_3_End":
+            roomCurrent = roomBook_3_End
+            roomCurrent.itemFound = True
+            demonWords.add(wordDominion)
+        else:
+            roomID = "roomJailCell"
+            roomCurrent = roomJailCell
     else:
         roomID = "roomJailCell"
         roomCurrent = roomJailCell
@@ -353,7 +585,9 @@ def inGame(debug):
 # Game loop start
     while not endGame:
 #_______User input______________________________________________________________
-        option = input("\n\n\n\n> ").lower()
+        option = input("\n\n\n\n> ")
+        if not debug:
+            option = option.lower()
         if option not in ("again","do it again","do again","g"):
             option_last = option
 #_______Start of turn___________________________________________________________
@@ -373,18 +607,18 @@ def inGame(debug):
         if option in ("quit","quit game","end game","die","kill self","suicide", "commit suicide","end my life","end my suffering","throw in the towel","give up","give up on life","exit game"):
             endGame = True
         # debug commands
-        elif option == "!debug" and debug:
-            print("!stat - Prints player stats")
-            print("!turn - Prints number of turns")
-            print("!unblock - Unblocks all directions")
-            print("!block - Blocks all directions")
-            print("!characterdead - makes roomCurrent.characterDead = True")
-            print("!silence - Toggles silence")
-            print("!inv - Gives debug inventory")
-            print("!spells - Prints status of all Ozkavosh spells and words")
-            print("!learn - Learns all Ozkavosh spells and words")
+        elif option == "/debug" and debug:
+            print("/stat - Prints player stats")
+            print("/turn - Prints number of turns")
+            print("/unblock - Unblocks all directions")
+            print("/block - Blocks all directions")
+            print("/characterdead - makes roomCurrent.characterDead = True")
+            print("/silence - Toggles silence")
+            print("/inv - Gives debug inventory")
+            print("/spells - Prints status of all Ozkavosh spells and words")
+            print("/learn - Learns all Ozkavosh spells and words")
             notTurn = True
-        elif option == "!stat" and debug:
+        elif option == "/stat" and debug:
             print("Name:",playerName)
             print("Hunger:",stat.hunger)
             print("Health:",stat.health)
@@ -392,10 +626,15 @@ def inGame(debug):
             print("inv.itemTypes():",inv.itemTypes())
             print("turnCounter:",turnCounter)
             notTurn = True
-        elif option == "!turn" and debug:
+        elif option.startswith("/tp") and debug:
+            option = option[4:]
+            roomID = option
+            changeRoom = True
+            justEntered = True
+        elif option == "/turn" and debug:
             print("The turncounter is %s." % turnCounter)
             notTurn = True
-        elif option == "!unblock" and debug:
+        elif option == "/unblock" and debug:
             if roomCurrent.northBlocked:
                 roomCurrent.northBlocked = False
             elif roomCurrent.eastBlocked:
@@ -409,7 +648,7 @@ def inGame(debug):
                 roomCurrent.westBlocked = False
             notTurn = True
 
-        elif option == "!block" and debug:
+        elif option == "/block" and debug:
             if roomCurrent.northBlockedReason and roomCurrent.north:
                 roomCurrent.northBlocked = True
                 print("North is now blocked.")
@@ -424,23 +663,23 @@ def inGame(debug):
                 print("West is now blocked.")
             notTurn = True
 
-        elif option == "!characterdead" and debug:
+        elif option == "/characterdead" and debug:
             roomCurrent.characterDead = True
             print("characterDead is True")
             notTurn = True
-        elif option == "!oilcounter" and debug:
+        elif option == "/oilcounter" and debug:
             print(oilCounter)
             notTurn = True
-        elif option in ("!health","!hp") and debug:
+        elif option in ("/health","/hp") and debug:
             print("Health:",stat.health)
             notTurn = True
-        elif option in ("!hunger","!h") and debug:
+        elif option in ("/hunger","/h") and debug:
             print("Hunger:",stat.hunger)
             notTurn = True
-        elif option == "!name" and debug:
+        elif option == "/name" and debug:
             print("Name:",playerName)
             notTurn = True
-        elif option == "!room" and debug:
+        elif option == "/room" and debug:
             print("roomID:",roomID)
             print("roomID_Last:",roomID_Last)
             print("North room:",roomCurrent.north)
@@ -472,7 +711,7 @@ def inGame(debug):
             print("creatureChase:",creatureChase)
             print("	creatureChaseCounter:",creatureChaseCounter)
             notTurn = True
-        elif option == "!silence" and debug:
+        elif option == "/silence" and debug:
             if silenced:
                 silenced = False
                 print("Silenced: False")
@@ -480,13 +719,13 @@ def inGame(debug):
                 silenced = True
                 print("Silenced: True")
             notTurn = True
-        elif option == "!inv" and debug:
+        elif option == "/inv" and debug:
             inv = DEBUG_INV
             stat.health = HEALTH_MAX
             stat.hunger = HUNGER_DEBUG
             print("Debug inventory given.")
             notTurn = True
-        elif option == "!spells" and debug:
+        elif option == "/spells" and debug:
             print("spellLearn is:",spellLearn.isKnown)
             print("spellUnlock is:",spellUnlock.isKnown)
             print("spellPersuade is:",spellPersuade.isKnown)
@@ -504,7 +743,7 @@ def inGame(debug):
             print("wordDominion is:",wordDominion.isKnown)
             print("wordCurse is:",wordCurse.isKnown)
             notTurn = True
-        elif option == "!learn" and debug:
+        elif option == "/learn" and debug:
             print("All Ozkavosh spells and words learned.")
 
             spellLearn.learn()
@@ -1052,7 +1291,6 @@ def inGame(debug):
                             print("You search the body and find a memo.")
                             roomCurrent.memo += 1
                             roomCurrent.itemsPresent()
-                            # inv.letterRead = "It reads:\n\nTo whoever is still alive,\n\nBy the time you read this, I will probably be dead. Within the last two weeks, the Ozhkavosh have invaded most of Kashkaval. My greatest fears have come true. Vesh'kathal is alive and has returned to the Overworld. I thought keeping away from the cities of Finn and Fermiere would be a good idea, but the demon lord himself, disguised as my very own son, found me here, tricked me into letting him into the barn, and burnt the whole damn farmland to the ground. I would have travelled down to Airedale, but there's no way I'm crossing that cursed mountain. If you are still alive and well, Airedale may be your last safe haven from the Ozhkavosh. Don't make the same mistake I did."
                     elif option in ("haystacks","hay","stacks of hay","haystack","stack of hay"):
                         print("Most of them are burnt.")
                     elif option in ("table"):
@@ -1145,6 +1383,9 @@ def inGame(debug):
             option = option[5:]
             if option.endswith("letter"):
                 if inv.letter:
+                    if not playerName:
+                        playerName = DEFAULT_NAME
+                    inv.letterRead = "It reads:\n\nTo " + playerName + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
                     print(inv.letterRead)
                 else:
                     print("You do not have a letter to read.")
@@ -4173,9 +4414,6 @@ def inGame(debug):
                                 if not roomCurrent.counter_1 and not playerName:
                                     roomJailCorridor.letter += 1
                                     roomCurrent.counterAns_1 = 1
-                                if not playerName:
-                                    playerName = "the hero of Kashkaval"
-                                inv.letterRead = "It reads:\n\nTo " + playerName + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
                 # Oblivion - Open hemispheres
                 # roomBarn letter
                 elif option == "eyik vo'hollom" and roomID in ("roomForest","roomField") and roomCurrent.eastBlocked:
@@ -5641,7 +5879,8 @@ def inGame(debug):
                 demonWords.add(wordDominion)
 
             else:
-                print("Uh oh, you broke the game.",roomID,"does not exist. Room not changed.")
+                print("changeRoom ERROR: Room \"" + roomID + "\" does not exist. Room not changed.")
+                justEntered = False
             if direction:
                 print("You go %s." % direction)
                 justEntered = True
@@ -5706,7 +5945,6 @@ def inGame(debug):
                         roomCurrent.letter += 1
                         roomCurrent.key += 1
                         roomCurrent.itemsPresent()
-                        inv.letterRead = "It reads:\n\nTo " + playerName + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
                         askName = False
                 if not playerName and askName:
                     if roomCurrent.counter_1 == 2:
@@ -5967,7 +6205,7 @@ def inGame(debug):
 
             # Roquefort messages
             # roomCourtyardNorth
-            if roomID == "roomCourtyardNorth" and roomCurrent.firstTime:
+            if roomID == "roomJailCorridor" and roomCurrent.firstTime:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"I do not know who you are, but you if you seek to do me harm, you are making a grave mistake.\"")
                 messageCounter = 1

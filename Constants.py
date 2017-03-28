@@ -12,6 +12,9 @@ HUNGER_DARKNESS = 30
 # How many turns until death that warning messages appear
 HUNGER_WARNING = 15
 
+DEFAULT_NAME = "the hero of Kashkaval"
+
+
 # Food Hunger Values
 HUNGER_PORRIDGE = HUNGER_MAX
 HUNGER_FUNNELCAKE = 20 # 2 hunger/gold
