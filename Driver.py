@@ -16,6 +16,10 @@
 # POTENTIALLY: Change cave layout to be less confusing?
 #   Remove south and inward dead ends
 
+# Current bugs
+# Name is 'False' when not ask name, should be Hero of Kashkaval
+# Double quit after changelog
+
 # Kidnapping
 
 
