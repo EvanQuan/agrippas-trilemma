@@ -245,6 +245,7 @@ def inGame(debug):
     roomBook_3_8 = classBook_3_8(name = "grey room", north = "roomBook_3_6", east = "roomBook_3_End", south = "roomBook_3_3", west = "roomBook_3_7")
     roomBook_3_End = classBook_3_End(name = "black room", east = "roomBook_3_7", west = "roomBook_3_8", keySkeleton = 1, book = 1)
 
+
     #_______Stat Init
     stat = Stat()
 
@@ -486,22 +487,22 @@ def inGame(debug):
             print("Debug inventory given.")
             notTurn = True
         elif option == "!spells" and debug:
-            print("spellLearn is:",spellLearn)
-            print("spellUnlock is:",spellUnlock)
-            print("spellPersuade is:",spellPersuade)
-            print("spellJump is:",spellJump)
-            print("spellLight is:",spellLight)
-            print("spellHeal is:",spellHeal)
-            print("spellFeed is:",spellFeed)
-            print("spellKill is:",spellKill)
-            print("spellKillself is:",spellKillself)
-            print("wordDarkness is:",wordDarkness)
-            print("wordReign is:",wordReign)
-            print("wordStop is:",wordStop)
-            print("wordServant is:",wordServant)
-            print("wordMirror is:",wordMirror)
-            print("wordDominion is:",wordDominion)
-            print("wordCurse is:",wordCurse)
+            print("spellLearn is:",spellLearn.isKnown)
+            print("spellUnlock is:",spellUnlock.isKnown)
+            print("spellPersuade is:",spellPersuade.isKnown)
+            print("spellJump is:",spellJump.isKnown)
+            print("spellLight is:",spellLight.isKnown)
+            print("spellHeal is:",spellHeal.isKnown)
+            print("spellFeed is:",spellFeed.isKnown)
+            print("spellKill is:",spellKill.isKnown)
+            print("spellKillself is:",spellKillself.isKnown)
+            print("wordDarkness is:",wordDarkness.isKnown)
+            print("wordReign is:",wordReign.isKnown)
+            print("wordStop is:",wordStop.isKnown)
+            print("wordServant is:",wordServant.isKnown)
+            print("wordMirror is:",wordMirror.isKnown)
+            print("wordDominion is:",wordDominion.isKnown)
+            print("wordCurse is:",wordCurse.isKnown)
             notTurn = True
         elif option == "!learn" and debug:
             print("All Ozkavosh spells and words learned.")

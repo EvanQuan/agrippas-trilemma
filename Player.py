@@ -1,3 +1,9 @@
+# Contains all classes directly relevant to Player
+# Stat
+# Inventory
+# Word
+# DemonWords
+
 from Constants import *
 
 # Stats
@@ -596,5 +602,6 @@ wordReign = Word(name = "Ozkavosh icha domosh sa nith", translation = "Demon-kin
 wordStop = Word(name = "Izh icha vo'fek ozh domosh", translation = "You will not stop my reign.")
 wordServant = Word(name = "Ahm'fol", translation = "Servant of Vesh'arkosh.")
 wordCurse = Word(name = "Sof izh", translation = "Curse you.")
+
 
 demonWords = DemonWords()
