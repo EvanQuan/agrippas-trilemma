@@ -295,72 +295,72 @@ Changelog
     - Fixed cave pathing
     - Fixed Roquefort telepathy message to occur after staff is acquired
     - Fixed roomTempleInside description text
-	- Fixed taking backpack items in creature lair and lair chase sequence
+    - Fixed taking backpack items in creature lair and lair chase sequence
     - Fixed using vial of lantern oil not removing vial from inventory
 1.0.0 - Jan. 13, 2017 - Completed all main features to complete a playthrough of the game
-	- Completed:
+    - Completed:
         - Added command prompt window resize on launch
-       		- Alchemist's Hut - Activatable shop
-    	   	- Dragonstone fetch quest
-    	    - Potion
-    	    - Flask
-    	    - Fill command
-	- Game balance
-    	- Adjusted prices and rewards values
+       	    - Alchemist's Hut - Activatable shop
+       	    - Dragonstone fetch quest
+            - Potion
+            - Flask
+            - Fill command
+    - Game balance
+        - Adjusted prices and rewards values
 0.9.0 - Jan. 11, 2017
-	- Completed:
-		- Game ending
-		- Debug mode
-		- Roquefort house
-		- Creature lair
-		- Field roads
-		- Farm and barn
-		- Black knight enemy
-		- Ozkavosh shrine, Mysterious book and book puzzles
-		- Roquefort telepathy messages
-		- Ozkavosh spells and spellbook
-		- Up and down movement
-		- Cheese slices
-		- Biscuits
-		- Lootable corpses in cave
-		- Journal in cave
-		- Take all and drop all
-	- Improvements
-		- Main menu splash art
-		- Jail size and room improvements
-		- Various item and room descriptions to add clarity and detail
-		- Temple inner sanctum
-		- Temple murals
-		- Revamped jail letter text
-		- Replaced wooden bird with shrubbery
-		- 5% change of breaking pickaxe when mining
+    - Completed:
+    - Game ending
+    - Debug mode
+    - Roquefort house
+    - Creature lair
+    - Field roads
+    - Farm and barn
+    - Black knight enemy
+    - Ozkavosh shrine, Mysterious book and book puzzles
+    - Roquefort telepathy messages
+    - Ozkavosh spells and spellbook
+    - Up and down movement
+    - Cheese slices
+    - Biscuits
+    - Lootable corpses in cave
+    - Journal in cave
+    - Take all and drop all
+    - Improvements
+    - Main menu splash art
+    - Jail size and room improvements
+    - Various item and room descriptions to add clarity and detail
+    - Temple inner sanctum
+    - Temple murals
+    - Revamped jail letter text
+    - Replaced wooden bird with shrubbery
+    - 5% change of breaking pickaxe when mining
 0.6.0 - Jan. 03, 2017
-	- Completed:
-		- Gate guard quest
-		- General store
-		- Mining system
-		- Funnel cake buy limit
-		- Wheel game room and ticket system
-	- Improvements:
-		- Give command
-		- Buy command
-		- Look command
-		- Use staff
+    - Completed:
+    - Gate guard quest
+    - General store
+    - Mining system
+    - Funnel cake buy limit
+    - Wheel game room and ticket system
+    - Improvements:
+    - Give command
+    - Buy command
+    - Look command
+    - Use staff
 0.5.1 - Dec. 12, 2016
-	- Completed:
-		- Grappling hook mechanic
-		- Cave pathing
-	- Improvements:
-		- Shell game gold limit
+    - Completed:
+    - Grappling hook mechanic
+    - Cave pathing
+    - Improvements:
+    - Shell game gold limit
 0.5.0 - Dec. 11, 2016
-	- Completed:
-		- Bridge and temple
-	- Menu changes:
-		- Changelog (Wow. Such meta.)
-		- About game information
-		- Restart game menu
+    - Completed:
+    - Bridge and temple
+    - Menu changes:
+    - Changelog (Wow. Such meta.)
+    - About game information
+    - Restart game menu
 0.1.0 - 0.4.0 - Oct. 17, 2016 - Dec. 10, 2016
-	- Completed:
+    - Completed:
     	- Room and movement system
     	- Inventory and item system
     	- Buying/selling/betting system

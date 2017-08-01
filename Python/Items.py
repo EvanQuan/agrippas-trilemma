@@ -1,25 +1,16 @@
-# Super classes
+# Abstract classes
 
 class Item(object):
-    def __init__(self,article = "a",name,names,description,count = 1):
-        self.article = article
+    PRIMARY = 1
+    def __init__(self,name,names,description):
         self.name = name
         self.names = names
         self.description = description
-    def getDescription(self):
-        return(description)
-    def __str__(self):
-        if count == 1:
-            s = self.article + " " + self.name
-        else:
-            s = self.count + " " + self.count
-        return(s)
+
 class Readable(Item):
-    def __init__(self,name,names,description,count = 1,readDescription):
-        Item.__init__(self,name,names,description,count)
-        self.readDescription = readDescription
-    def getReadDescription():
-        return(readDescription)
+    def __init__(self,name,names,description,text):
+        Item.__init__(self,name,names,description)
+        self.text = text
 
 class Food(Item):
     def __init__(self,name,names,description,count = 1,health):
@@ -31,6 +22,12 @@ class Food(Item):
     def printHealth():
         print("It will keep you full for " + self.health + "turns.")
 
+# Cannot be taken by player
+class Background(Item):
+    def __init__(self,name,names,description):
+        Item.__init__(self,name,names,description)
+
+
 # Sub classes
 
 class Gold(Item):
@@ -39,7 +36,7 @@ class Gold(Item):
 
 class Letter(Readable):
     def __init__(self):
-        Item.__init__(self, name = ["letter"], names = ["letters"], description = "Made out of old parchment, the message on it is written in ink.")
+        Readable.__init__(self, name = ["letter"], names = ["letters"], description = "Made out of old parchment, the message on it is written in ink.")
 	def getReadDescription(playerName = "the hero of Kashkaval"):
 		return("It reads:\n\nTo " + playerName + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa")
 
