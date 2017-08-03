@@ -1,6 +1,6 @@
 package game.object.item.background.person;
 
-import game.object.item.background.*;
+import game.object.item.background.BackgroundItem;
 import game.system.Inventory;
 
 /**
@@ -9,7 +9,7 @@ import game.system.Inventory;
  * Is either alive or dead
  */
 public abstract class Person extends BackgroundItem {
-	private Inventory inv;
+	private Inventory<Collectable> inv;
 	private String name;
 	private boolean isAlive;
 }
