@@ -5,13 +5,16 @@ import game.object.*;
 
 /**
  * Contains rooms which are spacially related to one another
+ * Contains player
  */
 public class World {
-	HashMap<Room,Coordinates> rooms;
-	Room currentRoom;
+	Room currentRoom = JailCell.getInstance();
+	Player player = Player.getInstance();
 
 	public World() {
-		rooms = new HashMap<Room,Coordinates>();
-		
+		// Starting room
+		currentRoom = JailCell.getInstance();
+
+		player = Player.getInstance();
 	}
 }
