@@ -8,35 +8,26 @@ import javax.swing.*; // Interface
 import java.awt.*; // Listeners
 import java.io.*; // File management
 
-public class MainWindow extends JFrame implements ActionListener {
-	public static int WINDOW_WIDTH = 600;
-	public static int WINDOW_HEIGHT = 500;
-	public static int WINDOW_PADDING = 5;
-	public static int NAME_WIDTH = 12;
-	public static int ADDRESS_WIDTH = 15;
-	public static int ADDRESS_HEIGHT = 4;
-	public static int DELAY_TIME = 1000;
-	public static int LEFT_X = 0;
-	public static int RIGHT_X = 1;
-	public static int LOGO_Y = 0;
-	public static int LABEL_Y = 1;
-	public static int FIELD_Y = 2;
-	public static int BUTTON_Y = 3;
-	public static int STANDARD_WIDTH = 1;
-	public static int DOUBLE_WIDTH = 2;
-	public static int STANDARD_HEIGHT = 1;
-	public static String DEFAULT_TITLE = "Cheese Quest";
-	public static String SAVE_TITLE = "Saving game...";
-	public static String LOAD_TITLE = "Loading game...";
-	public static String SAVE_LABEL = "Save";
-	public static String LOAD_LABEL = "Load";
-	public static String LOGO_ICON = "logoIcon.png";
-	public static String SAVE_ICON = "saveIcon.png";
-	public static String CLEAR_ICON = "clearIcon.png";
-	public static String ORDER_FILE = "order.txt";
-	public static String PAUSE_ERROR_MESSAGE = "ERROR: Pause was interrupted.";
-	public static String WRITING_ERROR_MESSAGE = "ERROR: Unable to write to file.";
-	public static String ACTION_PERFORMED_ERROR_MESSAGE = "ERROR: Unknown event source. No action performed.";
+public class MainFrame extends JFrame implements ActionListener {
+	public static final int WINDOW_WIDTH = 600;
+	public static final int WINDOW_HEIGHT = 500;
+	public static final int WINDOW_PADDING = 5;
+
+	public static final int LEFT_X = 0;
+	public static final int RIGHT_X = 1;
+	public static final int LOGO_Y = 0;
+	public static final int LABEL_Y = 1;
+	public static final int FIELD_Y = 2;
+	public static final int BUTTON_Y = 3;
+	public static final int STANDARD_WIDTH = 1;
+	public static final int DOUBLE_WIDTH = 2;
+	public static final int STANDARD_HEIGHT = 1;
+	public static final String DEFAULT_TITLE = "Cheese Quest";
+	public static final String SAVE_TITLE = "Saving game...";
+	public static final String LOAD_TITLE = "Loading game...";
+	public static final String PAUSE_ERROR_MESSAGE = "ERROR: Pause was interrupted.";
+	public static final String WRITING_ERROR_MESSAGE = "ERROR: Unable to write to file.";
+	public static final String ACTION_PERFORMED_ERROR_MESSAGE = "ERROR: Unknown event source. No action performed.";
 	// Listener
 	private MyWindowListener aWindowListener;
 	private MyDocumentListener aDocumentListener;
@@ -68,9 +59,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		addressText = null;
 		aLayout = new GridBagLayout();
 		aConstraint = new GridBagConstraints();
-		logoIcon = new ImageIcon(LOGO_ICON);
-		saveIcon = new ImageIcon(SAVE_ICON);
-		clearIcon = new ImageIcon(CLEAR_ICON);
+
 		nameLabel = new JLabel(NAME_LABEL);
 		addressLabel = new JLabel(ADDRESS_LABEL);
 		logoLabel = new JLabel(logoIcon);
@@ -95,15 +84,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	public void createComponents() {
 		// Logo
 		addComponent(logoLabel,LEFT_X,LOGO_Y,DOUBLE_WIDTH,STANDARD_HEIGHT);
-		// Text labels
-		addComponent(nameLabel,LEFT_X,LABEL_Y,STANDARD_WIDTH,STANDARD_HEIGHT);
-		addComponent(addressLabel,RIGHT_X,LABEL_Y,STANDARD_WIDTH,STANDARD_HEIGHT);
-		// Text fields
-		addComponent(nameTextField,LEFT_X,FIELD_Y,STANDARD_WIDTH,STANDARD_HEIGHT);
-		addComponent(addressScrollPane,RIGHT_X,FIELD_Y,STANDARD_WIDTH,STANDARD_HEIGHT);
-		// Buttons
-		addComponent(saveButton,LEFT_X,BUTTON_Y,STANDARD_WIDTH,STANDARD_HEIGHT);
-		addComponent(clearButton,RIGHT_X,BUTTON_Y,STANDARD_WIDTH,STANDARD_HEIGHT);
+
 	}
 	/**
 	 * Type of action performed is determed by the source of event

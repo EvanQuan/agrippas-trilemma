@@ -1,5 +1,5 @@
 /**
- * 
+ * Food is restores hunger when consumed
  */
 /**
  * @author Quan
