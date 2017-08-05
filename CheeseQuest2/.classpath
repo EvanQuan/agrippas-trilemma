@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry excluding="gui/|game/system/|game/object/item/collectable/consumable/food/|game/object/item/collectable/tool/" kind="src" path=""/>
-	<classpathentry kind="src" path="gui"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
