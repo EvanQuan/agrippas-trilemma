@@ -9,10 +9,14 @@ import javax.swing.JTextField;
 
 /**
  * Gets input from the user and outputs it to OutputPanel
+ * Consists of
+ * 	- JTextField for input text
+ * 	- JButton to send text
+ * Can optionally send text with enter key
  */
 public class InputPanel extends JPanel implements ActionListener {
 
-	public static final int TEXT_FIELD_WIDTH =
+	public static final int TEXT_FIELD_WIDTH = 50;
 	private JButton inputButton;
 	private JTextField inputTextField;
 	private OutputPanel outputPanel;
@@ -22,12 +26,12 @@ public class InputPanel extends JPanel implements ActionListener {
 	 * Sends text of text area when ENTER key is pressed
 	 * Works alongside manually pressing inputButton
 	 */
-	private Action action = AbstractAction(){
+	private Action action = new AbstractAction() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			input = inputTextField.getText();
 
-			outputPanel.getText()
+			outputPanel.getText();
 		}
 	};
 
@@ -35,6 +39,7 @@ public class InputPanel extends JPanel implements ActionListener {
 	 * Default InputPanel constructor
 	 */
 	public InputPanel(OutputPanel outputPanel) {
+		super(TEXT_FIELD_WIDTH);
 		this.inputButton = new JButton("Send");
 		this.inputTextField = new JTextField();
 		this.inputTextField.addActionListener(action);
