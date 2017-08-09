@@ -17,20 +17,20 @@ import game.object.item.collectable.equipable.offhand.*;
 
 public class InventoryTest {
 
-	public static void main(String[] args) {
-		Inventory<Collectable> inv = new Inventory<Collectable>();
-		System.out.println();
-		System.out.println(inv);
+    public static void main(String[] args) {
+        Inventory<Collectable> inv = new Inventory<Collectable>();
+        System.out.println();
+        System.out.println(inv);
 
-		Coin c = Coin.getInstance();
-		inv.add(c);
-		System.out.println(inv);
+        Coin c = Coin.getInstance();
+        inv.add(c);
+        System.out.println(inv);
 
-		Coin c2 = Coin.getInstance();
-		inv.add(c2);
-		System.out.println(inv);
+        Coin c2 = Coin.getInstance();
+        inv.add(c2);
+        System.out.println(inv);
 
-		inv.add(c, 5);
-		System.out.println(inv);
-	}
+        inv.add(c, 5);
+        System.out.println(inv);
+    }
 }

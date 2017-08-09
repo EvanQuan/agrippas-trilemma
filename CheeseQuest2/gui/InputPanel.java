@@ -14,37 +14,36 @@ import javax.swing.JTextField;
  * 	- JButton to send text
  * Can optionally send text with enter key
  */
-public class InputPanel extends JPanel implements ActionListener {
+public class InputPanel extends JPanel {
 
-	public static final int TEXT_FIELD_WIDTH = 50;
-	private JButton inputButton;
-	private JTextField inputTextField;
-	private OutputPanel outputPanel;
+    public static final int TEXT_FIELD_WIDTH = 50;
+    private JButton inputButton;
+    private JTextField inputTextField;
+    private OutputPanel outputPanel;
 
-	private String input;
-	/**
-	 * Sends text of text area when ENTER key is pressed
-	 * Works alongside manually pressing inputButton
-	 */
-	private Action action = new AbstractAction() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			input = inputTextField.getText();
+    private String input;
+    /**
+     * Sends text of text area when ENTER key is pressed
+     * Works alongside manually pressing inputButton
+     */
+    private Action action = new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            input = inputTextField.getText();
 
-			outputPanel.getText();
-		}
-	};
+            outputPanel.getText();
+        }
+    };
 
-	/**
-	 * Default InputPanel constructor
-	 */
-	public InputPanel(OutputPanel outputPanel) {
-		super(TEXT_FIELD_WIDTH);
-		this.inputButton = new JButton("Send");
-		this.inputTextField = new JTextField();
-		this.inputTextField.addActionListener(action);
-		this.outputPanel = outputPanel;
-	}
+    /**
+     * Default InputPanel constructor
+     */
+    public InputPanel(OutputPanel outputPanel) {
+        this.inputButton = new JButton("Send");
+        this.inputTextField = new JTextField(TEXT_FIELD_WIDTH);
+        this.inputTextField.addActionListener(action);
+        this.outputPanel = outputPanel;
+    }
 
 
 }

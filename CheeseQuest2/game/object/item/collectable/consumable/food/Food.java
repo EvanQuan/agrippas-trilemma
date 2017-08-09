@@ -6,26 +6,26 @@ import game.object.item.collectable.consumable.*;
  * Food restores hunger when consumed
  */
 public abstract class Food extends Consumable {
-	private double hunger;
+    private double hunger;
 
-	public Food() {
-		setHunger(DEFAULT);
-	}
+    public Food() {
+        setHunger(DEFAULT);
+    }
 
 
-	/**
-	* Returns value of hunger
-	* @return
-	*/
-	public double getHunger() {
-		return hunger;
-	}
+    /**
+    * Returns value of hunger
+    * @return
+    */
+    public double getHunger() {
+        return hunger;
+    }
 
-	/**
-	* Sets new value of hunger
-	* @param
-	*/
-	public void setHunger(double hunger) {
-		this.hunger = hunger;
-	}
+    /**
+    * Sets new value of hunger
+    * @param
+    */
+    public void setHunger(double hunger) {
+        this.hunger = hunger;
+    }
 }
