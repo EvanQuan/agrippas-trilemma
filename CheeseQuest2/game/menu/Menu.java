@@ -1,121 +1,164 @@
 package game.menu;
 
-import java.util.Scanner;
-import java.util.HashMap;
+import java.lang.StringBuilder;
+import java.util.*;
 
 /**
- * Player is continuously in a menu in game.
- * Menu type changes throughout game.
- *
+ * Receives input string
+ * Outputs corresponding output string
  */
 public abstract class Menu {
-	public static final int PROMPT_SPACING = 4;
-	public static final int VERB = 0;
-	private Scanner input;
-	private String inputLine;
-	private String[] inputWords;
-	private Menu nextMenu;
-	private boolean inMenu;
+    public static final int PROMPT_SPACING = 4;
+    public static final int VERB = 0;
+    private static final String INPUT_MARKER = "> ";
+    private String inputString;
+    private String[] inputWords;
+    private StringBuilder output;
+    private Menu nextMenu;
+    private boolean inMenu;
 
-	public Menu() {
-		input = new Scanner(System.in);
-		inMenu = true;
-	}
+    public Menu() {
+        inMenu = true;
+        output = new StringBuilder();
+    }
 
-	/**
-	 * Start menu prompt, input and process choice
-	 * Escapes prompt when input is validInput = true
-	 * Escapes menu when inMenu = false
-	 */
-	public Menu start() {
-		boolean validInput;
-		while (inMenu) {
-			printMainPrompt();
-			do {
-				getInput();
-				validInput = processInput();
-				if (!validInput) {
-					printInvalidPrompt();
-				}
-			} while (!validInput);
-		}
-	}
+    /**
+     * Start menu prompt, input and process choice
+     * Escapes prompt when input is validInput = true
+     * Escapes menu when inMenu = false
+     */
+    // public Menu start() {
+    //     boolean validInput;
+    //     while (inMenu) {
+    //         printMainPrompt();
+    //         do {
+    //             getInput();
+    //             validInput = processInput();
+    //             if (!validInput) {
+    //                 printInvalidPrompt();
+    //             }
+    //         } while (!validInput);
+    //     }
+    // }
 
 
-	/**
-	 * Print prompt for user input
-	 */
-	public void printMainPrompt() {
-	}
+    /**
+     * Print prompt for user input
+     */
+    public void printMainPrompt() {
+    }
 
-	/**
-	 * Get input from user and stores the line in inputLine
-	 * and individual words in inputWords
-	 */
-	public void getInput() {
-		System.out.print("\n" * PROMPT_SPACING  + "> ");
-		inputLine = input.nextLine();
-		inputWords = inputLine.split(" ");
-	}
-	/**
-	 * Process input text and determines what to do
-	 * @return true if valid input, else false
-	 */
-	public boolean processInput() {
-	}
+    /**
+     * Get input from user and stores the line in inputLine
+     * and individual words in inputWords
+     */
+    public void input(String input) {
+        this.inputString = input;
+        this.inputWords = inputString.split(" ");
+        addInputToOutput();
+        processInput();
+    }
 
-	/**
-	 * Prints prompt for invalid input
-	 */
-	public void printInvalidPrompt() {
+    /**
+     * With inputString and inputWords, determine output
+     */
+    public void processInput() {
+    }
+    /**
+     * Process input text and determines what to do
+     * @return true if valid input, else false
+     */
+    // public boolean processInput() {
+    // }
 
-	}
-	
-	/**
-	* Returns value of inputLine
-	* @return
-	*/
-	public String getInputLine() {
-		return inputLine;
-	}
+    /**
+     * Appends to outputString
+     */
+    public void addToOutput(String output) {
+        this.output.append(output);
+    }
+    public void addToOutputln(String output) {
+        addToOutput(output + "\n");
+    }
+    public void addToOutputln() {
+        addToOutputln("");
+    }
+    public void addInputToOutput() {
+        for (int i = 0; i < PROMPT_SPACING; i++) {
+            addToOutputln();
+        }
+        addToOutputln(INPUT_MARKER + inputString);
+    }
+    /**
+     * Returns output and clears it
+     * @return String output
+     */
+    public String output() {
+        String outputString = output.toString();
+        output.setLength(0);
+        return outputString;
+    }
 
-	/**
-	* Returns value of g
-	* @return
-	*/
-	public String getInputWords() {
-		return inputWords;
-	}
+    public boolean wordEquals(String word, String[] array) {
+        return Arrays.asList(array).contains(word);
+    }
+    public boolean verbEquals(String[] array) {
+        return wordEquals(getVerb,array);
+    }
 
-	/**
-	* Returns value of nextMenu
-	* @return
-	*/
-	public Menu getNextMenu() {
-		return nextMenu;
-	}
+    /**
+    * Returns value of inputString
+    * @return
+    */
+    public String getInputString() {
+        return this.inputString;
+    }
 
-	/**
-	* Returns value of inMenu
-	* @return
-	*/
-	public boolean isInMenu() {
-		return inMenu;
-	}
+    /**
+    * Returns value of inputWords
+    * @return
+    */
+    public String[] getInputWords() {
+        return this.inputWords;
+    }
 
-	/**
-	* Sets new value of nextMenu
-	* @param
-	*/
-	public void setNextMenu(Menu nextMenu) {
-		this.nextMenu = nextMenu;
-	}
+    /**
+     * Returns first word of inputString
+     * @return
+     */
+    public String getVerb() {
+        return this.inputWords[VERB];
+    }
 
-	/**
-	* Sets new value of inMenu
-	* @param
-	*/
-	public void setInMenu(boolean inMenu) {
-		this.inMenu = inMenu;
-	}
+    /**
+    * Returns value of nextMenu
+    * @return
+    */
+    public Menu getNextMenu() {
+        return this.nextMenu;
+    }
+
+    /**
+    * Returns value of inMenu
+    * @return
+    */
+    public boolean isInMenu() {
+        return this.inMenu;
+    }
+
+    /**
+    * Sets new value of nextMenu
+    * @param
+    */
+    public void setNextMenu(Menu nextMenu) {
+        this.nextMenu = nextMenu;
+    }
+
+    /**
+    * Sets new value of inMenu
+    * @param
+    */
+    public void setInMenu(boolean inMenu) {
+        this.inMenu = inMenu;
+    }
 }

@@ -23,7 +23,7 @@ class MovementPanel extends JPanel {
      * Default MovementPanel constructor
      */
     public MovementPanel() {
-        super(new BorderLayout(2,2));
+        // super(new BorderLayout(2,2));
         northButton = new JButton("N");
         eastButton = new JButton("E");
         westButton = new JButton("W");

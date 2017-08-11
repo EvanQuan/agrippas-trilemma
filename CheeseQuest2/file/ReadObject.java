@@ -13,85 +13,85 @@ import java.lang.SecurityException;
  */
 public class ReadObject {
 
-	private int saveNum;
+    private int saveNum;
 
-	public ReadObject(int saveNum) {
-		this.saveNum = saveNum;
-	}
-	/**
-	 * Get object from file of filename of saveNum
-	 * @param  String filename      name of file to retrieve object
-	 * @return        object from file
-	 */
-	public Object deserialize(String filename) {
+    public ReadObject(int saveNum) {
+        this.saveNum = saveNum;
+    }
+    /**
+     * Get object from file of filename of saveNum
+     * @param  String filename      name of file to retrieve object
+     * @return        object from file
+     */
+    public Object deserialize(String filename) {
 
-		Object object = null;
+        Object object = null;
 
-		FileInputStream fin = null;
-		ObjectInputStream ois = null;
+        FileInputStream fin = null;
+        ObjectInputStream ois = null;
 
-		try {
+        try {
 
-			fin = new FileInputStream("saves/" + saveNum + "/" + filename + ".save");
-			ois = new ObjectInputStream(fin);
-			object = ois.readObject();
+            fin = new FileInputStream("saves/" + saveNum + "/" + filename + ".save");
+            ois = new ObjectInputStream(fin);
+            object = ois.readObject();
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
 
-			if (fin != null) {
-				try {
-					fin.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+            if (fin != null) {
+                try {
+                    fin.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-			if (ois != null) {
-				try {
-					ois.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+            if (ois != null) {
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-		}
+        }
 
-		return object;
+        return object;
 
-	}
+    }
 
-	// public Address deserialzeAddressJDK7(String filename) {
-	//
-	// 	Address address = null;
-	//
-	// 	try (ObjectInputStream ois
-	// 		= new ObjectInputStream(new FileInputStream(filename))) {
-	//
-	// 		address = (Address) ois.readObject();
-	//
-	// 	} catch (Exception ex) {
-	// 		ex.printStackTrace();
-	// 	}
-	//
-	// 	return address;
-	//
-	// }
+    // public Address deserialzeAddressJDK7(String filename) {
+    //
+    //     Address address = null;
+    //
+    //     try (ObjectInputStream ois
+    //         = new ObjectInputStream(new FileInputStream(filename))) {
+    //
+    //         address = (Address) ois.readObject();
+    //
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //
+    //     return address;
+    //
+    // }
 
-	/**
-	 * Return VALUE of saveNum
-	 * @return
-	 */
-	public int getSaveNum() {
-		return saveNum;
-	}
+    /**
+     * Return VALUE of saveNum
+     * @return
+     */
+    public int getSaveNum() {
+        return saveNum;
+    }
 
-	/**
-	 * Sets new value of saveNum
-	 * @param
-	 */
-	public void setSaveNum(int saveNum) {
-		this.saveNum = saveNum;
-	}
+    /**
+     * Sets new value of saveNum
+     * @param
+     */
+    public void setSaveNum(int saveNum) {
+        this.saveNum = saveNum;
+    }
 }
