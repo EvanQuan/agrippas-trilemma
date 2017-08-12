@@ -9,14 +9,17 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 
 public class MainFrame extends JFrame {
     public static final int WINDOW_WIDTH = 1000;
-    public static final int WINDOW_HEIGHT = 700;
+    public static final int WINDOW_HEIGHT = 800;
     public static final int WINDOW_PADDING = 5;
+
+    public static final Color BACKGROUND_COLOR = Color.LIGHT_GRAY;
 
     public static final int LEFT_X = 0;
     public static final int RIGHT_X = 1;
@@ -52,8 +55,14 @@ public class MainFrame extends JFrame {
      */
     public MainFrame() {
         setGameIcon();
-        windowListener = new MainWindowListener();
+        windowListener = new MainWindowListener() {
+            public void windowOpened(WindowEvent e) {
+                inputPanel.getInputTextField().requestFocus();
+            }
+        };
         addWindowListener(windowListener);
+
+        getContentPane().setBackground(BACKGROUND_COLOR);
 
         outputPanel = new OutputPanel();
         inputPanel = new InputPanel(outputPanel);
@@ -82,7 +91,7 @@ public class MainFrame extends JFrame {
         // addressTextArea.setWrapStyleWord(true);
         // addressTextArea.setLineWrap(true);
         setTitle(DEFAULT_TITLE);
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         createComponents();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();

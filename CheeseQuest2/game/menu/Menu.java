@@ -22,30 +22,13 @@ public abstract class Menu {
         output = new StringBuilder();
     }
 
-    /**
-     * Start menu prompt, input and process choice
-     * Escapes prompt when input is validInput = true
-     * Escapes menu when inMenu = false
-     */
-    // public Menu start() {
-    //     boolean validInput;
-    //     while (inMenu) {
-    //         printMainPrompt();
-    //         do {
-    //             getInput();
-    //             validInput = processInput();
-    //             if (!validInput) {
-    //                 printInvalidPrompt();
-    //             }
-    //         } while (!validInput);
-    //     }
-    // }
+
 
 
     /**
      * Print prompt for user input
      */
-    public void printMainPrompt() {
+    public void outputPrompt() {
     }
 
     /**
@@ -55,7 +38,7 @@ public abstract class Menu {
     public void input(String input) {
         this.inputString = input;
         this.inputWords = inputString.split(" ");
-        addInputToOutput();
+        outputPlayerInput();
         processInput();
     }
 
@@ -63,47 +46,49 @@ public abstract class Menu {
      * With inputString and inputWords, determine output
      */
     public void processInput() {
+
     }
-    /**
-     * Process input text and determines what to do
-     * @return true if valid input, else false
-     */
-    // public boolean processInput() {
-    // }
 
     /**
      * Appends to outputString
      */
-    public void addToOutput(String output) {
+    public void output(String output) {
         this.output.append(output);
     }
-    public void addToOutputln(String output) {
-        addToOutput(output + "\n");
+    public void outputln(String output) {
+        output(output + "\n");
     }
-    public void addToOutputln() {
-        addToOutputln("");
+    public void outputln() {
+        outputln("");
     }
-    public void addInputToOutput() {
-        for (int i = 0; i < PROMPT_SPACING; i++) {
-            addToOutputln();
+    public void outputln(int spacing) {
+        for (int i = 0; i < spacing; i++) {
+            outputln();
         }
-        addToOutputln(INPUT_MARKER + inputString);
+    }
+    public void outputPlayerInput() {
+        outputln(PROMPT_SPACING);
+        outputln(INPUT_MARKER + inputString);
     }
     /**
      * Returns output and clears it
      * @return String output
      */
-    public String output() {
+    public String getOutput() {
         String outputString = output.toString();
         output.setLength(0);
         return outputString;
     }
 
+
     public boolean wordEquals(String word, String[] array) {
-        return Arrays.asList(array).contains(word);
+        return Arrays.asList(array).contains(word.toLowerCase());
+    }
+    public boolean inputEquals(String[] array) {
+        return wordEquals(getInputString(),array);
     }
     public boolean verbEquals(String[] array) {
-        return wordEquals(getVerb,array);
+        return wordEquals(getVerb(),array);
     }
 
     /**
@@ -160,5 +145,14 @@ public abstract class Menu {
     */
     public void setInMenu(boolean inMenu) {
         this.inMenu = inMenu;
+    }
+
+    /**
+     * Quit game (closes window)
+     */
+    public void exit() {
+        // setNextMenu(null);
+        // setInMenu(false);
+        System.exit(0);
     }
 }

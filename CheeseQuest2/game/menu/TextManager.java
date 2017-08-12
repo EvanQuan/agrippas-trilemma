@@ -15,7 +15,8 @@ public class TextManager {
      * Default TextManager constructor
      */
     public TextManager() {
-        this.currentMenu = TestMenu.getInstance();
+        this.currentMenu = MainMenu.getInstance();
+        getOutputFromMenu();
     }
 
     /**
@@ -43,7 +44,17 @@ public class TextManager {
     }
 
     public void getOutputFromMenu() {
-        this.output = currentMenu.output();
+        checkMenuChange();
+        this.output = currentMenu.getOutput();
+    }
+
+    /**
+     * Check if menu needs to change, and changes it
+     */
+    public void checkMenuChange() {
+        if (!currentMenu.isInMenu()) {
+            currentMenu = currentMenu.getNextMenu();
+        }
     }
 
     /**

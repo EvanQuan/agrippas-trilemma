@@ -29,6 +29,13 @@ public class MainWindowListener extends WindowAdapter {
      */
     public MainWindowListener() {
     }
+    /**
+     * Open window
+     * @param WindowEvent anEvent
+     */
+    // public void windowOpened(WindowEvent anEvent) {
+    //
+    // }
     // Closes window
     // Causes small delay and sets frame title to close message
     public void windowClosing(WindowEvent anEvent) {
