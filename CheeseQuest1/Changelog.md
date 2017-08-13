@@ -1,4 +1,4 @@
-#Changelog
+# Changelog
 ### 1.4.3 - August 3, 2017
 - Class definitions and object instantiation are reverted back to inside inGame() function
     - Fixed crashes and bugs caused by variable/class scope issues
