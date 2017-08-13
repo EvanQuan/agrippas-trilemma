@@ -4,21 +4,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import game.system.*;
 
 /**
  * Writes object to file in current directory
  * Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public class WriteObject {
-
-    private int saveNum;
-
+public class WriteObject extends FileObject {
     /**
     * Default WriteObject constructor
     */
     public WriteObject(int saveNum) {
-        this.saveNum = saveNum;
+        super(saveNum);
     }
 
     /**
@@ -35,7 +33,7 @@ public class WriteObject {
         try {
 
             makeDirectory();
-            fout = new FileOutputStream("saves/" + saveNum + "/" + name + ".save");
+            fout = new FileOutputStream(getSave());
             oos = new ObjectOutputStream(fout);
             oos.writeObject(object);
 
@@ -80,33 +78,14 @@ public class WriteObject {
     //
     // }
 
-
-    /**
-    * Returns value of saveNum
-    * @return
-    */
-    public int getSaveNum() {
-        return saveNum;
-    }
-
-    /**
-    * Sets new value of saveNum
-    * @param
-    */
-    public void setSaveNum(int saveNum) {
-        this.saveNum = saveNum;
-    }
-
     /**
      * Creates director of saveNum if it does not exist
      */
     public void makeDirectory() {
-        File directory = new File("saves/" + saveNum);
-
         // If the directory does not exist, create it
-        if (!directory.exists()) {
+        if (!directoryExists()) {
             try {
-                directory.mkdirs();
+                getDirectory().mkdirs();
             } catch(SecurityException se) {
                 se.printStackTrace();
             }

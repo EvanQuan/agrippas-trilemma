@@ -5,41 +5,35 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.lang.SecurityException;
+import game.system.*;
 
 /**
  * Reads object from file
  * Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-read-an-object-from-file-in-java/
  */
-public class ReadObject {
-
-    private int saveNum;
+public class ReadObject extends FileObject {
 
     public ReadObject(int saveNum) {
-        this.saveNum = saveNum;
+        super(saveNum);
     }
     /**
      * Get object from file of filename of saveNum
      * @param  String filename      name of file to retrieve object
      * @return        object from file
      */
-    public Object deserialize(String filename) {
-
+    public Object deserialize() {
         Object object = null;
-
         FileInputStream fin = null;
         ObjectInputStream ois = null;
-
         try {
-
-            fin = new FileInputStream("saves/" + saveNum + "/" + filename + ".save");
+            // fin = new FileInputStream("saves/" + saveNum + "/" + filename + ".save");
+            fin = new FileInputStream(getSave());
             ois = new ObjectInputStream(fin);
             object = ois.readObject();
-
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-
             if (fin != null) {
                 try {
                     fin.close();
@@ -47,7 +41,6 @@ public class ReadObject {
                     e.printStackTrace();
                 }
             }
-
             if (ois != null) {
                 try {
                     ois.close();
@@ -55,11 +48,8 @@ public class ReadObject {
                     e.printStackTrace();
                 }
             }
-
         }
-
         return object;
-
     }
 
     // public Address deserialzeAddressJDK7(String filename) {
@@ -78,20 +68,4 @@ public class ReadObject {
     //     return address;
     //
     // }
-
-    /**
-     * Return VALUE of saveNum
-     * @return
-     */
-    public int getSaveNum() {
-        return saveNum;
-    }
-
-    /**
-     * Sets new value of saveNum
-     * @param
-     */
-    public void setSaveNum(int saveNum) {
-        this.saveNum = saveNum;
-    }
 }

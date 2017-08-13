@@ -50,12 +50,18 @@ public class OutputPanel extends GridBagPanel {
     public static Font SPECIAL_FONT;
     public static Font BORDER_FONT;
 
-    public OutputPanel() {
+    private static OutputPanel outputPanel = new OutputPanel();
+
+    private OutputPanel() {
         initFont();
 
         initTextPane();
         // initTextArea();
         initBorder();
+    }
+
+    public static OutputPanel getInstance() {
+        return outputPanel;
     }
 
     private void initFont() {
@@ -140,7 +146,8 @@ public class OutputPanel extends GridBagPanel {
         // Print all output to command line
         // System.out.println(string);
 
-        System.out.println(attributeSet);
+        // debug
+        // System.out.println(attributeSet);
 
         try {
         doc.insertString(length, string, attributeSet);

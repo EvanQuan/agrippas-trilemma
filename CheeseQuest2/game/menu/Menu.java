@@ -2,6 +2,7 @@ package game.menu;
 
 import java.lang.StringBuilder;
 import java.util.*;
+import gui.OutputPanel;
 
 /**
  * Receives input string
@@ -13,17 +14,13 @@ public abstract class Menu {
     private static final String INPUT_MARKER = "> ";
     private String inputString;
     private String[] inputWords;
-    private StringBuilder output;
-    private Menu nextMenu;
-    private boolean inMenu;
+    private OutputPanel outputPanel;
+    private MenuManager menuManager;
 
     public Menu() {
-        inMenu = true;
-        output = new StringBuilder();
+        outputPanel = OutputPanel.getInstance();
+        menuManager = menuManager.getInstance();
     }
-
-
-
 
     /**
      * Print prompt for user input
@@ -53,7 +50,7 @@ public abstract class Menu {
      * Appends to outputString
      */
     public void output(String output) {
-        this.output.append(output);
+        outputPanel.append(output);
     }
     public void outputln(String output) {
         output(output + "\n");
@@ -70,16 +67,25 @@ public abstract class Menu {
         outputln(PROMPT_SPACING);
         outputln(INPUT_MARKER + inputString);
     }
-    /**
-     * Returns output and clears it
-     * @return String output
-     */
-    public String getOutput() {
-        String outputString = output.toString();
-        output.setLength(0);
-        return outputString;
-    }
 
+    public void outputItem(String output) {
+        outputPanel.appendItem(output);
+    }
+    public void outputlnItem(String output) {
+        outputItem(output + "\n");
+    }
+    public void outputPerson(String output) {
+        outputPanel.appendPerson(output);
+    }
+    public void outputlnPerson(String output) {
+        outputPerson(output + "\n");
+    }
+    public void outputRoom(String output) {
+        outputPanel.appendRoom(output);
+    }
+    public void outputlnRoom(String output) {
+        outputRoom(output + "\n");
+    }
 
     public boolean wordEquals(String word, String[] array) {
         return Arrays.asList(array).contains(word.toLowerCase());
@@ -89,6 +95,15 @@ public abstract class Menu {
     }
     public boolean verbEquals(String[] array) {
         return wordEquals(getVerb(),array);
+    }
+    public boolean wordEquals(String word, ArrayList<String> arrayList) {
+        return arrayList.contains(word.toLowerCase());
+    }
+    public boolean inputEquals(ArrayList<String> arrayList) {
+        return wordEquals(getInputString(),arrayList);
+    }
+    public boolean verbEquals(ArrayList<String> arrayList) {
+        return wordEquals(getVerb(),arrayList);
     }
 
     /**
@@ -116,43 +131,29 @@ public abstract class Menu {
     }
 
     /**
-    * Returns value of nextMenu
-    * @return
-    */
-    public Menu getNextMenu() {
-        return this.nextMenu;
+     * Change from current menu to next menu
+     */
+    public void changeToMainMenu() {
+        menuManager.setMenu(MainMenu.getInstance());
+    }
+    public void changeToGameMenu() {
+        menuManager.setMenu(GameMenu.getInstance());
+    }
+    public void changeToRestartMenu() {
+        menuManager.setMenu(RestartMenu.getInstance());
+    }
+    public void changeToSaveMenu() {
+        menuManager.setMenu(SaveMenu.getInstance());
+    }
+    public void changeToLoadMenu() {
+        menuManager.setMenu(LoadMenu.getInstance());
     }
 
-    /**
-    * Returns value of inMenu
-    * @return
-    */
-    public boolean isInMenu() {
-        return this.inMenu;
-    }
-
-    /**
-    * Sets new value of nextMenu
-    * @param
-    */
-    public void setNextMenu(Menu nextMenu) {
-        this.nextMenu = nextMenu;
-    }
-
-    /**
-    * Sets new value of inMenu
-    * @param
-    */
-    public void setInMenu(boolean inMenu) {
-        this.inMenu = inMenu;
-    }
 
     /**
      * Quit game (closes window)
      */
     public void exit() {
-        // setNextMenu(null);
-        // setInMenu(false);
         System.exit(0);
     }
 }

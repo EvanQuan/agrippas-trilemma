@@ -3,7 +3,7 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import game.menu.TextManager;
+import game.menu.MenuManager;
 
 /**
  * Gets input from the user and outputs it to game
@@ -21,7 +21,7 @@ public class InputPanel extends GridBagPanel {
     private JTextField inputTextField;
     private OutputPanel outputPanel;
     private JButton button;
-    private TextManager textManager;
+    private MenuManager menuManager;
 /**
      * Sends text of text area when ENTER key is pressed
      * Works alongside manually pressing inputButton
@@ -30,8 +30,7 @@ public class InputPanel extends GridBagPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             String input = inputTextField.getText();
-            textManager.input(input);
-            outputPanel.appendItem(textManager.output());
+            menuManager.input(input);
             inputTextField.setText(EMPTY);
         }
     };
@@ -40,11 +39,10 @@ public class InputPanel extends GridBagPanel {
     /**
      * Default InputPanel constructor
      */
-    public InputPanel(OutputPanel outputPanel) {
-        this.outputPanel = outputPanel;
+    public InputPanel() {
         this.inputTextField = new JTextField(TEXT_MAX_WIDTH);
         button = new JButton("Send");
-        textManager = new TextManager();
+        menuManager = MenuManager.getInstance();
         this.inputTextField.addActionListener(action);
         setAnchor(GridBagConstraints.WEST);
         setFill(GridBagConstraints.HORIZONTAL);
@@ -56,7 +54,7 @@ public class InputPanel extends GridBagPanel {
         setWeightX(0.0);
         addComponent(button);
 
-        outputPanel.append(textManager.output());
+        // outputPanel.append(textManager.output());
 
         // requestFocus();
     }
@@ -70,13 +68,6 @@ public class InputPanel extends GridBagPanel {
 		return this.inputTextField;
 	}
 
-	/**
-	* Returns value of outputPanel
-	* @return
-	*/
-	public OutputPanel getOutputPanel() {
-		return this.outputPanel;
-	}
 
 	/**
 	* Returns value of button
@@ -84,14 +75,6 @@ public class InputPanel extends GridBagPanel {
 	*/
 	public JButton getButton() {
 		return this.button;
-	}
-
-	/**
-	* Returns value of textManager
-	* @return
-	*/
-	public TextManager getTextManager() {
-		return this.textManager;
 	}
 
 	/**
@@ -103,27 +86,11 @@ public class InputPanel extends GridBagPanel {
 	}
 
 	/**
-	* Sets new value of outputPanel
-	* @param
-	*/
-	public void setOutputPanel(OutputPanel outputPanel) {
-		this.outputPanel = outputPanel;
-	}
-
-	/**
 	* Sets new value of button
 	* @param
 	*/
 	public void setButton(JButton button) {
 		this.button = button;
-	}
-
-	/**
-	* Sets new value of textManager
-	* @param
-	*/
-	public void setTextManager(TextManager textManager) {
-		this.textManager = textManager;
 	}
 
 }

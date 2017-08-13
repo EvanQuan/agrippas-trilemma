@@ -16,7 +16,7 @@ import java.io.*;
 
 public class MainFrame extends JFrame {
     public static final int WINDOW_WIDTH = 1000;
-    public static final int WINDOW_HEIGHT = 800;
+    public static final int WINDOW_HEIGHT = 900;
     public static final int WINDOW_PADDING = 5;
 
     public static final Color BACKGROUND_COLOR = Color.LIGHT_GRAY;
@@ -64,8 +64,8 @@ public class MainFrame extends JFrame {
 
         getContentPane().setBackground(BACKGROUND_COLOR);
 
-        outputPanel = new OutputPanel();
-        inputPanel = new InputPanel(outputPanel);
+        outputPanel = OutputPanel.getInstance();
+        inputPanel = new InputPanel();
         // documentListener = new DocumentListener();
         // saveButton = new JButton(SAVE_LABEL);
         // clearButton = new JButton(CLEAR_LABEL);

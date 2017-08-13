@@ -42,7 +42,7 @@ public class MainMenu extends Menu {
     "\n";
     public static final String OPTIONS_PROMPT =
     "           1. Start Game        2. How to Play        3. About this Game        4. Quit\n";
-    public static final int OPTIONS_SPACING = 4;
+    public static final int OPTIONS_SPACING = 2;
     public static final String SHORTCUTS =
     "l - Look" + "\n" +
     "x - Examine" + "\n" +
@@ -64,8 +64,6 @@ public class MainMenu extends Menu {
     public static final String HOW_TO_PLAY =
     "Type in commands to do stuff. See what works and what doesn't." + "\n\n" +
     "Examples:" + "\n\n" +
-    "> take banana bread" + "\n" +
-    "You attempt to take teh banana bread, but the gnome snatches it before you can." + "\n\n" +
     "> drink eggnog" + "\n" +
     "You drink the eggnog. It's like Christmas morning!" + "\n\n" +
     "> give catnip to kitten" + "\n" +
@@ -79,7 +77,6 @@ public class MainMenu extends Menu {
 
     private MainMenu() {
         outputln(TITLE_SCREEN);
-        outputln(OPTIONS_SPACING);
         outputln(OPTIONS_PROMPT);
     }
 
@@ -93,7 +90,7 @@ public class MainMenu extends Menu {
     @Override
     public void processInput() {
         if (inputEquals(START_GAME_OPTIONS)) {
-
+            changeToLoadMenu();
         } else if (inputEquals(HOW_TO_PLAY_OPTIONS)) {
             outputln(HOW_TO_PLAY);
             outputln(OPTIONS_SPACING);

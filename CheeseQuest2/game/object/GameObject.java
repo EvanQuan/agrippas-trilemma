@@ -1,13 +1,16 @@
 package game.object;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.ArrayList;
+
+import game.Savable;
 import game.object.item.Item;
 
 /**
  * All objects in the game
  */
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
     public static final int DEFAULT = 0;
     private ArrayList<String> singleNames;
     private ArrayList<String> pluralNames;

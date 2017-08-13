@@ -1,6 +1,7 @@
 import java.io.File;
 import file.ReadObject;
 import file.WriteObject;
+import game.system.*;
 
 public class SaveTest {
 
@@ -8,27 +9,16 @@ public class SaveTest {
         WriteObject wo = new WriteObject(0);
         ReadObject ro = new ReadObject(0);
 
-        String inString = "Banana";
-        String outString;
+        World world1 = new World();
+        System.out.println("world1: " + world1);
 
-        Integer inInt = new Integer(12);
-        Integer outInt;
-
-        // System.out.println("wo.serialize(inString);");
-        wo.serialize(inString);
-        wo.setSaveNum(32);
-
-        // System.out.println("wo.serialize(inInt);");
-        wo.serialize(inInt);
+        System.out.println("Serializing world1...\n\n");
+        wo.serialize(world1);
 
         // System.out.println("ro.deserialize(\"String\")");
-        outString = (String) ro.deserialize("String");
-        ro.setSaveNum(32);
+        System.out.println("Deserializing world1 into world2...\n\n");
+        World world2 = (World) ro.deserialize();
+        System.out.println("world2: " + world2);
 
-        // System.out.println("ro.deserialize(\"Integer\")");
-        outInt = (Integer) ro.deserialize("Integer");
-
-        System.out.println(outString);
-        System.out.println(outInt);
     }
 }
