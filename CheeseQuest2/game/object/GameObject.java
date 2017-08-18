@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-import game.Savable;
 import game.object.item.Item;
 
 /**

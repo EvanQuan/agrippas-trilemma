@@ -18,7 +18,7 @@ public class Player implements Serializable {
 	 *
 	 */
 	private Player() {
-		name = "Player";
+		name = "Player name: Bob"; // Placeholder
 	}
 
 

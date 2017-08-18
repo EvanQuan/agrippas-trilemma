@@ -16,8 +16,8 @@ public class MenuManager {
      * Default TextManager constructor
      */
     private MenuManager() {
-        this.menu = MainMenu.getInstance();
-        this.lastMenu = menu;
+        setMenu(MainMenu.getInstance());
+        setLastMenu(MainMenu.getInstance());// Unecesary? REMOVE?
     }
 
     public static MenuManager getInstance() {
@@ -54,6 +54,7 @@ public class MenuManager {
     public void setMenu(Menu menu) {
         setLastMenu(this.menu);
     	this.menu = menu;
+        menu.outputPrompt();
     }
 
     /**

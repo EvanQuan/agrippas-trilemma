@@ -1,6 +1,7 @@
 package game.object.item.background.person;
 
 import game.object.item.background.BackgroundItem;
+import game.object.item.collectable.Collectable;
 import game.system.Inventory;
 
 /**

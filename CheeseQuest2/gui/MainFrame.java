@@ -56,11 +56,17 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         setGameIcon();
         windowListener = new MainWindowListener() {
+            @Override
             public void windowOpened(WindowEvent e) {
                 inputPanel.getInputTextField().requestFocus();
             }
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                inputPanel.getInputTextField().requestFocus();
+            }
         };
-        addWindowListener(windowListener);
+        addWindowListener(windowListener); // Applies to only windowOpened()
+        addWindowFocusListener(windowListener); // Applies to windowGainedFocus()
 
         getContentPane().setBackground(BACKGROUND_COLOR);
 
@@ -200,7 +206,5 @@ public class MainFrame extends JFrame {
             // something else wrong
         }
     }
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-    }
+
 }

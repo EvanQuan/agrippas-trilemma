@@ -1,7 +1,7 @@
 /**
  * Debug
  */
-public static class Debug {
+public class Debug {
     public static boolean on = false;
 
     public static void toggle() {

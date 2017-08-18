@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import game.*;
 import game.object.*;
+import game.object.room.*;
 
 /**
  * Object to be saved and loaded by WriteObject and ReadObject
@@ -11,17 +12,23 @@ import game.object.*;
  * Contains player
  */
 public class World implements Serializable {
-	Room currentRoom = JailCell.getInstance();
-	Player player = Player.getInstance();
+	private Room currentRoom = JailCell.getInstance();
+	private Player player = Player.getInstance();
+	private int turnCount;
 
 	public World() {
 		// Starting room
 		// currentRoom = JailCell.getInstance();
+		turnCount = 0;
 
 		player = Player.getInstance();
 	}
 
-	public String toString() {
-		return player.toString();
+	/**
+	 * This is the string representation of the world used in LoadMenu
+	 * @return
+	 */
+	public String getInfo() {
+		return "Room: " + currentRoom.getSingleName() + " | Turns: " + turnCount;
 	}
 }

@@ -27,13 +27,19 @@ public class OutputPanel extends GridBagPanel {
     public static final int DEFAULT_SIZE = 16;
     public static final Color DEFAULT_COLOR = Color.BLACK;
 
+    // Player input font
+    public static final String INPUT_NAME = "Consolas";
+    public static final int INPUT_STYLE = Font.BOLD;
+    public static final int INPUT_SIZE = DEFAULT_SIZE;
+    public static final Color INPUT_COLOR = new Color(0, 125, 255); // medium blue
+
     // Special font
     public static final String SPECIAL_NAME = "Consolas";
-    public static final int SPECIAL_STYLE = Font.ITALIC;
-    public static final int SPECIAL_SIZE = 16;
-    public static final Color ITEM_COLOR = Color.RED;
-    public static final Color PERSON_COLOR = Color.GREEN;
-    public static final Color ROOM_COLOR = Color.BLUE;
+    public static final int SPECIAL_STYLE = Font.BOLD;
+    public static final int SPECIAL_SIZE = DEFAULT_SIZE;
+    public static final Color ITEM_COLOR = new Color(185, 0, 0); // red
+    public static final Color PERSON_COLOR = new Color(60, 150, 130); // green
+    public static final Color ROOM_COLOR = new Color(120, 100, 100); // light brown
 
     // Border font
     public static final String BORDER_NAME = "SansSerif";
@@ -46,9 +52,10 @@ public class OutputPanel extends GridBagPanel {
     // private JTextArea textArea;
     private JScrollPane scrollPane;
     private TitledBorder border;
-    public static Font DEFAULT_FONT;
-    public static Font SPECIAL_FONT;
-    public static Font BORDER_FONT;
+    private Font defaultFont;
+    private Font inputFont;
+    private Font specialFont;
+    private Font borderFont;
 
     private static OutputPanel outputPanel = new OutputPanel();
 
@@ -65,9 +72,10 @@ public class OutputPanel extends GridBagPanel {
     }
 
     private void initFont() {
-        DEFAULT_FONT = new Font(DEFAULT_NAME,DEFAULT_STYLE,DEFAULT_SIZE);
-        SPECIAL_FONT = new Font(SPECIAL_NAME,SPECIAL_STYLE,SPECIAL_SIZE);
-        BORDER_FONT = new Font(BORDER_NAME,BORDER_STYLE,BORDER_SIZE);
+        defaultFont = new Font(DEFAULT_NAME,DEFAULT_STYLE,DEFAULT_SIZE);
+        inputFont = new Font(INPUT_NAME,INPUT_STYLE,INPUT_SIZE);
+        specialFont = new Font(SPECIAL_NAME,SPECIAL_STYLE,SPECIAL_SIZE);
+        borderFont = new Font(BORDER_NAME,BORDER_STYLE,BORDER_SIZE);
     }
 
 
@@ -97,7 +105,7 @@ public class OutputPanel extends GridBagPanel {
         border = new TitledBorder("Main Menu");
         border.setTitleJustification(TitledBorder.CENTER);
         border.setTitlePosition(TitledBorder.TOP);
-        border.setTitleFont(BORDER_FONT);
+        border.setTitleFont(borderFont);
         border.setTitleColor(BORDER_COLOR);
         setBorder(border);
     }
@@ -157,16 +165,19 @@ public class OutputPanel extends GridBagPanel {
 
     }
     public void append(String string) {
-        append(string,DEFAULT_FONT,DEFAULT_COLOR);
+        append(string,defaultFont,DEFAULT_COLOR);
+    }
+    public void appendInput(String string) {
+        append(string,inputFont,INPUT_COLOR);
     }
     public void appendItem(String string) {
-        append(string,SPECIAL_FONT,ITEM_COLOR);
+        append(string,specialFont,ITEM_COLOR);
     }
     public void appendPerson(String string) {
-        append(string,SPECIAL_FONT,PERSON_COLOR);
+        append(string,specialFont,PERSON_COLOR);
     }
     public void appendRoom(String string) {
-        append(string,SPECIAL_FONT,ROOM_COLOR);
+        append(string,specialFont,ROOM_COLOR);
     }
 
     /**
@@ -204,4 +215,132 @@ public class OutputPanel extends GridBagPanel {
     //     // document uses the attributes.
     //     doc.setCharacterAttributes(0, doc.getLength() + 1, attrs, false);
     // }
+
+	/**
+	* Returns value of textPane
+	* @return
+	*/
+	public JTextPane getTextPane() {
+		return this.textPane;
+	}
+
+	/**
+	* Returns value of scrollPane
+	* @return
+	*/
+	public JScrollPane getScrollPane() {
+		return this.scrollPane;
+	}
+
+	/**
+	* Returns value of border
+	* @return
+	*/
+	public TitledBorder getBorder() {
+		return this.border;
+	}
+
+	/**
+	* Returns value of defaultFont
+	* @return
+	*/
+	public Font getDefaultFont() {
+		return this.defaultFont;
+	}
+
+	/**
+	* Returns value of inputFont
+	* @return
+	*/
+	public Font getInputFont() {
+		return this.inputFont;
+	}
+
+	/**
+	* Returns value of specialFont
+	* @return
+	*/
+	public Font getSpecialFont() {
+		return this.specialFont;
+	}
+
+	/**
+	* Returns value of borderFont
+	* @return
+	*/
+	public Font getBorderFont() {
+		return this.borderFont;
+	}
+
+	/**
+	* Returns value of outputPanel
+	* @return
+	*/
+	public static OutputPanel getOutputPanel() {
+		return outputPanel;
+	}
+
+	/**
+	* Sets new value of textPane
+	* @param
+	*/
+	public void setTextPane(JTextPane textPane) {
+		this.textPane = textPane;
+	}
+
+	/**
+	* Sets new value of scrollPane
+	* @param
+	*/
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+	/**
+	* Sets new value of border
+	* @param
+	*/
+	public void setBorder(TitledBorder border) {
+		this.border = border;
+	}
+
+	/**
+	* Sets new value of defaultFont
+	* @param
+	*/
+	public void setDefaultFont(Font defaultFont) {
+		this.defaultFont = defaultFont;
+	}
+
+	/**
+	* Sets new value of inputFont
+	* @param
+	*/
+	public void setInputFont(Font inputFont) {
+		this.inputFont = inputFont;
+	}
+
+	/**
+	* Sets new value of specialFont
+	* @param
+	*/
+	public void setSpecialFont(Font specialFont) {
+		this.specialFont = specialFont;
+	}
+
+	/**
+	* Sets new value of borderFont
+	* @param
+	*/
+	public void setBorderFont(Font borderFont) {
+		this.borderFont = borderFont;
+	}
+
+	/**
+	* Sets new value of outputPanel
+	* @param
+	*/
+	public static void setOutputPanel(OutputPanel outputPanel) {
+		OutputPanel.outputPanel = outputPanel;
+	}
 }

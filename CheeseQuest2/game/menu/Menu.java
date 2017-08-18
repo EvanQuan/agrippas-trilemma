@@ -9,7 +9,7 @@ import gui.OutputPanel;
  * Outputs corresponding output string
  */
 public abstract class Menu {
-    public static final int PROMPT_SPACING = 4;
+    public static final int INPUT_SPACING = 4;
     public static final int VERB = 0;
     private static final String INPUT_MARKER = "> ";
     private String inputString;
@@ -19,7 +19,7 @@ public abstract class Menu {
 
     public Menu() {
         outputPanel = OutputPanel.getInstance();
-        menuManager = menuManager.getInstance();
+        menuManager = MenuManager.getInstance();
     }
 
     /**
@@ -63,11 +63,28 @@ public abstract class Menu {
             outputln();
         }
     }
+    /**
+     * Output player input with input markern and
+     */
     public void outputPlayerInput() {
-        outputln(PROMPT_SPACING);
-        outputln(INPUT_MARKER + inputString);
+        outputln(INPUT_SPACING);
+        outputPanel.append(INPUT_MARKER);
+        outputPanel.appendInput(inputString + "\n");
     }
-
+    public void outputPlayerInput(String output) {
+        outputln(INPUT_SPACING);
+        outputPlayerInputNoSpace(output);
+    }
+    public void outputPlayerInputNoSpace(String output) {
+        outputPanel.append(INPUT_MARKER);
+        outputPanel.appendInput(output + "\n");
+    }
+    public void outputlnPlayer(String output) {
+        outputPlayer(output + "\n");
+    }
+    public void outputPlayer(String output) {
+        outputPanel.appendInput(output);
+    }
     public void outputItem(String output) {
         outputPanel.appendItem(output);
     }
@@ -148,12 +165,8 @@ public abstract class Menu {
     public void changeToLoadMenu() {
         menuManager.setMenu(LoadMenu.getInstance());
     }
-
-
-    /**
-     * Quit game (closes window)
-     */
-    public void exit() {
-        System.exit(0);
+    public void changeToTestMenu() {
+        menuManager.setMenu(TestMenu.getInstance());
     }
+
 }
