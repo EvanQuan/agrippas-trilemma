@@ -11,17 +11,26 @@ public class MenuManager {
     private Menu menu;
     private Menu lastMenu;
 
-    private static MenuManager menuManager = new MenuManager();
+    private static MenuManager instance;
     /**
      * Default TextManager constructor
      */
     private MenuManager() {
-        setMenu(MainMenu.getInstance());
-        setLastMenu(MainMenu.getInstance());// Unecesary? REMOVE?
+        // setMenu(MainMenu.getInstance()); // Default menu
+        // setMenu(TestMenu.getInstance());
+        // System.out.println("MenuManager():");
+        // if (instance == null) {
+        //     System.out.println("    menuManager is NULL");
+        // } else {
+        //     System.out.println("    menuManager is " + instance);
+        // }
     }
 
     public static MenuManager getInstance() {
-        return menuManager;
+        if (instance == null) {
+            instance = new MenuManager();
+        }
+        return instance;
     }
 
     /**
@@ -54,7 +63,7 @@ public class MenuManager {
     public void setMenu(Menu menu) {
         setLastMenu(this.menu);
     	this.menu = menu;
-        menu.outputPrompt();
+        this.menu.outputPrompt();
     }
 
     /**

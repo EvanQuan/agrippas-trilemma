@@ -1,7 +1,7 @@
 package game.menu;
 
 public class MainMenu extends Menu {
-    private static MainMenu menu = new MainMenu();
+    private static MainMenu instance;
     /**
      * ASCII text: http://patorjk.com/software/taag/
      * Title
@@ -24,7 +24,10 @@ public class MainMenu extends Menu {
     }
 
     public static MainMenu getInstance() {
-        return menu;
+        if (instance == null) {
+            instance = new MainMenu();
+        }
+        return instance;
     }
 
     @Override

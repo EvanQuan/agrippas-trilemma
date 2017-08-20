@@ -6,6 +6,8 @@ Single-player text adventure game
 Developed in Java 1.8
 
 ## Changelog
+### 0.0.4a - August 19, 2017
+- Changing between menus now works.
 ### 0.0.4 - August 18, 2017
 - InputPanel can now retrieve previous input like command line
 - InputPanel's JTextField regains focus when MainFrame regains focus

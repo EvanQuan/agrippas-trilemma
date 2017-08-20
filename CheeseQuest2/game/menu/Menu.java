@@ -15,11 +15,19 @@ public abstract class Menu {
     private String inputString;
     private String[] inputWords;
     private OutputPanel outputPanel;
-    private MenuManager menuManager;
+    private MenuManager menuManager; // Cannot have menuManeger, or infinite recursion occurs??
 
     public Menu() {
+        // System.out.println("Menu()");
         outputPanel = OutputPanel.getInstance();
         menuManager = MenuManager.getInstance();
+        // debug
+        // if (menuManager == null) {
+        //     System.out.println("    menuManager is NULL");
+        // } else {
+        //     System.out.println("    menuManager is " + menuManager);
+        // }
+        // menuManager = MenuManager.getInstance();
     }
 
     /**
@@ -166,7 +174,12 @@ public abstract class Menu {
         menuManager.setMenu(LoadMenu.getInstance());
     }
     public void changeToTestMenu() {
-        menuManager.setMenu(TestMenu.getInstance());
+        try{
+            menuManager.setMenu(TestMenu.getInstance());
+        } catch (Exception e) {
+            System.out.println("Uh Oh...");
+            e.printStackTrace();
+        }
     }
 
 }

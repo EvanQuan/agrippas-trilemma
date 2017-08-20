@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
-import game.menu.MenuManager;
+import game.menu.*;
 
 /**
  * Gets input from the user and outputs it to game
@@ -109,7 +109,10 @@ public class InputPanel extends GridBagPanel {
         font = new Font(NAME,STYLE,SIZE);
         this.inputTextField.setFont(font);
         button = new JButton("Send");
+
         menuManager = MenuManager.getInstance();
+        menuManager.setMenu(MainMenu.getInstance());
+
         this.inputTextField.addActionListener(action);
 
         this.inputTextField.addKeyListener(key);

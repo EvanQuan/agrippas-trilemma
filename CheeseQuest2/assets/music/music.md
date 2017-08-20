@@ -15,9 +15,12 @@ https://misfitchris.bandcamp.com/album/famicom-sessions-special-edition
         - https://opengameart.org/content/little-town-8-bit
         - https://opengameart.org/content/good-mood-theme-8-bit
     - Night
-        -
+        - 
     - Corrupted
         - https://opengameart.org/content/pixel-river
+- Carnival
+    - Day
+        - https://www.youtube.com/watch?v=XG4BhWTNaq8
 - Title screen
     - https://opengameart.org/content/8bit-title-screen
     - https://opengameart.org/content/end-credits-theme

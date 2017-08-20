@@ -4,7 +4,7 @@ package game.menu;
  * Test menu for menu manager to transfer between menuss
  */
 public class TestMenu extends Menu {
-    private static TestMenu menu = new TestMenu();
+    private static TestMenu instance;
 
     public static final String[] BACK = {"q"};
     private TestMenu() {
@@ -27,6 +27,9 @@ public class TestMenu extends Menu {
 
 
     public static TestMenu getInstance() {
-        return menu;
+        if (instance == null) {
+            instance = new TestMenu();
+        }
+        return instance;
     }
 }
