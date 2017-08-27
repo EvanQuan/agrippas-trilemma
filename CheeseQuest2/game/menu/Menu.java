@@ -14,6 +14,7 @@ public abstract class Menu {
     private static final String INPUT_MARKER = "> ";
     private String inputString;
     private String[] inputWords;
+    private String[] remainingWords;
     private OutputPanel outputPanel;
     private MenuManager menuManager; // Cannot have menuManeger, or infinite recursion occurs??
 
@@ -115,20 +116,29 @@ public abstract class Menu {
     public boolean wordEquals(String word, String[] array) {
         return Arrays.asList(array).contains(word.toLowerCase());
     }
-    public boolean inputEquals(String[] array) {
-        return wordEquals(getInputString(),array);
-    }
-    public boolean verbEquals(String[] array) {
-        return wordEquals(getVerb(),array);
-    }
     public boolean wordEquals(String word, ArrayList<String> arrayList) {
         return arrayList.contains(word.toLowerCase());
+    }
+    public boolean wordEquals(String word1, String word2) {
+        return word1.equals(word2);
+    }
+    public boolean inputEquals(String[] array) {
+        return wordEquals(getInputString(),array);
     }
     public boolean inputEquals(ArrayList<String> arrayList) {
         return wordEquals(getInputString(),arrayList);
     }
+    public boolean inputEquals(String word) {
+        return wordEquals(getInputString(),word);
+    }
+    public boolean verbEquals(String[] array) {
+        return wordEquals(getVerb(),array);
+    }
     public boolean verbEquals(ArrayList<String> arrayList) {
         return wordEquals(getVerb(),arrayList);
+    }
+    public boolean verbEquals(String word) {
+        return wordEquals(getVerb(),word);
     }
 
     /**
@@ -181,5 +191,4 @@ public abstract class Menu {
             e.printStackTrace();
         }
     }
-
 }

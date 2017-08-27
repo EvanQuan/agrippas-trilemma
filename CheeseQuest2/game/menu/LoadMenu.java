@@ -13,11 +13,8 @@ import game.system.*;
 public class LoadMenu extends Menu {
 
     public static final int MAXIMUM_SAVES = 5;
-    private static LoadMenu loadMenu = new LoadMenu();
-    private ArrayList<String> existingSave;
+    private static LoadMenu instance;
     private ArrayList<String> validSave;
-    private ReadObject reader;
-
 
     /**
      * Default LoadMenu constructor
@@ -31,55 +28,70 @@ public class LoadMenu extends Menu {
     }
 
     public static LoadMenu getInstance() {
-        return loadMenu;
+        if (instance == null) {
+            instance = new LoadMenu();
+        }
+        return instance;
     }
 
+    /**
+     * Outputs numerical list of existing save files
+     * and New game option
+     */
     @Override
     public void outputPrompt() {
-        outputln("Load Game");
+        outputlnItem("Load Game");
         String gameName;
-        for (int i = 0; i < validSave.size(); i++) {
-            if (existingSave.contains(validSave.get(i))) {
+        int i;
+        for (i = 0; i < validSave.size(); i++) {
+            if (existingSaves.contains(validSave.get(i))) {
                 gameName = "Load game"; // Game exists
             } else {
                 gameName = "New game"; // Game does not exist
             }
             outputln("    " + i + ". " + gameName);
         }
+        outputln("    " + i + ". New game");
     }
 
     @Override
     public void processInput() {
-        if (verbEquals(existingSave)) {
+        if (verbEquals(existingSave)) { // Load preexiting game
             loadGame(Integer.parseInt(getVerb()));
             changeToGameMenu();
-        } else if (verbEquals(validSave)) {
-
+        } else if (verbEquals(validSave)) { // Create new game
+            createGame(Integer.parseInt(verVerb()));
+            changeToGameMenu();
         } else {
-
+            outputInvalid();
+            outputPrompt();
         }
     }
 
-    /**
-     * Checks if save file exists within valid saves
-     */
-    public void determineExistingSaves() {
-        existingSave.clear();
-        for (int i = 1; i <= MAXIMUM_SAVES; i++) {
-            reader.setSaveNum(i);
-            if (reader.saveExists()) {
-                existingSave.add(Integer.toString(i));
-            }
-        }
+    public void outputInvalid() {
+        outputln("Choose a valid save file.");
     }
+
 
     /**
      * Sets the GameMenu's world to saveNum
      * @param int saveNum of world to load
      */
     public void loadGame(int saveNum) {
-        reader.setSaveNum(saveNum);
-        World world = (World) reader.deserialize();
+        ReadObject.setSaveNum(saveNum);
+        World world = (World) ReadObject.deserialize();
+        GameMenu gameMenu = GameMenu.getInstance();
+        gameMenu.setWorld(world);
+    }
+
+    /**
+     * Creatse new game, and sets gameMenu's world to new game
+     * @param int saveNum of thworld to create
+     */
+    public void createGame(int saveNum) {
+        World world = new World();
+        WriteObject.setSaveNum(saveNum);
+        WriteObject.serialize(world);
         GameMenu gameMenu = GameMenu.getInstance();
         gameMenu.setWorld(world);
     }

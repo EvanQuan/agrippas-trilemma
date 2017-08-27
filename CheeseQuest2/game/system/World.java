@@ -10,18 +10,34 @@ import game.object.room.*;
  * Object to be saved and loaded by WriteObject and ReadObject
  * Contains rooms which are spacially related to one another
  * Contains player
+ * Contains turn count
  */
 public class World implements Serializable {
-	private Room currentRoom = JailCell.getInstance();
-	private Player player = Player.getInstance();
+
+	public static final long serialVersionUID = 1L;
+
+	private Room room;
+	private Player player;
 	private int turnCount;
 
-	public World() {
+	public World(Room room, Player player, int turnCount) {
 		// Starting room
 		// currentRoom = JailCell.getInstance();
-		turnCount = 0;
+		this.room = room;
+		this.player = player;
+		this.turnCount = turnCount;
+		// player = Player.getInstance();
+	}
 
-		player = Player.getInstance();
+
+	public Room getRoom() {
+		return room;
+	}
+	public Player getPlayer() {
+		return player;
+	}
+	public int getTurnCount() {
+		return turnCount;
 	}
 
 	/**
@@ -29,6 +45,6 @@ public class World implements Serializable {
 	 * @return
 	 */
 	public String getInfo() {
-		return "Room: " + currentRoom.getSingleName() + " | Turns: " + turnCount;
+		return "Room: " + room.getSingleName() + " | Turns: " + turnCount;
 	}
 }

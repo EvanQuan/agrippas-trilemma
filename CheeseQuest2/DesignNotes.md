@@ -22,9 +22,8 @@
     - More work needs to be done to connect them, as neighbours need to be added manually, and in both directions.
     - More prone to bugs if rooms are not mutually connected when they should be.
 
-## All Room, Collectable classes follow singleton design pattern.
+## Collectable classes follow singleton design pattern.
 - Pros
-    - There will never be multiple instances of the same room since rooms are linked together.
     - Storing multiple instances of the same collectable take up more space than necessary since the properties of each instance of Collectable does not change.
     - equals() method does not need to be created for each class (overriding and using parent equals() method)
 - Cons

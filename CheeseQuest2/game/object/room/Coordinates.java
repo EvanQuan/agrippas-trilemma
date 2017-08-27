@@ -14,7 +14,18 @@ public class Coordinates {
 	private Room upRoom;
 	private Room downRoom;
 
+	private boolean northBlocked;
+	private boolean eastBlocked;
+	private boolean westBlocked;
+	private boolean southBlocked;
+	private boolean upBlocked;
+	private boolean downBlocked;
+
 	public Coordinates() {
+		northBlocked = false;
+		eastBlocked = false;
+		westBlocked = false;
+		southBlocked = false;
 	}
 
 	/**
@@ -112,6 +123,36 @@ public class Coordinates {
 	public void setDownRoom(Room downRoom) {
 		this.downRoom = downRoom;
 	}
+
+	/**
+	 * Returns value of northBlocked
+	 * @return
+	 */
+	public boolean isNorthBlocked() {
+		return northBlocked;
+	}
+	public boolean isEastBlocked() {
+		return eastBlocked;
+	}
+	public boolean isWestBlocked() {
+		return westBlocked;
+	}
+	public boolean isSouthBlocked() {
+		return southBlocked;
+	}
+	public void setNorthBlocked(boolean northBlocked) {
+		this.northBlocked = northBlocked;
+	}
+	public void setEastBlocked(boolean eastBlocked) {
+		this.eastBlocked = eastBlocked;
+	}
+	public void setWestBlocked(boolean westBlocked) {
+		this.westBlocked = westBlocked;
+	}
+	public void setSouthBlocked(boolean southBlocked) {
+		this.southBlocked = southBlocked;
+	}
+
 
 	/**
 	* Create string representation of Coordinates for printing

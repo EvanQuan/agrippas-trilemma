@@ -22,6 +22,30 @@ public abstract class Room extends GameObject {
     public Coordinates getCoordinates() {
         return coordinates;
     }
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public Inventory<Collectable> getInventory() {
+        return inv;
+    }
+    public void setInventory(Inventory<Collectable> inv) {
+        this.inv = inv;
+    }
+
+    public Inventory<BackgroundItem> getBackground() {
+        return background;
+    }
+    public void setBackground(Inventory<BackgroundItem> background) {
+        this.background = background;
+    }
+
+    public Inventory<Person> getPeople() {
+        return people;
+    }
+    public void setPeople(Inventory<Person> people) {
+        this.people = people;
+    }
 
     public boolean isNorthOf(Room room) {
         return(room.getCoordinates().getNorthRoom().equals(this));
@@ -53,5 +77,22 @@ public abstract class Room extends GameObject {
     }
     public boolean hasSouthRoom() {
         return this.coordinates.getSouthRoom() != null;
+    }
+
+    /**
+     * // Debug
+     * Maybe remove for coordinates only
+     */
+    public boolean isNorthBlocked() {
+        return this.coordinates.isNorthBlocked();
+    }
+    public boolean isEastBlocked() {
+        return this.coordinates.isEastBlocked();
+    }
+    public boolean isWestBlocked() {
+        return this.coordinates.isWestBlocked();
+    }
+    public boolean isSouthBlocked() {
+        return this.coordinates.isSouthBlocked();
     }
 }

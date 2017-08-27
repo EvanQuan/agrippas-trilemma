@@ -1,14 +1,22 @@
 package game.menu;
 
+import file.*;
+/**
+ * Prompts to save game save
+ * Uses WriteObject to save game
+ */
 public class SaveMenu extends Menu {
 
-    private static SaveMenu saveMenu = new SaveMenu();
+    private static SaveMenu instance;
 
     private SaveMenu() {
 
     }
 
     public static SaveMenu getInstance() {
-        return saveMenu;
+        if (instance == null) {
+            instance = new SaveMenu();
+        }
+        return instance;
     }
 }

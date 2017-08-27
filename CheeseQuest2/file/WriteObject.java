@@ -11,20 +11,17 @@ import game.system.*;
  * Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public class WriteObject extends FileObject {
+public static class WriteObject extends FileObject {
     /**
     * Default WriteObject constructor
     */
-    public WriteObject(int saveNum) {
-        super(saveNum);
-    }
 
     /**
      * Save object to save file
      * @param Object object to be saved
      * @param int    save   save number
      */
-    public void serialize(Object object) {
+    public static void serialize(Object object) {
 
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
@@ -81,7 +78,7 @@ public class WriteObject extends FileObject {
     /**
      * Creates director of saveNum if it does not exist
      */
-    public void makeDirectory() {
+    public static void makeDirectory() {
         // If the directory does not exist, create it
         if (!directoryExists()) {
             try {

@@ -23,7 +23,7 @@ public class InputPanel extends GridBagPanel {
 
     // Font
     public static final String NAME = "Consolas";
-    public static final int STYLE = Font.BOLD;
+    public static final int STYLE = Font.PLAIN;
     public static final int SIZE = 14;
     public static final Color COLOR = new Color(0, 125, 255);
     private Font font;

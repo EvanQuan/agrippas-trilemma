@@ -10,6 +10,9 @@ import game.object.item.Item;
  * All objects in the game
  */
 public abstract class GameObject implements Serializable {
+
+    public static final long serialVersionUID = 1L;
+
     public static final int DEFAULT = 0;
     private ArrayList<String> singleNames;
     private ArrayList<String> pluralNames;

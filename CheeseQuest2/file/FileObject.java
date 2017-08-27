@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.*;
 import game.system.*;
 
 public abstract class FileObject {
@@ -13,16 +14,33 @@ public abstract class FileObject {
     private int saveNum;
     private File directory;
     private File save;
+    protected ArrayList<String> existingSaves = new ArrayList<String>();
 
-    public FileObject(int saveNum) {
-        setSaveNum(saveNum);
+    /**
+     * Checks if save file exists within valid saves
+     */
+    public void determineExistingSaves() {
+        existingSaves.clear();
+        for (int i = 1; i <= MAXIMUM_SAVES; i++) {
+            ReadObject.setSaveNum(i);
+            if (ReadObject.saveExists()) {
+                existingSaves.add(Integer.toString(i));
+            }
+        }
+    }
+
+    /**
+     * Returns if existingSaves is not empty
+     */
+    public void hasExistingSaves() {
+        return existingSaves.size() > 0;
     }
 
     /**
      * Returns value of saveNum
      * @return
      */
-    public int getSaveNum() {
+    public static int getSaveNum() {
         return this.saveNum;
     }
 
@@ -30,7 +48,7 @@ public abstract class FileObject {
      * Returns value of directory
      * @return
      */
-    public File getDirectory() {
+    public static File getDirectory() {
         return this.directory;
     }
 
@@ -38,7 +56,7 @@ public abstract class FileObject {
      * Returns value of save
      * @return
      */
-    public File getSave() {
+    public static File getSave() {
         return this.save;
     }
 
@@ -46,7 +64,7 @@ public abstract class FileObject {
      * Sets new value of saveNum
      * @param int saveNum
      */
-    public void setSaveNum(int saveNum) {
+    public static void setSaveNum(int saveNum) {
         this.saveNum = saveNum;
         this.directory = new File(SAVE_DIRECTORY + "/" + saveNum);
         save = new File(SAVE_DIRECTORY + "/" + saveNum + "/" + FILE_NAME + "." + FILE_EXTENTION);
@@ -57,7 +75,7 @@ public abstract class FileObject {
      * @param  int saveNum       [description]
      * @return     [description]
      */
-    public boolean directoryExists() {
+    public static boolean directoryExists() {
         return directory.exists();
     }
 
@@ -66,7 +84,8 @@ public abstract class FileObject {
      * @param  int saveNum       [description]
      * @return     [description]
      */
-    public boolean saveExists() {
+    public static boolean saveExists() {
         return save.exists();
     }
+
 }
