@@ -61,4 +61,11 @@ public class World implements Serializable {
     public String getInfo() {
         return "Room: " + room.getSingleName() + " | Turns: " + turnCount + " | Version: " + version;
     }
+
+    /**
+     * Instantiates all the rooms, default player
+     */
+    public void initialize() {
+
+    }
 }
