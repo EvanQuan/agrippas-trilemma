@@ -1,6 +1,7 @@
 package file;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -11,7 +12,18 @@ import game.system.*;
  * Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public static class WriteObject extends FileObject {
+public class WriteObject extends FileObject {
+
+    private static WriteObject instance;
+    private WriteObject() {
+
+    }
+    public static WriteObject getInstance() {
+        if (instance == null) {
+            instance = new WriteObject();
+        }
+        return instance;
+    }
     /**
     * Default WriteObject constructor
     */
@@ -21,7 +33,7 @@ public static class WriteObject extends FileObject {
      * @param Object object to be saved
      * @param int    save   save number
      */
-    public static void serialize(Object object) {
+    public void serialize(Object object) {
 
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
@@ -78,7 +90,7 @@ public static class WriteObject extends FileObject {
     /**
      * Creates director of saveNum if it does not exist
      */
-    public static void makeDirectory() {
+    public void makeDirectory() {
         // If the directory does not exist, create it
         if (!directoryExists()) {
             try {
@@ -86,6 +98,21 @@ public static class WriteObject extends FileObject {
             } catch(SecurityException se) {
                 se.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Delete save file if it exists
+     * @return true if file deleted, false if file was not deleted
+     */
+    public boolean deleteSave() {
+        boolean deleted = false;
+        try {
+            deleted = Files.deleteIfExists(getSave().toPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return deleted;
         }
     }
 }

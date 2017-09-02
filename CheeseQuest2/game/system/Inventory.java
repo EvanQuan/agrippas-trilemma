@@ -17,78 +17,115 @@ import game.object.item.collectable.equipable.mainhand.*;
 import game.object.item.collectable.equipable.offhand.*;
 
 /**
- * Inventory can store
- * Item
- * Room
+ * Inventory can store game objects
  */
 public class Inventory<T extends GameObject> {
-	HashMap<T,Integer> items;
+    HashMap<T,Integer> items;
 
-	public Inventory() {
-		items = new HashMap<T,Integer>();
-	}
-	public Inventory(HashMap<T,Integer> items) {
-		this.items = items;
-	}
-	public void add(T item, int count) {
-		if (contains(item)) {
-			if (items.get(item) + count == 0) {
-				items.remove(item);
-			} else {
-				set(item,items.get(item) + count);
-			}
-		} else {
-			set(item,count);
-		}
-	}
-	public void add(T item) {
-		add(item,1);
-	}
-	public boolean contains(T item) {
-		return(items.containsKey(item));
-	}
-	/**
-	 * The total number of item types
-	 * @return item type count
-	 */
-	public int getItemTypes() {
-		return(items.size());
-	}
-	/**
-	 * The total number of all items
-	 * @return item count
-	 */
-	public int getItemCount() {
-		int count = 0;
-		for (T item : items.keySet()) {
-			count += items.get(item);
-		}
-		return(count);
-	}
-	/**
-	 * The total weight of all items
-	 * @return item weight
-	 */
-	// public double getWeight() {
-	// 	double weight = 0;
-	// 	if items.
-	// 	for (T item : items.keySet()) {
-	// 		if (item instanceof Collectable) {
-	// 			weight += item.getWeight();
-	// 		}
-	// 	}
-	// 	return(weight);
-	// }
+    public Inventory() {
+        items = new HashMap<T,Integer>();
+    }
+    public Inventory(HashMap<T,Integer> items) {
+        this.items = items;
+    }
+    /**
+     * Add count of item inside inventory
+     * If count results in negative item count, item count is set to 0
+     * @param int count of item to add
+     * @param T   item  to add
+     */
+    public void add(int count, T item) {
+        if (contains(item)) {
+            set(items.get(item) + count,item);
+        } else {
+            set(count,item);
+        }
+    }
+    /**
+     * Add a single item
+     * @param T item to add
+     */
+    public void add(T item) {
+        add(1,item);
+    }
 
-	public Integer removeAll(T item) {
-		return items.remove(item);
-	}
+    /**
+     * Remove count of item inside inventory using add() method
+     * @param int count of item to remove
+     * @param T   item  to remove
+     */
+    public void remove(int count, T item) {
+        add(-count, item);
+    }
+    /**
+     * Remove a single item using add() method
+     * @param T item to remove
+     */
+    public void remove(T item) {
+        add(-1,item);
+    }
 
+    /**
+     * Checks if item is contained in inventory
+     * @param  T item          to check
+     * @return   true if item is contained in inventory
+     */
+    public boolean contains(T item) {
+        return(items.containsKey(item));
+    }
+    /**
+     * The total number of item types
+     * @return item type count
+     */
+    public int getItemTypes() {
+        return(items.size());
+    }
+    /**
+     * The total number of all items
+     * @return item count
+     */
+    public int getItemCount() {
+        int count = 0;
+        for (T item : items.keySet()) {
+            count += items.get(item);
+        }
+        return(count);
+    }
+    /**
+     * The total weight of all items
+     * @return item weight
+     */
+    // public double getWeight() {
+    //     double weight = 0;
+    //     // if items. ??? Only collectable inventories have weight
+    //     for (T item : items.keySet()) {
+    //         if (item instanceof Collectable) {
+    //             weight += item.getWeight();
+    //         }
+    //     }
+    //     return(weight);
+    // }
 
-	public void set(T item, int count) {
-		items.put(item,count);
-	}
-	public String toString() {
-		return(items.toString());
-	}
+    public Integer removeAll(T item) {
+        return items.remove(item);
+    }
+
+    /**
+     * Sets item to item count
+     * if count <= 0 the item is removed
+     * @param int count of item to set
+     * @param T   item  in items
+     */
+    public void set(int count, T item) {
+        if (count <= 0) {
+            if (contains(item)) {
+                items.remove(item);
+            }
+        } else {
+            items.put(item,count);
+        }
+    }
+    public String toString() {
+        return(items.toString());
+    }
 }

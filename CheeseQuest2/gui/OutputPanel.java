@@ -47,6 +47,11 @@ public class OutputPanel extends GridBagPanel {
     public static final int BORDER_SIZE = 24;
     public static final Color BORDER_COLOR = Color.RED;
 
+    // Title font
+    public static final String TITLE_NAME = "Consolas";
+    public static final int TITLE_STYLE = Font.BOLD;
+    public static final int TITLE_SIZE = DEFAULT_SIZE + 2;
+    public static final Color TITLE_COLOR = ITEM_COLOR;
 
     private JTextPane textPane;
     // private JTextArea textArea;
@@ -56,15 +61,14 @@ public class OutputPanel extends GridBagPanel {
     private Font inputFont;
     private Font specialFont;
     private Font borderFont;
+    private Font titleFont;
 
     private static OutputPanel outputPanel = new OutputPanel();
 
     private OutputPanel() {
         initFont();
-
         initTextPane();
-        // initTextArea();
-        initBorder();
+        // initBorder(); // text pane does not have a border?
     }
 
     public static OutputPanel getInstance() {
@@ -76,6 +80,7 @@ public class OutputPanel extends GridBagPanel {
         inputFont = new Font(INPUT_NAME,INPUT_STYLE,INPUT_SIZE);
         specialFont = new Font(SPECIAL_NAME,SPECIAL_STYLE,SPECIAL_SIZE);
         borderFont = new Font(BORDER_NAME,BORDER_STYLE,BORDER_SIZE);
+        titleFont = new Font(TITLE_NAME,TITLE_SIZE,TITLE_SIZE);
     }
 
 
@@ -178,6 +183,9 @@ public class OutputPanel extends GridBagPanel {
     }
     public void appendRoom(String string) {
         append(string,specialFont,ROOM_COLOR);
+    }
+    public void appendTitle(String string) {
+        append(string,titleFont,TITLE_COLOR);
     }
 
     /**

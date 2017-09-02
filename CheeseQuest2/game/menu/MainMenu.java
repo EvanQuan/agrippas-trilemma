@@ -41,8 +41,8 @@ public class MainMenu extends Menu {
     @Override
     public void processInput() {
         if (inputEquals(START_GAME_OPTIONS)) {
-            // changeToLoadMenu();
-            changeToTestMenu();
+            changeToLoadMenu();
+            // changeToTestMenu();
         } else if (inputEquals(HOW_TO_PLAY_OPTIONS)) {
             outputHowToPlay();
             outputOptions();

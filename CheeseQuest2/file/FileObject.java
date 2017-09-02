@@ -8,6 +8,7 @@ import java.util.*;
 import game.system.*;
 
 public abstract class FileObject {
+    public static final int MAXIMUM_SAVES = 5;
     public static final String SAVE_DIRECTORY = "saves";
     public static final String FILE_EXTENTION = "txt";
     public static final String FILE_NAME = "World";
@@ -21,9 +22,10 @@ public abstract class FileObject {
      */
     public void determineExistingSaves() {
         existingSaves.clear();
+        ReadObject reader = ReadObject.getInstance();
         for (int i = 1; i <= MAXIMUM_SAVES; i++) {
-            ReadObject.setSaveNum(i);
-            if (ReadObject.saveExists()) {
+            reader.setSaveNum(i);
+            if (reader.saveExists()) {
                 existingSaves.add(Integer.toString(i));
             }
         }
@@ -32,7 +34,7 @@ public abstract class FileObject {
     /**
      * Returns if existingSaves is not empty
      */
-    public void hasExistingSaves() {
+    public boolean hasExistingSaves() {
         return existingSaves.size() > 0;
     }
 
@@ -40,7 +42,7 @@ public abstract class FileObject {
      * Returns value of saveNum
      * @return
      */
-    public static int getSaveNum() {
+    public int getSaveNum() {
         return this.saveNum;
     }
 
@@ -48,7 +50,7 @@ public abstract class FileObject {
      * Returns value of directory
      * @return
      */
-    public static File getDirectory() {
+    public File getDirectory() {
         return this.directory;
     }
 
@@ -56,7 +58,7 @@ public abstract class FileObject {
      * Returns value of save
      * @return
      */
-    public static File getSave() {
+    public File getSave() {
         return this.save;
     }
 
@@ -64,10 +66,10 @@ public abstract class FileObject {
      * Sets new value of saveNum
      * @param int saveNum
      */
-    public static void setSaveNum(int saveNum) {
+    public void setSaveNum(int saveNum) {
         this.saveNum = saveNum;
         this.directory = new File(SAVE_DIRECTORY + "/" + saveNum);
-        save = new File(SAVE_DIRECTORY + "/" + saveNum + "/" + FILE_NAME + "." + FILE_EXTENTION);
+        this.save = new File(SAVE_DIRECTORY + "/" + saveNum + "/" + FILE_NAME + "." + FILE_EXTENTION);
     }
 
     /**
@@ -75,7 +77,7 @@ public abstract class FileObject {
      * @param  int saveNum       [description]
      * @return     [description]
      */
-    public static boolean directoryExists() {
+    public boolean directoryExists() {
         return directory.exists();
     }
 
@@ -84,7 +86,7 @@ public abstract class FileObject {
      * @param  int saveNum       [description]
      * @return     [description]
      */
-    public static boolean saveExists() {
+    public boolean saveExists() {
         return save.exists();
     }
 

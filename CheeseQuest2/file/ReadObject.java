@@ -12,14 +12,23 @@ import game.system.*;
  * Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-read-an-object-from-file-in-java/
  */
-public static class ReadObject extends FileObject {
+public class ReadObject extends FileObject {
 
+    private static ReadObject instance;
+    private ReadObject() {
+    }
+    public static ReadObject getInstance() {
+        if (instance == null) {
+            instance = new ReadObject();
+        }
+        return instance;
+    }
     /**
      * Get object from file of filename of saveNum
      * @param  String filename      name of file to retrieve object
      * @return        object from file
      */
-    public static Object deserialize() {
+    public Object deserialize() {
         Object object = null;
         FileInputStream fin = null;
         ObjectInputStream ois = null;
