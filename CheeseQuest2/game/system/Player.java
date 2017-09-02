@@ -3,30 +3,13 @@
  */
 package game.system;
 
-import java.io.Serializable;
 import game.*;
+import game.object.item.background.person.Person;
 
 /**
  * @author Quan
  *
  */
-public class Player implements Serializable {
-
-	private String name;
-	private static Player player = new Player();
-	/**
-	 *
-	 */
-	private Player() {
-		name = "Player name: Bob"; // Placeholder
-	}
-
-
-	public static Player getInstance() {
-		return player;
-	}
-	public String toString() {
-		return name;
-	}
+public class Player extends Person {
 
 }

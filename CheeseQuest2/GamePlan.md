@@ -44,3 +44,12 @@ Visit areas in different periods of time, which can allow for time-based puzzles
 4. Find magical sword (with special name)
     - Broken into shards
     - Shards acquires in miniquests
+# World
+Airedale
+- Intro town
+Snofrisk
+- North viking town
+
+# Characters
+- Sigurd Ogleshield
+- 

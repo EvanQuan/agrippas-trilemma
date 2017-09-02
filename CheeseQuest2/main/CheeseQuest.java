@@ -1,3 +1,5 @@
+package main;
+
 import gui.MainFrame;
 
 /**
@@ -5,7 +7,12 @@ import gui.MainFrame;
  * Boots up the game
  */
 public class CheeseQuest {
+    private static String version = "0.0.1";
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
+    }
+
+    public static String getVersion() {
+        return version;
     }
 }

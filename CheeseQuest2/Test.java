@@ -1,13 +1,18 @@
-import testouter.*;
-import testouter.testinner.*;
-import testouter.testinner2.*;
-
 public class Test {
     public static void main(String[] args) {
-        // Outer o = new Outer();
-        Outer2 o2 = new Outer2();
-        // Inner i = new Inner();
-        // Inner22 i22 = new Inner22();
-    }
+        System.out.println("Hi");
+        System.out.print("hi");
 
+        int x = 5;
+
+        int y = 10;
+
+        int z = x + y;
+
+        int[] myList = {1,2,3,4};
+
+        for (int i = 0; i < myList.size(); i++) {
+            
+        }
+    }
 }
