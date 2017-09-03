@@ -1,6 +1,6 @@
 package game.system;
 
-import java.util.HashMap;
+import java.util.*;
 import game.object.*;
 import game.object.item.background.*;
 import game.object.item.background.person.*;
@@ -20,6 +20,9 @@ import game.object.item.collectable.equipable.offhand.*;
  * Inventory can store game objects
  */
 public class Inventory<T extends GameObject> {
+
+    private static final long serialVersionUID = 1L;
+
     HashMap<T,Integer> items;
 
     public Inventory() {
@@ -125,6 +128,30 @@ public class Inventory<T extends GameObject> {
             items.put(item,count);
         }
     }
+    /**
+     *
+     * @return true if items is empty
+     */
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    /**
+     * Get count of item in inventory
+     * @param  T item          [description]
+     * @return   [description]
+     */
+    public Integer getCount(T item) {
+        return items.get(item);
+    }
+    /**
+     * Used for iterating through inventory
+     * @return Set view of the items contained in items HashMap
+     */
+    public Set<T> getItemSet() {
+        return items.keySet();
+    }
+
     public String toString() {
         return(items.toString());
     }

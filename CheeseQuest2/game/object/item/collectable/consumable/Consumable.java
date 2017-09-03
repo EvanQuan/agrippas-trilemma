@@ -7,6 +7,9 @@ import game.object.item.collectable.*;
  * Can give corruption upon consumption
  */
 public abstract class Consumable extends Collectable {
+
+    private static final long serialVersionUID = 1L;
+
     private double corruption;
 
     /**

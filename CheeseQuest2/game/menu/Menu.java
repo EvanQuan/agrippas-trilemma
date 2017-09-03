@@ -3,26 +3,26 @@ package game.menu;
 import java.lang.StringBuilder;
 import java.util.*;
 import gui.OutputPanel;
+import game.system.Outputable;
 
 /**
  * Receives input string
  * Outputs corresponding output string
  */
-public abstract class Menu {
+public abstract class Menu extends Outputable {
+
     public static final int INPUT_SPACING = 4;
+    public static final String INPUT_MARKER = "> ";
     public static final int VERB = 0;
-    private static final String INPUT_MARKER = "> ";
     private String inputString;
     private String[] inputWords;
     // private String remainingString;
     // private String[] remainingWords;
     // private String verb;
-    private OutputPanel outputPanel;
     private MenuManager menuManager; // Cannot have menuManeger, or infinite recursion occurs??
 
     public Menu() {
         // System.out.println("Menu()");
-        outputPanel = OutputPanel.getInstance();
         menuManager = MenuManager.getInstance();
         // debug
         // if (menuManager == null) {
@@ -58,24 +58,7 @@ public abstract class Menu {
     }
 
     /**
-     * Appends to outputString
-     */
-    public void output(String output) {
-        outputPanel.append(output);
-    }
-    public void outputln(String output) {
-        output(output + "\n");
-    }
-    public void outputln() {
-        outputln("");
-    }
-    public void outputln(int spacing) {
-        for (int i = 0; i < spacing; i++) {
-            outputln();
-        }
-    }
-    /**
-     * Output player input with input markern and
+     * Output player input with input marker
      */
     public void outputPlayerInput() {
         outputln(INPUT_SPACING);
@@ -96,37 +79,11 @@ public abstract class Menu {
     public void outputPlayer(String output) {
         outputPanel.appendInput(output);
     }
-    public void outputItem(String output) {
-        outputPanel.appendItem(output);
-    }
-    public void outputlnItem(String output) {
-        outputItem(output + "\n");
-    }
-    public void outputPerson(String output) {
-        outputPanel.appendPerson(output);
-    }
-    public void outputlnPerson(String output) {
-        outputPerson(output + "\n");
-    }
-    public void outputRoom(String output) {
-        outputPanel.appendRoom(output);
-    }
-    public void outputlnRoom(String output) {
-        outputRoom(output + "\n");
-    }
-    public void outputTitle(String output) {
-        outputPanel.appendTitle(output);
-    }
-    public void outputlnTitle(String output) {
-        outputTitle(output + "\n");
-    }
 
 
 
     // Input processing
     // Words are processed one by one from the start and are stripped away
-
-
     private boolean inputStartsWithChoice(ArrayList<String> arrayList, boolean strip) {
         int longestWord = 0;
         String[] words;
@@ -303,6 +260,9 @@ public abstract class Menu {
         return String.join(" ", inputWords);
     }
 
+
+
+    // Change menu
     /**
      * Change from current menu to next menu
      */

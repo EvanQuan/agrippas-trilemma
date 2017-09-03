@@ -6,6 +6,9 @@ import game.object.item.collectable.consumable.*;
  * Food restores hunger when consumed
  */
 public abstract class Food extends Consumable {
+
+    private static final long serialVersionUID = 1L;
+
     private double hunger;
 
     public Food() {

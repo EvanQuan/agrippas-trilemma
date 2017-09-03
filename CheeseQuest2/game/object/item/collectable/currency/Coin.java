@@ -2,7 +2,9 @@ package game.object.item.collectable.currency;
 
 public class Coin extends Currency {
 
-    private static Coin coin = new Coin();
+    private static final long serialVersionUID = 1L;
+
+    private static Coin instance;
 
     private Coin() {
         addSingleName(new String[] {"coin"});
@@ -12,6 +14,9 @@ public class Coin extends Currency {
     }
 
     public static Coin getInstance() {
-        return coin;
+        if (instance == null) {
+            instance = new Coin();
+        }
+        return instance;
     }
 }

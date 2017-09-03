@@ -5,13 +5,14 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 import game.object.item.Item;
+import game.system.Outputable;
 
 /**
  * All objects in the game
  */
-public abstract class GameObject implements Serializable {
+public abstract class GameObject extends Outputable implements Serializable {
 
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     public static final int DEFAULT = 0;
     private ArrayList<String> singleNames;

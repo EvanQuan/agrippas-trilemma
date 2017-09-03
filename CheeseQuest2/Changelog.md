@@ -6,7 +6,7 @@ Single-player text adventure game
 Developed in Java 1.8
 
 ## Changelog
-### 0.0.5 - September 1, 2017
+### 0.0.5 - September 2, 2017
 - Game driver CheeseQuest implemented and moved to main package
 - Inventory removes items if item count is non-positive
 - Person implemented
@@ -15,6 +15,9 @@ Developed in Java 1.8
     - No longer breaks input by verb and remaining words, as verb may be multiple words
     - Now works similar to Cheese Quest 1, where input is processed by constantly stripping away words from the start of the inputString
 - Room not longer uses Coordinates class
+- Added Outputable class so all GameObject's and Menu's can output directly
+- Speech font added
+- Player moved from system package to person package
 ### 0.0.4a - August 19, 2017
 - Changing between menus now works.
 ### 0.0.4 - August 18, 2017

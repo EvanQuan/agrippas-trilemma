@@ -18,7 +18,7 @@ import main.CheeseQuest;
  */
 public class World implements Serializable {
 
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private Room room;
     private Player player;
@@ -66,6 +66,9 @@ public class World implements Serializable {
      * Instantiates all the rooms, default player
      */
     public void initialize() {
+        TestRoom testRoom = new TestRoom();
 
+        // Starting room
+        room = testRoom;
     }
 }

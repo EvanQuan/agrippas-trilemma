@@ -8,11 +8,13 @@ import game.system.Inventory;
 
 public abstract class Room extends GameObject {
 
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private Inventory<Collectable> inv;
     private Inventory<BackgroundItem> background;
     private Inventory<Person> people;
+
+    private boolean firstTime;
 
     private Room northRoom;
     private Room eastRoom;
@@ -33,10 +35,37 @@ public abstract class Room extends GameObject {
         background = new Inventory<BackgroundItem>();
         people = new Inventory<Person>();
 
+        firstTime = true;
+
         northBlocked = false;
         eastBlocked = false;
         westBlocked = false;
         southBlocked = false;
+    }
+
+    /**
+     * Output description of the room
+     * First call is different from subsequent calls
+     * @return
+     */
+    public void outputDescription() {
+        outputlnTitle(getSingleName());
+        if (firstTime) {
+            outputFirstDecription();
+            firstTime = false;
+        } else {
+            outputRepeatDescription();
+        }
+    }
+    /**
+     * First description defaults to be same as repeated description
+     * @return
+     */
+    public void outputFirstDecription() {
+        outputRepeatDescription();
+    }
+    public void outputRepeatDescription() {
+        outputln("There is nothing particular about your surroundings.");
     }
 
 

@@ -39,7 +39,9 @@ public class OutputPanel extends GridBagPanel {
     public static final int SPECIAL_SIZE = DEFAULT_SIZE;
     public static final Color ITEM_COLOR = new Color(185, 0, 0); // red
     public static final Color PERSON_COLOR = new Color(60, 150, 130); // green
-    public static final Color ROOM_COLOR = new Color(120, 100, 100); // light brown
+    public static final Color ROOM_COLOR = new Color(255, 153, 0); // orange
+    public static final int SPEECH_STYLE = Font.ITALIC;
+    public static final Color SPEECH_COLOR = new Color(120, 57, 145); // purple
 
     // Border font
     public static final String BORDER_NAME = "SansSerif";
@@ -53,6 +55,9 @@ public class OutputPanel extends GridBagPanel {
     public static final int TITLE_SIZE = DEFAULT_SIZE + 2;
     public static final Color TITLE_COLOR = ITEM_COLOR;
 
+    // Speech font
+
+
     private JTextPane textPane;
     // private JTextArea textArea;
     private JScrollPane scrollPane;
@@ -62,6 +67,7 @@ public class OutputPanel extends GridBagPanel {
     private Font specialFont;
     private Font borderFont;
     private Font titleFont;
+    private Font speechFont;
 
     private static OutputPanel outputPanel = new OutputPanel();
 
@@ -81,6 +87,7 @@ public class OutputPanel extends GridBagPanel {
         specialFont = new Font(SPECIAL_NAME,SPECIAL_STYLE,SPECIAL_SIZE);
         borderFont = new Font(BORDER_NAME,BORDER_STYLE,BORDER_SIZE);
         titleFont = new Font(TITLE_NAME,TITLE_SIZE,TITLE_SIZE);
+        speechFont = new Font(SPECIAL_NAME,SPEECH_STYLE,SPECIAL_SIZE);
     }
 
 
@@ -186,6 +193,9 @@ public class OutputPanel extends GridBagPanel {
     }
     public void appendTitle(String string) {
         append(string,titleFont,TITLE_COLOR);
+    }
+    public void appendSpeech(String string) {
+        append(string,speechFont,SPEECH_COLOR);
     }
 
     /**

@@ -1,15 +1,13 @@
 /**
  *
  */
-package game.system;
-
-import game.*;
-import game.object.item.background.person.Person;
+package game.item.background.person;
 
 /**
  * @author Quan
  *
  */
 public class Player extends Person {
+    private static final long serialVersionUID = 1L;
 
 }
