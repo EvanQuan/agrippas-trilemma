@@ -30,6 +30,14 @@ public abstract class Room extends GameObject {
     private boolean upBlocked;
     private boolean downBlocked;
 
+    private String defaultBlockedReason;
+    private String northBlockedReason;
+    private String eastBlockedReason;
+    private String westBlockedReason;
+    private String southBlockedReason;
+    private String upBlockedReason;
+    private String downBlockedReason;
+
     public Room() {
         inv = new Inventory<Collectable>();
         background = new Inventory<BackgroundItem>();
@@ -41,12 +49,19 @@ public abstract class Room extends GameObject {
         eastBlocked = false;
         westBlocked = false;
         southBlocked = false;
+
+        defaultBlockedReason = "which is blocked";
+        northBlockedReason = defaultBlockedReason;
+        eastBlockedReason = defaultBlockedReason;
+        westBlockedReason = defaultBlockedReason;
+        southBlockedReason = defaultBlockedReason;
+        upBlockedReason = defaultBlockedReason;
+        downBlockedReason = defaultBlockedReason;
     }
 
     /**
      * Output description of the room
      * First call is different from subsequent calls
-     * @return
      */
     public void outputDescription() {
         outputlnTitle(getSingleName());
@@ -68,6 +83,77 @@ public abstract class Room extends GameObject {
         outputln("There is nothing particular about your surroundings.");
     }
 
+    /**
+     * Output items in room
+     */
+    public void outputItems() {
+
+    }
+    /**
+     * Output adjacent rooms
+     */
+    public void outputAdjacentRooms() {
+        if (hasNorthRoom()) {
+            outputNorthRoom();
+        }
+        if (hasEastRoom()) {
+            outputEastRoom();
+        }
+        if (hasWestRoom()) {
+            outputWestRoom();
+        }
+        if (hasSouthRoom()) {
+            outputSouthRoom();
+        }
+        if (hasUpRoom()) {
+            outputUpRoom();
+        }
+        if (hasDownRoom()) {
+            outputDownRoom();
+        }
+    }
+    public void outputDirectionRoom(String direction, Room room) {
+        outputDirection(direction);
+        output(" is ");
+        outputRoom(room.getAdjacentName());
+    }
+    public void outputNorthRoom() {
+        outputDirectionRoom("North", northRoom);
+        if (isNorthBlocked()) {
+            outputNorthBlocked();
+        }
+
+    }
+    public void outputEastRoom() {
+        outputDirectionRoom("East", eastRoom);
+        if (isEastBlocked()) {
+            outputEastBlocked();
+        }
+    }
+    public void outputWestRoom() {
+        outputDirectionRoom("West", westRoom);
+        if (isWestBlocked()) {
+            outputWestBlocked();
+        }
+    }
+    public void outputSouthRoom() {
+        outputDirectionRoom("South", southRoom);
+        if (isSouthBlocked()) {
+            outputSouthBlocked();
+        }
+    }
+    public void outputUpRoom() {
+        outputDirectionRoom("Up", upRoom);
+        if (isUpBlocked()) {
+            outputUpBlocked();
+        }
+    }
+    public void outputDownRoom() {
+        outputDownRoom("Down", downRoom);
+        if (isDownBlocked()) {
+            outputDownBlocked();
+        }
+    }
 
     public Inventory<Collectable> getInventory() {
         return inv;
@@ -245,5 +331,35 @@ public abstract class Room extends GameObject {
     }
     public void setSouthBlocked(boolean southBlocked) {
         this.southBlocked = southBlocked;
+    }
+    public void setNorthBlockedReason(String northBlockedReason) {
+        this.northBlockedReason = northBlockedReason;
+    }
+    public void setEastBlockedReason(String eastBlockedReason) {
+        this.eastBlockedReason = eastBlockedReason;
+    }
+    public void setWestBlockedReason(String westBlockedReason) {
+        this.westBlockedReason = westBlockedReason;
+    }
+    public void setSouthBlockedReason(String southBlockedReason) {
+        this.southBlockedReason = southBlockedReason;
+    }
+    public String getNorhBlockedReason() {
+        return northBlockedReason;
+    }
+    public String getEastBlockedReason() {
+        return eastBlockedReason;
+    }
+    public String getWestBlockedReason() {
+        return westBlockedReason;
+    }
+    public String getSouthBlockedReason() {
+        return southBlockedReason;
+    }
+    public String getUpBlockedReason() {
+        return upBlockedReason;
+    }
+    public String getDownBlockedReason() {
+        return downBlockedReason;
     }
 }

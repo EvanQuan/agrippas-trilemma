@@ -48,6 +48,8 @@ public class GameMenu extends Menu {
      */
     public void outputLook() {
         room.outputDescription();
+        room.outputItems();
+        room.outputAdjacentRooms();
         // outputItems();
 
     }
