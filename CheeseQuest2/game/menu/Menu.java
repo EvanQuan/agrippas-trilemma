@@ -136,12 +136,15 @@ public abstract class Menu extends Outputable {
      * @return words stripped away from input
      */
     public String stripInput(int index) {
+        // debug
+        outputln("inputWords: " + Arrays.asList(inputWords));
         String output = "";
         if (inputWords.length < index) {
             index = inputWords.length;
         }
         output = String.join(" ", Arrays.copyOfRange(inputWords,0,index));
         inputWords = Arrays.copyOfRange(inputWords,index,inputWords.length);
+        outputln("stripInput(): " + output);
         return output;
 
     }

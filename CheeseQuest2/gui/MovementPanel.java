@@ -8,6 +8,8 @@ import javax.swing.border.TitledBorder;
  * Allows ease of access to player movement during game
  */
 class MovementPanel extends JPanel {
+
+    private static final long serialVersionUID = 1L;
     //Label
 
     //Buttons

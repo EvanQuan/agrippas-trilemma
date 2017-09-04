@@ -1,11 +1,17 @@
 package game.object.room;
 
+import game.object.item.collectable.*;
+import game.object.item.collectable.currency.*;
+
+
 public class TestRoom extends Room {
 
     public static final long serialVersionUID = 1L;
 
     public TestRoom() {
-        addSingleName(new String[] {"test room"});
+        addSingleName(new String[] {"test room","room of testing"});
+        // getInventory().add(3,Coin.getInstance());
+        // setSouthBlocked(true);
     }
 
     @Override

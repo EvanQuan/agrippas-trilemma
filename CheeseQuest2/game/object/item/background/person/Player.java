@@ -1,7 +1,7 @@
 /**
  *
  */
-package game.item.background.person;
+package game.object.item.background.person;
 
 /**
  * @author Quan

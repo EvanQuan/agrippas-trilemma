@@ -25,6 +25,9 @@ public abstract class GameObject extends Outputable implements Serializable {
         this.descriptions = new ArrayList<String>();
     }
 
+    /**
+     * Append properties
+     */
     public void addDescription(String[] descriptions) {
         addArrayToList(descriptions,this.descriptions);
     }
@@ -47,32 +50,39 @@ public abstract class GameObject extends Outputable implements Serializable {
     }
 
     public ArrayList<String> getDescriptions() {
-        return(this.descriptions);
+        return this.descriptions;
     }
     public ArrayList<String> getSingleNames() {
-        return(this.singleNames);
+        return this.singleNames;
     }
     public ArrayList<String> getPluralNames() {
-        return(this.pluralNames);
+        return this.pluralNames;
     }
 
     public String getDescription(int index) {
-        return(this.descriptions.get(index));
+        return this.descriptions.get(index);
     }
     public String getDescription() {
-        return(getDescription(DEFAULT));
+        return getDescription(DEFAULT);
     }
     public String getSingleName(int index) {
-        return(this.singleNames.get(index));
+        String name = "";
+        try {
+            name = this.singleNames.get(index);
+        } catch (Exception e)  {
+            outputln("singleNames: " + singleNames);
+            e.printStackTrace();
+        }
+        return name;
     }
     public String getSingleName() {
-        return(getSingleName(DEFAULT));
+        return getSingleName(DEFAULT);
     }
     public String getPluralName(int index) {
-        return(this.pluralNames.get(index));
+        return this.pluralNames.get(index);
     }
     public String getPluralName() {
-        return(getPluralName(DEFAULT));
+        return getPluralName(DEFAULT);
     }
 
     /**

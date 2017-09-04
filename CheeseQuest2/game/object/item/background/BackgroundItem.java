@@ -7,4 +7,5 @@ import game.object.item.Item;
  * Cannot be contained in inventories
  */
 public abstract class BackgroundItem extends Item {
+    private static final long serialVersionUID = 1L;
 }

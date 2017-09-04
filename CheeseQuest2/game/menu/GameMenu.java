@@ -3,6 +3,7 @@ package game.menu;
 import game.system.*;
 import game.object.room.*;
 import game.object.item.collectable.Collectable;
+import game.object.item.background.person.*;
 
 /**
  * Manages all in game actions
@@ -19,7 +20,9 @@ public class GameMenu extends Menu {
 
     @Override
     public void outputPrompt() {
-        outputLook();
+        // outputLook();
+        outputlnTitle("game menu");
+        outputln("You are now in the game menu");
     }
     public static GameMenu getInstance() {
         if (instance == null) {
@@ -32,6 +35,11 @@ public class GameMenu extends Menu {
         player = world.getPlayer();
         turnCount = world.getTurnCount();
     }
+    /**
+     * Returns current world
+     * NOTE: a new world is created every time this is called
+     * @return world
+     */
     public World getWorld() {
         World world = new World(room,player,turnCount);
         return world;
@@ -72,19 +80,7 @@ public class GameMenu extends Menu {
     //         }
     //     }
     // }
-    public boolean startsWithVowel(String string) {
-        switch(Character.toLowerCase(string.charAt(0))) {
-            case 'a':
-            case 'e':
-            case 'i':
-            case 'o':
-            case 'u':
-                return true;
-                break;
-            default:
-                return false;
-        }
-    }
+
     // The Northmen say the world will come to an end. The sun will grow black. The earth will sink into the sea. The stars will disappear. Fire and water will meet. Flames will play against the sky. The heavens and earth and all the world will be burned. All the gods will be dead, and the warriors of Valhalla, and people everywhere. Senua, prepare yourself for Ragnarok, for it is nigh.
     // The Northmen say the world will come to an end. The sun will grow black. The earth will sink into the sea. The stars will disappear. Fire and water will meet. Flames will play against the sky. The heavens and earth and all the world will be burned. All the gods will be dead, the warriors of Valhalla, and people everywhere. Prepare yourself for Ragnarok, for it is nigh.
 }

@@ -15,6 +15,9 @@ import javax.imageio.*;
 import java.io.*;
 
 public class MainFrame extends JFrame {
+
+    private static final long serialVersionUID = 1L;
+
     public static final int WINDOW_WIDTH = 1000;
     public static final int WINDOW_HEIGHT = 900;
     public static final int WINDOW_PADDING = 5;

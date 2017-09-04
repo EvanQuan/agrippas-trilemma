@@ -1,5 +1,6 @@
 package game.system;
 
+import java.io.Serializable;
 import java.util.*;
 import game.object.*;
 import game.object.item.background.*;
@@ -19,7 +20,7 @@ import game.object.item.collectable.equipable.offhand.*;
 /**
  * Inventory can store game objects
  */
-public class Inventory<T extends GameObject> {
+public class Inventory<T extends GameObject> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

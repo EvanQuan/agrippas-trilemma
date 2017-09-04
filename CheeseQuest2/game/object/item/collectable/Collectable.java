@@ -6,6 +6,9 @@ import game.object.item.*;
  * Can be contained in inventories
  */
 public abstract class Collectable extends Item {
+
+    private static final long serialVersionUID = 1L;
+
     private double value;
     private double weight;
 

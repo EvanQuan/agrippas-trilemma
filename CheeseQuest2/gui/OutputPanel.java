@@ -14,6 +14,9 @@ import javax.swing.text.StyledDocument;
  * Has a scroll pane
  */
 public class OutputPanel extends GridBagPanel {
+
+    private static final long serialVersionUID = 1L;
+
     public static final int TEXT_AREA_HEIGHT = 0;
     public static final int TEXT_AREA_WIDTH = 0;
     public static final int TEXT_X = 0;
@@ -42,6 +45,8 @@ public class OutputPanel extends GridBagPanel {
     public static final Color ROOM_COLOR = new Color(255, 153, 0); // orange
     public static final int SPEECH_STYLE = Font.ITALIC;
     public static final Color SPEECH_COLOR = new Color(120, 57, 145); // purple
+    public static final int DIRECTION_STYLE = Font.BOLD;
+    public static final Color DIRECTION_COLOR = new Color(89, 73, 73); // brown
 
     // Border font
     public static final String BORDER_NAME = "SansSerif";
@@ -68,6 +73,7 @@ public class OutputPanel extends GridBagPanel {
     private Font borderFont;
     private Font titleFont;
     private Font speechFont;
+    private Font directionFont;
 
     private static OutputPanel outputPanel = new OutputPanel();
 
@@ -88,6 +94,7 @@ public class OutputPanel extends GridBagPanel {
         borderFont = new Font(BORDER_NAME,BORDER_STYLE,BORDER_SIZE);
         titleFont = new Font(TITLE_NAME,TITLE_SIZE,TITLE_SIZE);
         speechFont = new Font(SPECIAL_NAME,SPEECH_STYLE,SPECIAL_SIZE);
+        directionFont = new Font(SPECIAL_NAME,DIRECTION_STYLE,SPECIAL_SIZE);
     }
 
 
@@ -196,6 +203,9 @@ public class OutputPanel extends GridBagPanel {
     }
     public void appendSpeech(String string) {
         append(string,speechFont,SPEECH_COLOR);
+    }
+    public void appendDirection(String string) {
+        append(string,directionFont,DIRECTION_COLOR);
     }
 
     /**

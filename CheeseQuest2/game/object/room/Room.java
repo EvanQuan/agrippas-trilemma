@@ -14,6 +14,12 @@ public abstract class Room extends GameObject {
     private Inventory<BackgroundItem> background;
     private Inventory<Person> people;
 
+    /**
+     * Name that room is referred to from other adjacent rooms' descriptions
+     * Defaults to primary singleName
+     */
+    private String adjacentName;
+
     private boolean firstTime;
 
     private Room northRoom;
@@ -44,6 +50,8 @@ public abstract class Room extends GameObject {
         people = new Inventory<Person>();
 
         firstTime = true;
+
+        adjacentName = getSingleName();
 
         northBlocked = false;
         eastBlocked = false;
@@ -87,7 +95,33 @@ public abstract class Room extends GameObject {
      * Output items in room
      */
     public void outputItems() {
-
+        // TODO
+        if (!inv.isEmpty()) {
+            output("There is ");
+            int i = 0; // Iterator used for establishing last item in inventory
+            int count;
+            for (Collectable item : inv.getItemSet()) {
+                count = inv.getCount(item);
+                if (count == 1) {
+                    output("a");
+                    if (startsWithVowel(item.getSingleName())) {
+                        output("n");
+                    }
+                    outputItem(" " + item.getSingleName());
+                } else {
+                    output(Integer.toString(count));
+                    outputItem(" " + item.getPluralName());
+                }
+                if ((i == inv.getItemCount() - 2) && (inv.getItemCount() > 1)) { // second last
+                    output(" and ");
+                } else if (i == inv.getItemCount() - 1) { // last
+                    outputln(" here.");
+                } else {
+                    output(", ");
+                }
+                i++;
+            }
+        }
     }
     /**
      * Output adjacent rooms
@@ -120,39 +154,45 @@ public abstract class Room extends GameObject {
     public void outputNorthRoom() {
         outputDirectionRoom("North", northRoom);
         if (isNorthBlocked()) {
-            outputNorthBlocked();
+            output(", " + northBlockedReason);
         }
+        outputln(".");
 
     }
     public void outputEastRoom() {
         outputDirectionRoom("East", eastRoom);
         if (isEastBlocked()) {
-            outputEastBlocked();
+            output(", " + eastBlockedReason);
         }
+        outputln(".");
     }
     public void outputWestRoom() {
         outputDirectionRoom("West", westRoom);
         if (isWestBlocked()) {
-            outputWestBlocked();
+            output(", " + westBlockedReason);
         }
+        outputln(".");
     }
     public void outputSouthRoom() {
         outputDirectionRoom("South", southRoom);
         if (isSouthBlocked()) {
-            outputSouthBlocked();
+            output(", " + southBlockedReason);
         }
+        outputln(".");
     }
     public void outputUpRoom() {
         outputDirectionRoom("Up", upRoom);
         if (isUpBlocked()) {
-            outputUpBlocked();
+            output(", " + upBlockedReason);
         }
+        outputln(".");
     }
     public void outputDownRoom() {
-        outputDownRoom("Down", downRoom);
+        outputDirectionRoom("Down", downRoom);
         if (isDownBlocked()) {
-            outputDownBlocked();
+            output(", " + downBlockedReason);
         }
+        outputln(".");
     }
 
     public Inventory<Collectable> getInventory() {
@@ -206,6 +246,12 @@ public abstract class Room extends GameObject {
     }
     public boolean hasSouthRoom() {
         return southRoom != null;
+    }
+    public boolean hasUpRoom() {
+        return upRoom != null;
+    }
+    public boolean hasDownRoom() {
+        return downRoom != null;
     }
 
     /**
@@ -320,6 +366,12 @@ public abstract class Room extends GameObject {
     public boolean isSouthBlocked() {
         return southBlocked;
     }
+    public boolean isUpBlocked() {
+        return upBlocked;
+    }
+    public boolean isDownBlocked() {
+        return downBlocked;
+    }
     public void setNorthBlocked(boolean northBlocked) {
         this.northBlocked = northBlocked;
     }
@@ -332,6 +384,12 @@ public abstract class Room extends GameObject {
     public void setSouthBlocked(boolean southBlocked) {
         this.southBlocked = southBlocked;
     }
+    public void setUpBlocked(boolean upBlocked) {
+        this.upBlocked = upBlocked;
+    }
+    public void setDownBlocked(boolean downBlocked) {
+        this.downBlocked = downBlocked;
+    }
     public void setNorthBlockedReason(String northBlockedReason) {
         this.northBlockedReason = northBlockedReason;
     }
@@ -343,6 +401,12 @@ public abstract class Room extends GameObject {
     }
     public void setSouthBlockedReason(String southBlockedReason) {
         this.southBlockedReason = southBlockedReason;
+    }
+    public void setUpBlockedReason(String upBlockedReason) {
+        this.upBlockedReason = upBlockedReason;
+    }
+    public void setDownBlockedReason(String downBlockedReason) {
+        this.downBlockedReason = downBlockedReason;
     }
     public String getNorhBlockedReason() {
         return northBlockedReason;
@@ -361,5 +425,18 @@ public abstract class Room extends GameObject {
     }
     public String getDownBlockedReason() {
         return downBlockedReason;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
+    }
+    public boolean getFirstTime() {
+        return firstTime;
+    }
+    public void setAdjacentName(String adjacentName) {
+        this.adjacentName = adjacentName;
+    }
+    public String getAdjacentName() {
+        return adjacentName;
     }
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import game.*;
 import game.object.*;
 import game.object.room.*;
+import game.object.item.background.person.*;
 import main.CheeseQuest;
 
 /**
@@ -35,7 +36,7 @@ public class World implements Serializable {
         this.version = CheeseQuest.getVersion();
     }
     public World() {
-        this.room = new TestRoom();
+        initialize();
         this.turnCount = 0;
         this.version = CheeseQuest.getVersion();
     }
@@ -69,6 +70,6 @@ public class World implements Serializable {
         TestRoom testRoom = new TestRoom();
 
         // Starting room
-        room = testRoom;
+        this.room = testRoom;
     }
 }

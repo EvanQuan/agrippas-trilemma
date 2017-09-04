@@ -75,8 +75,9 @@ public class LoadMenu extends Menu {
             loadGame(Integer.parseInt(stripInput()));
             changeToGameMenu();
         } else if (inputStartsWith(validSaves)) { // Create new game
-            createGame(Integer.parseInt(stripInput()));
-            loadGame(Integer.parseInt(stripInput())); // load game created
+            int saveNum = Integer.parseInt(stripInput());
+            createGame(saveNum);
+            loadGame(saveNum); // load game created
             changeToGameMenu();
         } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
             if (inputStartsWith(existingSaves)) {
@@ -127,11 +128,12 @@ public class LoadMenu extends Menu {
      * @param int saveNum of thworld to create
      */
     public void createGame(int saveNum) {
-        // World world = new World();
-        // WriteObject.setSaveNum(saveNum);
-        // WriteObject.serialize(world);
-        // GameMenu gameMenu = GameMenu.getInstance();
-        // gameMenu.setWorld(world);
+        WriteObject writer = WriteObject.getInstance();
+        World world = new World();
+        writer.setSaveNum(saveNum);
+        writer.serialize(world);
+        GameMenu gameMenu = GameMenu.getInstance();
+        gameMenu.setWorld(world);
     }
 
     /**

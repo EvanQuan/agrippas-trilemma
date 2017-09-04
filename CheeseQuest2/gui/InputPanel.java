@@ -14,6 +14,9 @@ import game.menu.*;
  * Saves previous input, which can be acquired through uparrow like in terminal
  */
 public class InputPanel extends GridBagPanel {
+
+    private static final long serialVersionUID = 1L;
+
     public static final int TEXT_MAX_WIDTH = 50;
     public static final int TEXT_X = 0;
     public static final int TEXT_Y = 0;
@@ -40,6 +43,8 @@ public class InputPanel extends GridBagPanel {
      * Works alongside manually pressing inputButton
      */
     private AbstractAction action = new AbstractAction() {
+        private static final long serialVersionUID = 1L;
+
         @Override
         public void actionPerformed(ActionEvent e) {
             String input = inputTextField.getText();
