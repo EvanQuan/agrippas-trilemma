@@ -48,19 +48,54 @@ public class GameMenu extends Menu {
         changeToLoadMenu();
     }
 
+
+
+
+
+    /**
+     * In game actions
+     * - End game
+     * - Increment turn counter
+     * - Regulate player statics
+     *  - Health
+     *  - Mana
+     *  - Corruption
+     *  - Hunger
+     *  - Living status
+     * - Change current room
+     * Player actions
+     * - Take
+     * - Drop
+     * - Eat
+     * - Drink
+     * - Buy
+     * - Sell
+     * - Give
+     * - Examine
+     * - Mine
+     * - Throw
+     * Room actions
+     * - firstTime toggling
+     * - Look
+     * - Transfer items
+     * - Change direction block status
+     * - Lock/unlock/open/close containers
+     */
+
     /**
      * Look at room surroundings
      * People present
      * Items
      * Adjacent rooms
      */
-    public void outputLook() {
+    public void playerLook() {
         room.outputDescription();
         room.outputItems();
         room.outputAdjacentRooms();
         // outputItems();
 
     }
+    // public void output()
 
     /**
      * Output information about all items present in room
