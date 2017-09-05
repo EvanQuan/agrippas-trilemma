@@ -7,9 +7,9 @@ public class Coin extends Currency {
     private static Coin instance;
 
     private Coin() {
-        addSingleName(new String[] {"coin"});
-        addPluralName(new String[] {"coins"});
-        addDescription(new String[] {"The edges are worn down from handling."});
+        setSingleNames(new String[] {"coin"});
+        setPluralNamesDefault();
+        setDescriptions(new String[] {"The edges are worn down from handling."});
         setWeight(0.01);
     }
 

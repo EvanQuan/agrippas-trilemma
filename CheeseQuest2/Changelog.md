@@ -6,6 +6,9 @@ Single-player text adventure game
 Developed in Java 1.8
 
 ## Changelog
+### 0.2.0 - September 5, 2017
+- Creating, loading and deleting game saves in LoadMenu implemented and functions properly
+- Items have serialVersionUIDs
 ### 0.1.0 - September 3, 2017
 - Game driver CheeseQuest implemented and moved to main package
 - Inventory removes items if item count is non-positive

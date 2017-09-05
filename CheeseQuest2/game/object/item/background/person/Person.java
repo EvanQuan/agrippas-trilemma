@@ -11,7 +11,15 @@ import game.system.Inventory;
  */
 public abstract class Person extends BackgroundItem {
 
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+
+    public static final int ALIVE = 0;
+    public static final int DEAD = 1;
+    public static final int DEFAULT_MAX_HEALTH = 100;
+    public static final int DEFAULT_MAX_MANA = 100;
+    public static final int DEFAULT_MAX_FULLNESS = 100;
+    public static final int DEFAULT_MAX_CORRUPTION = DEFAULT_MAX_HEALTH - 1;
+    public static final String DEFAULT_NAME = "Person";
 
     private Inventory<Collectable> inv;
     private String name;
@@ -21,8 +29,8 @@ public abstract class Person extends BackgroundItem {
     private int health;
     private int maxMana;
     private int mana;
-    private int maxHunger;
-    private int hunger;
+    private int maxFullness;
+    private int fullness;
     private int maxCorruption;
     private int corruption;
 
@@ -31,7 +39,16 @@ public abstract class Person extends BackgroundItem {
     */
     public Person() {
         inv = new Inventory<Collectable>();
+        name = DEFAULT_NAME;
         this.alive = true;
+        maxHealth = DEFAULT_MAX_HEALTH;
+        health = maxHealth;
+        maxMana = DEFAULT_MAX_MANA;
+        mana = maxMana;
+        maxFullness = DEFAULT_MAX_FULLNESS;
+        fullness = maxFullness;
+        maxCorruption = DEFAULT_MAX_CORRUPTION;
+        corruption = maxCorruption;
     }
 
     /**
@@ -98,41 +115,83 @@ public abstract class Person extends BackgroundItem {
     }
 
     public int getHealth() {
-        return this.health;
+        return health;
     }
 
     public int getMana() {
-        return this.mana;
+        return mana;
+    }
+
+    public int getFullness() {
+        return fullness;
     }
 
     public int getCorruption() {
-        return this.corruption;
+        return corruption;
     }
 
     public void setHealth(int health) {
-        if (this.health + health < 0) {
+        if (health < 0) {
             this.health = 0;
+        } else if (health > maxHealth) {
+            this.health = maxHealth;
         } else {
             this.health = health;
         }
     }
+    public void addHealth(int health) {
+        setHealth(this.health + health);
+    }
+    public void removeHealth(int health) {
+        setHealth(this.health - health);
+    }
 
     public void setMana(int mana) {
-        if (this.mana + mana < 0) {
+        if (mana < 0) {
             this.mana = 0;
+        } else if (mana > maxMana) {
+            this.mana = maxMana;
         } else {
             this.mana = mana;
         }
     }
+    public void addMana(int mana) {
+        setMana(this.mana + mana);
+    }
+    public void removeMana(int mana) {
+        setMana(this.mana - mana);
+    }
+
+    public void setFullness(int fullness) {
+        if (fullness < 0) {
+            this.fullness = 0;
+        } else if (fullness > maxFullness) {
+            this.fullness = maxFullness;
+        } else {
+            this.fullness = fullness;
+        }
+    }
+    public void addFullness(int fullness) {
+        setFullness(this.fullness + fullness);
+    }
+    public void removeFullness(int fullness) {
+        setFullness(this.fullness - fullness);
+    }
 
     public void setCorruption(int corruption) {
-        if (this.corruption + corruption < 0) {
+        if (corruption < 0) {
             this.corruption = 0;
-        } else if (this.corruption + corruption > this.health) {
-            this.corruption = this.health - 1;
+        } else if (corruption > maxCorruption) {
+            this.corruption = maxCorruption;
         } else {
             this.corruption = corruption;
         }
+    }
+    public void addCorruption(int corruption) {
+        setCorruption(this.corruption + corruption);
+    }
+    public void removeCorruption(int corruption) {
+        setCorruption(this.corruption - corruption);
     }
 
     /**
@@ -159,6 +218,4 @@ public abstract class Person extends BackgroundItem {
     public void drop(int count, Collectable collectable) {
         inv.remove(count,collectable);
     }
-
-
 }

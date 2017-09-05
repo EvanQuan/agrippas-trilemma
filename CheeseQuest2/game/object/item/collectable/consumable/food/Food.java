@@ -9,26 +9,26 @@ public abstract class Food extends Consumable {
 
     private static final long serialVersionUID = 1L;
 
-    private double hunger;
+    private double fullness;
 
     public Food() {
-        setHunger(DEFAULT);
+        setFullness(DEFAULT);
     }
 
 
     /**
-    * Returns value of hunger
+    * Returns value of fullness
     * @return
     */
-    public double getHunger() {
-        return hunger;
+    public double getFullness() {
+        return fullness;
     }
 
     /**
-    * Sets new value of hunger
+    * Sets new value of fullness
     * @param
     */
-    public void setHunger(double hunger) {
-        this.hunger = hunger;
+    public void setFullness(double fullness) {
+        this.fullness = fullness;
     }
 }

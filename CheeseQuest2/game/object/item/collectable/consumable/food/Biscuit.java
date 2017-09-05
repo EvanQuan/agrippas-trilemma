@@ -1,12 +1,15 @@
 package game.object.item.collectable.consumable.food;
 
+import game.object.item.collectable.consumable.food.Food;
+
 public class Biscuit extends Food {
+    private static final long serialVersionUID = 1L;
     public Biscuit() {
-        addSingleName(new String[] {"hardtack biscuit", "biscuit"});
-        addPluralName(new String[] {"hardtack biscuits", "biscuits"});
-        addDescription(new String[] {"harder than a brick and probably just as tasty."});
+        setSingleNames(new String[] {"hardtack biscuit", "biscuit"});
+        setPluralNames(new String[] {"hardtack biscuits", "biscuits"});
+        setDescriptions(new String[] {"harder than a brick and probably just as tasty."});
         setValue(5);
         setWeight(0.1);
-        setHunger(30);
+        setFullness(30);
     }
 }

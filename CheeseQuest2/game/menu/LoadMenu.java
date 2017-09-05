@@ -51,18 +51,19 @@ public class LoadMenu extends Menu {
         outputlnTitle(LOAD_GAME);
         String gameName;
         for (int i = 0; i < MAXIMUM_SAVES; i++) {
-            outputItem((i + 1) + ". ");
-            outputln(saveInfo.get(i));
+            outputItem(Integer.toString(i + 1));
+            outputln(". " + saveInfo.get(i));
         }
         outputln();
-        outputItem("Load");
+        outputPlayer("Load");
         output(" or ");
-        outputItem("Delete");
+        outputPlayer("Delete");
         output(" a save file, or ");
-        outputItem("Return");
+        outputPlayer("Return");
         output(" to the ");
         if (MenuManager.getInstance().getLastMenu().equals(MainMenu.getInstance())) {
-            outputln("Main Menu.");
+            outputRoom("Main Menu");
+            outputln(".");
         } else {
             outputln("the game.");
         }
@@ -81,7 +82,10 @@ public class LoadMenu extends Menu {
             changeToGameMenu();
         } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
             if (inputStartsWith(existingSaves)) {
-                boolean deleted = WriteObject.getInstance().deleteSave();
+                int saveNum = Integer.parseInt(stripInput());
+                WriteObject writer = WriteObject.getInstance();
+                writer.setSaveNum(saveNum);
+                boolean deleted = writer.deleteSave();
                 if (deleted) {
                     outputDeleted();
                 } else {
@@ -90,6 +94,7 @@ public class LoadMenu extends Menu {
             } else {
                 outputNotDeleted();
             }
+            outputPrompt();
         } else if (inputStartsWithStrip(RETURN_TO_PREVIOUS_MENU)) {
             changeToLastMenu();
         } else {
@@ -129,11 +134,11 @@ public class LoadMenu extends Menu {
      */
     public void createGame(int saveNum) {
         WriteObject writer = WriteObject.getInstance();
-        World world = new World();
+        World world = new World(); // New default world
         writer.setSaveNum(saveNum);
         writer.serialize(world);
-        GameMenu gameMenu = GameMenu.getInstance();
-        gameMenu.setWorld(world);
+        // GameMenu gameMenu = GameMenu.getInstance();
+        // gameMenu.setWorld(world);
     }
 
     /**

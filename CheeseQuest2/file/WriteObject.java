@@ -111,8 +111,7 @@ public class WriteObject extends FileObject {
             deleted = Files.deleteIfExists(getSave().toPath());
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            return deleted;
         }
+        return deleted;
     }
 }

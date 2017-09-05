@@ -22,15 +22,7 @@ public abstract class Menu extends Outputable {
     private MenuManager menuManager; // Cannot have menuManeger, or infinite recursion occurs??
 
     public Menu() {
-        // System.out.println("Menu()");
         menuManager = MenuManager.getInstance();
-        // debug
-        // if (menuManager == null) {
-        //     System.out.println("    menuManager is NULL");
-        // } else {
-        //     System.out.println("    menuManager is " + menuManager);
-        // }
-        // menuManager = MenuManager.getInstance();
     }
 
     /**
@@ -136,15 +128,12 @@ public abstract class Menu extends Outputable {
      * @return words stripped away from input
      */
     public String stripInput(int index) {
-        // debug
-        outputln("inputWords: " + Arrays.asList(inputWords));
         String output = "";
         if (inputWords.length < index) {
             index = inputWords.length;
         }
         output = String.join(" ", Arrays.copyOfRange(inputWords,0,index));
         inputWords = Arrays.copyOfRange(inputWords,index,inputWords.length);
-        outputln("stripInput(): " + output);
         return output;
 
     }

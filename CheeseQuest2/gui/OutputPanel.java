@@ -42,7 +42,7 @@ public class OutputPanel extends GridBagPanel {
     public static final int SPECIAL_SIZE = DEFAULT_SIZE;
     public static final Color ITEM_COLOR = new Color(185, 0, 0); // red
     public static final Color PERSON_COLOR = new Color(60, 150, 130); // green
-    public static final Color ROOM_COLOR = new Color(255, 153, 0); // orange
+    public static final Color ROOM_COLOR = new Color(255, 84, 0); // orange
     public static final int SPEECH_STYLE = Font.ITALIC;
     public static final Color SPEECH_COLOR = new Color(120, 57, 145); // purple
     public static final int DIRECTION_STYLE = Font.BOLD;
@@ -58,7 +58,7 @@ public class OutputPanel extends GridBagPanel {
     public static final String TITLE_NAME = "Consolas";
     public static final int TITLE_STYLE = Font.BOLD;
     public static final int TITLE_SIZE = DEFAULT_SIZE + 2;
-    public static final Color TITLE_COLOR = ITEM_COLOR;
+    public static final Color TITLE_COLOR = ROOM_COLOR;
 
     // Speech font
 
@@ -92,7 +92,7 @@ public class OutputPanel extends GridBagPanel {
         inputFont = new Font(INPUT_NAME,INPUT_STYLE,INPUT_SIZE);
         specialFont = new Font(SPECIAL_NAME,SPECIAL_STYLE,SPECIAL_SIZE);
         borderFont = new Font(BORDER_NAME,BORDER_STYLE,BORDER_SIZE);
-        titleFont = new Font(TITLE_NAME,TITLE_SIZE,TITLE_SIZE);
+        titleFont = new Font(TITLE_NAME,TITLE_STYLE,TITLE_SIZE);
         speechFont = new Font(SPECIAL_NAME,SPEECH_STYLE,SPECIAL_SIZE);
         directionFont = new Font(SPECIAL_NAME,DIRECTION_STYLE,SPECIAL_SIZE);
     }

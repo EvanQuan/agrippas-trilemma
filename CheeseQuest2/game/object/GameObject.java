@@ -14,29 +14,59 @@ public abstract class GameObject extends Outputable implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
+
     public static final int DEFAULT = 0;
     private ArrayList<String> singleNames;
     private ArrayList<String> pluralNames;
     private ArrayList<String> descriptions;
 
     public GameObject() {
-        this.singleNames = new ArrayList<String>();
-        this.pluralNames = new ArrayList<String>();
-        this.descriptions = new ArrayList<String>();
+        singleNames = new ArrayList<String>();
+        pluralNames = new ArrayList<String>();
+        descriptions = new ArrayList<String>();
+        singleNames.add("game object");
+        descriptions.add("Default description");
     }
 
     /**
+     * Set properties
+     */
+    public void setDescriptions(String[] descriptions) {
+        setArrayToList(descriptions,this.descriptions);
+    }
+    public void setSingleNames(String[] singleNames) {
+        setArrayToList(singleNames,this.singleNames);
+    }
+    public void setPluralNames(String[] pluralNames) {
+        setArrayToList(pluralNames,this.pluralNames);
+    }
+    /**
+     * Plural names are identical to single names with appended 's' character
+     */
+    public void setPluralNamesDefault() {
+        pluralNames.clear();
+        for (int i = 0; i < singleNames.size(); i++) {
+            pluralNames.add(i,singleNames.get(i) + "s");
+        }
+    }
+    protected void setArrayToList(String[] array, ArrayList<String> list) {
+        list.clear();
+        addArrayToList(array,list);
+    }
+    /**
      * Append properties
      */
-    public void addDescription(String[] descriptions) {
+    public void addDescriptions(String[] descriptions) {
         addArrayToList(descriptions,this.descriptions);
     }
-    public void addSingleName(String[] singleNames) {
+    public void addSingleNames(String[] singleNames) {
         addArrayToList(singleNames,this.singleNames);
     }
-    public void addPluralName(String[] pluralNames) {
+    public void addPluralNames(String[] pluralNames) {
         addArrayToList(pluralNames,this.pluralNames);
     }
+
     protected void addArrayToList(String[] array, ArrayList<String> list) {
         list.addAll(Arrays.asList(array));
     }

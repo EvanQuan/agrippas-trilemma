@@ -20,9 +20,7 @@ public class GameMenu extends Menu {
 
     @Override
     public void outputPrompt() {
-        // outputLook();
-        outputlnTitle("game menu");
-        outputln("You are now in the game menu");
+        playerLook();
     }
     public static GameMenu getInstance() {
         if (instance == null) {
@@ -41,8 +39,14 @@ public class GameMenu extends Menu {
      * @return world
      */
     public World getWorld() {
-        World world = new World(room,player,turnCount);
-        return world;
+        try {
+            World world = new World(room,player,turnCount);
+            return world;
+        } catch (Exception e) {
+            System.out.println("GameMenu.getWorld(): World has not been initialized and cannot be returned.");
+            e.printStackTrace();
+            return null;
+        }
     }
     public void quit() {
         changeToLoadMenu();
