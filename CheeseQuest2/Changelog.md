@@ -6,6 +6,8 @@ Single-player text adventure game
 Developed in Java 1.8
 
 ## Changelog
+### 0.2.0a - September 5, 2017
+- Add inputRemains() for Menu
 ### 0.2.0 - September 5, 2017
 - Creating, loading and deleting game saves in LoadMenu implemented and functions properly
 - Items have serialVersionUIDs

@@ -33,6 +33,22 @@ public class GameMenu extends Menu {
         player = world.getPlayer();
         turnCount = world.getTurnCount();
     }
+    @Override
+    public void processInput() {
+        if (inputStartsWithStrip("look")) {
+            if (inputRemains()) {
+                outputln("You can't look at that."); // NOTE: Change later debug
+            } else {
+                playerLook();
+            }
+        } else if (inputStartsWithStrip(new String[] {"quit","quit game"})) {
+            if (inputRemains()) {
+                outputln("You can't do that.");
+            } else {
+                quit(); // NOTE: Change to GameOverMenu
+            }
+        }
+    }
     /**
      * Returns current world
      * NOTE: a new world is created every time this is called

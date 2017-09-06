@@ -144,6 +144,13 @@ public abstract class Menu extends Outputable {
     public String stripInput() {
         return stripInput(1);
     }
+    /**
+     * Checks if there exists remaining words in inputWords to parse
+     * @return true if inputWords.length > 0
+     */
+    public boolean inputRemains() {
+        return inputWords.length > 0;
+    }
 
     public boolean wordEquals(String word, String[] array) {
         return Arrays.asList(array).contains(word.toLowerCase());
