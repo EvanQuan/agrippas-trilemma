@@ -1,12 +1,10 @@
-# Cheese Quest 2: The Plague of Kashkaval
+Change Log
+==========
+This project adheres to [Semantic Versioning](http://semver.org/).
 
-Evan Quan August 01, 2017
-Single-player text adventure game
 
-Developed in Java 1.8
-
-## Changelog
-### 0.3.0 - September 6, 2017
+[v0.6.0] - September 6, 2017
+---------------------------
 - Revamped game saving
     - Implemented SaveManager
     - Removed FileObject, WriteObject, ReadObject
@@ -20,14 +18,22 @@ Developed in Java 1.8
         - Verb pre-input check is either previous verb or null if first turn
 - Implemented getStringArrayList() and getIntegerArrayList() utility functions to Menu
 - Overrode all input parsing and output methods with integer and double equivalents
-### 0.2.0 - September 5, 2017
+
+
+[v0.5.0] - September 5, 2017
+---------------------------
 - Creating, loading and deleting game saves in LoadMenu implemented and functions properly
 - Items have serialVersionUIDs
-### 0.1.0 - September 3, 2017
+
+
+[v0.4.0] - September 3, 2017
+---------------------------
+### Added
 - Game driver CheeseQuest implemented and moved to main package
 - Inventory removes items if item count is non-positive
 - Person implemented
 - Speech, Title and Direction font added
+### Changed
 - Menu input processing changed
     - No longer breaks input by verb and remaining words, as verb may be multiple words
     - Now works similar to Cheese Quest 1, where input is processed by constantly stripping away words from the start of the inputString
@@ -37,17 +43,35 @@ Developed in Java 1.8
     - Room description, item description, direction output methods implemented
 - Added Outputable class so all GameObject's and Menu's can output directly
 - Player moved from system package to person package
-### 0.0.4a - August 19, 2017
+
+
+[v0.3.1] - August 19, 2017
+### Fixed
 - Changing between menus now works.
-### 0.0.4 - August 18, 2017
+
+
+[v0.3.0] - August 18, 2017
+--------------------------
+### Added
 - InputPanel can now retrieve previous input like command line
 - InputPanel's JTextField regains focus when MainFrame regains focus
 - OutputPanel now uses color
     - Implemented in MainMenu
-### 0.0.3 - August 8, 2017
+
+
+[v0.2.0] - August 8, 2017
+-------------------------
+### Added
 - Implemented GUI skeleton
     - InputPanel and OutputPanel in MainFrame
-### 0.0.2 - August 4, 2017
-- Implemented WriteObject and ReadObject to save games
-### 0.0.1 - August 1-3, 2017
-- Started organizing package structure and implementing classes
+
+
+[v0.2.0] - August 4, 2017
+-------------------------
+### Added
+- WriteObject and ReadObject to save games
+
+
+[v0.1.0] - August 1, 2017
+-------------------------
+Started organizing package structure and implementing classes

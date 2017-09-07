@@ -497,13 +497,13 @@ public abstract class Menu extends Outputable {
         return getStringArrayList(getIntegerArrayList(intArray));
     }
     public ArrayList<String> getStringArrayList(int integer) {
-        return getStringArrayList(new String[] {word});
+        return getStringArrayList(getStringArrayList(integer));
     }
     public ArrayList<String> getStringArrayList(double[] doubleArray) {
         return getStringArrayList(getDoubleArrayList(doubleArray));
     }
     public ArrayList<String> getStringArrayList(double doub) {
-        return getStringArrayList(new String[] {doub});
+        return getStringArrayList(getStringArrayList(doub));
     }
     public ArrayList<String> getStringArrayList(String[] strArray) {
         return new ArrayList<String>(Arrays.asList(strArray));
