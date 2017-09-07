@@ -12,7 +12,7 @@ import game.system.Outputable;
  */
 public abstract class Menu extends Outputable {
 
-
+    public static final String UNDEFINED = "";
     private String inputString;
     private String[] originalInputWords;
     private String[] inputWords;
@@ -39,6 +39,7 @@ public abstract class Menu extends Outputable {
         this.inputString = input;
         this.inputWords = inputString.split(" ");
         this.originalInputWords = inputWords;
+        this.verb = UNDEFINED;
         outputPlayerInput();
         processInput();
     }
@@ -63,6 +64,7 @@ public abstract class Menu extends Outputable {
 
     // Input processing
     // Words are processed one by one from the start and are stripped away
+    // Verb can be manually set or is automatically defined upon new player input
     /**
      * Checks if input starts with an element of arrayList
      * @param  ArrayList arrayList
@@ -85,7 +87,7 @@ public abstract class Menu extends Outputable {
                         if (strip) {
                             tempVerb = stripInput(longestWord);
                         }
-                        if (setVerb) {
+                        if (setVerb || this.verb.equals(UNDEFINED)) {
                             this.verb = tempVerb;
                         }
                         return true;
@@ -294,38 +296,18 @@ public abstract class Menu extends Outputable {
      * @param  String[] array         [description]
      * @return          [description]
      */
-    // public boolean verbEquals(String[] array) {
-    //     return verbEquals(new ArrayList<String>(Arrays.asList(array)));
-    //     // return wordEquals(getVerb(),array);
-    // }
+    public boolean verbEquals(String[] array) {
+        return wordEquals(verb,array);
+    }
     /**
      * Checks if input starts with an element of arrayList
      * If so, sets starting word(s) to verb and rest to remainingWords
      * @param  ArrayList<String> arrayList
      * @return
      */
-    // public boolean verbEquals(ArrayList<String> arrayList) {
-    //     int longestWord = 0;
-    //     String[] words;
-    //     String verb; // verb may be multiple words
-    //     for (int i = 0; i < arrayList.size(); i++) {
-    //         words = arrayList.get(i).split(" "); // entries in array may have multiple words
-    //         if (words.length > longestWord) {
-    //             longestWord = words.length;
-    //             verb = String.join(" ", Arrays.copyOfRange(inputWords,0,longestWord)); // make verb multiple words if need be
-    //             if (wordEquals(verb,arrayList)) {
-    //                 this.verb = verb;
-    //                 makeRemainingWords(longestWord);
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    //     return false;
-    //     // return wordEquals(getVerb(),arrayList);
-    // }
-    // public boolean verbEquals(String word) {
-    //     return verbEquals(new String[] {word});
-    // }
+    public boolean verbEquals(ArrayList<String> arrayList) {
+        return wordEquals(verb,arrayList);
+    }
     /**
      * From verb, set remaining words from inputWords to remainingWords
      */

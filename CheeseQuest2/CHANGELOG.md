@@ -3,8 +3,19 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+
+[v0.7.0] - September 7, 2017
+---------------------------
+### Changed
+- Verb does not need to be explicitly created
+- Verb is automatically created on first input check, and is reset between player inputs
+    - Verb can still be manually set incase it's needed to change mid-turn
+
+
+
 [v0.6.0] - September 6, 2017
 ---------------------------
+### Added
 - Revamped game saving
     - Implemented SaveManager
     - Removed FileObject, WriteObject, ReadObject
@@ -20,10 +31,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Overrode all input parsing and output methods with integer and double equivalents
 
 
+
 [v0.5.0] - September 5, 2017
 ---------------------------
-- Creating, loading and deleting game saves in LoadMenu implemented and functions properly
+### Added
 - Items have serialVersionUIDs
+### Fixed
+- Creating, loading and deleting game saves in LoadMenu implemented and functions properly
+
 
 
 [v0.4.0] - September 3, 2017
@@ -45,9 +60,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Player moved from system package to person package
 
 
+
 [v0.3.1] - August 19, 2017
+--------------------------
 ### Fixed
 - Changing between menus now works.
+
 
 
 [v0.3.0] - August 18, 2017
@@ -59,6 +77,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - Implemented in MainMenu
 
 
+
 [v0.2.0] - August 8, 2017
 -------------------------
 ### Added
@@ -66,10 +85,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - InputPanel and OutputPanel in MainFrame
 
 
+
 [v0.2.0] - August 4, 2017
 -------------------------
 ### Added
 - WriteObject and ReadObject to save games
+
 
 
 [v0.1.0] - August 1, 2017

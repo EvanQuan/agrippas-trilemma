@@ -88,13 +88,13 @@ public class LoadMenu extends Menu {
     @Override
     public void processInput() {
         if (inputStartsWithStrip(LOAD_OPTIONS)) {
-            if (inputEquals(saveNums)) { // Load prexisting game by number
+            if (inputEquals(saveNums)) { // Load game by number
                 loadGame(Integer.parseInt(stripInput()));
                 changeToGameMenu();
-            } else if (inputEquals(saveNames)){ // Load prexisting game by name
+            } else if (inputEquals(saveNames)){ // Load game by name
                 loadGame(getInputString());
                 changeToGameMenu();
-            } else if (inputEquals(saveNums.size())) { // Create new game
+            } else if (inputEquals(saveNums.size())) { // Create new game by number
                 int saveNum = Integer.parseInt(stripInput());
                 createGame(saveNum);
                 loadGame(saveNum); // load game created

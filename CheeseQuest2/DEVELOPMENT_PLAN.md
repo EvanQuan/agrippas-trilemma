@@ -1,3 +1,48 @@
+Development Plan
+================
+
+Priority features
+-----------------
+What's currently being worked on in descending order.
+### Short term
+- Getting new revamped LoadMenu to function correctly
+- Improve input parsing
+- Basic commands
+- Room interaction
+- In-game saving and loading
+- GameOverMenu
+### Long term
+- Other GUI components
+- Art for each room (and art panel)
+- Music/sound effects
+
+
+
+Problems
+--------
+If self unresolved, will create major long-term development issues
+- How to implement loop-like behavior for GUI input
+    - GUI input works fundamentally different than command line standard input/output and does not "wait" for the user to input within for/while loops
+    - Solution: Have ad hoc boolean variables that bypass if/else-if statements to reach desired input processing
+        - Downside: Extremely messy and bug-prone if enough are added into processInput();
+- How to implement other GUI components
+    - Movement panel
+        - Movement creates predefined user input, which can easily be done by directly interacting with output panel
+    - Inventory panel
+        - player taking, dropping updates inventory text pane
+    - Stat panel
+        - End of every turn updates stats as they are depleted/replenished
+    - Spell panel
+        - player learning spells updates spell text pane, both in name and in spell meaning
+    - Current room/menu title/panel
+    - Send button for input panel
+        - Send button either needs to directly send an enter key press into the input text field, or get text from input text field, directly interact with output panel and clear input text field
+
+
+
+Brainstorming
+-------------
+Rough ideas to implement.
 # New Mechanics
 ## Day and Night cycle
 Instead of a cave (or in addition to a cave), there is a day and night cycle, which requires the player to use a lantern to traverse outside of Airedale or be caught by the monster.
@@ -52,4 +97,5 @@ Snofrisk
 
 # Characters
 - Sigurd Ogleshield
-- 
+- Mysterious figure
+    - Give name?
