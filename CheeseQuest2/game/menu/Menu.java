@@ -8,17 +8,17 @@ import game.system.Outputable;
 /**
  * Receives input string
  * Outputs corresponding output string
+ * NOTE Unchecked ArrayList methods imply types are String, Double, or Integer only
  */
 public abstract class Menu extends Outputable {
 
-    public static final int INPUT_SPACING = 4;
-    public static final String INPUT_MARKER = "> ";
-    public static final int VERB = 0;
+
     private String inputString;
+    private String[] originalInputWords;
     private String[] inputWords;
     // private String remainingString;
     // private String[] remainingWords;
-    // private String verb;
+    private String verb;
     private MenuManager menuManager; // Cannot have menuManeger, or infinite recursion occurs??
 
     public Menu() {
@@ -38,6 +38,7 @@ public abstract class Menu extends Outputable {
     public void input(String input) {
         this.inputString = input;
         this.inputWords = inputString.split(" ");
+        this.originalInputWords = inputWords;
         outputPlayerInput();
         processInput();
     }
@@ -53,73 +54,158 @@ public abstract class Menu extends Outputable {
      * Output player input with input marker
      */
     public void outputPlayerInput() {
-        outputln(INPUT_SPACING);
+        outputlns(INPUT_SPACING);
         outputPanel.append(INPUT_MARKER);
         outputPanel.appendInput(inputString + "\n");
-    }
-    public void outputPlayerInput(String output) {
-        outputln(INPUT_SPACING);
-        outputPlayerInputNoSpace(output);
-    }
-    public void outputPlayerInputNoSpace(String output) {
-        outputPanel.append(INPUT_MARKER);
-        outputPanel.appendInput(output + "\n");
-    }
-    public void outputlnPlayer(String output) {
-        outputPlayer(output + "\n");
-    }
-    public void outputPlayer(String output) {
-        outputPanel.appendInput(output);
     }
 
 
 
     // Input processing
     // Words are processed one by one from the start and are stripped away
-    private boolean inputStartsWithChoice(ArrayList<String> arrayList, boolean strip) {
+    /**
+     * Checks if input starts with an element of arrayList
+     * @param  ArrayList arrayList
+     * @param  boolean   strip         to determine if element is stripped from inputWords
+     * @return           true if input starts with element of arrayList
+     */
+    private boolean inputStartsWithChoice(ArrayList arrayList, boolean strip, boolean setVerb) {
         int longestWord = 0;
         String[] words;
         String word;
-
-        for (int i = 0; i < arrayList.size(); i++) {
-            words = arrayList.get(i).split(" "); // entries in array may have multiple words
-            if (words.length > longestWord) {
-                longestWord = words.length;
-                word = String.join(" ", Arrays.copyOfRange(inputWords,0,longestWord)); // make start comparison multiple words if need be
-                if (wordEquals(word,arrayList)) {
-                    if (strip) {
-                        stripInput(longestWord);
+        String tempVerb;
+        Object testElement = arrayList.get(0);
+        if (testElement instanceof String) {
+            for (int i = 0; i < arrayList.size(); i++) {
+                words = ((String) arrayList.get(i)).split(" "); // entries in array may have multiple words
+                if (words.length > longestWord) {
+                    longestWord = words.length;
+                    word = String.join(" ", Arrays.copyOfRange(inputWords,0,longestWord)); // make start comparison multiple words if need be
+                    if (wordEquals(word,arrayList)) {
+                        if (strip) {
+                            tempVerb = stripInput(longestWord);
+                        }
+                        if (setVerb) {
+                            this.verb = tempVerb;
+                        }
+                        return true;
                     }
-                    return true;
+                }
+            }
+        } else if (testElement instanceof Number) {
+            if (testElement instanceof Integer) {
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if (getStringArrayList(inputWords).contains(Integer.toString((int) arrayList.get(i)))) {
+                        return true;
+                    }
+                }
+            } else if (testElement instanceof Double) {
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if (getStringArrayList(inputWords).contains(Double.toString((double) arrayList.get(i)))) {
+                        return true;
+                    }
                 }
             }
         }
+
         return false;
     }
+
+    /**
+     * Different names to prevent name clash with inputStartsWithChoice()
+     * @param  ArrayList<Integer> arrayList
+     * @param  boolean            strip
+     * @return
+     */
+    // private boolean inputStartsWithIntegerChoice(ArrayList<Integer> arrayList, boolean strip) {
+    //     return inputStartsWithChoice(getStringArrayList(arrayList),strip);
+    // }
+    // private boolean inputStartsWithDoubleChoice(ArrayList<Double> arrayList, boolean strip) {
+    //     return inputStartsWithChoice(getStringArrayListFromDouble(arrayList),strip);
+    // }
+
+
     /**
      * Checks if input starts with an element of arrayList
      * If so, strips away starting words for inputWords and returns true
      * @param  ArrayList<String> arrayList
      * @return
      */
-    public boolean inputStartsWithStrip(ArrayList<String> arrayList) {
-        return inputStartsWithChoice(arrayList, true);
+    public boolean inputStartsWithStrip(ArrayList arrayList) {
+        return inputStartsWithChoice(arrayList, true, false);
+    }
+    public boolean inputStartsWithStripVerb(ArrayList arrayList) {
+        return inputStartsWithChoice(arrayList, true, true);
     }
     public boolean inputStartsWithStrip(String[] array) {
-        return inputStartsWithStrip(new ArrayList<String>(Arrays.asList(array)));
+        return inputStartsWithStrip(getStringArrayList(array));
+    }
+    public boolean inputStartsWithStripVerb(String[] array) {
+        return inputStartsWithStripVerb(getStringArrayList(array));
     }
     public boolean inputStartsWithStrip(String word) {
-        return inputStartsWithStrip(new String[] {word});
+        return inputStartsWithStrip(getStringArrayList(word));
+    }
+    public boolean inputStartsWithStripVerb(String word) {
+        return inputStartsWithStripVerb(getStringArrayList(word));
+    }
+    // public boolean inputStartsWithIntegerStrip(ArrayList<Integer> arrayList) {
+    //     return inputStartsWithIntegerChoice(arrayList, true);
+    // }
+    public boolean inputStartsWithStrip(int[] array) {
+        return inputStartsWithStrip(getStringArrayList(array));
+    }
+    public boolean inputStartsWithStripVerb(int[] array) {
+        return inputStartsWithStripVerb(getStringArrayList(array));
+    }
+    public boolean inputStartsWithStrip(int word) {
+        return inputStartsWithStrip(getStringArrayList(word));
+    }
+    public boolean inputStartsWithStripVerb(int word) {
+        return inputStartsWithStripVerb(getStringArrayList(word));
+    }
+    // public boolean inputStartsWithDoubleStrip(ArrayList<Double> arrayList) {
+    //     return inputStartsWithDoubleChoice(arrayList, true);
+    // }
+    public boolean inputStartsWithStrip(double[] array) {
+        return inputStartsWithStrip(getStringArrayList(array));
+    }
+    public boolean inputStartsWithStripVerb(double[] array) {
+        return inputStartsWithStripVerb(getStringArrayList(array));
+    }
+    public boolean inputStartsWithStrip(double word) {
+        return inputStartsWithStrip(getStringArrayList(word));
     }
     // No strip versions
-    public boolean inputStartsWith(ArrayList<String> arrayList) {
-        return inputStartsWithChoice(arrayList, false);
+    public boolean inputStartsWith(ArrayList arrayList) {
+        return inputStartsWithChoice(arrayList, false, false);
+    }
+    public boolean inputStartsWithVerb(ArrayList arrayList) {
+        return inputStartsWithChoice(arrayList, false, true);
     }
     public boolean inputStartsWith(String[] array) {
         return inputStartsWith(new ArrayList<String>(Arrays.asList(array)));
     }
     public boolean inputStartsWith(String word) {
         return inputStartsWith(new String[] {word});
+    }
+    // public boolean inputStartsWithInteger(ArrayList<Integer> arrayList) {
+    //     return inputStartsWithIntegerChoice(arrayList, false);
+    // }
+    public boolean inputStartsWith(int[] array) {
+        return inputStartsWith(getIntegerArrayList(array));
+    }
+    public boolean inputStartsWith(int word) {
+        return inputStartsWith(new int[] {word});
+    }
+    // public boolean inputStartsWithDouble(ArrayList<Double> arrayList) {
+    //     return inputStartsWithDoubleChoice(arrayList, false);
+    // }
+    public boolean inputStartsWith(double[] array) {
+        return inputStartsWith(getDoubleArrayList(array));
+    }
+    public boolean inputStartsWith(double word) {
+        return inputStartsWith(new double[] {word});
     }
     /**
      * Strips away starting words by index from inputWords
@@ -153,23 +239,55 @@ public abstract class Menu extends Outputable {
     }
 
     public boolean wordEquals(String word, String[] array) {
-        return Arrays.asList(array).contains(word.toLowerCase());
+        return wordEquals(word,new ArrayList<String>(Arrays.asList(array)));
+    }
+    public boolean wordEquals(String word, int[] array) {
+        return wordEqualsInteger(word,getIntegerArrayList(array));
+    }
+    public boolean wordEquals(String word, double[] array) {
+        return wordEqualsDouble(word,getDoubleArrayList(array));
     }
     public boolean wordEquals(String word, ArrayList<String> arrayList) {
         return arrayList.contains(word.toLowerCase());
     }
+    public boolean wordEqualsInteger(String word, ArrayList<Integer> arrayList) {
+        return wordEquals(word,getStringArrayList(arrayList));
+    }
+    public boolean wordEqualsDouble(String word, ArrayList<Double> arrayList) {
+        return wordEquals(word,getStringArrayListFromDouble(arrayList));
+    }
     public boolean wordEquals(String word1, String word2) {
         return word1.equals(word2);
     }
+    public boolean wordEquals(String word1, int word2) {
+        return wordEquals(word1,Integer.toString(word2));
+    }
+    public boolean wordEquals(String word1, double word2) {
+        return wordEquals(word1,Double.toString(word2));
+    }
+
     public boolean inputEquals(String[] array) {
         return wordEquals(getInputString(),array);
     }
-    public boolean inputEquals(ArrayList<String> arrayList) {
-        return wordEquals(getInputString(),arrayList);
+    public boolean inputEquals(int[] array) {
+        return wordEquals(getInputString(),getStringArrayList(array));
+    }
+    public boolean inputEquals(double[] array) {
+        return wordEquals(getInputString(),getStringArrayList(array));
+    }
+    public boolean inputEquals(ArrayList arrayList) {
+        return wordEquals(getInputString(),getStringArrayList(arrayList));
     }
     public boolean inputEquals(String word) {
         return wordEquals(getInputString(),word);
     }
+    public boolean inputEquals(int word) {
+        return wordEquals(getInputString(),Integer.toString(word));
+    }
+    public boolean inputEquals(double word) {
+        return wordEquals(getInputString(),Double.toString(word));
+    }
+
     /**
      * Checks if inputString starts with an element of array
      * set remaining words of inputString to remainingWords
@@ -244,12 +362,20 @@ public abstract class Menu extends Outputable {
     }
 
     /**
-     * Returns first word of inputString
+     * Returns value of originalInputWords
      * @return
      */
-    // public String getVerb() {
-    //     return this.verb;
-    // }
+    public String[] getOriginalInputWords() {
+        return this.originalInputWords;
+    }
+
+    /**
+     * Returns verb of inputString
+     * @return
+     */
+    public String getVerb() {
+        return this.verb;
+    }
 
     // public String[] getRemainingWords() {
     //     return this.remainingWords;
@@ -271,6 +397,9 @@ public abstract class Menu extends Outputable {
     public void changeToGameMenu() {
         menuManager.setMenu(GameMenu.getInstance());
     }
+    public void changeToGameOverMenu() {
+        menuManager.setMenu(GameOverMenu.getInstance());
+    }
     public void changeToRestartMenu() {
         menuManager.setMenu(RestartMenu.getInstance());
     }
@@ -290,5 +419,96 @@ public abstract class Menu extends Outputable {
     }
     public void changeToLastMenu() {
         menuManager.setMenu(menuManager.getLastMenu());
+    }
+
+
+
+    // Utility functions
+    /**
+     * Convert ArrayList<String> to ArrayList<Integer>
+     * @param  ArrayList<String> stringList
+     * @return
+     */
+    public ArrayList<Integer> getIntegerArrayList(ArrayList<String> stringList) {
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        for (String string : stringList) {
+            try {
+                intList.add(Integer.parseInt(string));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        return intList;
+    }
+    public ArrayList<Integer> getIntegerArrayList(int[] intArray) {
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        for (int i = 0; i < intArray.length; i++) {
+            intList.add(intArray[i]);
+        }
+        return intList;
+    }
+    public ArrayList<Double> getDoubleArrayList(double[] doubleArray) {
+        ArrayList<Double> doubleList = new ArrayList<Double>();
+        for (int i = 0; i < doubleArray.length; i++) {
+            doubleList.add(doubleArray[i]);
+        }
+        return doubleList;
+    }
+    /**
+     * Convert ArrayList<Integer> or ArrayList<Double> to ArrayList<String>
+     * @param  ArrayList<Integer> intList
+     * @return
+     */
+    public ArrayList<String> getStringArrayList(ArrayList inList) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        if (inList.get(0) instanceof Integer) {
+            for (int i = 0; i < inList.size(); i++) {
+                try {
+                    stringList.add(Integer.toString((int) inList.get(i)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (inList.get(0) instanceof Double) {
+            for (int i = 0; i < inList.size(); i++) {
+                try{
+                    stringList.add(Double.toString((double) inList.get(i)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (inList.get(0) instanceof String) {
+            stringList =  inList;
+        }
+        return stringList;
+    }
+    public ArrayList<String> getStringArrayListFromDouble(ArrayList<Double> doubleList) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        for (Double doub : doubleList) {
+            try{
+                stringList.add(Double.toString(doub));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return stringList;
+    }
+    public ArrayList<String> getStringArrayList(int[] intArray) {
+        return getStringArrayList(getIntegerArrayList(intArray));
+    }
+    public ArrayList<String> getStringArrayList(int integer) {
+        return getStringArrayList(new String[] {word});
+    }
+    public ArrayList<String> getStringArrayList(double[] doubleArray) {
+        return getStringArrayList(getDoubleArrayList(doubleArray));
+    }
+    public ArrayList<String> getStringArrayList(double doub) {
+        return getStringArrayList(new String[] {doub});
+    }
+    public ArrayList<String> getStringArrayList(String[] strArray) {
+        return new ArrayList<String>(Arrays.asList(strArray));
+    }
+    public ArrayList<String> getStringArrayList(String word) {
+        return getStringArrayList(new String[] {word});
     }
 }

@@ -1,6 +1,7 @@
 Test/
 CheeseQuest2/Test/
 CheeseQuest2/saves/
+CheeseQuest2/file/saves/
 
 # Compiled class file
 *.class

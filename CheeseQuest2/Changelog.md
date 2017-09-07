@@ -6,8 +6,21 @@ Single-player text adventure game
 Developed in Java 1.8
 
 ## Changelog
-### 0.2.0a - September 5, 2017
-- Add inputRemains() for Menu
+### 0.3.0 - September 6, 2017
+- Revamped game saving
+    - Implemented SaveManager
+    - Removed FileObject, WriteObject, ReadObject
+    - Games saved by String saveName as well as int saveNum
+    - Maximum saves changed from 5 to 50 (MAXIMUM_SAVES)
+    - LoadMenu is revamped to accommodate
+- Improved input parsing
+    - Added imputRemains() for Menu
+    - Verb reimplemented, and originalInputWords added
+        - Verb is defined post-input check in case it is multiple words
+        - Verb pre-input check is either previous verb or null if first turn
+- Implemented getStringArrayList() and getIntegerArrayList() utility functions to Menu
+- Overrode all input parsing and output methods with integer and double equivalents
+    - inputStartsWithInteger(), inputStartsWithIntegerStrip(), inputStartsWithIntegerChoice(), inputEqualsInteger(), wordEqualsInteger() methods implemented with ArrayList<Integer> to avoid name clash (has the same erasure)
 ### 0.2.0 - September 5, 2017
 - Creating, loading and deleting game saves in LoadMenu implemented and functions properly
 - Items have serialVersionUIDs

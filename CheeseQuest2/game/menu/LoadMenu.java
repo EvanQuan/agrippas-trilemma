@@ -19,19 +19,31 @@ public class LoadMenu extends Menu {
     public static final String[] LOAD_OPTIONS = {"load","l"};
     public static final String[] DELETE_OPTIONS = {"delete","d"};
     private static LoadMenu instance;
-    private ArrayList<String> validSaves;
-    private ArrayList<String> existingSaves;
+    /**
+     * Enumerated order of saves
+     */
+    private ArrayList<Integer> saveNums;
+    /**
+     * String names of saves in order
+     */
+    private ArrayList<String> saveNames;
+    /**
+     * Information about saves in order
+     * Current room
+     *
+     */
     private ArrayList<String> saveInfo;
+    private SaveManager saver;
 
     /**
      * Default LoadMenu constructor
      */
     private LoadMenu() {
-        existingSaves = new ArrayList<String>();
-        validSaves = new ArrayList<String>();
+        saveNums = new ArrayList<Integer>();
+        saveNames = new ArrayList<String>();
         saveInfo = new ArrayList<String>();
-        determineValidSaves();
-        determineExistingSaves();
+        saver = SaveManager.getInstance();
+        initSaves();
     }
 
     public static LoadMenu getInstance() {
@@ -42,18 +54,22 @@ public class LoadMenu extends Menu {
     }
 
     /**
-     * Outputs numerical list of existing save files
+     * Outputs numerical list of existing save files by name and information
      * and New game option
      */
     @Override
     public void outputPrompt() {
-        determineExistingSaves();
+        initSaves();
         outputlnTitle(LOAD_GAME);
         String gameName;
-        for (int i = 0; i < MAXIMUM_SAVES; i++) {
-            outputItem(Integer.toString(i + 1));
-            outputln(". " + saveInfo.get(i));
+        for (int i = 0; i < saveNums.size(); i++) {
+            outputItem(saveNums.get(i));
+            outputln(". " + saveNames.get(i));
+            outputln("     " + saveInfo.get(i));
         }
+        // New game
+        outputItem(saveNums.size() + 1);
+        outputln(". " + "New game");
         outputln();
         outputPlayer("Load");
         output(" or ");
@@ -71,26 +87,34 @@ public class LoadMenu extends Menu {
 
     @Override
     public void processInput() {
-        inputStartsWithStrip(LOAD_OPTIONS); // strip away load if added
-        if (inputStartsWith(existingSaves)) { // Load preexiting game
-            loadGame(Integer.parseInt(stripInput()));
-            changeToGameMenu();
-        } else if (inputStartsWith(validSaves)) { // Create new game
-            int saveNum = Integer.parseInt(stripInput());
-            createGame(saveNum);
-            loadGame(saveNum); // load game created
-            changeToGameMenu();
-        } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
-            if (inputStartsWith(existingSaves)) {
+        if (inputStartsWithStrip(LOAD_OPTIONS)) {
+            if (inputEquals(saveNums)) { // Load prexisting game by number
+                loadGame(Integer.parseInt(stripInput()));
+                changeToGameMenu();
+            } else if (inputEquals(saveNames)){ // Load prexisting game by name
+                loadGame(getInputString());
+                changeToGameMenu();
+            } else if (inputEquals(saveNums.size())) { // Create new game
                 int saveNum = Integer.parseInt(stripInput());
-                WriteObject writer = WriteObject.getInstance();
-                writer.setSaveNum(saveNum);
-                boolean deleted = writer.deleteSave();
+                createGame(saveNum);
+                loadGame(saveNum); // load game created
+                changeToGameMenu();
+            } else {
+                outputInvalidLoad();
+            }
+        } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
+            if (inputStartsWith(saveNums)) { // Delete game by number
+                int saveNum = Integer.parseInt(stripInput());
+                SaveManager saver = SaveManager.getInstance();
+                saver.setCurrentSave(saveNum);
+                boolean deleted = saver.deleteSave();
                 if (deleted) {
                     outputDeleted();
                 } else {
                     outputNotDeleted();
                 }
+            } else if (inputStartsWith(saveNames)){
+
             } else {
                 outputNotDeleted();
             }
@@ -98,22 +122,14 @@ public class LoadMenu extends Menu {
         } else if (inputStartsWithStrip(RETURN_TO_PREVIOUS_MENU)) {
             changeToLastMenu();
         } else {
-            outputInvalid();
+            outputInvalidDelete();
             outputPrompt();
         }
     }
 
-    public void outputInvalid() {
-        outputln("Choose a save file from 1 to " + MAXIMUM_SAVES + ".");
-    }
 
-    public void outputDeleted() {
-        outputln("Save " + stripInput() + "deleted.");
-    }
 
-    public void outputNotDeleted() {
-        outputln("Save " + stripInput() + " does not exist and cannot be deleted.");
-    }
+
 
 
     /**
@@ -121,53 +137,95 @@ public class LoadMenu extends Menu {
      * @param int saveNum of world to load
      */
     public void loadGame(int saveNum) {
-        ReadObject reader = ReadObject.getInstance();
-        reader.setSaveNum(saveNum);
-        World world = (World) reader.deserialize();
+        saver.setCurrentSave(saveNum);
+        World world = (World) saver.restore();
         GameMenu gameMenu = GameMenu.getInstance();
         gameMenu.setWorld(world);
     }
+    public void loadGame(String saveName) {
+    }
 
     /**
-     * Creatse new game, and sets gameMenu's world to new game
-     * @param int saveNum of thworld to create
+     * Create new game, and sets gameMenu's world to new game
+     * @param String saveName of the world to create
      */
-    public void createGame(int saveNum) {
-        WriteObject writer = WriteObject.getInstance();
+    public void createGame(String saveName) {
         World world = new World(); // New default world
-        writer.setSaveNum(saveNum);
-        writer.serialize(world);
+        try {
+            saver.setCurrentSave(saveName);
+            saver.save(world);
+        } catch (InvalidSaveNameException e) {
+            outputInvalidSaveName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // GameMenu gameMenu = GameMenu.getInstance();
         // gameMenu.setWorld(world);
     }
 
+    // Prompts
+    public void outputInvalidLoad() {
+        outputPlayer("Load");
+        output(" a save file from ");
+        outputPlayer(1);
+        output(" to ");
+        outputPlayer(saveNums.size() + 1);
+        outputln(".");
+    }
+    public void outputInvalidDelete() {
+        output("Delete");
+        output(" a save file from ");
+        outputPlayer(1);
+        output(" to ");
+        outputPlayer(saveNums.size());
+        outputln(".");
+    }
+    public void outputDeleted() {
+        outputln("Save " + stripInput() + "deleted.");
+    }
+
+    public void outputNotDeleted() {
+        outputln("Save " + stripInput() + " does not exist and cannot be deleted.");
+    }
+    public void outputInvalidSaveName() {
+        output("Save names cannot contain the special characters ");
+        for (int i = 0; i < SaveManager.INVALID_CHARACTERS.length - 1; i++) {
+            outputPlayer(SaveManager.INVALID_CHARACTERS[i]);
+            output(", ");
+        }
+        if (SaveManager.INVALID_CHARACTERS.length > 1) {
+            output("or ");
+        }
+        outputlnPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
+    }
+
+
     /**
      * Determines valid saves depending on MAXIMUM_SAVES
      */
-    public void determineValidSaves() {
-        validSaves.clear();
-        for (int i = 1; i <= MAXIMUM_SAVES; i++) {
-            validSaves.add(Integer.toString(i));
-        }
-    }
+    // public void determineValidSaves() {
+    //     validSaves.clear();
+    //     for (int i = 1; i <= MAXIMUM_SAVES; i++) {
+    //         validSaves.add(Integer.toString(i));
+    //     }
+    // }
 
     /**
-     * [determineExistingSaves description]
+     * initializes saves, saveNums, saveNames, saveInfo
      */
-    public void determineExistingSaves() {
-        existingSaves.clear();
+    public void initSaves() {
+        saveNames.clear();
+        saveNums.clear();
         saveInfo.clear();
-        ReadObject reader = ReadObject.getInstance();
+        SaveManager saver = SaveManager.getInstance();
         World world;
-        for (int i = 1; i <= MAXIMUM_SAVES; i++) {
-            reader.setSaveNum(i);
-            if (reader.saveExists()) {
-                world = (World) reader.deserialize();
-                existingSaves.add(Integer.toString(i));
-                saveInfo.add(world.getInfo());
-            } else {
-                saveInfo.add(NEW_GAME);
-            }
+        File[] saves = saver.getSaves();
+        for (int i = 1; i <= saves.length; i++) {
+            saver.setCurrentSave(saves[i].getName());
+            world = (World) saver.restore();
+            saveNames.add(saves[i].getName());
+            saveNums.add(i);
+            saveInfo.add(world.getInfo());
         }
     }
 }
