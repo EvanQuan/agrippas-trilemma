@@ -20,7 +20,6 @@ Developed in Java 1.8
         - Verb pre-input check is either previous verb or null if first turn
 - Implemented getStringArrayList() and getIntegerArrayList() utility functions to Menu
 - Overrode all input parsing and output methods with integer and double equivalents
-    - inputStartsWithInteger(), inputStartsWithIntegerStrip(), inputStartsWithIntegerChoice(), inputEqualsInteger(), wordEqualsInteger() methods implemented with ArrayList<Integer> to avoid name clash (has the same erasure)
 ### 0.2.0 - September 5, 2017
 - Creating, loading and deleting game saves in LoadMenu implemented and functions properly
 - Items have serialVersionUIDs
