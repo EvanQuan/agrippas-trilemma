@@ -12,7 +12,9 @@ import game.system.Outputable;
  */
 public abstract class Menu extends Outputable {
 
-    public static final String UNDEFINED = "";
+    public static final String EMPTY = "";
+    protected ArrayList<ArrayList> validVerbs;
+    private String originalInputString;
     private String inputString;
     private String[] originalInputWords;
     private String[] inputWords;
@@ -23,6 +25,7 @@ public abstract class Menu extends Outputable {
 
     public Menu() {
         menuManager = MenuManager.getInstance();
+        // validVerbs = new ArrayList<ArrayList<String>>();
     }
 
     /**
@@ -37,13 +40,27 @@ public abstract class Menu extends Outputable {
      */
     public void input(String input) {
         this.inputString = input;
+        this.originalInputString = inputString;
         this.inputWords = inputString.split(" ");
         this.originalInputWords = inputWords;
-        this.verb = UNDEFINED;
+        this.verb = EMPTY;
         outputPlayerInput();
-        processInput();
+        preProcessInput();
     }
 
+    /**
+     * Process input that applies to inheritance
+     */
+    public void preProcessInput() {
+        if (inputEquals(EMPTY)) {
+            outputln("I beg your pardon?");
+            // outputPrompt();
+        // } else if (!validInput()) {
+        //     outputln("I don't know the word " + getVerb());
+        } else {
+            processInput();
+        }
+    }
     /**
      * With inputString and inputWords, determine output
      */
@@ -60,8 +77,34 @@ public abstract class Menu extends Outputable {
         outputPanel.appendInput(inputString + "\n");
     }
 
+    /**
+     * If the user has an incomplete command, prompt to complete command
+     */
+    public void outputIncompleteCommand() {
+        output(toTitleCase(verb));
+        outputln(" what?");
+    }
+    public void outputIncompleteCommandAndReprompt() {
+        outputIncompleteCommand();
+        outputln();
+        outputPrompt();
+    }
+    /**
+     * If the use has too many words at the end of a command
+     */
+    public void outputExcessCommand() {
+        output("I only understand as far as you wanting to \"");
+        outputPlayer(getVerb());
+        outputln(".\"");
+    }
 
 
+
+
+
+
+
+    // TODO: Make stripping pick the longest element of array to strip, not the first one
     // Input processing
     // Words are processed one by one from the start and are stripped away
     // Verb can be manually set or is automatically defined upon new player input
@@ -72,10 +115,20 @@ public abstract class Menu extends Outputable {
      * @return           true if input starts with element of arrayList
      */
     private boolean inputStartsWithChoice(ArrayList arrayList, boolean strip, boolean setVerb) {
+        // debug
+        // System.out.println("inputString: " + inputString);
+        // System.out.println("inputWords: " + Arrays.asList(inputWords));
+        // System.out.println("verb: " + verb);
+        // System.out.println("arrayList: " + arrayList);
+        // System.out.println("strip: " + strip);
+        // System.out.println("setVerb: " + setVerb);
+        if (arrayList.size() == 0) {
+            arrayList.add(EMPTY);
+        }
         int longestWord = 0;
         String[] words;
         String word;
-        String tempVerb;
+        String tempVerb = EMPTY;
         Object testElement = arrayList.get(0);
         if (testElement instanceof String) {
             for (int i = 0; i < arrayList.size(); i++) {
@@ -87,7 +140,7 @@ public abstract class Menu extends Outputable {
                         if (strip) {
                             tempVerb = stripInput(longestWord);
                         }
-                        if (setVerb || this.verb.equals(UNDEFINED)) {
+                        if (setVerb || this.verb.equals(EMPTY)) {
                             this.verb = tempVerb;
                         }
                         return true;
@@ -210,7 +263,7 @@ public abstract class Menu extends Outputable {
         return inputStartsWith(new double[] {word});
     }
     /**
-     * Strips away starting words by index from inputWords
+     * Strips away starting words by index from inputWords and inputString
      * If more words are to be stripped than exist, then all remaining words are stripped
      * @param int index of new beginning inputWords
      * @return words stripped away from input
@@ -222,6 +275,7 @@ public abstract class Menu extends Outputable {
         }
         output = String.join(" ", Arrays.copyOfRange(inputWords,0,index));
         inputWords = Arrays.copyOfRange(inputWords,index,inputWords.length);
+        inputString = String.join(" ", inputWords);
         return output;
 
     }
@@ -250,7 +304,13 @@ public abstract class Menu extends Outputable {
         return wordEqualsDouble(word,getDoubleArrayList(array));
     }
     public boolean wordEquals(String word, ArrayList<String> arrayList) {
-        return arrayList.contains(word.toLowerCase());
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (word.toLowerCase().equals(arrayList.get(i).toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+        // return arrayList.contains(word.toLowerCase());
     }
     public boolean wordEqualsInteger(String word, ArrayList<Integer> arrayList) {
         return wordEquals(word,getStringArrayList(arrayList));
@@ -259,7 +319,7 @@ public abstract class Menu extends Outputable {
         return wordEquals(word,getStringArrayListFromDouble(arrayList));
     }
     public boolean wordEquals(String word1, String word2) {
-        return word1.equals(word2);
+        return word1.equalsIgnoreCase(word2);
     }
     public boolean wordEquals(String word1, int word2) {
         return wordEquals(word1,Integer.toString(word2));
@@ -290,6 +350,14 @@ public abstract class Menu extends Outputable {
         return wordEquals(getInputString(),Double.toString(word));
     }
 
+    /**
+     * TODO
+     * Checks if unknown word is used
+     * @return true if
+     */
+    public boolean validInput() {
+        return true; // TODO
+    }
     /**
      * Checks if inputString starts with an element of array
      * set remaining words of inputString to remainingWords
@@ -391,6 +459,9 @@ public abstract class Menu extends Outputable {
     public void changeToLoadMenu() {
         menuManager.setMenu(LoadMenu.getInstance());
     }
+    public void changeToCreateGameMenu() {
+        menuManager.setMenu(CreateGameMenu.getInstance());
+    }
     public void changeToTestMenu() {
         try{
             menuManager.setMenu(TestMenu.getInstance());
@@ -399,8 +470,8 @@ public abstract class Menu extends Outputable {
             e.printStackTrace();
         }
     }
-    public void changeToLastMenu() {
-        menuManager.setMenu(menuManager.getLastMenu());
+    public void changeToPreviousMenu() {
+        menuManager.setMenu(menuManager.getPreviousMenu());
     }
 
 
@@ -443,7 +514,15 @@ public abstract class Menu extends Outputable {
      */
     public ArrayList<String> getStringArrayList(ArrayList inList) {
         ArrayList<String> stringList = new ArrayList<String>();
-        if (inList.get(0) instanceof Integer) {
+        // System.out.println("getStringArrayList(" + inList + ")");
+        // if (inList == null) {
+        //     System.out.println("inList is null");
+        // } else if (inList.size() == 0) {
+        //     System.out.println("Empty inlist");
+        // }
+        if (inList.isEmpty()) {
+            stringList.add(EMPTY);
+        } else if (inList.get(0) instanceof Integer) {
             for (int i = 0; i < inList.size(); i++) {
                 try {
                     stringList.add(Integer.toString((int) inList.get(i)));
@@ -485,7 +564,7 @@ public abstract class Menu extends Outputable {
         return getStringArrayList(getDoubleArrayList(doubleArray));
     }
     public ArrayList<String> getStringArrayList(double doub) {
-        return getStringArrayList(getStringArrayList(doub));
+        return getStringArrayList(new double[] {doub});
     }
     public ArrayList<String> getStringArrayList(String[] strArray) {
         return new ArrayList<String>(Arrays.asList(strArray));

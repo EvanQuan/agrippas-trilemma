@@ -17,31 +17,39 @@ import main.CheeseQuest;
  * - game version
  * - old game version cannot be loaded
  */
-public class World implements Serializable {
+public class Save extends TextUtility implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Room room;
     private Player player;
     private int turnCount;
+    private String name; // Name of game save
     private String version;
 
-    public World(Room room, Player player, int turnCount) {
+    public Save(String name) {
+        initialize();
+        this.turnCount = 0;
+        this.version = CheeseQuest.getVersion();
+        setName(name);
+
+    }
+    public Save(Room room, Player player, int turnCount, String name) {
         // Starting room
         // currentRoom = JailCell.getInstance();
         this.room = room;
         this.player = player;
         this.turnCount = turnCount;
         // player = Player.getInstance();
-        this.version = CheeseQuest.getVersion();
-    }
-    public World() {
-        initialize();
-        this.turnCount = 0;
+        setName(name);
         this.version = CheeseQuest.getVersion();
     }
 
 
+
+    public void setName(String name) {
+        this.name = toLowerTitleCase(name);
+    }
     public Room getRoom() {
         return room;
     }
@@ -50,6 +58,9 @@ public class World implements Serializable {
     }
     public int getTurnCount() {
         return turnCount;
+    }
+    public String getName() {
+        return name;
     }
     public String getVersion() {
         return version;

@@ -1,4 +1,4 @@
-package file;
+package game.system;
 
 /**
  * Save name cannot contain invalid file name characters

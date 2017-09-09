@@ -4,12 +4,11 @@ import gui.*;
 /**
  * Can output to OutputPanel
  */
-public abstract class Outputable {
+public abstract class Outputable extends TextUtility {
 
     public static final int INPUT_SPACING = 4;
     public static final String INPUT_MARKER = "> ";
     public static final int VERB = 0;
-
 
     protected OutputPanel outputPanel;
 
@@ -188,7 +187,7 @@ public abstract class Outputable {
         outputPlayerInput(Double.toString(output));
     }
     public void outputPlayerInputNoSpace(String output) {
-        outputPanel.append(Integer.toString(INPUT_SPACING));
+        output(INPUT_MARKER);
         outputPanel.appendInput(output + "\n");
     }
     public void outputPlayerInputNoSpace(int output) {
@@ -217,29 +216,5 @@ public abstract class Outputable {
     }
 
 
-    /**
-     * Converts beginning of each word in string to upper case
-     * @param  String string        to be converted
-     * @return        title case string
-     */
-    public String toTitleCase(String string) {
-        String[] words = string.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            words[i] = Character.toUpperCase(words[i].charAt(0)) + words[i].substring(1);
-        }
-        return String.join(" ",words);
-    }
 
-    public boolean startsWithVowel(String string) {
-        switch(Character.toLowerCase(string.charAt(0))) {
-            case 'a':
-            case 'e':
-            case 'i':
-            case 'o':
-            case 'u':
-                return true;
-            default:
-                return false;
-        }
-    }
 }

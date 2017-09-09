@@ -1,5 +1,6 @@
 package game.menu;
 
+import java.util.*;
 import game.system.*;
 import game.object.room.*;
 import game.object.item.collectable.Collectable;
@@ -11,15 +12,22 @@ import game.object.item.background.person.*;
 public class GameMenu extends Menu {
 
     private static GameMenu instance;
+
+    // World info
+    private String name;
     private Room room;
     private Player player;
     private int turnCount;
 
+    private ArrayList<String> look;
+
     private GameMenu() {
+        look = new ArrayList<String>(getStringArrayList(new String[] {"look","l"}));
     }
 
     @Override
     public void outputPrompt() {
+        outputln("room: " + room);
         playerLook();
     }
     public static GameMenu getInstance() {
@@ -28,14 +36,17 @@ public class GameMenu extends Menu {
         }
         return instance;
     }
-    public void setWorld(World world) {
-        room = world.getRoom();
-        player = world.getPlayer();
-        turnCount = world.getTurnCount();
+
+    public void setSave(Save save) {
+        name = save.getName();
+        room = save.getRoom();
+        player = save.getPlayer();
+        turnCount = save.getTurnCount();
     }
+
     @Override
     public void processInput() {
-        if (inputStartsWithStrip("look")) {
+        if (inputStartsWithStrip(look)) {
             if (inputRemains()) {
                 outputln("You can't look at that."); // NOTE: Change later debug
             } else {
@@ -50,16 +61,16 @@ public class GameMenu extends Menu {
         }
     }
     /**
-     * Returns current world
-     * NOTE: a new world is created every time this is called
-     * @return world
+     * Returns current save
+     * NOTE: a new save is created every time this is called
+     * @return save
      */
-    public World getWorld() {
+    public Save getSave() {
         try {
-            World world = new World(room,player,turnCount);
-            return world;
+            Save save = new Save(room,player,turnCount,name);
+            return save;
         } catch (Exception e) {
-            System.out.println("GameMenu.getWorld(): World has not been initialized and cannot be returned.");
+            System.out.println("GameMenu.getSave(): Save has not been initialized and cannot be returned.");
             e.printStackTrace();
             return null;
         }

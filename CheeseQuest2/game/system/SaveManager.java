@@ -1,4 +1,4 @@
-package file;
+package game.system;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -14,25 +14,28 @@ import game.system.*;
  * Influence: Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public class SaveManager {
+public class SaveManager extends TextUtility {
     public static final int MAXIMUM_SAVES = 50;
     public static final int MAX_NAME_LENGTH = 50;
-    public static final String SAVE_DIRECTORY = "file/saves";
+    public static final String SAVE_DIRECTORY = "game/system/saves";
     public static final String FILE_EXTENTION = "cheese";
     // public static final String FILE_NAME = "World";
     public static final String[] INVALID_CHARACTERS = {"<",">",":","\"","/","\\","|","?","*"};
-    private String saveName;
+    private String saveName; // current save name
     private static SaveManager instance;
     private File directory;
-    private File[] saves;
-    private File currentSave;
-    protected ArrayList<String> existingSaveNums;
-    protected ArrayList<String> existingSaveNames;
+    private File currentSaveFile;
+    private File[] saveFiles;
+    private ArrayList<Save> saves;
+    // protected ArrayList<String> saveNums;
+    // protected ArrayList<String> saveNames;
+    // protected ArrayList<String> saveInfo;
 
     private SaveManager() {
         directory = new File(SAVE_DIRECTORY);
-        existingSaveNums = new ArrayList<String>();
-        existingSaveNames = new ArrayList<String>();
+        saves = new ArrayList<Save>();
+        // saveNums = new ArrayList<String>();
+        // saveNames = new ArrayList<String>();
     }
     public static SaveManager getInstance() {
         if (instance == null) {
@@ -44,42 +47,57 @@ public class SaveManager {
      * Checks if save file exists within valid saves
      * https://stackoverflow.com/questions/3154488/how-do-i-iterate-through-the-files-in-a-directory-in-java
      */
-    public void determineExistingSaveNums() {
-        saves = directory.listFiles();
-        existingSaveNums.clear();
-        for (int i = 1; i <= saves.length; i++) {
-            existingSaveNums.add(Integer.toString(i));
-        }
-        for (File save : saves) {
-            existingSaveNames.add(save.getName());
+    public void updateSaveFiles() {
+        this.saveFiles = directory.listFiles();
+        if (this.saveFiles == null) {
+            this.saveFiles = new File[] {};
         }
     }
+    public void updateSaves() {
+        updateSaveFiles();
+        saves.clear();
+        for (File saveFile : this.saveFiles) {
+            try {
+                setCurrentSave(stripExtension(saveFile.getName()));
+                Save save = (Save) restore();
+                saves.add(save);
+            } catch (InvalidSaveNameException e) {
+                System.out.println("SaveManager.getSaves():");
+                e.printStackTrace();
+            }
+        }
+    }
+    // public void determineSaveNums() {
+    //     this.saveFiles = directory.listFiles();
+    //     if (this.saveFiles == null) {
+    //         this.saveFiles = new File[] {};
+    //     }
+    //     saveNums.clear();
+    //     for (int i = 1; i <= this.saveFiles.length; i++) {
+    //         saveNums.add(Integer.toString(i));
+    //     }
+    //     for (File save : this.saveFiles) {
+    //         saveNames.add(toLowerTitleCase(stripExtension(save.getName())));
+    //     }
+    // }
     /**
      * Serialize object to save file
      * @param Object object to be saved
      */
     public void save(Object object) {
-
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
         // String name = object.getClass().getSimpleName();
         String name = saveName;
 
         try {
-
             makeDirectory();
             fout = new FileOutputStream(getCurrentSave());
             oos = new ObjectOutputStream(fout);
             oos.writeObject(object);
-
-            // System.out.println("Done");
-
         } catch (Exception ex) {
-
             ex.printStackTrace();
-
         } finally {
-
             if (fout != null) {
                 try {
                     fout.close();
@@ -87,7 +105,6 @@ public class SaveManager {
                     e.printStackTrace();
                 }
             }
-
             if (oos != null) {
                 try {
                     oos.close();
@@ -95,7 +112,6 @@ public class SaveManager {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 
@@ -161,11 +177,11 @@ public class SaveManager {
         return deleted;
     }
     /**
-     * Returns if existingSaveNums is not empty
+     * Returns if saveNums is not empty
      */
-    public boolean hasExistingSaveNums() {
-        return existingSaveNums.size() > 0;
-    }
+    // public boolean hasSaveNums() {
+    //     return saveNums.size() > 0;
+    // }
 
     /**
      * Returns value of saveName
@@ -174,6 +190,10 @@ public class SaveManager {
     public String getSaveName() {
         return this.saveName;
     }
+
+    // public String getSaveInfo() {
+    //     return this.saveInfo;
+    // }
 
     /**
      * Returns value of directory
@@ -186,25 +206,38 @@ public class SaveManager {
      * Returns value of saves
      * @return
      */
-    public File[] getSaves() {
+    public File[] getSaveFiles() {
+        updateSaveFiles();
+        return this.saveFiles;
+    }
+    /**
+     * Returns all saves as ArrayList
+     * @return
+     */
+    public ArrayList<Save> getSaves() {
+        updateSaves();
         return this.saves;
+
     }
     /**
      * Returns value of save
      * @return
      */
     public File getCurrentSave() {
-        return this.currentSave;
+        return this.currentSaveFile;
     }
-    public ArrayList<String> getExistingSaveNums() {
-        return existingSaveNums;
+    public String getCurrentSaveName() {
+        return stripExtension(this.currentSaveFile.getName());
     }
-    public ArrayList<String> getExistingSaveNames() {
-        return existingSaveNames;
-    }
+    // public ArrayList<String> getSaveNums() {
+    //     return saveNums;
+    // }
+    // public ArrayList<String> getSaveNames() {
+    //     return saveNames;
+    // }
 
     /**
-     * Sets new value of currentSave by save name
+     * Sets new value of currentSaveFile by save name
      * @param String saveName
      */
     public void setCurrentSave(String saveName) throws InvalidSaveNameException {
@@ -213,21 +246,21 @@ public class SaveManager {
                 throw new InvalidSaveNameException();
             }
         }
-        this.saveName = saveName;
-        this.currentSave = new File(SAVE_DIRECTORY + "/" + saveName + "." + FILE_EXTENTION);
+        this.saveName = toLowerTitleCase(saveName);
+        this.currentSaveFile = new File(SAVE_DIRECTORY + "/" + this.saveName + "." + FILE_EXTENTION);
     }
     /**
-     * Sets values of currentSave by save number
+     * Sets values of currentSaveFile by save number
      * @param int saveNum
      */
     public void setCurrentSave(int saveNum) throws InvalidSaveNumException {
         try {
-            String saveName = saves[saveNum].getName();
-            setCurrentSave(saveName);
+            setCurrentSave(stripExtension(this.saveFiles[saveNum].getName())); // gets name with extension
         } catch (Exception e) {
             throw new InvalidSaveNumException();
         }
     }
+
 
     /**
      * Checks if save directory exists
@@ -241,8 +274,8 @@ public class SaveManager {
      * Checks if save file exists
      * @return     [description]
      */
-    public boolean currentSaveExists() {
-        return currentSave.exists();
+    public boolean currentSaveFileExists() {
+        return currentSaveFile.exists();
     }
 
     // public void serializeAddressJDK7(Address address) {

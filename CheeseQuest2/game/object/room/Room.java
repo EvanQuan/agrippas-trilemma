@@ -1,10 +1,9 @@
 package game.object.room;
 
-import game.object.GameObject;
+import game.object.*;
 import game.object.item.background.BackgroundItem;
 import game.object.item.background.person.Person;
 import game.object.item.collectable.Collectable;
-import game.system.Inventory;
 
 public abstract class Room extends GameObject {
 

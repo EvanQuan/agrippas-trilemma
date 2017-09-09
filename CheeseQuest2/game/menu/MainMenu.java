@@ -1,5 +1,8 @@
 package game.menu;
 
+import java.util.*;
+import main.*;
+
 public class MainMenu extends Menu {
     private static MainMenu instance;
     /**
@@ -15,13 +18,16 @@ public class MainMenu extends Menu {
      * Scroll border: http://www.chris.com/ascii/index.php?art=art%20and%20design/borders
      */
     public static final int OPTIONS_SPACING = 2;
-    public static final String[] START_GAME_OPTIONS = {"1","1.","start game","start","s"};
-    public static final String[] HOW_TO_PLAY_OPTIONS = {"2","2.","how to play","how","h"};
-    public static final String[] ABOUT_THIS_GAME_OPTIONS = {"3","3.","about this game","about","about game","a"};
-
+    private ArrayList<String> startGameVerbs;
+    private ArrayList<String> howToPlayVerbs;
+    private ArrayList<String> aboutThisGameVerbs;
     private MainMenu() {
-
+        startGameVerbs = new ArrayList<String>(getStringArrayList(new String[] {"1","1.","start game","start","s"}));
+        howToPlayVerbs = new ArrayList<String>(getStringArrayList(new String[] {"2","2.","how to play","how","h"}));
+        aboutThisGameVerbs = new ArrayList<String>(getStringArrayList(new String[] {"3","3.","about this game","about","about game","a"}));
+        validVerbs = new ArrayList<ArrayList>(Arrays.asList(new ArrayList[] {startGameVerbs, howToPlayVerbs, aboutThisGameVerbs}));
     }
+
 
     public static MainMenu getInstance() {
         if (instance == null) {
@@ -36,17 +42,29 @@ public class MainMenu extends Menu {
         outputOptions();
     }
     /**
+     * Process input that applies to inheritance
+     */
+    @Override
+    public void preProcessInput() {
+        if (inputEquals(EMPTY)) {
+            outputln("I beg your pardon?");
+            outputOptions();
+        } else {
+            processInput();
+        }
+    }
+    /**
      * Traverse main menu
      */
     @Override
     public void processInput() {
-        if (inputEquals(START_GAME_OPTIONS)) {
+        if (inputEquals(startGameVerbs)) {
             changeToLoadMenu();
             // changeToTestMenu();
-        } else if (inputEquals(HOW_TO_PLAY_OPTIONS)) {
+        } else if (inputEquals(howToPlayVerbs)) {
             outputHowToPlay();
             outputOptions();
-        } else if (inputEquals(ABOUT_THIS_GAME_OPTIONS)) {
+        } else if (inputEquals(aboutThisGameVerbs)) {
             outputAboutThisGame();
             outputOptions();
         } else {
@@ -107,8 +125,8 @@ public class MainMenu extends Menu {
         outputlnRoom("  `---'");
     }
     public void outputOptions() {
-        outputln(OPTIONS_SPACING);
-        output("                     ");
+        outputlns(OPTIONS_SPACING);
+        output("                ");
         outputPlayer("1");
         output(". Start Game        ");
         outputPlayer("2");
@@ -161,12 +179,13 @@ public class MainMenu extends Menu {
         outputln(" - Go Down");
     }
     public void outputAboutThisGame() {
+        outputlnTitle("Current version: " + CheeseQuest.getVersion());
         outputItem("Cheese Quest 2");
         output(" started development in ");
         outputItem("August of 2017");
         output(". It was inspired by ");
         outputItem("The Hitchhiker's Guide to the Galaxy");
-        output(" text adventure game developed by ");
+        output(" text adventure game published by ");
         outputItem("Infocom");
         output(" in ");
         outputItem("1984");

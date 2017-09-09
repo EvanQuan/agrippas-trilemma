@@ -1,6 +1,6 @@
 package game.menu;
 
-import file.*;
+import game.system.*;
 
 /**
  * Mediates post-game decisions

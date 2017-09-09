@@ -7,7 +7,7 @@ import gui.MainFrame;
  * Boots up the game
  */
 public class CheeseQuest {
-    private static String version = "0.0.1";
+    private static String version = "0.7.0";
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
     }

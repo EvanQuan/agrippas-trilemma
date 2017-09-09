@@ -4,12 +4,32 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.7.0] - September 7, 2017
+[v0.7.0] - September 9, 2017
 ---------------------------
+### Added
+- Load menu drastically improved
+    - Create command for creating new games.
+    - Cannot create games by name if already exist.
+    - Prompt for when game is created, when game name is invalid, or if game already exists.
+    - Formatting for game information improved.
+- GhostMenu acts as a sub menu within a menu. Swapping to and from it does not impact previous menu, and thus normal menu swapping. GhostMenu's are not "tied-to" other menus, and as such, can be called from any menu and function correctly.
+    - MenuManager now has ghostPreviousMenu property, and changes to setPreviousMenu(), getPreviousMenu() for this to be implemented.
+- toLowerTitleCase(), which converts to lower case before title case, which is important for converting upper case or mixed case to title case.
+    - Implemented for game save names.
+- TextUtility, which Outputable extends
+    - Better for serialized classes, which don't need the Outputable properties (the GUI OutputPanel).
 ### Changed
+- Merged game.system and file packages to game.system
+    - World changed to Save and now has name property, which is always in title case
 - Verb does not need to be explicitly created
 - Verb is automatically created on first input check, and is reset between player inputs
     - Verb can still be manually set incase it's needed to change mid-turn
+- MenuManager's lastMenu renamed to previousMenu
+- Input checking now ignores case entirely
+### Fixed
+- getStringArrayList(), inputStartsWithChoice() now work when input ArrayList is empty
+- LoadMenu now works correctly
+- SaveManager now instantiates saves as an empty array when determineExistingSaveNums() is called if it is null (when there are no existing save files).
 
 
 
@@ -72,6 +92,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 --------------------------
 ### Added
 - InputPanel can now retrieve previous input like command line
+    - Scrolling up with up arrow/left arrow keys moves up from most previous commands to further back, and cycles back to most previous once all commands are traversed through.
+    - Scrolling down with down/right arrow keys moves down from first command to most previous, and cycles back to first command once all commands are traversed through.
 - InputPanel's JTextField regains focus when MainFrame regains focus
 - OutputPanel now uses color
     - Implemented in MainMenu

@@ -1,6 +1,6 @@
 package game.menu;
 
-import file.*;
+import game.system.*;
 /**
  * Prompts to save game save
  * Uses WriteObject to save game

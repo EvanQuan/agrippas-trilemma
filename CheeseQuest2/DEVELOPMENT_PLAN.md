@@ -5,7 +5,6 @@ Priority features
 -----------------
 What's currently being worked on in descending order.
 ### Short term
-- Getting new revamped LoadMenu to function correctly
 - Improve input parsing
 - Basic commands
 - Room interaction
@@ -20,11 +19,16 @@ What's currently being worked on in descending order.
 
 Problems
 --------
-If self unresolved, will create major long-term development issues
+If left unresolved, will create major long-term development issues
+### Unresolved
 - How to implement loop-like behavior for GUI input
-    - GUI input works fundamentally different than command line standard input/output and does not "wait" for the user to input within for/while loops
-    - Solution: Have ad hoc boolean variables that bypass if/else-if statements to reach desired input processing
-        - Downside: Extremely messy and bug-prone if enough are added into processInput();
+    - GUI input works fundamentally different than command line standard input/output and does not "wait" for the user to input within for/while loops.
+    - **Solution**: Have ad hoc boolean variables that bypass if/else-if statements to reach desired input processing step
+        - Downside: Extremely messy and bug-prone if enough are added into processInput().
+    - **Solution**: Have boolean variables for processInput() menu states (acts similarly to just menu swapping)
+        - Downside: Somewhat messy and difficult to track.
+    - **Solution**: Use menu swapping, as already implemented. Certain menus will have sub-menus to act as input loops.
+        - **Downside**: Extra work (at least in the short term), as singleton methods and MenuManager menu swapping methods need to be implemented.
 - How to implement other GUI components
     - Movement panel
         - Movement creates predefined user input, which can easily be done by directly interacting with output panel
