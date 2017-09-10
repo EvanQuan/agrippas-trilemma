@@ -125,27 +125,28 @@ public abstract class Menu extends Outputable {
         if (arrayList.size() == 0) {
             arrayList.add(EMPTY);
         }
-        int longestWord = 0;
+        // int longestWord = 0;
         String[] words;
         String word;
         String tempVerb = EMPTY;
         Object testElement = arrayList.get(0);
         if (testElement instanceof String) {
-            for (int i = 0; i < arrayList.size(); i++) {
+            sortByLongest(arrayList);
+            for (int i = 0; i < arrayList.size(); i++) { // search for entry with most words
                 words = ((String) arrayList.get(i)).split(" "); // entries in array may have multiple words
-                if (words.length > longestWord) {
-                    longestWord = words.length;
-                    word = String.join(" ", Arrays.copyOfRange(inputWords,0,longestWord)); // make start comparison multiple words if need be
-                    if (wordEquals(word,arrayList)) {
-                        if (strip) {
-                            tempVerb = stripInput(longestWord);
-                        }
-                        if (setVerb || this.verb.equals(EMPTY)) {
-                            this.verb = tempVerb;
-                        }
-                        return true;
+                // if (words.length > longestWord) { // update longest word
+                    // longestWord = words.length;
+                word = String.join(" ", Arrays.copyOfRange(inputWords,0,words.length)); // make start comparison multiple words if need be
+                if (wordEquals(word,arrayList)) {
+                    if (strip) {
+                        tempVerb = stripInput(words.length);
                     }
+                    if (setVerb || this.verb.equals(EMPTY)) {
+                        this.verb = tempVerb;
+                    }
+                    return true;
                 }
+                // }
             }
         } else if (testElement instanceof Number) {
             if (testElement instanceof Integer) {
@@ -162,7 +163,6 @@ public abstract class Menu extends Outputable {
                 }
             }
         }
-
         return false;
     }
 

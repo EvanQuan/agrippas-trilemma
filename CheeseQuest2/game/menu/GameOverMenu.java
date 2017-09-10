@@ -57,5 +57,11 @@ public class GameOverMenu extends Menu {
                 break;
         }
     }
+    public void setWin() {
+        setMode(WIN);
+    }
+    public void setLose() {
+        setMode(LOSE);
+    }
 
 }

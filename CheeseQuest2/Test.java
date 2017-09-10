@@ -1,18 +1,17 @@
-public class Test {
+import java.util.*;
+
+import game.system.*;
+
+public class Test extends TextUtility {
     public static void main(String[] args) {
-        System.out.println("Hi");
-        System.out.print("hi");
+        Test t = new Test();
+        ArrayList<String> inList = new ArrayList<String>(Arrays.asList("one","asdfasdfh", "otmoaso asd fha ", "fo", "ash"));
 
-        int x = 5;
+        System.out.println("Before: " + inList);
 
-        int y = 10;
+        t.sortByLongest(inList);
+        
 
-        int z = x + y;
-
-        int[] myList = {1,2,3,4};
-
-        for (int i = 0; i < myList.size(); i++) {
-            
-        }
+        System.out.println("After: " + inList);
     }
 }
