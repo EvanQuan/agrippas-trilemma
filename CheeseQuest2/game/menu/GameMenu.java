@@ -76,7 +76,7 @@ public class GameMenu extends Menu {
         }
     }
     public void quit() {
-        changeToGameOverMenu();
+        changeToAskSaveMenu();
     }
 
 

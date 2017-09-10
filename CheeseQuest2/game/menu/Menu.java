@@ -23,9 +23,17 @@ public abstract class Menu extends Outputable {
     private String verb;
     private MenuManager menuManager; // Cannot have menuManeger, or infinite recursion occurs??
 
+    // Input options
+    protected String[] yes;
+    protected String[] no;
+    protected String[] returnToPreviousMenu;
+
     public Menu() {
         menuManager = MenuManager.getInstance();
         // validVerbs = new ArrayList<ArrayList<String>>();
+        yes = new String[] {"yes","y","yeah","yee","yup"};
+        no = new String[] {"no","n","nay","nope"};
+        returnToPreviousMenu = new String[] {"return","r","return to previous menu","return menu","return to menu"};
     }
 
     /**
@@ -458,6 +466,9 @@ public abstract class Menu extends Outputable {
     }
     public void changeToLoadMenu() {
         menuManager.setMenu(LoadMenu.getInstance());
+    }
+    public void changeToAskSaveMenu() {
+        menuManager.setMenu(AskToSaveMenu.getInstance());
     }
     public void changeToCreateGameMenu() {
         menuManager.setMenu(CreateGameMenu.getInstance());

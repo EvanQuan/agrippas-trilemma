@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [v0.8.0] - September 10, 2017
 ----------------------------
 ### Added
+- AskToSaveMenu
 - sortByLongest(String[]) and sortByLongest(ArrayList<String>) for TextUtility
 ### Fixed
 - Order of elements in arrayList for inputStartsWithChoice() does not matter.

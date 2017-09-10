@@ -12,7 +12,6 @@ public class LoadMenu extends Menu {
 
     public static final String LOAD_GAME = "Load game";
     // public static final String NEW_GAME = "New game";
-    public static final String[] RETURN_TO_PREVIOUS_MENU = {"return","r"};
     public static final String[] CREATE_OPTIONS = {"create","c","create new game","create game","create new"};
     public static final String[] LOAD_OPTIONS = {"load","l"};
     public static final String[] DELETE_OPTIONS = {"delete","d"};
@@ -159,7 +158,7 @@ public class LoadMenu extends Menu {
             }
             outputln();
             outputPrompt();
-        } else if (inputStartsWithStrip(RETURN_TO_PREVIOUS_MENU)) {
+        } else if (inputStartsWithStrip(returnToPreviousMenu)) {
             changeToPreviousMenu();
         } else { //
             outputln("You cannot do that.");
