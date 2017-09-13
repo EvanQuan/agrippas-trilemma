@@ -13,6 +13,7 @@ public class GameMenu extends Menu {
 
     private static GameMenu instance;
 
+    private boolean extendInput;
     // World info
     private String name;
     private Room room;
@@ -22,6 +23,7 @@ public class GameMenu extends Menu {
     private ArrayList<String> look;
 
     private GameMenu() {
+        extendInput = false;
         look = new ArrayList<String>(getStringArrayList(new String[] {"look","l"}));
     }
 
@@ -35,6 +37,12 @@ public class GameMenu extends Menu {
             instance  = new GameMenu();
         }
         return instance;
+    }
+    /**
+     * Allows children to extend basic processInput commands
+     */
+    public void enableExtendInput() {
+        extendInput = true;
     }
 
     public void setSave(Save save) {
@@ -58,6 +66,8 @@ public class GameMenu extends Menu {
             } else {
                 quit(); // NOTE: Change to GameOverMenu
             }
+        } else if (!extendInput) { // outputInvalid must be manually set for children extendInput
+            outputInvalid();
         }
     }
     /**

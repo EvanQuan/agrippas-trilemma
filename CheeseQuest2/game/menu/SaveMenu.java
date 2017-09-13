@@ -4,6 +4,7 @@ import game.system.*;
 /**
  * Prompts to save game save
  * Uses WriteObject to save game
+ * Can override preexisting saves
  */
 public class SaveMenu extends Menu {
 
@@ -18,5 +19,15 @@ public class SaveMenu extends Menu {
             instance = new SaveMenu();
         }
         return instance;
+    }
+
+    @Override
+    public void outputPrompt() {
+
+    }
+
+    @Override
+    public void processInput() {
+
     }
 }
