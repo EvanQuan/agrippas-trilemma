@@ -22,10 +22,10 @@ public class AskToSaveMenu extends GhostMenu {
         outputln("Would you like to save the game first?");
         output("(");
         outpuPlayer("Yes");
-        output("/")
+        output("/");
         outputPlayer("No");
-        output("/")
-        outputPlyaer("Return");
+        output("/");
+        outputPlayer("Return");
         outputln(")");
     }
     @Override

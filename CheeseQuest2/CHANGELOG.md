@@ -3,6 +3,12 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+[v0.8.1] - November 6, 2017
+----------------------------
+### Added
+- Non IDE recursive compiling instructions in `DESIGN_NOTES.md`.
+### Fixed
+- Typo in AskToSaveMenu
 
 [v0.8.0] - September 10, 2017
 ----------------------------

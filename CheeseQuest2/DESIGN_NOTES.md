@@ -2,7 +2,19 @@ Design Notes
 ============
 Notes on design decisions for self use in considering/revising decisions made
 
+Compiling if you're lazy and not using an IDE:
 
+Linux
+```
+find -name "*.java" > sources.txt
+javac @sources.txt
+```
+
+Windows
+```
+dir /s /B *.java > sources.txt
+javac @sources.txt
+```
 
 Making a new game instead of continuing original Cheese Quest
 -------------------------------------------------------------
