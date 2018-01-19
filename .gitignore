@@ -1,3 +1,7 @@
+# Eclipse stuff
+/bin/
+
+
 Test/
 game/system/saves/
 
