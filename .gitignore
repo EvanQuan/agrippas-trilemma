@@ -1,6 +1,5 @@
 Test/
-CheeseQuest2/Test/
-CheeseQuest2/game/system/saves/
+game/system/saves/
 
 # Compiled class file
 *.class
