@@ -72,7 +72,7 @@ public class GameMenu extends Menu {
     }
 
     public void outputInvalid() {
-        
+
     }
     /**
      * Returns current save

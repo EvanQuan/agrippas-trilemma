@@ -21,7 +21,7 @@ public abstract class GameObject extends Outputable implements Serializable {
     /**
      * Game objects have properties that determine if other actions
      * can be performed.
-     * 
+     *
      * This is not structurally enforced.
      * */
     private HashSet<String> properties;
@@ -77,7 +77,7 @@ public abstract class GameObject extends Outputable implements Serializable {
     protected void addArrayToList(String[] array, ArrayList<String> list) {
         list.addAll(Arrays.asList(array));
     }
-    
+
     /**
      * Check if the object contains a contains a property.
      * These properties are not structurally enforced.
@@ -90,7 +90,7 @@ public abstract class GameObject extends Outputable implements Serializable {
     /**
      * Add property to object
      * @param property to add
-     * @return true if object did not already have property 
+     * @return true if object did not already have property
      */
     public boolean addProperty(String property) {
         return properties.add(property.toLowerCase());
@@ -108,7 +108,7 @@ public abstract class GameObject extends Outputable implements Serializable {
     /**
      * Generic return property
      * Children should override
-     * @param 
+     * @param
      * @return
      */
     public Object get(String property) {
@@ -174,7 +174,7 @@ public abstract class GameObject extends Outputable implements Serializable {
     public String getPluralName() {
         return getPluralName(DEFAULT);
     }
-    
+
     public HashSet<String> getProperties() {
         return this.properties;
     }

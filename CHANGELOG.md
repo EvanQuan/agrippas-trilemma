@@ -12,7 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - ObjectFacotry
     - Returns object singletons (reduce redundant information)
     - TODO: Is this better than singleton?
-- 
+-
 
 [v0.8.1] - November 6, 2017
 ----------------------------
@@ -41,17 +41,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - Prompt for when game is created, when game name is invalid, or if game already exists.
     - Formatting for game information improved.
 - GhostMenu acts as a sub menu within a menu. Swapping to and from it does not impact previous menu, and thus normal menu swapping. GhostMenu's are not "tied-to" other menus, and as such, can be called from any menu and function correctly.
-     - MenuManager now has ghostPreviousMenu property, and changes to setPreviousMenu(), getPreviousMenu() for this to be implemented.
+    - MenuManager now has ghostPreviousMenu property, and changes to setPreviousMenu(), getPreviousMenu() for this to be implemented.
 - toLowerTitleCase(), which converts to lower case before title case, which is important for converting upper case or mixed case to title case.
      - Implemented for game save names.
 - TextUtility, which Outputable extends
     - Better for serialized classes, which don't need the Outputable properties (the GUI OutputPanel).
 ### Changed
 - Merged game.system and file packages to game.system
-     - World changed to Save and now has name property, which is always in title case
+    - World changed to Save and now has name property, which is always in title case
 - Verb does not need to be explicitly created
 - Verb is automatically created on first input check, and is reset between player inputs
-     - Verb can still be manually set incase it's needed to change mid-turn
+    - Verb can still be manually set incase it's needed to change mid-turn
 - MenuManager's lastMenu renamed to previousMenu
 - Input checking now ignores case entirely
 ### Fixed

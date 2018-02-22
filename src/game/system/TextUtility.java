@@ -31,8 +31,8 @@ public abstract class TextUtility {
     }
 
     /**
-     * @param  string to check
-     * @return true if string starts with a vowel
+     * @param  String string
+     * @return        true if string starts with a vowel
      */
     public boolean startsWithVowel(String string) {
         switch(Character.toLowerCase(string.charAt(0))) {
@@ -50,8 +50,7 @@ public abstract class TextUtility {
     /**
      * Removes extension from file name, noted by a '.'
      * @param  String fileName
-     * @return        fileName without extension
-     * @
+     * @return        fileName without extention
      */
     public String stripExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
