@@ -47,7 +47,7 @@ public class MainMenu extends Menu {
     @Override
     public void preProcessInput() {
         if (inputEquals(EMPTY)) {
-            outputln("I beg your pardon?");
+            println("I beg your pardon?");
             outputOptions();
         } else {
             processInput();
@@ -98,7 +98,7 @@ public class MainMenu extends Menu {
         // "\\       |\n" +
         // " \\     /");
         // Cheese Quest
-        outputRoom("                                                                               .---.\n" +
+        printLocation("                                                                               .---.\n" +
             "                                                                              /  .  \\ \n" +
             "                                                                             |\\_/|   |\n" +
             "                                                                             |   |  /|\n" +
@@ -121,84 +121,84 @@ public class MainMenu extends Menu {
             "|       |--------------------------------------------------------------------------'\n" +
             "\\       |\n" +
             " \\     /");
-        outputln("                          A Text Adventure Game");
-        outputlnRoom("  `---'");
+        println("                          A Text Adventure Game");
+        printLocationln("  `---'");
     }
     public void outputOptions() {
-        outputlns(OPTIONS_SPACING);
-        output("                ");
-        outputPlayer("1");
-        output(". Start Game        ");
-        outputPlayer("2");
-        output(". How to Play        ");
-        outputPlayer("3");
-        outputln(". About this Game");
+        printlns(OPTIONS_SPACING);
+        print("                ");
+        printPlayer("1");
+        print(". Start Game        ");
+        printPlayer("2");
+        print(". How to Play        ");
+        printPlayer("3");
+        println(". About this Game");
     }
     public void outputHowToPlay() {
-        outputln("Type in commands to do stuff. See what works and what doesn't.");
-        outputln();
-        outputlnItem("Examples:");
-        outputln();
-        outputPlayerInputNoSpace("drink eggnog");
-        outputln("You drink the eggnog. It's like Christmas morning!");
-        outputln();
-        outputPlayerInputNoSpace("give catnip to kitten");
-        outputln("You give the catnip to the kitten, making it go crazy.");
-        outputln();
+        println("Type in commands to do stuff. See what works and what doesn't.");
+        println();
+        printItemln("Examples:");
+        println();
+        printPlayerInputNoSpace("drink eggnog");
+        println("You drink the eggnog. It's like Christmas morning!");
+        println();
+        printPlayerInputNoSpace("give catnip to kitten");
+        println("You give the catnip to the kitten, making it go crazy.");
+        println();
         outputShortcuts();
     }
     public void outputShortcuts() {
-        outputlnItem("Basic shortcut commands:");
-        outputPlayer("l");
-        outputln(" - Look");
-        outputPlayer("x");
-        outputln(" - Examine");
-        outputPlayer("i");
-        outputln(" - Inventory");
-        outputPlayer("h");
-        outputln(" - Health/Hunger (stats)");
-        outputPlayer("o");
-        outputln(" - Current objective");
-        outputPlayer("z");
-        outputln(" - Wait");
-        outputPlayer("g");
-        outputln(" - Again (Repeat previous action)");
-        outputln();
-        outputlnItem("Movement:");
-        outputPlayer("n");
-        outputln(" - Go North");
-        outputPlayer("e");
-        outputln(" - Go East");
-        outputPlayer("w");
-        outputln(" - Go West");
-        outputPlayer("s");
-        outputln(" - Go South");
-        outputPlayer("u");
-        outputln(" - Go Up");
-        outputPlayer("d");
-        outputln(" - Go Down");
+        printItemln("Basic shortcut commands:");
+        printPlayer("l");
+        println(" - Look");
+        printPlayer("x");
+        println(" - Examine");
+        printPlayer("i");
+        println(" - Inventory");
+        printPlayer("h");
+        println(" - Health/Hunger (stats)");
+        printPlayer("o");
+        println(" - Current objective");
+        printPlayer("z");
+        println(" - Wait");
+        printPlayer("g");
+        println(" - Again (Repeat previous action)");
+        println();
+        printItemln("Movement:");
+        printPlayer("n");
+        println(" - Go North");
+        printPlayer("e");
+        println(" - Go East");
+        printPlayer("w");
+        println(" - Go West");
+        printPlayer("s");
+        println(" - Go South");
+        printPlayer("u");
+        println(" - Go Up");
+        printPlayer("d");
+        println(" - Go Down");
     }
     public void outputAboutThisGame() {
-        outputlnTitle("Current version: " + CheeseQuest.getVersion());
-        outputItem("Cheese Quest 2");
-        output(" started development in ");
-        outputItem("August of 2017");
-        output(". It was inspired by ");
-        outputItem("The Hitchhiker's Guide to the Galaxy");
-        output(" text adventure game published by ");
-        outputItem("Infocom");
-        output(" in ");
-        outputItem("1984");
-        outputln(".");
+        printTitleln("Current version: " + CheeseQuest.getVersion());
+        printItem("Cheese Quest 2");
+        print(" started development in ");
+        printItem("August of 2017");
+        print(". It was inspired by ");
+        printItem("The Hitchhiker's Guide to the Galaxy");
+        print(" text adventure game published by ");
+        printItem("Infocom");
+        print(" in ");
+        printItem("1984");
+        println(".");
     }
     public void outputInvalid() {
-        output("Choose ");
-        outputPlayer("Start Game");
-        output(", ");
-        outputPlayer("How to Play");
-        output(", or ");
-        outputPlayer("About this Game");
-        outputln(".");
+        print("Choose ");
+        printPlayer("Start Game");
+        print(", ");
+        printPlayer("How to Play");
+        print(", or ");
+        printPlayer("About this Game");
+        println(".");
     }
 
 }

@@ -1,6 +1,6 @@
 package game.object.item.collectible.consumable.food;
 
-import game.object.item.collectable.consumable.*;
+import game.object.item.collectible.consumable.*;
 
 /**
  * Food restores hunger when consumed

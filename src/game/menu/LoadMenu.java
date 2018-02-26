@@ -57,39 +57,39 @@ public class LoadMenu extends Menu {
     @Override
     public void outputPrompt() {
         updateSaves();
-        outputlnTitle(LOAD_GAME);
+        printTitleln(LOAD_GAME);
         String gameName;
         ArrayList<Save> saves = saver.getSaves();
         for (int i = 0; i < saves.size(); i++) {
-            outputItem(i + 1);
-            output(". ");
+            printItem(i + 1);
+            print(". ");
             outputSaveInfo(saves.get(i));
         }
-        outputln();
-        outputPlayer("Create");
-        output(", ");
-        outputPlayer("Load");
-        output(", or ");
-        outputPlayer("Delete");
-        output(" a game, or ");
-        outputPlayer("Return");
-        output(" to the ");
+        println();
+        printPlayer("Create");
+        print(", ");
+        printPlayer("Load");
+        print(", or ");
+        printPlayer("Delete");
+        print(" a game, or ");
+        printPlayer("Return");
+        print(" to the ");
         if (MenuManager.getInstance().getPreviousMenu().equals(MainMenu.getInstance())) {
-            outputRoom("Main Menu");
-            outputln(".");
+            printLocation("Main Menu");
+            println(".");
         } else {
-            outputln("the game.");
+            println("the game.");
         }
         // outputlnRoom(splitCamelCaseToString(MenuManager.getInstance().getPreviousMenu().getClass().getSimpleName()));
     }
     public void outputSaveInfo(Save save) {
-        outputln(save.getName());
-        outputItem("     Room: ");
-        output(save.getRoom().getSingleName());
-        outputItem("     Turns: ");
-        output(save.getTurnCount());
-        outputItem("     Version: ");
-        outputln(save.getVersion());
+        println(save.getName());
+        printItem("     Room: ");
+        print(save.getRoom().getSingleName());
+        printItem("     Turns: ");
+        print(save.getTurnCount());
+        printItem("     Version: ");
+        println(save.getVersion());
     }
 
     @Override
@@ -156,12 +156,12 @@ public class LoadMenu extends Menu {
             } else {
                 outputNotDeleted();
             }
-            outputln();
+            println();
             outputPrompt();
         } else if (inputStartsWithStrip(returnToPreviousMenu)) {
             changeToPreviousMenu();
         } else { //
-            outputln("You cannot do that.");
+            println("You cannot do that.");
             outputPrompt();
         }
     }
@@ -209,40 +209,40 @@ public class LoadMenu extends Menu {
     // Prompts
     public void outputInvalid(String action) {
         if (saveNums.size() == 0) {
-            output("There are no games to ");
-            outputPlayer(toTitleCase(action));
-            outputln(".");
+            print("There are no games to ");
+            printPlayer(toTitleCase(action));
+            println(".");
         } else {
-            output("The only game");
+            print("The only game");
             if (saveNums.size() > 1) {
-                output("s");
+                print("s");
             }
-            output(" to " + action.toLowerCase() + " ");
+            print(" to " + action.toLowerCase() + " ");
             if (saveNums.size() > 1) {
-                output("are from ");
+                print("are from ");
             } else {
-                output("is ");
+                print("is ");
             }
-            outputPlayer(1);
+            printPlayer(1);
             if (saveNums.size() > 1) {
-                output(" to ");
-                outputPlayer(saveNums.size());
+                print(" to ");
+                printPlayer(saveNums.size());
             }
-            outputln(".");
+            println(".");
         }
 
     }
 
     public void outputDeleted() {
-        output("Save \"");
-        outputItem(saver.getCurrentSaveName());
-        outputln("\" deleted.");
+        print("Save \"");
+        printItem(saver.getCurrentSaveName());
+        println("\" deleted.");
     }
 
     public void outputNotDeleted() {
-        output("Save \"");
-        outputItem(getInputString());
-        outputln("\" does not exist and cannot be deleted.");
+        print("Save \"");
+        printItem(getInputString());
+        println("\" does not exist and cannot be deleted.");
     }
 
 

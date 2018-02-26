@@ -1,40 +1,27 @@
 package game.system;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import game.*;
-import game.object.*;
-import game.object.room.*;
-import game.object.item.background.person.*;
+
+import game.object.item.background.character.Player;
+import game.object.location.Location;
 import main.CheeseQuest;
 
 /**
- * Object to be saved and loaded by WriteObject and ReadObject
- * Contains:
- * - rooms which are spacially related to one another
- * - player
- * - turn count
- * - game version
- * - old game version cannot be loaded
+ * Object to be saved and loaded by WriteObject and ReadObject Contains: - rooms
+ * which are spatially related to one another - player - turn count - game
+ * version - old game version cannot be loaded
  */
-public class Save extends TextUtility implements Serializable {
+public class Save implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Room room;
+    private Location room;
     private Player player;
     private int turnCount;
     private String name; // Name of game save
     private String version;
 
-    public Save(String name) {
-        initialize();
-        this.turnCount = 0;
-        this.version = CheeseQuest.getVersion();
-        setName(name);
-
-    }
-    public Save(Room room, Player player, int turnCount, String name) {
+    public Save(Location room, Player player, int turnCount, String name) {
         // Starting room
         // currentRoom = JailCell.getInstance();
         this.room = room;
@@ -45,33 +32,41 @@ public class Save extends TextUtility implements Serializable {
         this.version = CheeseQuest.getVersion();
     }
 
+    public Save(String name) {
+        initialize();
+        this.turnCount = 0;
+        this.version = CheeseQuest.getVersion();
+        setName(name);
 
-
-    public void setName(String name) {
-        this.name = toLowerTitleCase(name);
-    }
-    public Room getRoom() {
-        return room;
-    }
-    public Player getPlayer() {
-        return player;
-    }
-    public int getTurnCount() {
-        return turnCount;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getVersion() {
-        return version;
     }
 
     /**
      * This is the string representation of the world used in LoadMenu
+     * 
      * @return
      */
     public String getInfo() {
         return "Room: " + room.getSingleName() + " | Turns: " + turnCount + " | Version: " + version;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Location getRoom() {
+        return room;
+    }
+
+    public int getTurnCount() {
+        return turnCount;
+    }
+
+    public String getVersion() {
+        return version;
     }
 
     /**
@@ -82,5 +77,9 @@ public class Save extends TextUtility implements Serializable {
 
         // Starting room
         this.room = testRoom;
+    }
+
+    public void setName(String name) {
+        this.name = toLowerTitleCase(name);
     }
 }

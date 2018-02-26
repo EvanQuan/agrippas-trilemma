@@ -2,9 +2,9 @@ package game.menu;
 
 import java.util.*;
 import game.system.*;
-import game.object.room.*;
-import game.object.item.background.person.*;
+import game.object.item.background.character.*;
 import game.object.item.collectible.Collectible;
+import game.object.location.*;
 
 /**
  * Manages all in game actions
@@ -16,7 +16,7 @@ public class GameMenu extends Menu {
     private boolean extendInput;
     // World info
     private String name;
-    private Room room;
+    private Location room;
     private Player player;
     private int turnCount;
 
@@ -29,7 +29,7 @@ public class GameMenu extends Menu {
 
     @Override
     public void outputPrompt() {
-        outputln("room: " + room);
+        println("room: " + room);
         playerLook();
     }
     public static GameMenu getInstance() {
@@ -56,13 +56,13 @@ public class GameMenu extends Menu {
     public void processInput() {
         if (inputStartsWithStrip(look)) {
             if (inputRemains()) {
-                outputln("You can't look at that."); // NOTE: Change later debug
+                println("You can't look at that."); // NOTE: Change later debug
             } else {
                 playerLook();
             }
         } else if (inputStartsWithStrip(new String[] {"quit","quit game"})) {
             if (inputRemains()) {
-                outputln("You can't do that.");
+                println("You can't do that.");
             } else {
                 quit(); // NOTE: Change to GameOverMenu
             }

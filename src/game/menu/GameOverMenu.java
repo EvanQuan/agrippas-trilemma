@@ -31,16 +31,16 @@ public class GameOverMenu extends Menu {
 
     @Override
     public void outputPrompt() {
-        outputlnTitle(title);
+        printTitleln(title);
 
-        outputPlayer("Restart");
-        output(" or ");
-        outputPlayer("Load");
-        output(" a game save, or ");
-        outputPlayer("Return");
-        output(" to the ");
-        outputRoom(" Main Menu");
-        outputln(".");
+        printPlayer("Restart");
+        print(" or ");
+        printPlayer("Load");
+        print(" a game save, or ");
+        printPlayer("Return");
+        print(" to the ");
+        printLocation(" Main Menu");
+        println(".");
     }
 
     /**

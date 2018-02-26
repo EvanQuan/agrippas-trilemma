@@ -3,16 +3,30 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-[v0.9.0] - February 11, 2018 - NOT PUSHED YET
+[v0.9.0] - February 26, 2018
 ----------------------------
 ### Added
 - GameObject now has properties field
     - This is to make checking if objects have properties more generalized
-    - Reduces the amount of object subclassing
-- ObjectFacotry
+    - Reduces the amount of object sub-classing
+    - Descriptions can now be iterated over, where the description indices are set with setNextDescription() and setPreviousDescription().
+- ObjectFactory
     - Returns object singletons (reduce redundant information)
-    - TODO: Is this better than singleton?
--
+- Printer interface
+    - StandardPrinter prints to standard output (console) as possible alternative to GUI
+        - Potentially down the road the game may be playable in console
+- Exit class
+    - Added to Location to replace N/E/S/W/Up/Down rooms
+### Changed
+- GameObject no longer extends Printer
+    - Text output is now delegated to Menu
+- Output methods refactored to "print"
+- Outputable refactored to GUIPrinter
+- Room
+    - refactored to Location
+    - Removed all north/east/west/south/up/down rooms, blocked, blockedReason fields. Replaced with exits ArrayList<Exit>.
+- Collectable refactored to Collectible (whoops!)
+
 
 [v0.8.1] - November 6, 2017
 ----------------------------

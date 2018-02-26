@@ -192,10 +192,10 @@ public class OutputPanel extends GridBagPanel {
     public void appendItem(String string) {
         append(string,specialFont,ITEM_COLOR);
     }
-    public void appendPerson(String string) {
+    public void appendCharacter(String string) {
         append(string,specialFont,PERSON_COLOR);
     }
-    public void appendRoom(String string) {
+    public void appendLocation(String string) {
         append(string,specialFont,ROOM_COLOR);
     }
     public void appendTitle(String string) {

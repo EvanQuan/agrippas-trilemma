@@ -16,10 +16,10 @@ public class TestMenu extends Menu {
 
     @Override
     public void outputPrompt() {
-        outputlnTitle("Test Menu");
-        outputln("You are now in the Test menu.");
-        outputln("Valid input: " + Arrays.asList(VALID_INPUT));
-        outputln("To go to the main menu, type \"" + Arrays.asList(BACK) + "\"");
+        printTitleln("Test Menu");
+        println("You are now in the Test menu.");
+        println("Valid input: " + Arrays.asList(VALID_INPUT));
+        println("To go to the main menu, type \"" + Arrays.asList(BACK) + "\"");
     }
     @Override
     public void processInput() {
@@ -28,23 +28,23 @@ public class TestMenu extends Menu {
         } else if (inputStartsWithStrip(VALID_INPUT)) {
 
             if (inputStartsWith(new String[] {"potato", "the potato"})) {
-                outputln("You pick up the potato.");
+                println("You pick up the potato.");
             } else if (inputStartsWith("llama")) {
-                outputln("You pick up the llama");
+                println("You pick up the llama");
             } else {
-                outputln("there is no " + getInputString() + " here to pick up");
+                println("there is no " + getInputString() + " here to pick up");
             }
-            outputln("Valid input.");
-            outputln("inputString: \"" + getInputString() + "\"");
-            outputln("inputWords: \"" + Arrays.asList(getInputWords()) + "\"");
-            outputln("remainingWords: \"" + getRemainingString() + "\"");
+            println("Valid input.");
+            println("inputString: \"" + getInputString() + "\"");
+            println("inputWords: \"" + Arrays.asList(getInputWords()) + "\"");
+            println("remainingWords: \"" + getRemainingString() + "\"");
         } else {
-            outputln("Invalid input.");
+            println("Invalid input.");
         }
     }
     public void checkDrop() {
         if (inputStartsWith("drop")) {
-            outputln("You have nothing to drop");
+            println("You have nothing to drop");
         }
     }
 

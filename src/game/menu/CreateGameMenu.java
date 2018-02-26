@@ -24,20 +24,20 @@ public class CreateGameMenu extends GhostMenu {
 
     @Override
     public void outputPrompt() {
-        outputln("Enter the name of your new game.");
+        println("Enter the name of your new game.");
     }
     @Override
     public void processInput() {
         String name = getInputString();
-        output("Game \"");
-        outputItem(toTitleCase(name));
-        output("\" ");
+        print("Game \"");
+        printItem(toTitleCase(name));
+        print("\" ");
         if (LoadMenu.getInstance().getSaveNames().contains(toTitleCase(name))) { // Does not create a new game
-            outputln("already exists.");
+            println("already exists.");
         } else {
             boolean created = createGame(name);
             if (created) {
-                outputln(" has been created.");
+                println(" has been created.");
             }
         }
         changeToPreviousMenu();
@@ -68,16 +68,16 @@ public class CreateGameMenu extends GhostMenu {
      * NOTE: Assumes SaveManager.INVALID_CHARACTERS is not empty
      */
     public void outputInvalidSaveName() {
-        output(" cannot contain the special characters ");
+        print(" cannot contain the special characters ");
         for (int i = 0; i < SaveManager.INVALID_CHARACTERS.length - 1; i++) {
-            outputPlayer(SaveManager.INVALID_CHARACTERS[i]);
-            output(", ");
+            printPlayer(SaveManager.INVALID_CHARACTERS[i]);
+            print(", ");
         }
         if (SaveManager.INVALID_CHARACTERS.length > 1) {
-            output("or ");
+            print("or ");
         }
-        outputPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
-        outputln(".");
+        printPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
+        println(".");
     }
 
 }

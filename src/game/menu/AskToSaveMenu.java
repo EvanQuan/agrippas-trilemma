@@ -19,14 +19,14 @@ public class AskToSaveMenu extends GhostMenu {
 
     @Override
     public void outputPrompt() {
-        outputln("Would you like to save the game first?");
-        output("(");
-        outputPlayer("Yes");
-        output("/");
-        outputPlayer("No");
-        output("/");
-        outputPlayer("Return");
-        outputln(")");
+        println("Would you like to save the game first?");
+        print("(");
+        printPlayer("Yes");
+        print("/");
+        printPlayer("No");
+        print("/");
+        printPlayer("Return");
+        println(")");
     }
     @Override
     public void processInput() {

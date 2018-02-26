@@ -1,6 +1,6 @@
 package game.object.item.collectible.consumable.healer;
 
-import game.object.item.collectable.consumable.*;
+import game.object.item.collectible.consumable.*;
 
 /**
  * Healer restores health when consumed

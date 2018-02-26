@@ -1,23 +1,24 @@
 package game.object.item.collectible;
 
-import game.object.item.*;
+import game.object.item.Item;
 
 /**
- * Contains a value and weight
+ * Items that can be collected by the player. Stored in player inventory.
+ * Contains a value (which is how shop price is determined), and weight, which
+ * contributes to player total inventory weight.
+ *
+ * @author Evan Quan
  */
 public abstract class Collectible extends Item {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Cost multiplier for price in stores
-     */
     private double value;
     private double weight;
 
     /**
-    * Default Collectible constructor
-    */
+     * Default Collectible constructor
+     */
     public Collectible() {
         setValue(DEFAULT);
         setWeight(DEFAULT);
@@ -25,33 +26,37 @@ public abstract class Collectible extends Item {
     }
 
     /**
-    * Returns value of value
-    * @return
-    */
+     * Returns value of item, which is a multiplier of how much it costs in stores
+     *
+     * @return
+     */
     public double getValue() {
         return value;
     }
 
     /**
-    * Returns value of weight
-    * @return
-    */
+     * Returns value of weight
+     *
+     * @return
+     */
     public double getWeight() {
         return weight;
     }
 
     /**
-    * Sets new value of value
-    * @param
-    */
+     * Sets new value of collectible
+     *
+     * @param
+     */
     public void setValue(double value) {
         this.value = value;
     }
 
     /**
-    * Sets new value of weight
-    * @param
-    */
+     * Sets new value of weight
+     *
+     * @param
+     */
     public void setWeight(double weight) {
         this.weight = weight;
     }

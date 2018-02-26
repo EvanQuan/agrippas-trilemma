@@ -5,14 +5,14 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 /**
- * Allows ease of access to player movement during game
+ * Allows ease of access for player movement during game.
  */
 class MovementPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    //Label
+    // Label
 
-    //Buttons
+    // Buttons
     private JButton northButton;
     private JButton eastButton;
     private JButton westButton;

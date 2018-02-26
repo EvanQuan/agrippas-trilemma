@@ -5,7 +5,7 @@ import game.system.*;
  * Gets input String from InputPanel, prrocesses it, outputs it to game menu
  * Acts as a shell for menu types
  */
-public class MenuManager extends Outputable {
+public class MenuManager extends GUIPrinter {
     public static final int VERB = 0;
     private String input;
     private String output;

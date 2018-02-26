@@ -1,113 +1,129 @@
 package game.object;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 
-import game.system.Outputable;
+import game.system.Utility;
 
 /**
- * All objects in the game
+ * All objects in the game. Have names and descriptions.
+ *
+ * @author Evan Quan
+ * @since 2018-02-24
  */
-public abstract class GameObject extends Outputable implements Serializable {
+public abstract class GameObject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     public static final int DEFAULT = 0;
+
     private ArrayList<String> singleNames;
     private ArrayList<String> pluralNames;
     private ArrayList<String> descriptions;
+    private int descriptionIndex;
+
     /**
-     * Game objects have properties that determine if other actions
-     * can be performed.
+     * Game objects have properties that determine if other actions can be
+     * performed.
      *
      * This is not structurally enforced.
-     * */
+     */
     private HashSet<String> properties;
 
-    public GameObject() {
+    /**
+     * Empty initialization constructor only used for subclasses
+     */
+    protected GameObject() {
         singleNames = new ArrayList<String>();
         pluralNames = new ArrayList<String>();
         descriptions = new ArrayList<String>();
         properties = new HashSet<String>();
-
-//        singleNames.add("Game object");
-//        descriptions.add("Default description");
+        descriptionIndex = DEFAULT;
     }
 
     /**
-     * Set properties
+     *
+     * @param description
+     *            to add
      */
-    public void setDescriptions(String[] descriptions) {
-        setArrayToList(descriptions,this.descriptions);
+    public void addDescription(String description) {
+        descriptions.add(description);
     }
-    public void setSingleNames(String[] singleNames) {
-        setArrayToList(singleNames,this.singleNames);
-    }
-    public void setPluralNames(String[] pluralNames) {
-        setArrayToList(pluralNames,this.pluralNames);
-    }
+
     /**
-     * Plural names by default are identical to single names with appended 's' character
-     */
-    public void setPluralNamesDefault() {
-        pluralNames.clear();
-        for (int i = 0; i < singleNames.size(); i++) {
-            pluralNames.add(i,singleNames.get(i) + "s");
-        }
-    }
-    protected void setArrayToList(String[] array, ArrayList<String> list) {
-        list.clear();
-        addArrayToList(array,list);
-    }
-    /**
-     * Append properties
+     *
+     * @param descriptions
+     *            to add
      */
     public void addDescriptions(String[] descriptions) {
-        addArrayToList(descriptions,this.descriptions);
-    }
-    public void addSingleNames(String[] singleNames) {
-        addArrayToList(singleNames,this.singleNames);
-    }
-    public void addPluralNames(String[] pluralNames) {
-        addArrayToList(pluralNames,this.pluralNames);
-    }
-
-    protected void addArrayToList(String[] array, ArrayList<String> list) {
-        list.addAll(Arrays.asList(array));
+        Utility.addArrayToList(descriptions, this.descriptions);
     }
 
     /**
-     * Check if the object contains a contains a property.
-     * These properties are not structurally enforced.
-     * @param property to check the object has
-     * @return true is object contains property, else false
+     *
+     * @param pluralName
+     *            to add
      */
-    public boolean hasProperty(String property) {
-        return properties.contains(property.toLowerCase());
+    public void addPluralName(String pluralName) {
+        pluralNames.add(pluralName);
     }
+
+    /**
+     *
+     * @param pluralNames
+     *            to add
+     */
+    public void addPluralNames(String[] pluralNames) {
+        Utility.addArrayToList(pluralNames, this.pluralNames);
+    }
+
     /**
      * Add property to object
-     * @param property to add
+     *
+     * @param property
+     *            to add
      * @return true if object did not already have property
      */
     public boolean addProperty(String property) {
         return properties.add(property.toLowerCase());
     }
+
     /**
-     * Remove property from object
-     * @param property to remove
-     * @return true is object had property to remove
+     *
+     * @param singleName
+     *            to add
      */
-    public boolean removeProperty(String property) {
-        return properties.remove(property.toLowerCase());
+    public void addSingleName(String singleName) {
+        singleNames.add(singleName);
     }
 
+    /**
+     *
+     * @param singleNames
+     *            to add
+     */
+    public void addSingleNames(String[] singleNames) {
+        Utility.addArrayToList(singleNames, this.singleNames);
+    }
 
     /**
-     * Generic return property
-     * Children should override
+     * Compares if other game object is identical to this one
+     *
+     * @param otherGameObject
+     *            to compare
+     * @return true if GameObjects are the same
+     */
+    public boolean equals(GameObject otherGameObject) {
+        return this.singleNames.equals(otherGameObject.getSingleNames())
+                && this.pluralNames.equals(otherGameObject.getPluralNames())
+                && this.descriptions.equals(otherGameObject.getDescriptions())
+                && this.properties.equals(otherGameObject.getProperties());
+    }
+
+    /**
+     * Generic return property Children should override TODO
+     *
      * @param
      * @return
      */
@@ -116,10 +132,102 @@ public abstract class GameObject extends Outputable implements Serializable {
     }
 
     /**
-     * Generic set property
-     * Children should override
-     * @param property to set
-     * @param value to set property to
+     * @return get description of object
+     */
+    public String getDescription() {
+        return getDescription(descriptionIndex);
+    }
+
+    public String getDescription(int index) {
+        return this.descriptions.get(index);
+    }
+
+    /**
+     * @return all descriptions of object
+     */
+    public ArrayList<String> getDescriptions() {
+        return this.descriptions;
+    }
+
+    /**
+     *
+     * @return primary plural name
+     */
+    public String getPluralName() {
+        return getPluralName(DEFAULT);
+    }
+
+    /**
+     *
+     * @param index
+     *            of plural name
+     * @return plural name of index
+     */
+    public String getPluralName(int index) {
+        return this.pluralNames.get(index);
+    }
+
+    /**
+     *
+     * @return all plural names
+     */
+    public ArrayList<String> getPluralNames() {
+        return this.pluralNames;
+    }
+
+    /**
+     *
+     * @return all properties
+     */
+    public HashSet<String> getProperties() {
+        return this.properties;
+    }
+
+    /**
+     * @return primary single name of object
+     */
+    public String getSingleName() {
+        return getSingleName(DEFAULT);
+    }
+
+    public String getSingleName(int index) {
+        return this.singleNames.get(index);
+    }
+
+    public ArrayList<String> getSingleNames() {
+        return this.singleNames;
+    }
+
+    /**
+     * Check if the object contains a contains a property. These properties are not
+     * structurally enforced.
+     *
+     * @param property
+     *            to check the object has
+     * @return true is object contains property, else false
+     */
+    public boolean hasProperty(String property) {
+        return properties.contains(property.toLowerCase());
+    }
+
+    /**
+     * Remove property from object
+     *
+     * @param property
+     *            to remove
+     * @return true is object had property to remove
+     */
+    public boolean removeProperty(String property) {
+        return properties.remove(property.toLowerCase());
+    }
+
+    /**
+     * Generic set property Children should override
+     *
+     * @param property
+     *            to set
+     * @param value
+     *            to set property to
      * @return true is property is set, else false
      */
     public boolean set(String property, Object value) {
@@ -127,64 +235,56 @@ public abstract class GameObject extends Outputable implements Serializable {
     }
 
     /**
-     * Compares if other game object is identical to this one
-     * @param otherGameObject to compare
-     * @return true is GameObjects are the same
+     * Set properties
      */
-    public boolean equals(GameObject otherGameObject) {
-        return
-            this.singleNames.equals(otherGameObject.getSingleNames())
-            && this.pluralNames.equals(otherGameObject.getPluralNames())
-            && this.descriptions.equals(otherGameObject.getDescriptions())
-            && this.properties.equals(otherGameObject.getProperties());
-    }
-
-    public ArrayList<String> getDescriptions() {
-        return this.descriptions;
-    }
-    public ArrayList<String> getSingleNames() {
-        return this.singleNames;
-    }
-    public ArrayList<String> getPluralNames() {
-        return this.pluralNames;
-    }
-
-    public String getDescription(int index) {
-        return this.descriptions.get(index);
-    }
-    public String getDescription() {
-        return getDescription(DEFAULT);
-    }
-    public String getSingleName(int index) {
-        String name = "";
-        try {
-            name = this.singleNames.get(index);
-        } catch (Exception e)  {
-            outputln("singleNames: " + singleNames);
-            e.printStackTrace();
-        }
-        return name;
-    }
-    public String getSingleName() {
-        return getSingleName(DEFAULT);
-    }
-    public String getPluralName(int index) {
-        return this.pluralNames.get(index);
-    }
-    public String getPluralName() {
-        return getPluralName(DEFAULT);
-    }
-
-    public HashSet<String> getProperties() {
-        return this.properties;
+    public void setDescriptions(String[] descriptions) {
+        Utility.setArrayToList(descriptions, this.descriptions);
     }
 
     /**
-    * Create string representation of GameObject for printing
-    * @return
-    */
+     * Set description to the next available one if it exists
+     */
+    public void setNextDescription() {
+        if (descriptionIndex < descriptions.size() - 1) {
+            descriptionIndex++;
+        }
+    }
+
+    public void setPluralNames(String[] pluralNames) {
+        Utility.setArrayToList(pluralNames, this.pluralNames);
+    }
+
+    /**
+     * Plural names by default are identical to single names with appended 's'
+     * character
+     */
+    public void setPluralNamesDefault() {
+        pluralNames.clear();
+        for (int i = 0; i < singleNames.size(); i++) {
+            pluralNames.add(i, singleNames.get(i) + "s");
+        }
+    }
+
+    /**
+     * Set description to the previous available one if it exists
+     */
+    public void setPreviousDescription() {
+        if (descriptionIndex > DEFAULT) {
+            descriptionIndex--;
+        }
+    }
+
+    public void setSingleNames(String[] singleNames) {
+        Utility.setArrayToList(singleNames, this.singleNames);
+    }
+
+    /**
+     * Create string representation of GameObject for printing
+     *
+     * @return
+     */
     @Override
     public String toString() {
-        return(getSingleName());
+        return (getSingleName());
     }
 }

@@ -14,7 +14,7 @@ import game.system.*;
  * Influence: Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public class SaveManager extends TextUtility {
+public class SaveManager extends Utility {
     public static final int MAXIMUM_SAVES = 50;
     public static final int MAX_NAME_LENGTH = 50;
     public static final String SAVE_DIRECTORY = "game/system/saves";
