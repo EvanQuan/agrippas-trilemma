@@ -10,9 +10,9 @@ Table of Contents
     - [Have a Graphic User Interface](#have-a-graphic-user-interface)
     - [Being Able to Save and Load Games](#being-able-to-save-and-load-games)
 3. [Frequently Asked Questions](#frequently-asked-questions)
-    - [Why Interactive Fiction?](#why-interactive-fiction?)
-    - [Why Not Make Something More Contemporary?](#why-not-make-something-more-contemporary?)
-    - [Why not use Inform?](#why-interactive-fiction?)
+    - [Why Interactive Fiction?](#why-interactive-fiction)
+    - [Why Not Make Something More Contemporary?](#why-not-make-something-more-contemporary)
+    - [Why not use Inform?](#why-interactive-fiction)
 
 Introduction
 ------------
@@ -80,16 +80,16 @@ This alone heavily favoured IF as a choice.
 
 Third, I'm primarily making this game for myself and a select few individuals are who are interested.
 I recognize that creating something like a sidescroller or top-down shooter may be far more flashy, impressive, appeal to a larger audience, and potentially even be marketable, but I'm not really doing this to impress.
-My own IF is something I genuinely want to make.
+My own IF is something I've genuinely wanted to make for a while.
 
 #### Why not use Inform?
 **Inform is already a language designed specifically for creating IF. It's popular within the IF community, and would seem the most practical to use.**
 
 This is something I briefly considered.
-In terms of development, using Inform would undoubtedly and overwhelmingly be more productively.
+In terms of development, using Inform would undoubtedly and overwhelmingly be more productive.
 All the parsing, which for me is the central and most challenging problem to deal with, is all abstracted away;
-So are the all the inner workings of how, the player, items, NPCs, and locations interact.
+So are the all the inner workings of how the player, items, NPCs, and locations interact.
 
 That being said, I kind of like the challenge of figuring out how to solve these problems on my own.
-Using Inform almost feels like cheating, which takes some of the fun away from it, even if it produces a better game in the end result.
+Using Inform, especially Inform 7, almost feels like cheating, which takes some of the fun away from it, even if it produces a better game in the end result.
 So in all, I decided against using Inform and will continue to develop the game in Java.
