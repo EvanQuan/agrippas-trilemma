@@ -10,13 +10,14 @@ Table of Contents
     - [Have a Graphic User Interface](#have-a-graphic-user-interface)
     - [Being Able to Save and Load Games](#being-able-to-save-and-load-games)
 3. [Frequently Asked Questions](#frequently-asked-questions)
-    - [Why Interactive Fiction?](#why-interactive-fiction)
-    - [Why not use Inform?](#why-interactive-fiction)
+    - [Why Interactive Fiction?](#why-interactive-fiction?)
+    - [Why Not Make Something More Contemporary?](#why-not-make-something-more-contemporary?)
+    - [Why not use Inform?](#why-interactive-fiction?)
 
 Introduction
 ------------
-Cheese Quest 2 is a text-based adventure game, or more commonly referred to as Interactive Fiction, inspired by many of the games published by Infocom in the 1980s.
-It started development in 2017 after completing my first year of Computer Science at the University of Calgary.
+Cheese Quest 2 is a text-based adventure game, or more commonly referred to as Interactive Fiction, inspired by many of the games published by Infocom.
+It started development in 2017 immediately after completing [Cheese Quest 1](https://github.com/EvanQuan/CheeseQuest1).
 
 Goals
 -----
@@ -24,7 +25,7 @@ Here is the list of central goals I have for Cheese Quest 2, and some insight on
 
 #### Improve Maintainability and Scalability
 
-After "completing" Cheese Quest 1 in Python, there came a point where continuing development [become too much of a pain to be worth it](https://github.com/EvanQuan/CheeseQuest1#abandonment).
+After "completing" Cheese Quest 1 in Python, there came a point where continuing development [become too much of a pain to be worth it](https://github.com/EvanQuan/CheeseQuest1#completion-and-abandonment).
 I thought rewriting the game from scratch in an object-oriented manner would help solve some of the problems I had in maintaining and improving the codebase.
 
 
@@ -36,14 +37,14 @@ It would simply a manner of putting in the time to implement the features and pl
 
 #### Have a Graphic User Interface
 I actually went back and forth on whether I wanted this.
-There was something almost beautiful in the simplicity of classic IF in there being plain text as the only medium in which the game and player communicate.
-I thought I would potentially spice it up with different colors when I figured out that I could print to standard output in different colors/bold/underline etc. to make it more readable and visually appealing, yet still keep it old fashioned.
+There is something almost beautiful in the simplicity of classic IF having plain text being the only medium in which the game and player communicate.
+I thought I would potentially spice it up when I figured out that I could print to standard output in different colors/bold/underline. It would make it more readable and visually appealing, yet still keep it old fashioned by sticking to text only.
 
 However, I also wanted to add panels to display certain information at all times, such as the player stats, inventory and spells.
-I found through playtesting many individuals had troubles keeping track of what items they had or making sure they've eaten enough food. It was annoying for some players to constantly need to check those.
+I found through playtesting many individuals had troubles keeping track of what items they had or making sure they've eaten enough food. It was annoying for some players to constantly check up on that information, especially when they have another task to focus on like solving a puzzle or gathering resources.
 I briefly considered having panels composed of ASCII characters displaying these off to the side, but decided that would be too annoying to implement and it would result in potential problems not worth dealing with.
 
-Conveniently I was learning how to implement GUIs using javax.swing and java.awt at the time, so I finally decided to give it a go in Java.
+Conveniently I already had an elementary understanding of implementing GUIs using javax.swing and java.awt at the time, so I finally decided to give it a go in Java.
 
 #### Being Able to Save and Load Games
 This may actually one if not the central goals I had since the beginning of the game's development.
@@ -53,22 +54,42 @@ Figuring out how I could serialize and deserialize Java objects in text files wa
 Frequently Asked Questions
 --------------------------
 
-#### Why Interactive Fiction? Didn't IF as a genre die in the 1980s?
-I've always wanted to create a game in one form or another.
-I did do a bit of stuff in Unity, and while it was fun, there were a few problems I had.
+#### Why Interactive Fiction?
+At first glance, IF would seem like a rather odd choice for a personal project.
+The genre commercially died out in the early 90s, and while it is still produced by hobbyists today, its existence is almost entirely unknown to younger or more contemporary gamers.
+My first experience playing IF was playing Infocom's [Hitchhiker's Guide to the Galaxy](http://www.bbc.co.uk/radio4/hitchhikers/game.shtml) game in my early childhood.
+I was already a big Hitchhiker's fan at a young age, having listened to the entire hg2g radio show, so learning there was a game about it was exciting.
+Since then, I've played portions of [Zork](https://en.wikipedia.org/wiki/Zork_I), a Zork parody within [Kingdom of Loathing](kingdomofloathing.com), and [Planetfall](https://en.wikipedia.org/wiki/Planetfall).
 
-First, I felt like my creativity was limited by what I could find on the Unit asset store.
+With my very first experience programming in 2016, the idea of creating a game in one form or another lingered.
+I made [Cheese Quest 1](https://github.com/EvanQuan/CheeseQuest1), in which I faced a lot of problems and made a lot of mistakes.
+Upon it's completion, I decided to start working on Cheese Quest 2.
+
+#### Why Not Make Something More Contemporary?
+In terms of game development in general, I did do a bit of stuff in Unity, and while it was fun, there were a few problems I had.
+
+First, I felt like I was limited by what I could find on the Unity asset store.
 Often it became less about what assets could I use to fit in my game and more about what game I could make from the assets I found from the store.
-Unless I was willing to spend hundreds of dollars on a wide variety of art assets to create the characters, items or places that I wanted, I often had to piece together whatever was available and make it make sense.
+Unless I was willing to spend a fair amount of money on a wide variety of art assets to create the characters, items or places that I wanted, I often had to piece together whatever was freely available and make it make sense.
+As a more minor point, this also resulted in an issue of having models with varying art styles that didn't mesh well together asthetically.
 
-##### Why not use Inform? Inform is already a language designed specifically for creating IF. It's popular within the IF community, and would seem the most practical to use.
-I actually only recently found out about Inform.
-After thinking about it for some time, I actually think that creating a game in Inform probably would result in the best game in the end.
-Learning about Inform 7 actually impressed me quite bit considering how it reads as natural English.
-It also abstracts away all the input parsing.
-The biggest reason for this is that Inform deals with parsing player input phenomenally well.
+Second, I wanted to create a game that told a story.
+Not necessarily a good one, but a story nonetheless.
+My favourite games were always ones that had a narrative component, and so it's something I really wanted to include in my own.
+This alone heavily favoured IF as a choice.
 
-... That being said, I kind of like the challenge of figuring how to parse player input and getting all the game interact manually.
-Will I make a lot of mistakes? Yup.
-Will I do it sub-optimally? Most definitely.
-Will I it be more limited than Inform? Absolutely?
+Third, I'm primarily making this game for myself and a select few individuals are who are interested.
+I recognize that creating something like a sidescroller or top-down shooter may be far more flashy, impressive, appeal to a larger audience, and potentially even be marketable, but I'm not really doing this to impress.
+My own IF is something I genuinely want to make.
+
+#### Why not use Inform?
+**Inform is already a language designed specifically for creating IF. It's popular within the IF community, and would seem the most practical to use.**
+
+This is something I briefly considered.
+In terms of development, using Inform would undoubtedly and overwhelmingly be more productively.
+All the parsing, which for me is the central and most challenging problem to deal with, is all abstracted away;
+So are the all the inner workings of how, the player, items, NPCs, and locations interact.
+
+That being said, I kind of like the challenge of figuring out how to solve these problems on my own.
+Using Inform almost feels like cheating, which takes some of the fun away from it, even if it produces a better game in the end result.
+So in all, I decided against using Inform and will continue to develop the game in Java.
