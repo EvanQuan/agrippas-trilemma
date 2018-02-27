@@ -12,7 +12,7 @@ Table of Contents
 3. [Frequently Asked Questions](#frequently-asked-questions)
     - [Why Interactive Fiction?](#why-interactive-fiction)
     - [Why Not Make Something More Contemporary?](#why-not-make-something-more-contemporary)
-    - [Why not use Inform?](#why-interactive-fiction)
+    - [Why not use Inform?](#why-not-use-inform)
 
 Introduction
 ------------
