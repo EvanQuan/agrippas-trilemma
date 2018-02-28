@@ -9,7 +9,8 @@ Table of Contents
     - [Improve Game Mechanics and Balance](#improve-game-mechanics-and-balance)
     - [Have a Graphic User Interface](#have-a-graphic-user-interface)
     - [Being Able to Save and Load Games](#being-able-to-save-and-load-games)
-3. [Frequently Asked Questions](#frequently-asked-questions)
+3. [Development History](#development-history)
+4. [Frequently Asked Questions](#frequently-asked-questions)
     - [Why Interactive Fiction?](#why-interactive-fiction)
     - [Why Not Make Something More Contemporary?](#why-not-make-something-more-contemporary)
     - [Why not use Inform?](#why-not-use-inform)
@@ -17,7 +18,7 @@ Table of Contents
 Introduction
 ------------
 Cheese Quest 2 is a text-based adventure game, or more commonly referred to as Interactive Fiction, inspired by many of the games published by Infocom.
-It started development in 2017 immediately after completing [Cheese Quest 1](https://github.com/EvanQuan/CheeseQuest1).
+It started development in August of 2017.
 
 Goals
 -----
@@ -51,17 +52,23 @@ This may actually one if not the central goals I had since the beginning of the 
 Figuring out how I could serialize and deserialize Java objects in text files was actually one of the very first things I started working on because I knew that this was central to how the rest of the game was to be designed.
 [I already designed Cheese Quest 1 to work around the inability to save](https://github.com/EvanQuan/CheeseQuest1#altneratives-to-saving) and I didn't want to continue having to work with that limitation.
 
+Development History
+-------------------
+Development began very slowly as I spent more time thinking and planning in order not to make a lot of the same mistakes I did for the first game.
+On top of that, I've been very busy with school, so I have mainly set this project aside.
+As it stands, not much progress has been made.
+
 Frequently Asked Questions
 --------------------------
 
 #### Why Interactive Fiction?
 At first glance, IF would seem like a rather odd choice for a personal project.
-The genre commercially died out in the early 90s, and while it is still produced by hobbyists today, its existence is almost entirely unknown to younger or more contemporary gamers.
+The genre has essentially died out commercially, and while it is still produced by mainly hobbyists today, it has crawled into obscurity.
 My first experience playing IF was playing Infocom's [Hitchhiker's Guide to the Galaxy](http://www.bbc.co.uk/radio4/hitchhikers/game.shtml) game in my early childhood.
 I was already a big Hitchhiker's fan at a young age, having listened to the entire hg2g radio show, so learning there was a game about it was exciting.
-Since then, I've played portions of [Zork](https://en.wikipedia.org/wiki/Zork_I), a Zork parody within [Kingdom of Loathing](kingdomofloathing.com), and [Planetfall](https://en.wikipedia.org/wiki/Planetfall).
+Since then, I've played portions of [Zork](https://en.wikipedia.org/wiki/Zork_I), a Zork parody within [Kingdom of Loathing](https://kingdomofloathing.com), and [Planetfall](https://en.wikipedia.org/wiki/Planetfall).
 
-With my very first experience programming in 2016, the idea of creating a game in one form or another lingered.
+With my very first experience programming in 2016, the idea of creating a game in one form or another began to emerge.
 I made [Cheese Quest 1](https://github.com/EvanQuan/CheeseQuest1), in which I faced a lot of problems and made a lot of mistakes.
 Upon it's completion, I decided to start working on Cheese Quest 2.
 
@@ -79,7 +86,7 @@ My favourite games were always ones that had a narrative component, and so it's 
 This alone heavily favoured IF as a choice.
 
 Third, I'm primarily making this game for myself and a select few individuals are who are interested.
-I recognize that creating something like a sidescroller or top-down shooter may be far more flashy, impressive, appeal to a larger audience, and potentially even be marketable, but I'm not really doing this to impress.
+I recognize that creating something like a sidescroller or top-down shooter may be far more flashy, appeal to a larger audience, and potentially even be marketable, but I'm not really doing this to impress.
 My own IF is something I've genuinely wanted to make for a while.
 
 #### Why not use Inform?
