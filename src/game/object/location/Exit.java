@@ -7,6 +7,12 @@ import java.util.Arrays;
  * Represents an exit to from a location to another location. Exits connect
  * locations together by direction, though might not be mutually connected.
  *
+ * Exits can be:
+ * open (or closed)
+ * openable
+ * locked (or unlocked)
+ * lockable
+ *
  * @author Evan Quan
  * @since 2018-02-23
  *
@@ -16,7 +22,7 @@ public class Exit implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final boolean DEFAULT_BLOCKED = false;
     public static final boolean DEFAULT_VISIBLE = true;
-    public static final String DEFAULT_BLOCKED_REACON = "which is blocked";
+    public static final String DEFAULT_BLOCKED_REASON = "which is blocked";
 
     // Directions
     public static final int UNDEFINED = 0;
@@ -49,11 +55,11 @@ public class Exit implements Serializable {
     private String blockedReason;
 
     public Exit(int direction, Location leadsTo) {
-        this(direction, leadsTo, DEFAULT_VISIBLE, DEFAULT_BLOCKED, DEFAULT_BLOCKED_REACON);
+        this(direction, leadsTo, DEFAULT_VISIBLE, DEFAULT_BLOCKED, DEFAULT_BLOCKED_REASON);
     }
 
     public Exit(int direction, Location leadsTo, boolean visible) {
-        this(direction, leadsTo, visible, DEFAULT_BLOCKED, DEFAULT_BLOCKED_REACON);
+        this(direction, leadsTo, visible, DEFAULT_BLOCKED, DEFAULT_BLOCKED_REASON);
     }
 
     /**
