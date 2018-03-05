@@ -22,13 +22,12 @@ public abstract class Collectible extends Item {
     public Collectible() {
         setValue(DEFAULT);
         setWeight(DEFAULT);
-        addProperty("collectable");
     }
 
     /**
      * Returns value of item, which is a multiplier of how much it costs in stores
      *
-     * @return
+     * @return value
      */
     public double getValue() {
         return value;
@@ -37,7 +36,7 @@ public abstract class Collectible extends Item {
     /**
      * Returns value of weight
      *
-     * @return
+     * @return weight
      */
     public double getWeight() {
         return weight;
@@ -46,7 +45,7 @@ public abstract class Collectible extends Item {
     /**
      * Sets new value of collectible
      *
-     * @param
+     * @param value
      */
     public void setValue(double value) {
         this.value = value;
@@ -55,7 +54,7 @@ public abstract class Collectible extends Item {
     /**
      * Sets new value of weight
      *
-     * @param
+     * @param weight
      */
     public void setWeight(double weight) {
         this.weight = weight;

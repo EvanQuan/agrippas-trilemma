@@ -10,7 +10,7 @@ import game.system.Utility;
  * All objects in the game. Have names and descriptions.
  *
  * @author Evan Quan
- * @since March 4, 2018
+ * @since March 5, 2018
  */
 public abstract class GameObject implements Serializable {
 
@@ -24,21 +24,12 @@ public abstract class GameObject implements Serializable {
     private int descriptionIndex;
 
     /**
-     * Game objects have properties that determine if other actions can be
-     * performed.
-     *
-     * This is not structurally enforced.
-     */
-    private HashSet<String> properties;
-
-    /**
      * Empty initialization constructor only used for subclasses
      */
     protected GameObject() {
         singleNames = new ArrayList<String>();
         pluralNames = new ArrayList<String>();
         descriptions = new ArrayList<String>();
-        properties = new HashSet<String>();
         descriptionIndex = DEFAULT;
     }
 
@@ -79,17 +70,6 @@ public abstract class GameObject implements Serializable {
     }
 
     /**
-     * Add property to object
-     *
-     * @param property
-     *            to add
-     * @return true if object did not already have property
-     */
-    public boolean addProperty(String property) {
-        return properties.add(property.toLowerCase());
-    }
-
-    /**
      *
      * @param singleName
      *            to add
@@ -117,18 +97,7 @@ public abstract class GameObject implements Serializable {
     public boolean equals(GameObject otherGameObject) {
         return this.singleNames.equals(otherGameObject.getSingleNames())
                 && this.pluralNames.equals(otherGameObject.getPluralNames())
-                && this.descriptions.equals(otherGameObject.getDescriptions())
-                && this.properties.equals(otherGameObject.getProperties());
-    }
-
-    /**
-     * Generic return property Children should override TODO
-     *
-     * @param
-     * @return
-     */
-    public Object get(String property) {
-        return null;
+                && this.descriptions.equals(otherGameObject.getDescriptions());
     }
 
     /**
@@ -176,14 +145,6 @@ public abstract class GameObject implements Serializable {
     }
 
     /**
-     *
-     * @return all properties
-     */
-    public HashSet<String> getProperties() {
-        return this.properties;
-    }
-
-    /**
      * @return primary single name of object
      */
     public String getSingleName() {
@@ -199,43 +160,7 @@ public abstract class GameObject implements Serializable {
     }
 
     /**
-     * Check if the object contains a contains a property. These properties are not
-     * structurally enforced.
-     *
-     * @param property
-     *            to check the object has
-     * @return true is object contains property, else false
-     */
-    public boolean hasProperty(String property) {
-        return properties.contains(property.toLowerCase());
-    }
-
-    /**
-     * Remove property from object
-     *
-     * @param property
-     *            to remove
-     * @return true is object had property to remove
-     */
-    public boolean removeProperty(String property) {
-        return properties.remove(property.toLowerCase());
-    }
-
-    /**
-     * Generic set property Children should override
-     *
-     * @param property
-     *            to set
-     * @param value
-     *            to set property to
-     * @return true is property is set, else false
-     */
-    public boolean set(String property, Object value) {
-        return false;
-    }
-
-    /**
-     * Set properties
+     * Set descriptions
      */
     public void setDescriptions(String[] descriptions) {
         Utility.setArrayToList(descriptions, this.descriptions);
