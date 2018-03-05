@@ -6,10 +6,16 @@ import gui.MainFrame;
  * Game driver
  *
  * @author Evan Quan
+ * @version 0.10.0
+ * @since March 4, 2018
  */
 public class CheeseQuest {
-    private static String version = "0.7.0";
+    private static String version = "0.10.0";
 
+    /**
+     *
+     * @return the current game version
+     */
     public static String getVersion() {
         return version;
     }

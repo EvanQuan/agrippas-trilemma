@@ -42,7 +42,7 @@ public class Save implements Serializable {
 
     /**
      * This is the string representation of the world used in LoadMenu
-     * 
+     *
      * @return
      */
     public String getInfo() {
@@ -73,13 +73,10 @@ public class Save implements Serializable {
      * Instantiates all the rooms, default player
      */
     public void initialize() {
-        TestRoom testRoom = new TestRoom();
-
-        // Starting room
-        this.room = testRoom;
+        // TODO
     }
 
     public void setName(String name) {
-        this.name = toLowerTitleCase(name);
+        this.name = Utility.toLowerTitleCase(name);
     }
 }

@@ -10,7 +10,7 @@ import game.system.Utility;
  * All objects in the game. Have names and descriptions.
  *
  * @author Evan Quan
- * @since 2018-02-24
+ * @since March 4, 2018
  */
 public abstract class GameObject implements Serializable {
 

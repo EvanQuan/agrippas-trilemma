@@ -3,13 +3,21 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+[v0.10.0] - March 5, 2018
+-------------------------
+### Added
+- Exits manually instantiated with static `getExit()`, properties based on type
+- Locations can be mutually connected with `addMutualExit()`, which creates exits for both locations and connects them appropriately
+- Exit `reverseDirection()` implemented
+- Exits can now be open, closed, openable
+
 [v0.9.0] - February 26, 2018
 ----------------------------
 ### Added
 - GameObject now has properties field
     - This is to make checking if objects have properties more generalized
     - Reduces the amount of object sub-classing
-    - Descriptions can now be iterated over, where the description indices are set with setNextDescription() and setPreviousDescription().
+    - Descriptions can now be iterated over, where the description indices are set with `setNextDescription()` and `setPreviousDescription()`.
 - ObjectFactory
     - Returns object singletons (reduce redundant information)
 - Printer interface
@@ -39,10 +47,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ----------------------------
 ### Added
 - AskToSaveMenu
-- sortByLongest(String[]) and sortByLongest(ArrayList<String>) for TextUtility
+- `sortByLongest(String[])` and `sortByLongest(ArrayList<String>)` for TextUtility
 ### Fixed
-- Order of elements in arrayList for inputStartsWithChoice() does not matter.
-    - Uses sortByLongest(ArrayList<String>)
+- Order of elements in arrayList for `inputStartsWithChoice()` does not matter.
+    - Uses `sortByLongest(ArrayList<String>)`
 
 
 
@@ -55,8 +63,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - Prompt for when game is created, when game name is invalid, or if game already exists.
     - Formatting for game information improved.
 - GhostMenu acts as a sub menu within a menu. Swapping to and from it does not impact previous menu, and thus normal menu swapping. GhostMenu's are not "tied-to" other menus, and as such, can be called from any menu and function correctly.
-    - MenuManager now has ghostPreviousMenu property, and changes to setPreviousMenu(), getPreviousMenu() for this to be implemented.
-- toLowerTitleCase(), which converts to lower case before title case, which is important for converting upper case or mixed case to title case.
+    - MenuManager now has ghostPreviousMenu property, and changes to `setPreviousMenu()`, `getPreviousMenu()` for this to be implemented.
+- `toLowerTitleCase()`, which converts to lower case before title case, which is important for converting upper case or mixed case to title case.
      - Implemented for game save names.
 - TextUtility, which Outputable extends
     - Better for serialized classes, which don't need the Outputable properties (the GUI OutputPanel).
@@ -69,9 +77,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - MenuManager's lastMenu renamed to previousMenu
 - Input checking now ignores case entirely
 ### Fixed
-- getStringArrayList(), inputStartsWithChoice() now work when input ArrayList is empty
+- `getStringArrayList()`, `inputStartsWithChoice()` now work when input ArrayList is empty
 - LoadMenu now works correctly
-- SaveManager now instantiates saves as an empty array when determineExistingSaveNums() is called if it is null (when there are no existing save files).
+- SaveManager now instantiates saves as an empty array when `determineExistingSaveNums()` is called if it is null (when there are no existing save files).
 
 
 
@@ -85,11 +93,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - Maximum saves changed from 5 to 50 (MAXIMUM_SAVES)
     - LoadMenu is revamped to accommodate
 - Improved input parsing
-    - Added imputRemains() for Menu
+    - Added `imputRemains()` for Menu
     - Verb reimplemented, and originalInputWords added
         - Verb is defined post-input check in case it is multiple words
         - Verb pre-input check is either previous verb or null if first turn
-- Implemented getStringArrayList() and getIntegerArrayList() utility functions to Menu
+- Implemented `getStringArrayList()` and `getIntegerArrayList()` utility functions to Menu
 - Overrode all input parsing and output methods with integer and double equivalents
 
 

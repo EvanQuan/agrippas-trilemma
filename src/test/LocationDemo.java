@@ -121,14 +121,14 @@ public class LocationDemo extends Applet {
         Location l3 = new Location("Small study",
                 "This is a small and cluttered study, containing a desk covered with\npapers. Though they no doubt are of some importance,\nyou cannot read their writing");
         // Create an exit for l1
-        l1.addExit(new Exit(Exit.NORTH, l2));
-        l1.addExit(new Exit(Exit.EAST, l3));
+        l1.addExit(new Exit(Exit.DIRECTION_NORTH, l2));
+        l1.addExit(new Exit(Exit.DIRECTION_EAST, l3));
 
         // Create an exit for l2
-        l2.addExit(new Exit(Exit.SOUTH, l1));
+        l2.addExit(new Exit(Exit.DIRECTION_SOUTH, l1));
 
         // Create an exit for l3
-        l3.addExit(new Exit(Exit.WEST, l1));
+        l3.addExit(new Exit(Exit.DIRECTION_WEST, l1));
 
         // Set up room locations
         currentLocation = l1;

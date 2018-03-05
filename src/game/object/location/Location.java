@@ -13,7 +13,7 @@ import game.object.item.collectible.Collectible;
  * where Locations are connected to one another through exits.
  *
  * @author Evan Quan
- * @since 2018-02-23
+ * @since March 4, 2018
  *
  */
 public class Location extends GameObject {
@@ -23,6 +23,7 @@ public class Location extends GameObject {
     private ObjectContainer<Collectible> items;
     private ObjectContainer<BackgroundItem> background;
     private ObjectContainer<Character> characters;
+
     private ArrayList<Exit> exits;
 
     private String adjacentName;
@@ -79,6 +80,30 @@ public class Location extends GameObject {
         if (!exits.contains(exit)) {
             exits.add(exit);
         }
+    }
+
+    /**
+     * Add exit to this location if it it does not already contain it. Exit location
+     * is mutually from the other direction.
+     *
+     * @param type
+     *            the mechanic properties of of the exit
+     * @param kind
+     *            the flavor of the exit
+     * @param direction
+     *            the exit is pointing towards
+     * @param leadsTo
+     *            location the exit leads to
+     * @return exit created
+     *
+     */
+    public void addMutualExit(int type, int kind, int direction, Location leadsTo) {
+        // Create exits of opposite directions and locations
+        Exit thisExit = Exit.getExit(type, kind, direction, leadsTo);
+        Exit leadsToExit = Exit.getExit(type, kind, Exit.reverseDirection(direction), this);
+        // Connect locations with exits
+        this.addExit(thisExit);
+        leadsTo.addExit(leadsToExit);
     }
 
     /**

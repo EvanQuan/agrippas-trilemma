@@ -4,63 +4,222 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * Represents an exit to from a location to another location. Exits connect
+ * Represents an exit from a location to another location. Exits connect
  * locations together by direction, though might not be mutually connected.
  *
- * Exits can be:
- * open (or closed)
- * openable
- * locked (or unlocked)
- * lockable
- *
  * @author Evan Quan
- * @since 2018-02-23
- *
+ * @since March 4, 2018
  */
 public class Exit implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public static final boolean DEFAULT_BLOCKED = false;
-    public static final boolean DEFAULT_VISIBLE = true;
-    public static final String DEFAULT_BLOCKED_REASON = "which is blocked";
 
     // Directions
-    public static final int UNDEFINED = 0;
-    public static final int NORTH = 1;
-    public static final int SOUTH = 2;
-    public static final int EAST = 3;
-    public static final int WEST = 4;
-    public static final int UP = 5;
-    public static final int DOWN = 6;
-    public static final int NORTHEAST = 7;
-    public static final int NORTHWEST = 8;
-    public static final int SOUTHEAST = 9;
-    public static final int SOUTHWEST = 10;
-    public static final int IN = 11;
-    public static final int OUT = 12;
+    /**
+     * Direction of location the exit leads to is North
+     */
+    public static final int DIRECTION_NORTH = 0;
+    /**
+     * Direction of location the exit leads to is South
+     */
+    public static final int DIRECTION_SOUTH = 1;
+    /**
+     * Direction of location the exit leads to is East
+     */
+    public static final int DIRECTION_EAST = 2;
+    /**
+     * Direction of location the exit leads to is West
+     */
+    public static final int DIRECTION_WEST = 3;
+    /**
+     * Direction of location the exit leads to is Up
+     */
+    public static final int DIRECTION_UP = 4;
+    /**
+     * Direction of location the exit leads to is Down
+     */
+    public static final int DIRECTION_DOWN = 5;
+    /**
+     * Direction of location the exit leads to is Northeast
+     */
+    public static final int DIRECTION_NORTHEAST = 6;
+    /**
+     * Direction of location the exit leads to is Northwest
+     */
+    public static final int DIRECTION_NORTHWEST = 7;
+    /**
+     * Direction of location the exit leads to is Southeast
+     */
+    public static final int DIRECTION_SOUTHEAST = 8;
+    /**
+     * Direction of location the exit leads to is Southwest
+     */
+    public static final int DIRECTION_SOUTHWEST = 9;
+    /**
+     * Direction of location the exit leads to is In
+     */
+    public static final int DIRECTION_IN = 10;
+    /**
+     * Direction of location the exit leads to is Out
+     */
+    public static final int DIRECTION_OUT = 11;
 
-    public static final String[] directionNames = { "UNDEFINED", "NORTH", "SOUTH", "EAST", "WEST", "UP", "DOWN",
-            "NORTHEAST", "NORTHWEST", "SOUTHEAST", "SOUTHWEST", "IN", "OUT" };
+    public static final String[] directionNames = { "north", "south", "east", "west", "up", "down", "northeast",
+            "northwest", "southeast", "southwest", "in", "out" };
+    public static final String[] shortDirectionNames = { "n", "s", "e", "w", "u", "d", "ne", "nw", "se", "sw", "in",
+            "o" }; // NOTE: i is reserved for inventory
 
-    public static final String[] shortDirectionNames = { "NULL", "N", "S", "E", "W", "U", "D", "NE", "NW", "SE", "SW",
-            "I", "O" };
+    /**
+     * Open, not openable by player
+     */
+    public static final int TYPE_DEFAULT = 12;
+    /**
+     * Open, openable by player
+     */
+    public static final int TYPE_OPEN = 13;
+    /**
+     * Closed, openable by player
+     */
+    public static final int TYPE_CLOSED = 14;
+    /**
+     * Closed, unopenable by player
+     */
+    public static final int TYPE_BLOCKED = 15;
 
+    /**
+     * Open space
+     */
+    public static final int KIND_DEFAULT = 16;
+    /**
+     * Physical door
+     */
+    public static final int KIND_DOOR = 17;
+
+    /**
+     * Get an exit
+     *
+     * @param type
+     *            the mechanic properties of of the exit
+     * @param kind
+     *            the flavor of the exit
+     * @param direction
+     *            the exit is pointing towards
+     * @param leadsTo
+     *            location the exit leads to
+     * @return exit created
+     *
+     * @throws IllegalArgumentException
+     *             if invalid type, kind, direction, or leadsTo
+     */
+    public static Exit getExit(int type, int kind, int direction, Location leadsTo) throws IllegalArgumentException {
+        boolean openable;
+        boolean open;
+        String openedDescription;
+        String closedDescription;
+
+        switch (type) {
+            case TYPE_DEFAULT:
+                openable = false;
+                open = false;
+                break;
+            case TYPE_OPEN:
+                openable = true;
+                open = false;
+                break;
+            case TYPE_CLOSED:
+                openable = true;
+                open = true;
+                break;
+            case TYPE_BLOCKED:
+                openable = false;
+                open = true;
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+
+        switch (kind) {
+            case KIND_DEFAULT:
+                openedDescription = "which is open";
+                closedDescription = "which is blocked";
+                break;
+            case KIND_DOOR:
+                openedDescription = "which is open";
+                closedDescription = "which is closed";
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+
+        Exit exit = new Exit(direction, leadsTo, openable, open, openedDescription, closedDescription);
+        return exit;
+    }
+
+    /**
+     * Reverse the direction
+     *
+     * @param direction
+     *            to reverse
+     * @return reversed direction
+     * @throws IllegalArgumentException
+     *             if direction is invalid
+     */
+    public static int reverseDirection(int direction) throws IllegalArgumentException {
+        switch (direction) {
+            case Exit.DIRECTION_NORTH:
+                return Exit.DIRECTION_SOUTH;
+            case Exit.DIRECTION_NORTHEAST:
+                return Exit.DIRECTION_SOUTHWEST;
+            case Exit.DIRECTION_EAST:
+                return Exit.DIRECTION_WEST;
+            case Exit.DIRECTION_SOUTHEAST:
+                return Exit.DIRECTION_NORTHWEST;
+            case Exit.DIRECTION_SOUTH:
+                return Exit.DIRECTION_NORTH;
+            case Exit.DIRECTION_SOUTHWEST:
+                return Exit.DIRECTION_NORTHEAST;
+            case Exit.DIRECTION_WEST:
+                return Exit.DIRECTION_EAST;
+            case Exit.DIRECTION_NORTHWEST:
+                return Exit.DIRECTION_SOUTHEAST;
+            case Exit.DIRECTION_IN:
+                return Exit.DIRECTION_OUT;
+            case Exit.DIRECTION_OUT:
+                return Exit.DIRECTION_IN;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * The location that the exit leads to
+     */
     private Location leadsTo;
+
+    /**
+     * The direction that the exit leads to
+     */
     private int direction;
+    /**
+     * The full name of the direction that the exit leads to
+     */
     private String directionName;
+
+    /**
+     * The abbreviated name of the direction that the exit leads to
+     */
     private String shortDirectionName;
+    /**
+     * The state of whether the player can traverse through the exit
+     */
+    private boolean open;
+    /**
+     * The state of whether the exit can be opened and closed by the player
+     */
+    private boolean openable;
 
-    private boolean visible;
-    private boolean blocked;
-    private String blockedReason;
-
-    public Exit(int direction, Location leadsTo) {
-        this(direction, leadsTo, DEFAULT_VISIBLE, DEFAULT_BLOCKED, DEFAULT_BLOCKED_REASON);
-    }
-
-    public Exit(int direction, Location leadsTo, boolean visible) {
-        this(direction, leadsTo, visible, DEFAULT_BLOCKED, DEFAULT_BLOCKED_REASON);
-    }
+    private String openedDescription;
+    private String closedDescription;
 
     /**
      * Complete constructor
@@ -71,28 +230,37 @@ public class Exit implements Serializable {
      *            the location the exit refers to
      * @param visible
      *            if the exit is visible from the current room
-     * @param blocked
-     *            if the exit can be traversed to
-     * @param blockedReason
-     *            the reason that the exit cannot be traversed to
+     * @param open
+     *            if the exit can be traveled to
+     * @param openedDescription
+     *            the description of the open exit
+     * @param closedDescription
+     *            the description of the closed exit
      */
-    public Exit(int direction, Location leadsTo, boolean visible, boolean blocked, String blockedReason) {
+    private Exit(int direction, Location leadsTo, boolean openable, boolean open, String openedDescription,
+            String closedDescription) {
         setDirection(direction);
-        this.visible = visible;
-        this.blocked = blocked;
-        this.blockedReason = blockedReason;
+        this.leadsTo = leadsTo;
+        this.openable = openable;
+        this.open = open;
+        this.openedDescription = openedDescription;
+        this.closedDescription = closedDescription;
     }
 
-    public Exit(int direction, Location leadsTo, boolean blocked, String blockedReason) {
-        this(direction, leadsTo, DEFAULT_VISIBLE, blocked, blockedReason);
+    /**
+     * Get shallow copy of this exit
+     */
+    @Override
+    public Exit clone() {
+        return new Exit(direction, leadsTo, openable, open, openedDescription, closedDescription);
     }
 
     /**
      *
-     * @return blocked reason
+     * @return closed description
      */
-    public String getBlockedReason() {
-        return blockedReason;
+    public String getClosedDescription() {
+        return closedDescription;
     }
 
     /**
@@ -121,6 +289,14 @@ public class Exit implements Serializable {
 
     /**
      *
+     * @return opened description
+     */
+    public String getOpenedDescription() {
+        return openedDescription;
+    }
+
+    /**
+     *
      * @return short direction name of exit
      */
     public String getShortDirectionName() {
@@ -129,35 +305,26 @@ public class Exit implements Serializable {
 
     /**
      *
-     * @return true is exit is blocked, else false
+     * @return true is exit is open, else false
      */
-    public boolean isBlocked() {
-        return blocked;
+    public boolean isOpen() {
+        return open;
     }
 
     /**
      *
-     * @return if exit is visible
+     * @return true is exit is openable by player, else false
      */
-    public boolean isVisible() {
-        return visible;
+    public boolean isOpenable() {
+        return openable;
     }
 
     /**
      *
-     * @param blocked
-     *            status of exit
+     * @param closedDescription
      */
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
-    }
-
-    /**
-     *
-     * @param blockedReason
-     */
-    public void setBlockedReason(String blockedReason) {
-        this.blockedReason = blockedReason;
+    public void setClosedDescription(String closedDescription) {
+        this.closedDescription = closedDescription;
     }
 
     /**
@@ -165,16 +332,17 @@ public class Exit implements Serializable {
      *
      * @param direction
      *            of exit
+     * @throws IllegalArgumentException
+     *             if direction is not valid
      */
-    public void setDirection(int direction) {
-        // Set direction to UNDEFINED if direction is invalid
-        if (NORTH > direction || direction < OUT) {
-            this.direction = UNDEFINED;
+    public void setDirection(int direction) throws IllegalArgumentException {
+        if (DIRECTION_NORTH > direction || direction > DIRECTION_OUT) {
+            throw new IllegalArgumentException();
         } else {
             this.direction = direction;
+            directionName = directionNames[this.direction];
+            shortDirectionName = shortDirectionNames[this.direction];
         }
-        directionName = directionNames[this.direction];
-        shortDirectionName = shortDirectionNames[this.direction];
     }
 
     /**
@@ -183,11 +351,11 @@ public class Exit implements Serializable {
      * @param directionName
      *            of exit
      */
-    public void setDirectionName(String directionName) {
+    public void setDirectionName(String directionName) throws IllegalArgumentException {
         if (Arrays.asList(directionNames).contains(directionName)) {
             this.directionName = directionName;
         } else {
-            this.directionName = directionNames[UNDEFINED];
+            throw new IllegalArgumentException();
         }
     }
 
@@ -198,6 +366,36 @@ public class Exit implements Serializable {
      */
     public void setLeadsTo(Location leadsTo) {
         this.leadsTo = leadsTo;
+    }
+
+    /**
+     * Set if the exit if open or not. If open the exit can travel through, else the
+     * it cannot.
+     *
+     * @param open
+     *            status of exit
+     */
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    /**
+     * Set if the exit is able to be changed between opened and closed by the
+     * player. This property has no mechanical impact on this exit. Used only in
+     * integrating with game.
+     *
+     * @param openable
+     */
+    public void setOpenable(boolean openable) {
+        this.openable = openable;
+    }
+
+    /**
+     *
+     * @param openedDescription
+     */
+    public void setOpenedDescription(String openedDescription) {
+        this.openedDescription = openedDescription;
     }
 
     /**
@@ -215,16 +413,13 @@ public class Exit implements Serializable {
     }
 
     /**
-     *
-     * @param visible
-     *            status of exit
+     * Toggle the open status of the exit
      */
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
-    @Override
-    public String toString() {
-        return directionName + " is " + leadsTo.toString();
+    public void toggleOpen() {
+        if (open) {
+            open = false;
+        } else {
+            open = true;
+        }
     }
 }
