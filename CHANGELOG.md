@@ -3,7 +3,7 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-0.11.0-alpha -- April 22, 2018
+0.12.0-alpha -- April 22, 2018
 -------------------------
 ### Added
 - Parsing is in the process of a complete revamp
@@ -17,7 +17,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.10.0-alpha -- March 5, 2018
+0.11.1 - March 5, 2018
+----------------------
+### Removed
+- Properties from GameObject
+    - This is to be replaced with an implementation of the Visitor design pattern
+
+
+
+0.11.0-alpha -- March 4, 2018
 -------------------------
 ### Added
 - Exits manually instantiated with static `getExit()`, properties based on type
@@ -27,7 +35,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.9.0-alpha -- February 26, 2018
+0.10.0-alpha -- February 26, 2018
 ----------------------------
 ### Added
 - GameObject now has properties field
@@ -53,7 +61,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.8.1-alpha -- November 6, 2017
+0.9.1-alpha -- November 6, 2017
 ----------------------------
 ### Added
 - Non IDE recursive compiling instructions in `DESIGN_NOTES.md`.
@@ -62,7 +70,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.8.0-alpha -- September 10, 2017
+0.9.0-alpha -- September 10, 2017
 ----------------------------
 ### Added
 - AskToSaveMenu
@@ -73,7 +81,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.7.0-alpha -- September 9, 2017
+0.8.0-alpha -- September 9, 2017
 ---------------------------
 ### Added
 - Load menu drastically improved
@@ -102,7 +110,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.6.0-alpha -- September 6, 2017
+0.7.0-alpha -- September 6, 2017
 ---------------------------
 ### Added
 - Revamped game saving
@@ -121,7 +129,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.5.0-alpha -- September 5, 2017
+0.6.0-alpha -- September 5, 2017
 ---------------------------
 ### Added
 - Items have serialVersionUIDs
@@ -130,7 +138,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.4.0-alpha -- September 3, 2017
+0.5.0-alpha -- September 3, 2017
 ---------------------------
 ### Added
 - Game driver CheeseQuest implemented and moved to main package
@@ -150,14 +158,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.3.1-alpha -- August 19, 2017
+0.4.1-alpha -- August 19, 2017
 --------------------------
 ### Fixed
 - Changing between menus now works.
 
 
 
-0.3.0-alpha -- August 18, 2017
+0.4.0-alpha -- August 18, 2017
 --------------------------
 ### Added
 - InputPanel can now retrieve previous input like command line
@@ -169,7 +177,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-0.2.0-alpha -- August 8, 2017
+0.3.0-alpha -- August 8, 2017
 -------------------------
 ### Added
 - Implemented GUI skeleton
