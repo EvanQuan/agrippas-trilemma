@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import game.system.Utility;
+import test.util.ArrayUtil;
 
 /**
  * All objects in the game. Have names and descriptions.
@@ -57,7 +57,7 @@ public abstract class GameObject implements Serializable {
      *            to add
      */
     public void addDescriptions(String[] descriptions) {
-        Utility.addArrayToList(descriptions, this.descriptions);
+        ArrayUtil.addArrayToList(descriptions, this.descriptions);
     }
 
     /**
@@ -75,7 +75,7 @@ public abstract class GameObject implements Serializable {
      *            to add
      */
     public void addPluralNames(String[] pluralNames) {
-        Utility.addArrayToList(pluralNames, this.pluralNames);
+        ArrayUtil.addArrayToList(pluralNames, this.pluralNames);
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class GameObject implements Serializable {
      *            to add
      */
     public void addSingleNames(String[] singleNames) {
-        Utility.addArrayToList(singleNames, this.singleNames);
+        ArrayUtil.addArrayToList(singleNames, this.singleNames);
     }
 
     /**
@@ -238,7 +238,7 @@ public abstract class GameObject implements Serializable {
      * Set properties
      */
     public void setDescriptions(String[] descriptions) {
-        Utility.setArrayToList(descriptions, this.descriptions);
+        ArrayUtil.setArrayToList(descriptions, this.descriptions);
     }
 
     /**
@@ -251,7 +251,7 @@ public abstract class GameObject implements Serializable {
     }
 
     public void setPluralNames(String[] pluralNames) {
-        Utility.setArrayToList(pluralNames, this.pluralNames);
+        ArrayUtil.setArrayToList(pluralNames, this.pluralNames);
     }
 
     /**
@@ -275,7 +275,7 @@ public abstract class GameObject implements Serializable {
     }
 
     public void setSingleNames(String[] singleNames) {
-        Utility.setArrayToList(singleNames, this.singleNames);
+        ArrayUtil.setArrayToList(singleNames, this.singleNames);
     }
 
     /**

@@ -3,7 +3,21 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-[v0.10.0] - March 5, 2018
+0.11.0-alpha -- April 22, 2018
+-------------------------
+### Added
+- Parsing is in the process of a complete revamp
+    - Input string is broken up into token, each represented by a `Word` object
+    - `Word` objects are semantically related to each other
+    - `PlayerCommand` determines the main action `Verb` and object `Noun` that describes the command
+    - Game will base player turn by `PlayerCommand` object
+- `Multiset` class
+### Changed
+- `Utility` is now divided into `ArrayUtil` and `TextUtil`
+
+
+
+0.10.0-alpha -- March 5, 2018
 -------------------------
 ### Added
 - Exits manually instantiated with static `getExit()`, properties based on type
@@ -11,7 +25,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Exit `reverseDirection()` implemented
 - Exits can now be open, closed, openable
 
-[v0.9.0] - February 26, 2018
+
+
+0.9.0-alpha -- February 26, 2018
 ----------------------------
 ### Added
 - GameObject now has properties field
@@ -36,14 +52,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Collectable refactored to Collectible (whoops!)
 
 
-[v0.8.1] - November 6, 2017
+
+0.8.1-alpha -- November 6, 2017
 ----------------------------
 ### Added
 - Non IDE recursive compiling instructions in `DESIGN_NOTES.md`.
 ### Fixed
 - Typo in AskToSaveMenu
 
-[v0.8.0] - September 10, 2017
+
+
+0.8.0-alpha -- September 10, 2017
 ----------------------------
 ### Added
 - AskToSaveMenu
@@ -54,7 +73,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.7.0] - September 9, 2017
+0.7.0-alpha -- September 9, 2017
 ---------------------------
 ### Added
 - Load menu drastically improved
@@ -83,7 +102,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.6.0] - September 6, 2017
+0.6.0-alpha -- September 6, 2017
 ---------------------------
 ### Added
 - Revamped game saving
@@ -102,7 +121,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.5.0] - September 5, 2017
+0.5.0-alpha -- September 5, 2017
 ---------------------------
 ### Added
 - Items have serialVersionUIDs
@@ -111,7 +130,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.4.0] - September 3, 2017
+0.4.0-alpha -- September 3, 2017
 ---------------------------
 ### Added
 - Game driver CheeseQuest implemented and moved to main package
@@ -131,14 +150,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.3.1] - August 19, 2017
+0.3.1-alpha -- August 19, 2017
 --------------------------
 ### Fixed
 - Changing between menus now works.
 
 
 
-[v0.3.0] - August 18, 2017
+0.3.0-alpha -- August 18, 2017
 --------------------------
 ### Added
 - InputPanel can now retrieve previous input like command line
@@ -150,7 +169,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.2.0] - August 8, 2017
+0.2.0-alpha -- August 8, 2017
 -------------------------
 ### Added
 - Implemented GUI skeleton
@@ -158,13 +177,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[v0.2.0] - August 4, 2017
+0.2.0-alpha -- August 4, 2017
 -------------------------
 ### Added
 - WriteObject and ReadObject to save games
 
 
 
-[v0.1.0] - August 1, 2017
+0.1.0-alpha -- August 1, 2017
 -------------------------
 Started organizing package structure and implementing classes

@@ -6,7 +6,7 @@ package game.system;
  * @author Evan Quan
  *
  */
-public class StandardPrinter extends Utility implements Printer {
+public class StandardPrinter implements IPrinter {
 
     private String reset;
     private String directionColor;

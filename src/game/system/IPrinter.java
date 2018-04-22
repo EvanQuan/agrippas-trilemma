@@ -4,13 +4,14 @@ package game.system;
  * Game text output
  *
  * @author Evan Quan
+ * @version 1.0.0
+ * @since 1.0.0
  *
  */
-public interface Printer {
+public interface IPrinter {
 
     public static final int INPUT_SPACING = 4;
     public static final String INPUT_MARKER = "> ";
-    public static final int VERB = 0;
 
     /**
      * Appends to outputString

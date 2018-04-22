@@ -1,11 +1,12 @@
 package game.system;
 
 import gui.OutputPanel;
+import test.util.ArrayUtil;
 
 /**
  * Prints text to OutputPanel GUI
  */
-public class GUIPrinter extends Utility implements Printer {
+public class GUIPrinter implements IPrinter {
 
     protected OutputPanel outputPanel;
 
@@ -365,7 +366,7 @@ public class GUIPrinter extends Utility implements Printer {
 
     @Override
     public void printTitle(String output) {
-        outputPanel.appendTitle(toTitleCase(output));
+        outputPanel.appendTitle(ArrayUtil.toTitleCase(output));
     }
 
     @Override

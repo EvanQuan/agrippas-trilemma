@@ -3,13 +3,13 @@ package game.menu;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import game.system.GUIPrinter;
+import test.util.ArrayUtil;
 
 /**
  * Receives input string Outputs corresponding output string NOTE Unchecked
  * ArrayList methods imply types are String, Double, or Integer only
  */
-public abstract class Menu extends GUIPrinter {
+public abstract class Menu {
 
     public static final String EMPTY = "";
     protected ArrayList<ArrayList> validVerbs;
@@ -78,7 +78,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * Different names to prevent name clash with inputStartsWithChoice()
-     * 
+     *
      * @param ArrayList<Integer>
      *            arrayList
      * @param boolean
@@ -105,7 +105,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * Returns value of inputString
-     * 
+     *
      * @return
      */
     public String getInputString() {
@@ -114,7 +114,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * Returns value of inputWords
-     * 
+     *
      * @return
      */
     public String[] getInputWords() {
@@ -123,7 +123,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * Returns value of originalInputWords
-     * 
+     *
      * @return
      */
     public String[] getOriginalInputWords() {
@@ -140,7 +140,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * Returns verb of inputString
-     * 
+     *
      * @return
      */
     public String getVerb() {
@@ -162,7 +162,7 @@ public abstract class Menu extends GUIPrinter {
     }
 
     public boolean inputEquals(ArrayList arrayList) {
-        return wordEquals(getInputString(), getStringArrayList(arrayList));
+        return wordEquals(getInputString(), ArrayUtil.getStringArrayList(arrayList));
     }
 
     public boolean inputEquals(double word) {
@@ -170,7 +170,7 @@ public abstract class Menu extends GUIPrinter {
     }
 
     public boolean inputEquals(double[] array) {
-        return wordEquals(getInputString(), getStringArrayList(array));
+        return wordEquals(getInputString(), ArrayUtil.getStringArrayList(array));
     }
 
     public boolean inputEquals(int word) {
@@ -178,7 +178,7 @@ public abstract class Menu extends GUIPrinter {
     }
 
     public boolean inputEquals(int[] array) {
-        return wordEquals(getInputString(), getStringArrayList(array));
+        return wordEquals(getInputString(), ArrayUtil.getStringArrayList(array));
     }
 
     public boolean inputEquals(String word) {
@@ -191,7 +191,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * Checks if there exists remaining words in inputWords to parse
-     * 
+     *
      * @return true if inputWords.length > 0
      */
     public boolean inputRemains() {
@@ -211,7 +211,7 @@ public abstract class Menu extends GUIPrinter {
     // return inputStartsWithDoubleChoice(arrayList, false);
     // }
     public boolean inputStartsWith(double[] array) {
-        return inputStartsWith(getDoubleArrayList(array));
+        return inputStartsWith(ArrayUtil.getDoubleArrayList(array));
     }
 
     public boolean inputStartsWith(int word) {
@@ -222,7 +222,7 @@ public abstract class Menu extends GUIPrinter {
     // return inputStartsWithIntegerChoice(arrayList, false);
     // }
     public boolean inputStartsWith(int[] array) {
-        return inputStartsWith(getIntegerArrayList(array));
+        return inputStartsWith(ArrayUtil.getIntegerArrayList(array));
     }
 
     public boolean inputStartsWith(String word) {
@@ -240,7 +240,7 @@ public abstract class Menu extends GUIPrinter {
     // Verb can be manually set or is automatically defined upon new player input
     /**
      * Checks if input starts with an element of arrayList
-     * 
+     *
      * @param ArrayList
      *            arrayList
      * @param boolean
@@ -303,7 +303,7 @@ public abstract class Menu extends GUIPrinter {
     /**
      * Checks if input starts with an element of arrayList If so, strips away
      * starting words for inputWords and returns true
-     * 
+     *
      * @param ArrayList<String>
      *            arrayList
      * @return
@@ -442,7 +442,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * Strips away 1 word from inputWords
-     * 
+     *
      * @return word stripped
      */
     public String stripInput() {
@@ -452,7 +452,7 @@ public abstract class Menu extends GUIPrinter {
     /**
      * Strips away starting words by index from inputWords and inputString If more
      * words are to be stripped than exist, then all remaining words are stripped
-     * 
+     *
      * @param int
      *            index of new beginning inputWords
      * @return words stripped away from input
@@ -471,7 +471,7 @@ public abstract class Menu extends GUIPrinter {
 
     /**
      * TODO Checks if unknown word is used
-     * 
+     *
      * @return true if
      */
     public boolean validInput() {
@@ -481,7 +481,7 @@ public abstract class Menu extends GUIPrinter {
     /**
      * Checks if input starts with an element of arrayList If so, sets starting
      * word(s) to verb and rest to remainingWords
-     * 
+     *
      * @param ArrayList<String>
      *            arrayList
      * @return
@@ -500,7 +500,7 @@ public abstract class Menu extends GUIPrinter {
     /**
      * Checks if inputString starts with an element of array set remaining words of
      * inputString to remainingWords
-     * 
+     *
      * @param String[]
      *            array [description]
      * @return [description]
