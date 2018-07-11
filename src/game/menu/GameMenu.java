@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import game.object.item.background.character.Player;
 import game.object.location.Location;
 import game.system.Save;
+import util.ArrayUtils;
 
 /**
  * Manages all in game actions
@@ -32,7 +33,7 @@ public class GameMenu extends Menu {
 
     private GameMenu() {
         extendInput = false;
-        look = new ArrayList<String>(getStringArrayList(new String[] { "look", "l" }));
+        look = new ArrayList<String>(ArrayUtils.getStringArrayList(new String[] { "look", "l" }));
     }
 
     /**
@@ -62,9 +63,8 @@ public class GameMenu extends Menu {
 
     }
 
-    @Override
     public void outputPrompt() {
-        println("room: " + room);
+//        println("room: " + room);
         playerLook();
     }
 
@@ -75,23 +75,22 @@ public class GameMenu extends Menu {
     }
 
     // public void output()
-    @Override
     public void processInput() {
-        if (inputStartsWithStrip(look)) {
-            if (inputRemains()) {
-                println("You can't look at that."); // NOTE: Change later debug
-            } else {
-                playerLook();
-            }
-        } else if (inputStartsWithStrip(new String[] { "quit", "quit game" })) {
-            if (inputRemains()) {
-                println("You can't do that.");
-            } else {
-                quit(); // NOTE: Change to GameOverMenu
-            }
-        } else if (!extendInput) { // outputInvalid must be manually set for children extendInput
-            outputInvalid();
-        }
+//        if (inputStartsWithStrip(look)) {
+//            if (inputRemains()) {
+//                println("You can't look at that."); // NOTE: Change later debug
+//            } else {
+//                playerLook();
+//            }
+//        } else if (inputStartsWithStrip(new String[] { "quit", "quit game" })) {
+//            if (inputRemains()) {
+//                println("You can't do that.");
+//            } else {
+//                quit(); // NOTE: Change to GameOverMenu
+//            }
+//        } else if (!extendInput) { // outputInvalid must be manually set for children extendInput
+//            outputInvalid();
+//        }
     }
 
     public void quit() {

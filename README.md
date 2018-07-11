@@ -1,5 +1,5 @@
-Cheese Quest: The Plague of Kashkaval
-=====================================
+Agrippa's Trilemma
+==================
 
 Table of Contents
 -----------------
@@ -17,16 +17,17 @@ Table of Contents
 
 Introduction
 ------------
-Cheese Quest 2 is a text-based adventure game, or more commonly referred to as Interactive Fiction, inspired by many of the games published by Infocom.
+Agrippa's Trilemma is a text-based adventure game, or more commonly referred to as Interactive Fiction, inspired by many of the games published by Infocom.
 It started development in August of 2017.
 
+<!-- MOVE TO WIKI -->
 Goals
 -----
 Here is the list of central goals I have for Cheese Quest 2, and some insight on my intentions in the game's development.
 
 #### Improve Maintainability and Scalability
 
-After "completing" Cheese Quest 1 in Python, there came a point where continuing development [become too much of a pain to be worth it](https://github.com/EvanQuan/CheeseQuest1#completion-and-abandonment).
+After "completing" Cheese Quest 1 in Python, there came a point where continuing development [become too much of a pain to be worth it](https://github.com/EvanQuan/CheeseQuest#completion-and-abandonment).
 I thought rewriting the game from scratch in an object-oriented manner would help solve some of the problems I had in maintaining and improving the codebase.
 
 

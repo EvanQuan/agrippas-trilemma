@@ -4,8 +4,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.lang.SecurityException;
 import java.util.*;
-import game.system.*;
-import test.util.ArrayUtil;
+import util.ArrayUtils;
+import util.TextUtils;
 
 /**
  * Manages save files
@@ -15,7 +15,7 @@ import test.util.ArrayUtil;
  * Influence: Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public class SaveManager extends ArrayUtil {
+public class SaveManager extends ArrayUtils {
     public static final int MAXIMUM_SAVES = 50;
     public static final int MAX_NAME_LENGTH = 50;
     public static final String SAVE_DIRECTORY = "game/system/saves";
@@ -59,7 +59,7 @@ public class SaveManager extends ArrayUtil {
         saves.clear();
         for (File saveFile : this.saveFiles) {
             try {
-                setCurrentSave(stripExtension(saveFile.getName()));
+                setCurrentSave(TextUtils.stripExtension(saveFile.getName()));
                 Save save = (Save) restore();
                 saves.add(save);
             } catch (InvalidSaveNameException e) {
@@ -228,7 +228,7 @@ public class SaveManager extends ArrayUtil {
         return this.currentSaveFile;
     }
     public String getCurrentSaveName() {
-        return stripExtension(this.currentSaveFile.getName());
+        return TextUtils.stripExtension(this.currentSaveFile.getName());
     }
     // public ArrayList<String> getSaveNums() {
     //     return saveNums;
@@ -247,7 +247,7 @@ public class SaveManager extends ArrayUtil {
                 throw new InvalidSaveNameException();
             }
         }
-        this.saveName = toLowerTitleCase(saveName);
+        this.saveName = TextUtils.toLowerTitleCase(saveName);
         this.currentSaveFile = new File(SAVE_DIRECTORY + "/" + this.saveName + "." + FILE_EXTENTION);
     }
     /**
@@ -256,7 +256,7 @@ public class SaveManager extends ArrayUtil {
      */
     public void setCurrentSave(int saveNum) throws InvalidSaveNumException {
         try {
-            setCurrentSave(stripExtension(this.saveFiles[saveNum].getName())); // gets name with extension
+            setCurrentSave(TextUtils.stripExtension(this.saveFiles[saveNum].getName())); // gets name with extension
         } catch (Exception e) {
             throw new InvalidSaveNumException();
         }

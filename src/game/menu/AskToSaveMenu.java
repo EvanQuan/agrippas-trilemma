@@ -17,27 +17,25 @@ public class AskToSaveMenu extends GhostMenu {
         return instance;
     }
 
-    @Override
     public void outputPrompt() {
-        println("Would you like to save the game first?");
-        print("(");
-        printPlayer("Yes");
-        print("/");
-        printPlayer("No");
-        print("/");
-        printPlayer("Return");
-        println(")");
+//        println("Would you like to save the game first?");
+//        print("(");
+//        printPlayer("Yes");
+//        print("/");
+//        printPlayer("No");
+//        print("/");
+//        printPlayer("Return");
+//        println(")");
     }
-    @Override
     public void processInput() {
-        if (inputEquals(yes)) {
-            changeToSaveMenu();
-        } else if (inputEquals(no)) {
-            changeToMainMenu();
-        } else if (inputEquals(returnToPreviousMenu)) {
-            changeToPreviousMenu();
-        } else {
-            outputPrompt();
-        }
+//        if (inputEquals(yes)) {
+//            changeToSaveMenu();
+//        } else if (inputEquals(no)) {
+//            changeToMainMenu();
+//        } else if (inputEquals(returnToPreviousMenu)) {
+//            changeToPreviousMenu();
+//        } else {
+//            outputPrompt();
+//        }
     }
 }

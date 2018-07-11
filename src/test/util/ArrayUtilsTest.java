@@ -6,13 +6,15 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import util.ArrayUtils;
+
 /**
  * JUnit test class for the ArrayUtil class
  *
  * @author Evan Quan
  *
  */
-public class ArrayUtilTest {
+public class ArrayUtilsTest {
 
     /**
      * Check if an array with longest to shorted element lengths can be sorted to
@@ -22,7 +24,7 @@ public class ArrayUtilTest {
     public void testSortByLongestWithLongestFirstInput() {
         String[] input = { "1. abcd", "2. abc", "3. ab", "4. a" };
         String[] expected = { "1. abcd", "2. abc", "3. ab", "4. a" };
-        String[] result = ArrayUtil.sortByLongestFirst(input);
+        String[] result = ArrayUtils.sortByLongestFirst(input);
         assertTrue(Arrays.equals(expected, result));
     }
 
@@ -33,7 +35,7 @@ public class ArrayUtilTest {
     public void testSortByLongestWithRandomInput() {
         String[] input = { "2. abc", "4. a", "1. abcd", "3. ab" };
         String[] expected = { "1. abcd", "2. abc", "3. ab", "4. a" };
-        String[] result = ArrayUtil.sortByLongestFirst(input);
+        String[] result = ArrayUtils.sortByLongestFirst(input);
         assertTrue(Arrays.equals(expected, result));
     }
 
@@ -45,7 +47,7 @@ public class ArrayUtilTest {
     public void testSortByLongestWithShortestFirstInput() {
         String[] input = { "4. a", "3. ab", "2. abc", "1. abcd" };
         String[] expected = { "1. abcd", "2. abc", "3. ab", "4. a" };
-        String[] result = ArrayUtil.sortByLongestFirst(input);
+        String[] result = ArrayUtils.sortByLongestFirst(input);
         assertTrue(Arrays.equals(expected, result));
     }
 

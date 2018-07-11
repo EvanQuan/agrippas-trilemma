@@ -39,7 +39,7 @@ public class MenuManager extends GUIPrinter {
      * Retreieves and processes input string
      */
     public void input(String input) {
-        menu.input(input);
+//        menu.input(input);
     }
 
     /**
@@ -81,7 +81,7 @@ public class MenuManager extends GUIPrinter {
         setPreviousMenu(this.menu,menu);
     	this.menu = menu;
         // outputln("After set: Current menu is " + this.menu.getClass().getSimpleName());
-        this.menu.outputPrompt();
+//        this.menu.outputPrompt();
     }
 
     /**

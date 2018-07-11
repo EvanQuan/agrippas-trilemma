@@ -1,15 +1,26 @@
 package game.system.parsing.words;
 
 /**
- * Represents a word
+ * Represents a word. A word must contain one or more alphanumeric characters.
  *
  * @author Evan Quan
  *
  */
 public abstract class Word {
 
-    boolean valid;
-    String name;
+    private String name;
+
+    /**
+     * Complete constructor. Cannot be instantiated.
+     *
+     * @param name
+     *            - Determines if the word is valid. This is determined by a
+     *            combination of the word type and name, and its relation with other
+     *            words.
+     */
+    public Word(String name) {
+        this.name = name;
+    }
 
     /**
      *
@@ -21,19 +32,9 @@ public abstract class Word {
 
     /**
      *
-     * @return true if the world is valid. This is determined by a combination of
-     *         the word type and name, and its relation with other words.
+     * @return String representation of word
      */
-    public boolean isValid() {
-        return valid;
+    public String toString() {
+        return name;
     }
-
-    /**
-     *
-     * @param valid
-     */
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
-
 }

@@ -6,7 +6,7 @@ package game.system;
  * @author Evan Quan
  *
  */
-public class StandardPrinter implements IPrinter {
+public class ConsolePrinter implements IPrinter {
 
     private String reset;
     private String directionColor;
@@ -17,7 +17,7 @@ public class StandardPrinter implements IPrinter {
     private String speechColor;
     private String titleColor;
 
-    public StandardPrinter() {
+    public ConsolePrinter() {
         reset = ConsoleColors.RESET;
         directionColor = ConsoleColors.YELLOW_BOLD;
         playerColor = ConsoleColors.CYAN_UNDERLINED;

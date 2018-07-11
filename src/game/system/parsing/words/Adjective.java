@@ -13,14 +13,27 @@ package game.system.parsing.words;
  */
 public class Adjective extends DescribableByAdverb {
 
-    Noun noun;
+    Noun describes;
+
+    /**
+     * Complete constructor
+     *
+     * @param name
+     * @param valid
+     * @param describedBy
+     * @param describes
+     */
+    public Adjective(String name, Adverb describedBy, Noun describes) {
+        super(name, describedBy);
+        this.describes = describes;
+    }
 
     /**
      *
      * @return the noun that this adjective describes
      */
     public Noun getNoun() {
-        return noun;
+        return describes;
     }
 
     /**
@@ -29,6 +42,7 @@ public class Adjective extends DescribableByAdverb {
      *            - the noun that this adjective describes
      */
     public void setNoun(Noun noun) {
-        this.noun = noun;
+        this.describes = noun;
     }
+
 }

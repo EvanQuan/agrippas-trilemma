@@ -14,8 +14,26 @@ import java.util.ArrayList;
 public class Noun extends Word {
 
     private ArrayList<Adjective> adjectives;
+    private Determiner determiner;
     private ArrayList<Noun> owns;
     private ArrayList<Noun> ownedBy;
+
+    /**
+     * Complete constructor.
+     *
+     * @param name
+     * @param adjectives
+     * @param owns
+     * @param ownedBy
+     */
+    public Noun(String name, ArrayList<Adjective> adjectives, Determiner determiner, ArrayList<Noun> owns,
+            ArrayList<Noun> ownedBy) {
+        super(name);
+        this.adjectives = adjectives;
+        this.determiner = determiner;
+        this.owns = owns;
+        this.ownedBy = ownedBy;
+    }
 
     /**
      *
@@ -23,6 +41,14 @@ public class Noun extends Word {
      */
     public ArrayList<Adjective> getAdjective() {
         return adjectives;
+    }
+
+    /**
+     *
+     * @return determiner
+     */
+    public Determiner getDeterminer() {
+        return determiner;
     }
 
     /**
@@ -47,5 +73,13 @@ public class Noun extends Word {
      */
     public boolean hasAdjective() {
         return adjectives.isEmpty();
+    }
+
+    /**
+     *
+     * @return true if this noun has a determiner
+     */
+    public boolean hasDeterminer() {
+        return determiner == null;
     }
 }

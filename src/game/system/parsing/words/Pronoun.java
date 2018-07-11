@@ -12,9 +12,14 @@ package game.system.parsing.words;
  * @author Evan Quan
  *
  */
-public class Pronoun {
+public class Pronoun extends Word {
 
     private Noun refersTo;
+
+    public Pronoun(String name, Noun refersTo) {
+        super(name);
+        this.refersTo = refersTo;
+    }
 
     public Noun getNoun() {
         return refersTo;

@@ -1,4 +1,4 @@
-package gui;
+package game.system.gui;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;

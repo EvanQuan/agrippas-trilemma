@@ -22,24 +22,22 @@ public class CreateGameMenu extends GhostMenu {
         return instance;
     }
 
-    @Override
     public void outputPrompt() {
-        println("Enter the name of your new game.");
+//        println("Enter the name of your new game.");
     }
-    @Override
     public void processInput() {
-        String name = getInputString();
-        print("Game \"");
-        printItem(toTitleCase(name));
-        print("\" ");
-        if (LoadMenu.getInstance().getSaveNames().contains(toTitleCase(name))) { // Does not create a new game
-            println("already exists.");
-        } else {
-            boolean created = createGame(name);
-            if (created) {
-                println(" has been created.");
-            }
-        }
+//        String name = getInputString();
+//        print("Game \"");
+//        printItem(toTitleCase(name));
+//        print("\" ");
+//        if (LoadMenu.getInstance().getSaveNames().contains(toTitleCase(name))) { // Does not create a new game
+//            println("already exists.");
+//        } else {
+//            boolean created = createGame(name);
+//            if (created) {
+//                println(" has been created.");
+//            }
+//        }
         changeToPreviousMenu();
     }
 
@@ -68,16 +66,16 @@ public class CreateGameMenu extends GhostMenu {
      * NOTE: Assumes SaveManager.INVALID_CHARACTERS is not empty
      */
     public void outputInvalidSaveName() {
-        print(" cannot contain the special characters ");
-        for (int i = 0; i < SaveManager.INVALID_CHARACTERS.length - 1; i++) {
-            printPlayer(SaveManager.INVALID_CHARACTERS[i]);
-            print(", ");
-        }
-        if (SaveManager.INVALID_CHARACTERS.length > 1) {
-            print("or ");
-        }
-        printPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
-        println(".");
+//        print(" cannot contain the special characters ");
+//        for (int i = 0; i < SaveManager.INVALID_CHARACTERS.length - 1; i++) {
+//            printPlayer(SaveManager.INVALID_CHARACTERS[i]);
+//            print(", ");
+//        }
+//        if (SaveManager.INVALID_CHARACTERS.length > 1) {
+//            print("or ");
+//        }
+//        printPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
+//        println(".");
     }
 
 }

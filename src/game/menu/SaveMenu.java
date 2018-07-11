@@ -21,12 +21,10 @@ public class SaveMenu extends Menu {
         return instance;
     }
 
-    @Override
     public void outputPrompt() {
 
     }
 
-    @Override
     public void processInput() {
 
     }

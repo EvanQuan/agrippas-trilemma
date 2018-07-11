@@ -1,6 +1,6 @@
 package test;
 
-import game.system.StandardPrinter;
+import game.system.ConsolePrinter;
 
 /**
  * Not a formal JUnit test. Just to see the colors
@@ -11,7 +11,7 @@ import game.system.StandardPrinter;
 public class StandardPrinterTest {
 
     public static void main(String[] args) {
-        StandardPrinter out = new StandardPrinter();
+        ConsolePrinter out = new ConsolePrinter();
         out.println("Normal");
         out.printCharacterln("Character");
         out.printItemln("Item");

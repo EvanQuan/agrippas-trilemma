@@ -5,7 +5,7 @@ import java.io.Serializable;
 import game.object.item.background.character.Player;
 import game.object.location.Location;
 import main.CheeseQuest;
-import test.util.ArrayUtil;
+import util.TextUtils;
 
 /**
  * Object to be saved and loaded by WriteObject and ReadObject Contains: - rooms
@@ -77,7 +77,7 @@ public class Save implements Serializable {
         // TODO
     }
 
-    public void setName(String name) {
-        this.name = ArrayUtil.toLowerTitleCase(name);
+    public void setName(String name){
+        this.name = TextUtils.toLowerTitleCase(name);
     }
 }

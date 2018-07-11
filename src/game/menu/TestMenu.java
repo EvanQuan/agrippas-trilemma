@@ -14,38 +14,37 @@ public class TestMenu extends Menu {
 
     }
 
-    @Override
     public void outputPrompt() {
-        printTitleln("Test Menu");
-        println("You are now in the Test menu.");
-        println("Valid input: " + Arrays.asList(VALID_INPUT));
-        println("To go to the main menu, type \"" + Arrays.asList(BACK) + "\"");
+//        printTitleln("Test Menu");
+//        println("You are now in the Test menu.");
+//        println("Valid input: " + Arrays.asList(VALID_INPUT));
+//        println("To go to the main menu, type \"" + Arrays.asList(BACK) + "\"");
     }
-    @Override
     public void processInput() {
-        if (inputStartsWith(BACK)) {
-            changeToMainMenu();
-        } else if (inputStartsWithStrip(VALID_INPUT)) {
-
-            if (inputStartsWith(new String[] {"potato", "the potato"})) {
-                println("You pick up the potato.");
-            } else if (inputStartsWith("llama")) {
-                println("You pick up the llama");
-            } else {
-                println("there is no " + getInputString() + " here to pick up");
-            }
-            println("Valid input.");
-            println("inputString: \"" + getInputString() + "\"");
-            println("inputWords: \"" + Arrays.asList(getInputWords()) + "\"");
-            println("remainingWords: \"" + getRemainingString() + "\"");
-        } else {
-            println("Invalid input.");
-        }
+//        if (inputStartsWith(BACK)) {
+//            changeToMainMenu();
+//        } else if (inputStartsWithStrip(VALID_INPUT)) {
+//
+//            if (inputStartsWith(new String[] {"potato", "the potato"})) {
+//                println("You pick up the potato.");
+//            } else if (inputStartsWith("llama")) {
+//                println("You pick up the llama");
+//            } else {
+//                println("there is no " + getInputString() + " here to pick up");
+//            }
+//            println("Valid input.");
+//            println("inputString: \"" + getInputString() + "\"");
+//            println("inputWords: \"" + Arrays.asList(getInputWords()) + "\"");
+//            println("remainingWords: \"" + getRemainingString() + "\"");
+//        } else {
+//            println("Invalid input.");
+//        }
     }
+
     public void checkDrop() {
-        if (inputStartsWith("drop")) {
-            println("You have nothing to drop");
-        }
+//        if (inputStartsWith("drop")) {
+//            println("You have nothing to drop");
+//        }
     }
 
 

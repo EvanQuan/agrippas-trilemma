@@ -333,7 +333,8 @@ public class Multiset<E> implements Iterable<E> {
     }
 
     /**
-     * String representation of multiset
+     * String representation of this multiset. The string representation consists of
+     * a list of the multiset's elements.
      */
     @Override
     public String toString() {

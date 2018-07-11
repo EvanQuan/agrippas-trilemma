@@ -1,12 +1,14 @@
-package test.util;
+package util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Has text utility functions
+ * Has text utility functions for Arrays
+ *
+ * @author Evan Quan
  */
-public abstract class ArrayUtil {
+public abstract class ArrayUtils {
 
     public static final String EMPTY = "";
 
@@ -19,6 +21,44 @@ public abstract class ArrayUtil {
      */
     public static void addArrayToList(String[] array, ArrayList<String> list) {
         list.addAll(Arrays.asList(array));
+    }
+
+    /**
+     * Checks if a char[] array contains a specified char key
+     *
+     * @param array
+     * @param key
+     * @return true if the array contains the specified char key
+     */
+    public static boolean contains(char[] array, char key) {
+        for (char c : array) {
+            if (c == key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if an int[] array contains a specified int key
+     *
+     * @param array
+     * @param key
+     * @return true if the array contains the specified int key
+     */
+    public static boolean contains(int[] array, int key) {
+        return Arrays.stream(array).anyMatch(i -> i == key);
+    }
+
+    /**
+     * Checks if a String[] array contains a specified String key
+     *
+     * @param array
+     * @param key
+     * @return true if the array contains the specified String key
+     */
+    public static boolean contains(Object[] array, Object key) {
+        return Arrays.asList(array).contains(key);
     }
 
     public static ArrayList<Double> getDoubleArrayList(double[] doubleArray) {
@@ -36,6 +76,22 @@ public abstract class ArrayUtil {
         }
         return intList;
     }
+
+    // public static ArrayList<String> getStringArrayList(double doub) {
+    // return getStringArrayList(new double[] { doub });
+    // }
+    //
+    // public static ArrayList<String> getStringArrayList(double[] doubleArray) {
+    // return getStringArrayList(getDoubleArrayList(doubleArray));
+    // }
+    //
+    // public static ArrayList<String> getStringArrayList(int integer) {
+    // return getStringArrayList(getStringArrayList(integer));
+    // }
+    //
+    // public static ArrayList<String> getStringArrayList(int[] intArray) {
+    // return getStringArrayList(getIntegerArrayList(intArray));
+    // }
 
     /**
      * Convert ArrayList<Integer> or ArrayList<Double> to ArrayList<String>
@@ -68,22 +124,6 @@ public abstract class ArrayUtil {
         }
         return stringList;
     }
-
-    // public static ArrayList<String> getStringArrayList(double doub) {
-    // return getStringArrayList(new double[] { doub });
-    // }
-
-    // public static ArrayList<String> getStringArrayList(double[] doubleArray) {
-    // return getStringArrayList(getDoubleArrayList(doubleArray));
-    // }
-    //
-    // public static ArrayList<String> getStringArrayList(int integer) {
-    // return getStringArrayList(getStringArrayList(integer));
-    // }
-    //
-    // public static ArrayList<String> getStringArrayList(int[] intArray) {
-    // return getStringArrayList(getIntegerArrayList(intArray));
-    // }
 
     public static ArrayList<String> getStringArrayList(String word) {
         return getStringArrayList(new String[] { word });
@@ -150,6 +190,5 @@ public abstract class ArrayUtil {
         sortByLongestFirst(outList);
         return outList.toArray(new String[0]);
     }
-
 
 }

@@ -54,116 +54,114 @@ public class LoadMenu extends Menu {
      * Outputs numerical list of existing save files by name and information
      * and New game option
      */
-    @Override
     public void outputPrompt() {
         updateSaves();
-        printTitleln(LOAD_GAME);
+//        printTitleln(LOAD_GAME);
         String gameName;
         ArrayList<Save> saves = saver.getSaves();
         for (int i = 0; i < saves.size(); i++) {
-            printItem(i + 1);
-            print(". ");
+//            printItem(i + 1);
+//            print(". ");
             outputSaveInfo(saves.get(i));
         }
-        println();
-        printPlayer("Create");
-        print(", ");
-        printPlayer("Load");
-        print(", or ");
-        printPlayer("Delete");
-        print(" a game, or ");
-        printPlayer("Return");
-        print(" to the ");
+//        println();
+//        printPlayer("Create");
+//        print(", ");
+//        printPlayer("Load");
+//        print(", or ");
+//        printPlayer("Delete");
+//        print(" a game, or ");
+//        printPlayer("Return");
+//        print(" to the ");
         if (MenuManager.getInstance().getPreviousMenu().equals(MainMenu.getInstance())) {
-            printLocation("Main Menu");
-            println(".");
+//            printLocation("Main Menu");
+//            println(".");
         } else {
-            println("the game.");
+//            println("the game.");
         }
         // outputlnRoom(splitCamelCaseToString(MenuManager.getInstance().getPreviousMenu().getClass().getSimpleName()));
     }
     public void outputSaveInfo(Save save) {
-        println(save.getName());
-        printItem("     Room: ");
-        print(save.getRoom().getSingleName());
-        printItem("     Turns: ");
-        print(save.getTurnCount());
-        printItem("     Version: ");
-        println(save.getVersion());
+//        println(save.getName());
+//        printItem("     Room: ");
+//        print(save.getRoom().getSingleName());
+//        printItem("     Turns: ");
+//        print(save.getTurnCount());
+//        printItem("     Version: ");
+//        println(save.getVersion());
     }
 
-    @Override
     public void processInput() {
         // System.out.println("Before strip");
         // System.out.println("inputString: " + getInputString());
         // System.out.println("inputWords: " + Arrays.asList(getInputWords()));
         // System.out.println("verb: " + getVerb());
-        if (inputStartsWithStrip(CREATE_OPTIONS)) {
-            if (inputRemains()) {
-                outputExcessCommand();
-            } else {
-                changeToCreateGameMenu();
-            }
-        } else if (inputStartsWithStrip(LOAD_OPTIONS)) {
-            // System.out.println("After load strip");
-            // System.out.println("inputString: " + getInputString());
-            // System.out.println("inputWords: " + Arrays.asList(getInputWords()));
-            // System.out.println("verb: " + getVerb());
-            // System.out.println("saveNums.size() + 1 :" + (saveNums.size() + 1));
-            if (!inputRemains()) {
-                outputIncompleteCommandAndReprompt();
-            } else if (inputEquals(saveNums)) { // Load game by number
-                loadGame(Integer.parseInt(stripInput()));
-                changeToGameMenu();
-            } else if (inputEquals(saveNames)){ // Load game by name
-                loadGame(getInputString());
-                changeToGameMenu();
-            } else {
-                outputInvalid("load");
-                outputPrompt();
-            }
-        } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
-
-            // System.out.println("saveNames" + saveNames);
-            // System.out.println("After delete strip");
-            // System.out.println("inputString: " + getInputString());
-            // System.out.println("inputWords: " + Arrays.asList(getInputWords()));
-            // System.out.println("verb: " + getVerb());
-            if (!inputRemains()) {
-                outputIncompleteCommand();
-            } else if (inputStartsWith(saveNums)) { // Delete game by number
-                int saveNum = Integer.parseInt(stripInput());
-                try {
-                    saver.setCurrentSave(saveNum - 1);
-                    saver.deleteSave();
-                    outputDeleted();
-                } catch (InvalidSaveNumException e) {
-                    outputNotDeleted();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (inputEquals(saveNames)){
-                String saveName = getInputString();
-                try {
-                    saver.setCurrentSave(saveName);
-                    saver.deleteSave();
-                    outputDeleted();
-                } catch (InvalidSaveNameException e) {
-                    outputNotDeleted();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                outputNotDeleted();
-            }
-            println();
-            outputPrompt();
-        } else if (inputStartsWithStrip(returnToPreviousMenu)) {
-            changeToPreviousMenu();
-        } else { //
-            println("You cannot do that.");
-            outputPrompt();
-        }
+//        if (inputStartsWithStrip(CREATE_OPTIONS)) {
+//            if (inputRemains()) {
+//                outputExcessCommand();
+//            } else {
+//                changeToCreateGameMenu();
+//            }
+//        } else if (inputStartsWithStrip(LOAD_OPTIONS)) {
+//            // System.out.println("After load strip");
+//            // System.out.println("inputString: " + getInputString());
+//            // System.out.println("inputWords: " + Arrays.asList(getInputWords()));
+//            // System.out.println("verb: " + getVerb());
+//            // System.out.println("saveNums.size() + 1 :" + (saveNums.size() + 1));
+//            if (!inputRemains()) {
+//                outputIncompleteCommandAndReprompt();
+//            } else if (inputEquals(saveNums)) { // Load game by number
+//                loadGame(Integer.parseInt(stripInput()));
+//                changeToGameMenu();
+//            } else if (inputEquals(saveNames)){ // Load game by name
+//                loadGame(getInputString());
+//                changeToGameMenu();
+//            } else {
+//                outputInvalid("load");
+//                outputPrompt();
+//            }
+//        } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
+//
+//            // System.out.println("saveNames" + saveNames);
+//            // System.out.println("After delete strip");
+//            // System.out.println("inputString: " + getInputString());
+//            // System.out.println("inputWords: " + Arrays.asList(getInputWords()));
+//            // System.out.println("verb: " + getVerb());
+//            if (!inputRemains()) {
+//                outputIncompleteCommand();
+//            } else if (inputStartsWith(saveNums)) { // Delete game by number
+//                int saveNum = Integer.parseInt(stripInput());
+//                try {
+//                    saver.setCurrentSave(saveNum - 1);
+//                    saver.deleteSave();
+//                    outputDeleted();
+//                } catch (InvalidSaveNumException e) {
+//                    outputNotDeleted();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            } else if (inputEquals(saveNames)){
+//                String saveName = getInputString();
+//                try {
+//                    saver.setCurrentSave(saveName);
+//                    saver.deleteSave();
+//                    outputDeleted();
+//                } catch (InvalidSaveNameException e) {
+//                    outputNotDeleted();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                outputNotDeleted();
+//            }
+//            println();
+//            outputPrompt();
+//        } else if (inputStartsWithStrip(returnToPreviousMenu)) {
+//            changeToPreviousMenu();
+//        } else { //
+//            println("You cannot do that.");
+//            outputPrompt();
+//        }
     }
 
 
@@ -208,41 +206,41 @@ public class LoadMenu extends Menu {
 
     // Prompts
     public void outputInvalid(String action) {
-        if (saveNums.size() == 0) {
-            print("There are no games to ");
-            printPlayer(toTitleCase(action));
-            println(".");
-        } else {
-            print("The only game");
-            if (saveNums.size() > 1) {
-                print("s");
-            }
-            print(" to " + action.toLowerCase() + " ");
-            if (saveNums.size() > 1) {
-                print("are from ");
-            } else {
-                print("is ");
-            }
-            printPlayer(1);
-            if (saveNums.size() > 1) {
-                print(" to ");
-                printPlayer(saveNums.size());
-            }
-            println(".");
-        }
+//        if (saveNums.size() == 0) {
+//            print("There are no games to ");
+//            printPlayer(toTitleCase(action));
+//            println(".");
+//        } else {
+//            print("The only game");
+//            if (saveNums.size() > 1) {
+//                print("s");
+//            }
+//            print(" to " + action.toLowerCase() + " ");
+//            if (saveNums.size() > 1) {
+//                print("are from ");
+//            } else {
+//                print("is ");
+//            }
+//            printPlayer(1);
+//            if (saveNums.size() > 1) {
+//                print(" to ");
+//                printPlayer(saveNums.size());
+//            }
+//            println(".");
+//        }
 
     }
 
     public void outputDeleted() {
-        print("Save \"");
-        printItem(saver.getCurrentSaveName());
-        println("\" deleted.");
+//        print("Save \"");
+//        printItem(saver.getCurrentSaveName());
+//        println("\" deleted.");
     }
 
     public void outputNotDeleted() {
-        print("Save \"");
-        printItem(getInputString());
-        println("\" does not exist and cannot be deleted.");
+//        print("Save \"");
+//        printItem(getInputString());
+//        println("\" does not exist and cannot be deleted.");
     }
 
 

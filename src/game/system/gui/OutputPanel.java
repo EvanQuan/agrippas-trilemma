@@ -1,4 +1,4 @@
-package gui;
+package game.system.gui;
 
 import java.awt.*;
 import java.awt.event.*;

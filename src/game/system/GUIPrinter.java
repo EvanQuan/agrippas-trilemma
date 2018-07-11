@@ -1,7 +1,7 @@
 package game.system;
 
-import gui.OutputPanel;
-import test.util.ArrayUtil;
+import game.system.gui.OutputPanel;
+import util.TextUtils;
 
 /**
  * Prints text to OutputPanel GUI
@@ -366,7 +366,7 @@ public class GUIPrinter implements IPrinter {
 
     @Override
     public void printTitle(String output) {
-        outputPanel.appendTitle(ArrayUtil.toTitleCase(output));
+        outputPanel.appendTitle(TextUtils.toTitleCase(output));
     }
 
     @Override

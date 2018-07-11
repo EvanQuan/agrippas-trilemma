@@ -1,6 +1,6 @@
 package main;
 
-import gui.MainFrame;
+import game.system.gui.MainFrame;
 
 /**
  * Game driver
