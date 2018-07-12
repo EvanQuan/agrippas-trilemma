@@ -3,38 +3,49 @@ package game.system.parsing.words;
 import java.util.ArrayList;
 
 /**
- * Object phrases describe an object, or {@link Noun}. They conform to the
+ * Object phrases describe an object, or Noun. They conform to the
  * following grammar:
  * <p>
- * {@link Article}? {@link Adjective}* {@link Noun}
+ * Article? Adjective* Noun
  *
  * @author Evan Quan
  *
  */
 public class ObjectPhrase {
 
-    private Article article;
-    private ArrayList<Adjective> adjectives;
-    private Noun noun;
+    private String article;
+    private ArrayList<String> adjectives;
+    private String noun;
 
-    public ObjectPhrase(Noun noun) {
-        adjectives = new ArrayList<Adjective>();
-        this.noun = noun;
+    public ObjectPhrase() {
     }
 
-    public ArrayList<Adjective> getAdjectives() {
-        return this.adjectives;
+    public void setAdjectives(ArrayList<String> adjectives) {
+        this.adjectives = adjectives;
     }
 
-    public Article getArticle() {
+    /**
+     *
+     * @return a shallow copy of this phrase's adjectives. This is so that the adjective list can
+     * be modified for parsing purposes if need be without actually affecting the actual adjectives.
+     */
+    public ArrayList<String> getAdjectives() {
+        return new ArrayList<>(this.adjectives);
+    }
+
+    public String getArticle() {
         return this.article;
     }
 
-    public Noun getNoun() {
+    public String getNoun() {
         return this.noun;
     }
 
-    public void setArticle(Article article) {
+    public void setArticle(String article) {
         this.article = article;
+    }
+
+    public void setNoun(String noun) {
+        this.noun = noun;
     }
 }

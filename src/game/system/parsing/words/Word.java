@@ -1,5 +1,8 @@
 package game.system.parsing.words;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 /**
  * Represents a word. A word must contain one or more alphanumeric characters.
  *
@@ -7,6 +10,14 @@ package game.system.parsing.words;
  *
  */
 public abstract class Word {
+
+    public static final HashSet<String> PREPOSITIONS = new HashSet<>(Arrays.asList(new
+            String[]
+            {"over", "under", "on", "between", "behind", "in", "to", "with", "across"}));
+
+    public static final HashSet<String> ARTICLES = new HashSet<>(Arrays.asList(new
+            String[]
+            {"the", "this", "that"}));
 
     private String name;
 
@@ -36,5 +47,23 @@ public abstract class Word {
      */
     public String toString() {
         return name;
+    }
+
+    /**
+     *
+     * @param word
+     * @return true if the specified word is recognized as a valid preposition.
+     */
+    public static boolean isPreposition(String word) {
+        return PREPOSITIONS.contains(word);
+    }
+
+    /**
+     *
+     * @param word
+     * @return true if the specified word is recognized as a valid article.
+     */
+    public static boolean isArticle(String word) {
+        return ARTICLES.contains(word);
     }
 }

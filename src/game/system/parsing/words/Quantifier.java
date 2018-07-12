@@ -14,7 +14,6 @@ public class Quantifier extends Determiner {
      * Complete constructor
      *
      * @param name
-     * @param valid
      * @param noun
      * @param count
      */

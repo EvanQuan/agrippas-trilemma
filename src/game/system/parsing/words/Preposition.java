@@ -17,6 +17,7 @@ import java.util.Arrays;
  * @author Evan Quan
  *
  */
+@Deprecated
 public class Preposition extends Word {
 
     // TODO after more. Valid ones that are actually used in commands, and invalid ones for better error prompts.

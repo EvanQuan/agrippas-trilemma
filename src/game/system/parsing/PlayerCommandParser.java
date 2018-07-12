@@ -1,16 +1,9 @@
 package game.system.parsing;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-import game.object.item.background.character.Player;
-import game.system.parsing.words.Article;
-import game.system.parsing.words.DirectObjectPhrase;
-import game.system.parsing.words.IndirectObjectPhrase;
-import game.system.parsing.words.ObjectPhrase;
-import game.system.parsing.words.Preposition;
-import game.system.parsing.words.Verb;
+import game.system.parsing.words.*;
 import util.ArrayUtils;
 
 /**
@@ -33,14 +26,17 @@ import util.ArrayUtils;
  */
 public abstract class PlayerCommandParser {
 
-    // NOTE: For now, only "," as end punctuation will count, as quotes are causing problems with syntactical analysis
+    // NOTE: For now, only "," as end punctuation will count, as quotes are
+    // causing problems with syntactical analysis
     /**
-     * Defines the type of punctuation that can exist at the start of a word that will split and count as its own token.
+     * Defines the type of punctuation that can exist at the start of a word
+     * that will split and count as its own token.
      */
 //    public static final char[] START_PUNCTUATION = { '\'', '"' };
     public static final char[] START_PUNCTUATION = {};
     /**
-     * Defines the type of punctuation that can exist at the end of a word that will split and cont as its own token.
+     * Defines the type of punctuation that can exist at the end of a word
+     * that will split and cont as its own token.
      */
 //    public static final char[] END_PUNCTUATION = { '\'', '"', ',' };
     public static final char[] END_PUNCTUATION = {','};
@@ -55,7 +51,7 @@ public abstract class PlayerCommandParser {
      * @param tokens
      * @param token
      */
-    private static void addToken(ArrayList<String> tokens, String token) {
+    public static void addToken(ArrayList<String> tokens, String token) {
 
         char firstChar = token.charAt(0);
         if (ArrayUtils.contains(START_PUNCTUATION, firstChar)) {
@@ -80,18 +76,39 @@ public abstract class PlayerCommandParser {
     }
 
     /**
-     * Find an objective phrase. Can either be a {@link DirectObjectPhrase} or an
-     * {@link IndirectObjectPhrase}.
+     * Find an objective phrase from a list of tokens. Can be either a
+     * direct or indirect object phrase. This modifies the tokens argument (may be changed later
+     * if needed).
      *
      * @param tokens
-     * @return
+     * @return object phrase that is composed of all token components, or null if tokens is empty
      */
-    private static ObjectPhrase findObjectPhrase(ArrayList<String> tokens) {
-        // Scan for an article. If one is found, remove it and parse the rest of the
-        // input.
-        // The last word in the input is the object. Remove it and parse the rest of the input
+    private static ObjectPhrase getObjectPhrase(ArrayList<String> tokens) {
+        if (tokens.isEmpty()) {
+            return null;
+        }
+        ObjectPhrase objectPhrase = new ObjectPhrase();
+        // Scan for an article. If one is found, remove it and parse the
+        // rest of the input.
+        // NOTE: The preposition must be the first word in the list for it to
+        // make sense grammatically. If an article is preceded with another
+        // word, be it another article or not, it will be counted as an
+        // adjective.
+        if (Word.isArticle(tokens.get(0))) {
+            objectPhrase.setArticle(tokens.remove(0));
+        }
+        // The last word in the input is the object. Remove it and parse the
+        // rest of the input.
+        objectPhrase.setNoun(tokens.remove(tokens.size() - 1));
         // If any input remains, they are adjectives which modify the object.
-        return null;
+        // TODO: This WILL need to change once multiple commands separated by commas with a
+        // single verb is implemented. Either here, or in syntactical analysis.
+        ArrayList<String> adjectives = new ArrayList<>();
+        for (int i = 0; i < tokens.size(); i++) {
+            adjectives.add(tokens.get(i));
+        }
+        objectPhrase.setAdjectives(adjectives);
+        return objectPhrase;
     }
 
     /**
@@ -119,7 +136,8 @@ public abstract class PlayerCommandParser {
         }
         in.close();
         return tokens;
-        // Right, now just using basic split by spaces. May need to change this when things get more complicated
+        // Right, now just using basic split by spaces. May need to change this when things get
+        // more complicated
 //        return new ArrayList<>(Arrays.asList(input.split(" ")));
     }
 
@@ -154,8 +172,8 @@ public abstract class PlayerCommandParser {
      * 2. Indirect object phrases are always preceded by a preposition.<br>
      * 3. Direct object phrases are always positioned before indirect object
      * phrases.<br>
-     * 4. The dictionary of all possible {@link Preposition}s is known.<br>
-     * 5. The dictionary of all possible {@link Article}s is known.
+     * 4. The dictionary of all possible Prepositions is known.<br>
+     * 5. The dictionary of all possible Articles is known.
      *
      * @param playerCommand
      * @param tokens
@@ -166,7 +184,7 @@ public abstract class PlayerCommandParser {
         // No adverbs are allowed as it would not be possible to distinguish between the
         // end of the verb phrase and the start of the proceeding indirect/direct object
         // phrase without a dictionary of all possible verbs.
-        playerCommand.setVerbPhrase(new Verb(tokens.remove(0)));
+        playerCommand.setVerbPhrase(tokens.remove(0));
         // 1. Scan for a preposition. If one is found, remove it. Parse the input
         // preceding the preposition as a direct object phrase. Parse the input
         // following the preposition as an indirect object phrase.
@@ -176,12 +194,11 @@ public abstract class PlayerCommandParser {
         // Add first tokens before preposition (if any) to direct tokens.
         // If there is a preposition, store it by itself.
         ArrayList<String> directTokens = new ArrayList<>();
-        Preposition preposition;
         int i;
         for (i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
-            if (Preposition.isValid(token)) {
-                preposition = new Preposition(token);
+            if (Word.isPreposition(token)) {
+                playerCommand.setPreposition(token);
                 break;
             } else {
                 directTokens.add(token);
@@ -192,9 +209,10 @@ public abstract class PlayerCommandParser {
         for (; i < tokens.size(); i++) {
             indirectTokens.add(tokens.get(i));
         }
-        int indirectObjectIndex = 0;
-        int directObjectIndex = 0;
-//        while (Prepositions tokens.get(0))
+
+        // Create the object phrases from the token lists
+        playerCommand.setDirectObjectPhrase(getObjectPhrase(directTokens));
+        playerCommand.setIndirectObjectPhrase(getObjectPhrase(indirectTokens));
     }
 
 //    /**
