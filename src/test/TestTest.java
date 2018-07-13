@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Checks that JUnit is working
+ * Checks that JUnit 4 is working
  *
  * @author Evan Quan
  *

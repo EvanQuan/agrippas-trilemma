@@ -1,6 +1,7 @@
 package game.system.parsing;
 
-import game.system.parsing.words.*;
+import game.system.parsing.words.ObjectPhrase;
+import util.FuncUtils;
 
 /**
  * Represents a command that the player has issued to the game. A player command
@@ -35,65 +36,35 @@ public class PlayerCommand {
     public PlayerCommand(String string) {
         this.string = string;
     }
-    /**
-     * Creates a Player Command instance with a verb phrase.
-     *
-     * @param string
-     * @param verbPhrase
-     */
-    public PlayerCommand(String string, String verbPhrase) {
-        this.string = string;
-        this.verbPhrase = verbPhrase;
-        this.directObjectPhrase = null;
-        this.indirectObjectPhrase = null;
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof PlayerCommand) {
+            return hasSameString((PlayerCommand) other) && hasSameVerbPhrase((PlayerCommand) other)
+                    && hasSameDirectObjectPhrase((PlayerCommand) other) && hasSamePreposition((PlayerCommand) other)
+                    && hasSameIndirectObjectPhrase((PlayerCommand) other);
+        }
+        return false;
     }
 
-    /**
-     * Creates a Player Command instance with a verb, and direct object phrase.
-     *
-     * @param string
-     * @param verbPhrase
-     * @param directObjectPhrase
-     */
-    public PlayerCommand(String string, String verbPhrase, ObjectPhrase directObjectPhrase) {
-        this.string = string;
-        this.verbPhrase = verbPhrase;
-        this.directObjectPhrase = directObjectPhrase;
-        this.indirectObjectPhrase = null;
+    public ObjectPhrase getDirectObjectPhrase() {
+        return this.directObjectPhrase;
     }
 
-    /**
-     * Creates a Player Command instance with a verb, direct, and indirect object
-     * phrase.
-     *
-     * @param string
-     * @param verbPhrase
-     * @param directObjectPhrase
-     * @param indirectObjectPhrase
-     */
-    public PlayerCommand(String string, String verbPhrase, ObjectPhrase directObjectPhrase,
-                         String preposition, ObjectPhrase indirectObjectPhrase) {
-        this.string = string;
-        this.verbPhrase = verbPhrase;
-        this.directObjectPhrase = directObjectPhrase;
-        this.preposition = preposition;
-        this.indirectObjectPhrase = indirectObjectPhrase;
+    public ObjectPhrase getIndirectObjectPhrase() {
+        return this.indirectObjectPhrase;
     }
 
-    /**
-     * Creates a Player Command instance with a verb, and indirect object phrase.
-     *
-     * @param string
-     * @param verbPhrase
-     * @param indirectObjectPhrase
-     */
-    public PlayerCommand(String string, String verbPhrase, String preposition,
-                         ObjectPhrase indirectObjectPhrase) {
-        this.string = string;
-        this.verbPhrase = verbPhrase;
-        this.directObjectPhrase = null;
-        this.preposition = preposition;
-        this.indirectObjectPhrase = indirectObjectPhrase;
+    public String getPreposition() {
+        return this.preposition;
+    }
+
+    public String getString() {
+        return this.string;
+    }
+
+    public String getVerbPhrase() {
+        return this.verbPhrase;
     }
 
     /**
@@ -113,22 +84,30 @@ public class PlayerCommand {
     }
 
     public boolean hasPreposition() {
-        return  this.preposition != null;
+        return this.preposition != null;
     }
 
-    public ObjectPhrase getDirectObjectPhrase() {
-        return this.directObjectPhrase;
+    public boolean hasSameDirectObjectPhrase(PlayerCommand other) {
+        return FuncUtils.nullablesEqual(this.directObjectPhrase, other.getDirectObjectPhrase());
     }
 
-    public ObjectPhrase getIndirectObjectPhrase() {
-        return this.indirectObjectPhrase;
+    public boolean hasSameIndirectObjectPhrase(PlayerCommand other) {
+        return FuncUtils.nullablesEqual(this.indirectObjectPhrase, other.getIndirectObjectPhrase());
     }
 
-    public void setVerbPhrase(String verbPhrase) {
-        this.verbPhrase = verbPhrase;
+    public boolean hasSamePreposition(PlayerCommand other) {
+        return FuncUtils.nullablesEqual(this.preposition, other.getPreposition());
     }
 
-    public void setDirectObjectPhrase(ObjectPhrase directObjectPhrase){
+    public boolean hasSameString(PlayerCommand other) {
+        return FuncUtils.nullablesEqual(this.string, other.getString());
+    }
+
+    public boolean hasSameVerbPhrase(PlayerCommand other) {
+        return FuncUtils.nullablesEqual(this.verbPhrase, other.getVerbPhrase());
+    }
+
+    public void setDirectObjectPhrase(ObjectPhrase directObjectPhrase) {
         this.directObjectPhrase = directObjectPhrase;
     }
 
@@ -140,17 +119,8 @@ public class PlayerCommand {
         this.preposition = preposition;
     }
 
-    public String getVerbPhrase() {
-        return this.verbPhrase;
-    }
-
-    public String getPreposition() {
-        return this.preposition;
-    }
-
-    @Override
-    public String toString() {
-        return this.string;
+    public void setVerbPhrase(String verbPhrase) {
+        this.verbPhrase = verbPhrase;
     }
 
 }

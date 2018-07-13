@@ -1,6 +1,7 @@
 package test.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -17,6 +18,36 @@ import util.TextUtils;
  */
 
 public class TextUtilsTest {
+
+    @Test
+    public void isInteger_0_true() {
+        assertTrue(TextUtils.isInteger("0"));
+    }
+
+    @Test
+    public void isInteger_0123456789_true() {
+        assertTrue(TextUtils.isInteger("0123456789"));
+    }
+
+    @Test
+    public void isInteger_1_float_false() {
+        assertFalse(TextUtils.isInteger("1.1"));
+    }
+
+    @Test
+    public void isInteger_1_float_true() {
+        assertTrue(TextUtils.isInteger("1.0"));
+    }
+
+    @Test
+    public void isInteger_a_false() {
+        assertFalse(TextUtils.isInteger("a"));
+    }
+
+    @Test
+    public void isInteger_empty_false() {
+        assertFalse(TextUtils.isInteger(""));
+    }
 
     @Test
     public void testSplitCamelCase() {

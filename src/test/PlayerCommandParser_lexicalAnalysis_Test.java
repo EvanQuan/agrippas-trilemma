@@ -19,23 +19,43 @@ public class PlayerCommandParser_lexicalAnalysis_Test {
     }
 
     @Test
-    public void noPunctuation_noSplit() {
+    public void one_noPunctuation_noSplit() {
         testLexicalAnalysis("a", new String[] {"a"});
     }
 
     @Test
-    public void endComma_split() {
+    public void one_endComma_split() {
         testLexicalAnalysis("a,", new String[] {"a", ","});
     }
 
     @Test
-    public void startComma_noSplit() {
+    public void one_startComma_noSplit() {
         testLexicalAnalysis(",a", new String[] {",a"});
     }
 
     @Test
-    public void startEndComma_split() {
+    public void one_startEndComma_split() {
         testLexicalAnalysis(",a,", new String[] {",a", ","});
+    }
+
+    @Test
+    public void two_noPunctuation_noSplit() {
+        testLexicalAnalysis("a b", new String[] {"a", "b"});
+    }
+
+    @Test
+    public void two_endComma_split() {
+        testLexicalAnalysis("a, b", new String[] {"a", ",", "b"});
+    }
+
+    @Test
+    public void two_startComma_noSplit() {
+        testLexicalAnalysis("a ,b", new String[] {"a", ",b"});
+    }
+
+    @Test
+    public void two_startEndComma_split() {
+        testLexicalAnalysis(",a, ,b,", new String[] {",a", ",", ",b", ","});
     }
 
     public static void testLexicalAnalysis(String input, String[] expected) {

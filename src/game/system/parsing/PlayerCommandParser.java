@@ -3,7 +3,9 @@ package game.system.parsing;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import game.system.parsing.words.*;
+import game.system.parsing.words.ObjectPhrase;
+import game.system.parsing.words.Verb;
+import game.system.parsing.words.Word;
 import util.ArrayUtils;
 
 /**
@@ -19,7 +21,7 @@ import util.ArrayUtils;
  * 4. Direct object phrases are always positioned before indirect object
  * phrases.<br>
  * 5. The dictionary of all possible prepositions is known.<br>
- * 6. The dictionary of all possible articles is known.<br>
+ * 6. The dictionary of all possible determiners is known.<br>
  *
  * @author Evan Quan
  *
@@ -29,19 +31,20 @@ public abstract class PlayerCommandParser {
     // NOTE: For now, only "," as end punctuation will count, as quotes are
     // causing problems with syntactical analysis
     /**
-     * Defines the type of punctuation that can exist at the start of a word
-     * that will split and count as its own token.
+     * Defines the type of punctuation that can exist at the start of a word that
+     * will split and count as its own token.
      */
-//    public static final char[] START_PUNCTUATION = { '\'', '"' };
+    // public static final char[] START_PUNCTUATION = { '\'', '"' };
     public static final char[] START_PUNCTUATION = {};
     /**
-     * Defines the type of punctuation that can exist at the end of a word
-     * that will split and cont as its own token.
+     * Defines the type of punctuation that can exist at the end of a word that will
+     * split and cont as its own token.
      */
-//    public static final char[] END_PUNCTUATION = { '\'', '"', ',' };
-    public static final char[] END_PUNCTUATION = {','};
+    // public static final char[] END_PUNCTUATION = { '\'', '"', ',' };
+    public static final char[] END_PUNCTUATION = { ',' };
 
     public static final String[] VALID_PREPOSITIONS = {};
+
     /**
      * Splits token by punctuation and adds punctuation components to tokens.<br>
      * - Double and single quotes at the start or end of words<br>
@@ -76,32 +79,37 @@ public abstract class PlayerCommandParser {
     }
 
     /**
-     * Find an objective phrase from a list of tokens. Can be either a
-     * direct or indirect object phrase. This modifies the tokens argument (may be changed later
-     * if needed).
+     * Find an objective phrase from a list of tokens. Can be either a direct or
+     * indirect object phrase. This modifies the tokens argument (may be changed
+     * later if needed).
      *
      * @param tokens
-     * @return object phrase that is composed of all token components, or null if tokens is empty
+     * @return object phrase that is composed of all token components, or null if
+     *         tokens is empty
      */
-    private static ObjectPhrase getObjectPhrase(ArrayList<String> tokens) {
+    public static ObjectPhrase getObjectPhrase(ArrayList<String> tokens) {
         if (tokens.isEmpty()) {
             return null;
         }
         ObjectPhrase objectPhrase = new ObjectPhrase();
-        // Scan for an article. If one is found, remove it and parse the
+        // Scan for an determiner. If one is found, remove it and parse the
         // rest of the input.
         // NOTE: The preposition must be the first word in the list for it to
-        // make sense grammatically. If an article is preceded with another
-        // word, be it another article or not, it will be counted as an
+        // make sense grammatically. If a determiner is preceded with another
+        // word, be it another determiner or not, it will be counted as an
         // adjective.
-        if (Word.isArticle(tokens.get(0))) {
-            objectPhrase.setArticle(tokens.remove(0));
+        if (Word.isDeterminer(tokens.get(0))) {
+            objectPhrase.setDeterminer(tokens.remove(0));
         }
         // The last word in the input is the object. Remove it and parse the
         // rest of the input.
-        objectPhrase.setNoun(tokens.remove(tokens.size() - 1));
+        if (!tokens.isEmpty()) {
+            // If no more tokens remain, then the last word is not a noun
+            objectPhrase.setNoun(tokens.remove(tokens.size() - 1));
+        }
         // If any input remains, they are adjectives which modify the object.
-        // TODO: This WILL need to change once multiple commands separated by commas with a
+        // TODO: This WILL need to change once multiple commands separated by commas
+        // with a
         // single verb is implemented. Either here, or in syntactical analysis.
         ArrayList<String> adjectives = new ArrayList<>();
         for (int i = 0; i < tokens.size(); i++) {
@@ -136,9 +144,10 @@ public abstract class PlayerCommandParser {
         }
         in.close();
         return tokens;
-        // Right, now just using basic split by spaces. May need to change this when things get
+        // Right, now just using basic split by spaces. May need to change this when
+        // things get
         // more complicated
-//        return new ArrayList<>(Arrays.asList(input.split(" ")));
+        // return new ArrayList<>(Arrays.asList(input.split(" ")));
     }
 
     /**
@@ -188,7 +197,8 @@ public abstract class PlayerCommandParser {
         // 1. Scan for a preposition. If one is found, remove it. Parse the input
         // preceding the preposition as a direct object phrase. Parse the input
         // following the preposition as an indirect object phrase.
-        // For the sake of how the PlayerCommand will be parsed in the game, the preposition
+        // For the sake of how the PlayerCommand will be parsed in the game, the
+        // preposition
         // is added to the indirect object phrase.
 
         // Add first tokens before preposition (if any) to direct tokens.
@@ -215,26 +225,27 @@ public abstract class PlayerCommandParser {
         playerCommand.setIndirectObjectPhrase(getObjectPhrase(indirectTokens));
     }
 
-//    /**
-//     * <b>Part 3: Translation</b>
-//     * <p>
-//     * TODO Creates a player command from a list of words. Depending on the relation
-//     * between words, the action {@link Verb} and object {@link Noun} are
-//     * determined.
-//     *
-//     * @param input
-//     *            - original input string
-//     * @param statement
-//     * @return
-//     */
-//    private static PlayerCommand translation(String input, Sentence statement) {
-//        // Index tracking
-//        int actionIndex = 0;
-//        int objectIndex = 0;
-//        // 1. The first word of the command should either be a verb, or a shortcut
-//        // represents some action
-//
-//        // return new PlayerCommand(command, action, object);
-//        return null;
-//    }
+    // /**
+    // * <b>Part 3: Translation</b>
+    // * <p>
+    // * TODO Creates a player command from a list of words. Depending on the
+    // relation
+    // * between words, the action {@link Verb} and object {@link Noun} are
+    // * determined.
+    // *
+    // * @param input
+    // * - original input string
+    // * @param statement
+    // * @return
+    // */
+    // private static PlayerCommand translation(String input, Sentence statement) {
+    // // Index tracking
+    // int actionIndex = 0;
+    // int objectIndex = 0;
+    // // 1. The first word of the command should either be a verb, or a shortcut
+    // // represents some action
+    //
+    // // return new PlayerCommand(command, action, object);
+    // return null;
+    // }
 }

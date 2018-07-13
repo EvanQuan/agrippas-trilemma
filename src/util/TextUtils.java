@@ -9,6 +9,16 @@ package util;
 public abstract class TextUtils {
 
     /**
+     *
+     * @param string
+     * @return true if string matches the form of an integer, or a floating point
+     *         number that can be expressed by an integer. Assumes decimal format.
+     */
+    public static boolean isInteger(String string) {
+        return string.matches("\\d+((.)?0+)?");
+    }
+
+    /**
      * Split word by upper case letters
      *
      * @param
