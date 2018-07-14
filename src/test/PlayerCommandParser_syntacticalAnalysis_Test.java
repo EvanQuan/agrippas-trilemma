@@ -23,7 +23,7 @@ public class PlayerCommandParser_syntacticalAnalysis_Test {
     }
 
     @Test
-    public void empty() {
+    public void empty_empty() {
         expected = new PlayerCommand("");
         testSyntacticalAnalysis("", expected);
     }
@@ -31,5 +31,12 @@ public class PlayerCommandParser_syntacticalAnalysis_Test {
     @Before
     public void setUp() {
         expected = new PlayerCommand("");
+    }
+
+    @Test
+    public void verb_verb() {
+        expected = new PlayerCommand("verb");
+        expected.setVerbPhrase("verb");
+        testSyntacticalAnalysis("verb", expected);
     }
 }

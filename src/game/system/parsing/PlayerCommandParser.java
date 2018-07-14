@@ -189,6 +189,11 @@ public abstract class PlayerCommandParser {
      * @return
      */
     private static void syntacticalAnalysis(PlayerCommand playerCommand, ArrayList<String> tokens) {
+        if (tokens.isEmpty()) {
+            // Hypothetically, this should never occur when called from inside the parse()
+            // method
+            throw new IllegalArgumentException("tokens must have at least 1 element");
+        }
         // 0. The first word is a verb. Remove it and parse the rest of the input.
         // No adverbs are allowed as it would not be possible to distinguish between the
         // end of the verb phrase and the start of the proceeding indirect/direct object

@@ -1,17 +1,48 @@
 package test;
 
-import game.system.parsing.PlayerCommandParser;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+
+import game.system.parsing.PlayerCommandParser;
 
 public class PlayerCommandParser_lexicalAnalysis_Test {
 
     public static ArrayList<String> tokens;
+
+    public static void testLexicalAnalysis(String input, String[] expected) {
+        tokens = PlayerCommandParser.lexicalAnalysis(input);
+        assertEquals(new ArrayList<>(Arrays.asList(expected)), tokens);
+    }
+
+    @Test
+    public void empty_empty() {
+        testLexicalAnalysis("", new String[] {});
+    }
+
+    @Test
+    public void one_endComma_split() {
+        testLexicalAnalysis("a,", new String[] { "a", "," });
+    }
+
+    @Test
+    public void one_noPunctuation_noSplit() {
+        testLexicalAnalysis("a", new String[] { "a" });
+    }
+
+    @Test
+    public void one_startComma_noSplit() {
+        testLexicalAnalysis(",a", new String[] { ",a" });
+    }
+
+    @Test
+    public void one_startEndComma_split() {
+        testLexicalAnalysis(",a,", new String[] { ",a", "," });
+    }
 
     @Before
     public void setUp() {
@@ -19,47 +50,22 @@ public class PlayerCommandParser_lexicalAnalysis_Test {
     }
 
     @Test
-    public void one_noPunctuation_noSplit() {
-        testLexicalAnalysis("a", new String[] {"a"});
-    }
-
-    @Test
-    public void one_endComma_split() {
-        testLexicalAnalysis("a,", new String[] {"a", ","});
-    }
-
-    @Test
-    public void one_startComma_noSplit() {
-        testLexicalAnalysis(",a", new String[] {",a"});
-    }
-
-    @Test
-    public void one_startEndComma_split() {
-        testLexicalAnalysis(",a,", new String[] {",a", ","});
+    public void two_endComma_split() {
+        testLexicalAnalysis("a, b", new String[] { "a", ",", "b" });
     }
 
     @Test
     public void two_noPunctuation_noSplit() {
-        testLexicalAnalysis("a b", new String[] {"a", "b"});
-    }
-
-    @Test
-    public void two_endComma_split() {
-        testLexicalAnalysis("a, b", new String[] {"a", ",", "b"});
+        testLexicalAnalysis("a b", new String[] { "a", "b" });
     }
 
     @Test
     public void two_startComma_noSplit() {
-        testLexicalAnalysis("a ,b", new String[] {"a", ",b"});
+        testLexicalAnalysis("a ,b", new String[] { "a", ",b" });
     }
 
     @Test
     public void two_startEndComma_split() {
-        testLexicalAnalysis(",a, ,b,", new String[] {",a", ",", ",b", ","});
-    }
-
-    public static void testLexicalAnalysis(String input, String[] expected) {
-        tokens = PlayerCommandParser.lexicalAnalysis(input);
-        assertEquals(new ArrayList<>(Arrays.asList(expected)), tokens);
+        testLexicalAnalysis(",a, ,b,", new String[] { ",a", ",", ",b", "," });
     }
 }

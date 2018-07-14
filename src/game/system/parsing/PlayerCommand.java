@@ -123,4 +123,9 @@ public class PlayerCommand {
         this.verbPhrase = verbPhrase;
     }
 
+    @Override
+    public String toString() {
+        return "[verbPhrase: " + verbPhrase + " | directObjectPhrase: " + directObjectPhrase + " | preposition: "
+                + preposition + " | indirectObjectPhrase: " + "]";
+    }
 }
