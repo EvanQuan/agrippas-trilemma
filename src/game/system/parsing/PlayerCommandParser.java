@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import game.system.parsing.words.ObjectPhrase;
-import game.system.parsing.words.Verb;
 import game.system.parsing.words.Word;
 import util.ArrayUtils;
 
@@ -175,30 +174,38 @@ public abstract class PlayerCommandParser {
      * correct sentence structure.
      * <p>
      * <b>Grammar Rules</b><br>
+     * <p>
      * 0. The dictionary of all possible verbs, adjectives, direct objects, and
      * indirect objects is <b>not</b> known.<br>
-     * 1. The first world of the input is a always a {@link Verb}.<br>
+     * 1. The first world of the input is a always a verb unless<br>
+     * - it is a valid determiner, which then the verb phrase is skipped and the
+     * indirect object phrase is parsed.<br>
+     * - it is a preposition, which then the verb phrase and indirect object phrase
+     * is skipped and the preposition and indirect object phrase are parsed.<br>
      * 2. Indirect object phrases are always preceded by a preposition.<br>
      * 3. Direct object phrases are always positioned before indirect object
      * phrases.<br>
      * 4. The dictionary of all possible Prepositions is known.<br>
-     * 5. The dictionary of all possible Articles is known.
+     * 5. The dictionary of all possible determiners is known.
      *
      * @param playerCommand
      * @param tokens
      * @return
      */
-    private static void syntacticalAnalysis(PlayerCommand playerCommand, ArrayList<String> tokens) {
+    public static void syntacticalAnalysis(PlayerCommand playerCommand, ArrayList<String> tokens) {
         if (tokens.isEmpty()) {
-            // Hypothetically, this should never occur when called from inside the parse()
-            // method
-            throw new IllegalArgumentException("tokens must have at least 1 element");
+            // This happens when the player input an empty string
+            return;
         }
-        // 0. The first word is a verb. Remove it and parse the rest of the input.
-        // No adverbs are allowed as it would not be possible to distinguish between the
-        // end of the verb phrase and the start of the proceeding indirect/direct object
-        // phrase without a dictionary of all possible verbs.
-        playerCommand.setVerbPhrase(tokens.remove(0));
+        String first = tokens.get(0);
+        if (!Word.isDeterminer(first) && !Word.isPreposition(first)) {
+            // 0. The first word is a verb. Remove it and parse the rest of the input.
+            // No adverbs are allowed as it would not be possible to distinguish between the
+            // end of the verb phrase and the start of the proceeding indirect/direct object
+            // phrase without a dictionary of all possible verbs.
+            tokens.remove(0);
+            playerCommand.setVerbPhrase(first);
+        }
         // 1. Scan for a preposition. If one is found, remove it. Parse the input
         // preceding the preposition as a direct object phrase. Parse the input
         // following the preposition as an indirect object phrase.
@@ -221,7 +228,7 @@ public abstract class PlayerCommandParser {
         }
         // Add remaining tokens after preposition (if any) to indirect tokens.
         ArrayList<String> indirectTokens = new ArrayList<>();
-        for (; i < tokens.size(); i++) {
+        for (i++; i < tokens.size(); i++) {
             indirectTokens.add(tokens.get(i));
         }
 

@@ -10,6 +10,13 @@ import org.junit.Test;
 import game.system.parsing.PlayerCommand;
 import game.system.parsing.PlayerCommandParser;
 
+/**
+ * I kind of just realized that this is pretty much identical to
+ * PlayerCommandParserTest, making this class unnecessary.
+ * 
+ * @author Evan Quan
+ *
+ */
 public class PlayerCommandParser_syntacticalAnalysis_Test {
 
     public static ArrayList<String> tokens;
@@ -19,6 +26,7 @@ public class PlayerCommandParser_syntacticalAnalysis_Test {
     public static void testSyntacticalAnalysis(String input, PlayerCommand expected) {
         actual = new PlayerCommand(input);
         tokens = PlayerCommandParser.lexicalAnalysis(input);
+        PlayerCommandParser.syntacticalAnalysis(actual, tokens);
         assertEquals(expected, actual);
     }
 

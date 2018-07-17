@@ -69,18 +69,18 @@ public class PlayerCommand {
 
     /**
      *
-     * @return true if this command has a {@link ObjectPhrase}
+     * @return true if this command has a direct {@link ObjectPhrase}
      */
     public boolean hasDirectObjectPhrase() {
-        return this.directObjectPhrase != null;
+        return this.directObjectPhrase != null && !this.directObjectPhrase.isEmpty();
     }
 
     /**
      *
-     * @return true if this command has an {@link ObjectPhrase}
+     * @return true if this command has an indirect {@link ObjectPhrase}
      */
     public boolean hasIndirectObjectPhrase() {
-        return this.indirectObjectPhrase != null;
+        return this.indirectObjectPhrase != null && !this.indirectObjectPhrase.isEmpty();
     }
 
     public boolean hasPreposition() {
@@ -107,6 +107,14 @@ public class PlayerCommand {
         return FuncUtils.nullablesEqual(this.verbPhrase, other.getVerbPhrase());
     }
 
+    public boolean hasVerbPhrase() {
+        return this.verbPhrase != null;
+    }
+
+    public boolean isEmpty() {
+        return !hasVerbPhrase() && !hasDirectObjectPhrase() && !hasPreposition() && !hasIndirectObjectPhrase();
+    }
+
     public void setDirectObjectPhrase(ObjectPhrase directObjectPhrase) {
         this.directObjectPhrase = directObjectPhrase;
     }
@@ -126,6 +134,6 @@ public class PlayerCommand {
     @Override
     public String toString() {
         return "[verbPhrase: " + verbPhrase + " | directObjectPhrase: " + directObjectPhrase + " | preposition: "
-                + preposition + " | indirectObjectPhrase: " + "]";
+                + preposition + " | indirectObjectPhrase: " + indirectObjectPhrase + "]";
     }
 }

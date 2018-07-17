@@ -61,6 +61,18 @@ public class ObjectPhrase {
         return this.noun;
     }
 
+    public boolean hasAdjectives() {
+        return this.adjectives != null && !this.adjectives.isEmpty();
+    }
+
+    public boolean hasDeterminer() {
+        return this.determiner != null;
+    }
+
+    public boolean hasNoun() {
+        return this.noun != null;
+    }
+
     public boolean hasSameAdjectives(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.adjectives, other.getAdjectives());
     }
@@ -71,6 +83,15 @@ public class ObjectPhrase {
 
     public boolean hasSameNoun(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.noun, other.getNoun());
+    }
+
+    /**
+     *
+     * @return true if this object phrase does not have a determiner, adjectives and
+     *         noun.
+     */
+    public boolean isEmpty() {
+        return !hasDeterminer() && !hasAdjectives() && !hasNoun();
     }
 
     public void setAdjectives(ArrayList<String> adjectives) {

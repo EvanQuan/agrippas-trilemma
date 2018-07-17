@@ -71,25 +71,44 @@ public class PlayerCommandTest {
     }
 
     @Test
-    public void hasDirectObjectPhrase_false() {
+    public void hasDirectObjectPhrase_empty_false() {
+        one.setDirectObjectPhrase(onedo);
         assertFalse(one.hasDirectObjectPhrase());
     }
 
     @Test
-    public void hasDirectObjectPhrase_true() {
+    public void hasDirectObjectPhrase_nonempty_true() {
+        onedo.setNoun("");
         one.setDirectObjectPhrase(onedo);
         assertTrue(one.hasDirectObjectPhrase());
     }
 
     @Test
-    public void hasIndirectObjectPhrase_false() {
+    public void hasDirectObjectPhrase_null_false() {
+        assertFalse(one.hasDirectObjectPhrase());
+    }
+
+    @Test
+    public void hasDirectObjectPhrase_null_fase() {
+        assertFalse(one.hasDirectObjectPhrase());
+    }
+
+    @Test
+    public void hasIndirectObjectPhrase_empty_false() {
+        one.setIndirectObjectPhrase(oneio);
         assertFalse(one.hasIndirectObjectPhrase());
     }
 
     @Test
-    public void hasIndirectObjectPhrase_true() {
+    public void hasIndirectObjectPhrase_nonempty_true() {
+        oneio.setNoun("");
         one.setIndirectObjectPhrase(oneio);
         assertTrue(one.hasIndirectObjectPhrase());
+    }
+
+    @Test
+    public void hasIndirectObjectPhrase_null_false() {
+        assertFalse(one.hasIndirectObjectPhrase());
     }
 
     @Test
