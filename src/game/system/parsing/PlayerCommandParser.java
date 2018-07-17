@@ -216,6 +216,11 @@ public abstract class PlayerCommandParser {
             // This happens when the player input an empty string
             return;
         }
+        // TODO when multi-action commands are implemented, make this part a loop for
+        // every separator section
+
+        Action action = new Action();
+
         String first = tokens.get(0);
         if (!Word.isDeterminer(first) && !Word.isPreposition(first)) {
             // 0. The first word is a verb. Remove it and parse the rest of the input.
@@ -223,7 +228,7 @@ public abstract class PlayerCommandParser {
             // end of the verb phrase and the start of the proceeding indirect/direct object
             // phrase without a dictionary of all possible verbs.
             tokens.remove(0);
-            playerCommand.setVerbPhrase(first);
+            action.setVerbPhrase(first);
         }
         // 1. Scan for a preposition. If one is found, remove it. Parse the input
         // preceding the preposition as a direct object phrase. Parse the input
@@ -239,7 +244,7 @@ public abstract class PlayerCommandParser {
         for (i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
             if (Word.isPreposition(token)) {
-                playerCommand.setPreposition(token);
+                action.setPreposition(token);
                 break;
             } else {
                 directTokens.add(token);
@@ -252,8 +257,11 @@ public abstract class PlayerCommandParser {
         }
 
         // Create the object phrases from the token lists
-        playerCommand.setDirectObjectPhrase(getObjectPhrase(directTokens));
-        playerCommand.setIndirectObjectPhrase(getObjectPhrase(indirectTokens));
+        action.setDirectObjectPhrase(getObjectPhrase(directTokens));
+        action.setIndirectObjectPhrase(getObjectPhrase(indirectTokens));
+
+        // Add complete action to player command
+        playerCommand.addAction(action);
     }
 
     // /**
