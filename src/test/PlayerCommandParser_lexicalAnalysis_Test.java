@@ -10,6 +10,11 @@ import org.junit.Test;
 
 import game.system.parsing.PlayerCommandParser;
 
+/**
+ *
+ * @author Evan Quan
+ *
+ */
 public class PlayerCommandParser_lexicalAnalysis_Test {
 
     public static ArrayList<String> tokens;

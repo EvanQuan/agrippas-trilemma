@@ -29,11 +29,11 @@ public class MainMenu extends Menu {
 
     private MainMenu() {
         startGameVerbs = new ArrayList<String>(
-                ArrayUtils.getStringArrayList(new String[] { "1", "1.", "start game", "start", "s" }));
+                ArrayUtils.getArrayList(new String[] { "1", "1.", "start game", "start", "s" }));
         howToPlayVerbs = new ArrayList<String>(
-                ArrayUtils.getStringArrayList(new String[] { "2", "2.", "how to play", "how", "h" }));
+                ArrayUtils.getArrayList(new String[] { "2", "2.", "how to play", "how", "h" }));
         aboutThisGameVerbs = new ArrayList<String>(ArrayUtils
-                .getStringArrayList(new String[] { "3", "3.", "about this game", "about", "about game", "a" }));
+                .getArrayList(new String[] { "3", "3.", "about this game", "about", "about game", "a" }));
         validVerbs = new ArrayList<ArrayList>(
                 Arrays.asList(new ArrayList[] { startGameVerbs, howToPlayVerbs, aboutThisGameVerbs }));
     }

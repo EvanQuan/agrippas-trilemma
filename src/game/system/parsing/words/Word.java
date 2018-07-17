@@ -1,8 +1,9 @@
 package game.system.parsing.words;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
+import game.system.parsing.PlayerCommand;
+import util.ArrayUtils;
 import util.TextUtils;
 
 /**
@@ -13,11 +14,20 @@ import util.TextUtils;
  */
 public abstract class Word {
 
-    public static final HashSet<String> PREPOSITIONS = new HashSet<>(
-            Arrays.asList(new String[] { "over", "under", "on", "between", "behind", "in", "to", "with", "across" }));
+    public static final HashSet<String> EXCLUDING_PREPOSITIONS = ArrayUtils
+            .getHashSet(new String[] { "but", "except" });
+    public static final HashSet<String> PREPOSITIONS = ArrayUtils
+            .getHashSet(new String[] { "over", "under", "on", "between", "behind", "in", "to", "with", "across" });
 
-    public static final HashSet<String> ARTICLES = new HashSet<>(Arrays.asList(new String[] { "the", "this", "that" }));
-    public static final HashSet<String> QUANTIFIERS = new HashSet<>(Arrays.asList(new String[] { "a", "all" }));
+    public static final HashSet<String> ARTICLES = ArrayUtils.getHashSet(new String[] { "the", "this", "that" });
+
+    public static final HashSet<String> QUANTIFIERS = ArrayUtils.getHashSet(new String[] { "a", "all" });
+
+    /**
+     * Separators separates {@link PlayerCommand} actions. These are used for
+     * parsing multi-action commands.
+     */
+    public static final HashSet<String> SEPARATORS = ArrayUtils.getHashSet(new String[] { ",", "then" });
 
     /**
      *
@@ -33,12 +43,13 @@ public abstract class Word {
     }
 
     /**
+     * This is used for separating direct and indirect object phrases.
      *
      * @param word
      * @return true if the specified word is recognized as a valid preposition.
      */
     public static boolean isPreposition(String word) {
-        return PREPOSITIONS.contains(word);
+        return PREPOSITIONS.contains(word) || EXCLUDING_PREPOSITIONS.contains(word);
     }
 
     /**
@@ -50,34 +61,15 @@ public abstract class Word {
         return QUANTIFIERS.contains(word) || TextUtils.isInteger(word);
     }
 
-    private String name;
-
     /**
-     * Complete constructor. Cannot be instantiated.
+     * TODO. This is for resolving the indeterminism of parsing multi-action
+     * commands.
      *
-     * @param name
-     *            - Determines if the word is valid. This is determined by a
-     *            combination of the word type and name, and its relation with other
-     *            words.
+     * @param word
+     * @return false, until actually implemented
      */
-    public Word(String name) {
-        this.name = name;
+    public static boolean isVerb(String word) {
+        return false;
     }
 
-    /**
-     *
-     * @return the name of this word
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     *
-     * @return String representation of word
-     */
-    @Override
-    public String toString() {
-        return name;
-    }
 }

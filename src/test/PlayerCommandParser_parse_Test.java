@@ -9,6 +9,11 @@ import org.junit.Test;
 import game.system.parsing.PlayerCommand;
 import game.system.parsing.PlayerCommandParser;
 
+/**
+ *
+ * @author Evan Quan
+ *
+ */
 public class PlayerCommandParser_parse_Test {
 
     public static PlayerCommand command;

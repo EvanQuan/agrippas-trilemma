@@ -99,7 +99,7 @@ public class ObjectPhrase {
     }
 
     public void setAdjectives(String[] adjectives) {
-        this.adjectives = ArrayUtils.getStringArrayList(adjectives);
+        this.adjectives = ArrayUtils.getArrayList(adjectives);
     }
 
     public void setDeterminer(String determiner) {

@@ -11,6 +11,11 @@ import game.system.parsing.PlayerCommandParser;
 import game.system.parsing.words.ObjectPhrase;
 import util.ArrayUtils;
 
+/**
+ *
+ * @author Evan Quan
+ *
+ */
 public class PlayerCommandParser_getObjectPhrase_Test {
 
     public static ArrayList<String> tokens;
@@ -18,7 +23,7 @@ public class PlayerCommandParser_getObjectPhrase_Test {
     public static ObjectPhrase actual;
 
     public static void testGetObjectPhrase(String[] array, ObjectPhrase expected) {
-        tokens = ArrayUtils.getStringArrayList(array);
+        tokens = ArrayUtils.getArrayList(array);
         actual = PlayerCommandParser.getObjectPhrase(tokens);
 
     }

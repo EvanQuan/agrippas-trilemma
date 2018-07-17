@@ -22,6 +22,25 @@ import util.ArrayUtils;
  * 5. The dictionary of all possible prepositions is known.<br>
  * 6. The dictionary of all possible determiners is known.<br>
  *
+ * <p>
+ * <b>TODO</b>
+ * <p>
+ * Multiple action commands, such as:<br>
+ * Multiverb commands: (look up, eat pie, go west)<br>
+ * Verbsharing commands: (eat pie, potato, cake)<br>
+ * Object pronouns (this may not be implemented here): (take pie, eat it)<br>
+ * <br>
+ * With the current implementation, an indeterminism problem arises in trying to
+ * parse these kind of commands without a dictionary of valid verbs. As a bonus
+ * this would allow for verbs to be modified with adverbs<br>
+ * For this to be implemented, what needs to be done:<br>
+ * - A verb dictionary<br>
+ * - lexicalAnalysis() needs to recognize commas at the end of words as their
+ * own tokens<br>
+ * - syntacticalAnalys() needs to separate actions by separators<br>
+ * - incomplete actions need to be able to "fill in the gaps" from context of
+ * previously parsed actions in the same command<br>
+ *
  * @author Evan Quan
  *
  */

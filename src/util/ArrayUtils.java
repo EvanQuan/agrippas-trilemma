@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Has text utility functions for Arrays
@@ -61,20 +62,12 @@ public abstract class ArrayUtils {
         return Arrays.asList(array).contains(key);
     }
 
-    public static ArrayList<Double> getDoubleArrayList(double[] doubleArray) {
-        ArrayList<Double> doubleList = new ArrayList<Double>();
-        for (int i = 0; i < doubleArray.length; i++) {
-            doubleList.add(doubleArray[i]);
-        }
-        return doubleList;
+    public static ArrayList<String> getArrayList(String word) {
+        return getArrayList(new String[] { word });
     }
 
-    public static ArrayList<Integer> getIntegerArrayList(int[] intArray) {
-        ArrayList<Integer> intList = new ArrayList<Integer>();
-        for (int i = 0; i < intArray.length; i++) {
-            intList.add(intArray[i]);
-        }
-        return intList;
+    public static ArrayList<String> getArrayList(String[] array) {
+        return new ArrayList<String>(Arrays.asList(array));
     }
 
     // public static ArrayList<String> getStringArrayList(double doub) {
@@ -93,8 +86,30 @@ public abstract class ArrayUtils {
     // return getStringArrayList(getIntegerArrayList(intArray));
     // }
 
+    public static ArrayList<Double> getDoubleArrayList(double[] doubleArray) {
+        ArrayList<Double> doubleList = new ArrayList<Double>();
+        for (int i = 0; i < doubleArray.length; i++) {
+            doubleList.add(doubleArray[i]);
+        }
+        return doubleList;
+    }
+
+    public static HashSet<String> getHashSet(String[] array) {
+        return new HashSet<String>(Arrays.asList(array));
+    }
+
+    public static ArrayList<Integer> getIntegerArrayList(int[] intArray) {
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        for (int i = 0; i < intArray.length; i++) {
+            intList.add(intArray[i]);
+        }
+        return intList;
+    }
+
     /**
      * Convert ArrayList<Integer> or ArrayList<Double> to ArrayList<String>
+     *
+     * TODO: This is terrible and needs to be redone.
      *
      * @param ArrayList<Integer>
      *            intList
@@ -123,14 +138,6 @@ public abstract class ArrayUtils {
             }
         }
         return stringList;
-    }
-
-    public static ArrayList<String> getStringArrayList(String word) {
-        return getStringArrayList(new String[] { word });
-    }
-
-    public static ArrayList<String> getStringArrayList(String[] strArray) {
-        return new ArrayList<String>(Arrays.asList(strArray));
     }
 
     public static ArrayList<String> getStringArrayListFromDouble(ArrayList<Double> doubleList) {

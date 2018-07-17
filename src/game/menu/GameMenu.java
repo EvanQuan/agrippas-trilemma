@@ -33,7 +33,7 @@ public class GameMenu extends Menu {
 
     private GameMenu() {
         extendInput = false;
-        look = new ArrayList<String>(ArrayUtils.getStringArrayList(new String[] { "look", "l" }));
+        look = new ArrayList<String>(ArrayUtils.getArrayList(new String[] { "look", "l" }));
     }
 
     /**
