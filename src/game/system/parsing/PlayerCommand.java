@@ -81,10 +81,10 @@ public class PlayerCommand {
 
     @Override
     public String toString() {
-        String actions = "";
+        StringBuilder actions = new StringBuilder();
         if (hasActions()) {
             for (Action action : this.actions) {
-                actions += "\t" + action + "\n";
+                actions.append("\t" + action + "\n");
             }
         }
         return "[string: " + string + "\nactions: " + actions + "]";

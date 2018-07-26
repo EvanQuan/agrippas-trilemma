@@ -2,6 +2,7 @@ package game.system.parsing.words;
 
 import java.util.HashSet;
 
+import game.object.item.background.character.Player;
 import game.system.parsing.PlayerCommand;
 import util.ArrayUtils;
 import util.TextUtils;
@@ -24,10 +25,19 @@ public abstract class Word {
     public static final HashSet<String> QUANTIFIERS = ArrayUtils.getHashSet(new String[] { "a", "all" });
 
     /**
-     * Separators separates {@link PlayerCommand} actions. These are used for
+     * Action separators separates {@link PlayerCommand} actions. These are used for
      * parsing multi-action commands.
      */
-    public static final HashSet<String> SEPARATORS = ArrayUtils.getHashSet(new String[] { ",", "then" });
+    public static final HashSet<String> ACTION_SEPARATORS = ArrayUtils.getHashSet(new String[] { ",", "then", "." });
+
+    /**
+     * Robust {@link Player}
+     */
+    public static final HashSet<String> VERBS = ArrayUtils.getHashSet(new String[] { "go" });
+
+    public static boolean isActionSeparator(String word) {
+        return ACTION_SEPARATORS.contains(word);
+    }
 
     /**
      *

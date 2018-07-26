@@ -62,10 +62,21 @@ public abstract class ArrayUtils {
         return Arrays.asList(array).contains(key);
     }
 
+    public static ArrayList<String> getArrayList(Object[] array) {
+        return getArrayList(getStringArray(array));
+    }
+
     public static ArrayList<String> getArrayList(String word) {
         return getArrayList(new String[] { word });
     }
 
+    /**
+     * Convert a String[] to an ArrayList&lt;String&gt; of the same content.
+     *
+     * @param array
+     *            to convert
+     * @return the ArrayList equivalent
+     */
     public static ArrayList<String> getArrayList(String[] array) {
         return new ArrayList<String>(Arrays.asList(array));
     }
@@ -104,6 +115,27 @@ public abstract class ArrayUtils {
             intList.add(intArray[i]);
         }
         return intList;
+    }
+
+    /**
+     * Convert a String ArrayList to a String array of the same contents.
+     *
+     * @param list
+     * @return
+     */
+    public static String[] getStringArray(ArrayList<String> list) {
+        return list.toArray(new String[0]);
+    }
+
+    /**
+     * Cast an object array to a String array, where the Objects are presumed to be
+     * Strings.
+     *
+     * @param array
+     * @return
+     */
+    public static String[] getStringArray(Object[] array) {
+        return Arrays.copyOf(array, array.length, String[].class);
     }
 
     /**
