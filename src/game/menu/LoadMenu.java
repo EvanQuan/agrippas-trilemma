@@ -208,14 +208,14 @@ public class LoadMenu extends Menu {
     public void outputInvalid(String action) {
 //        if (saveNums.size() == 0) {
 //            print("There are no games to ");
-//            printPlayer(toTitleCase(action));
+//            printPlayer(toTitleCase(playerAction));
 //            println(".");
 //        } else {
 //            print("The only game");
 //            if (saveNums.size() > 1) {
 //                print("s");
 //            }
-//            print(" to " + action.toLowerCase() + " ");
+//            print(" to " + playerAction.toLowerCase() + " ");
 //            if (saveNums.size() > 1) {
 //                print("are from ");
 //            } else {

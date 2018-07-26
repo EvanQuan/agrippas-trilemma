@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import game.system.parsing.words.ObjectPhrase;
+import game.system.parsing.words.VerbPhrase;
 import game.system.parsing.words.Word;
 import util.ArrayUtils;
 
@@ -26,7 +27,7 @@ import util.ArrayUtils;
  * <p>
  * <b>TODO</b>
  * <p>
- * Multiple action commands, such as:<br>
+ * Multiple playerAction commands, such as:<br>
  * Multiverb commands: (look up, eat pie, go west)<br>
  * Verbsharing commands: (eat pie, potato, cake)<br>
  * Object pronouns (this may not be implemented here): (take pie, eat it)<br>
@@ -38,9 +39,9 @@ import util.ArrayUtils;
  * - A verb dictionary<br>
  * - lexicalAnalysis() needs to recognize commas at the end of words as their
  * own tokens<br>
- * - syntacticalAnalys() needs to separate actions by separators<br>
- * - incomplete actions need to be able to "fill in the gaps" from context of
- * previously parsed actions in the same command<br>
+ * - syntacticalAnalys() needs to separate playerActions by separators<br>
+ * - incomplete playerActions need to be able to "fill in the gaps" from context of
+ * previously parsed playerActions in the same command<br>
  *
  * @author Evan Quan
  *
@@ -188,17 +189,17 @@ public abstract class PlayerCommandParser {
     }
 
     /**
-     * For multi-action commands, action separators define the number of actions
+     * For multi-playerAction commands, playerAction separators define the number of playerActions
      * that are present in a command. Single syntacticalAnalsysis() assumes an
-     * ArrayList of tokens is a single action, we need to make an ArrayList of
-     * ArrayLists (actions). Separators are not included in any token array.
+     * ArrayList of tokens is a single playerAction, we need to make an ArrayList of
+     * ArrayLists (playerActions). Separators are not included in any token array.
      *
      * @param tokens
      * @return
      */
     public static ArrayList<ArrayList<String>> splitTokensByActions(ArrayList<String> tokens) {
-        // Each ArrayList sublist separated by separators counts as its own action
-        // Find the number of actions and track what index the actions are separated by.
+        // Each ArrayList sublist separated by separators counts as its own playerAction
+        // Find the number of playerActions and track what index the playerActions are separated by.
         ArrayList<Integer> separatorIndices = new ArrayList<>();
         ArrayList<ArrayList<String>> actionTokens = new ArrayList<>();
         for (int i = 0; i < tokens.size(); i++) {
@@ -206,8 +207,8 @@ public abstract class PlayerCommandParser {
                 separatorIndices.add(i);
             }
         }
-        // Separate each action, defined by separatorIndices, into its own ArrayList of
-        // tokens. Action separators are not included in the arrays.
+        // Separate each playerAction, defined by separatorIndices, into its own ArrayList of
+        // tokens. PlayerAction separators are not included in the arrays.
         int startIndex = 0;
         int endIndex;
         for (int i : separatorIndices) {
@@ -253,10 +254,10 @@ public abstract class PlayerCommandParser {
             return;
         }
 
-        // TODO when multi-action commands are implemented, make this part a loop for
+        // TODO when multi-playerAction commands are implemented, make this part a loop for
         // every separator section
 
-        Action action = new Action();
+        PlayerAction playerAction = new PlayerAction();
 
         String first = tokens.get(0);
         if (!Word.isDeterminer(first) && !Word.isPreposition(first)) {
@@ -265,7 +266,7 @@ public abstract class PlayerCommandParser {
             // end of the verb phrase and the start of the proceeding indirect/direct object
             // phrase without a dictionary of all possible verbs.
             tokens.remove(0);
-            action.setVerbPhrase(first);
+            playerAction.setVerbPhrase(new VerbPhrase(first));
         }
         // 1. Scan for a preposition. If one is found, remove it. Parse the input
         // preceding the preposition as a direct object phrase. Parse the input
@@ -281,7 +282,7 @@ public abstract class PlayerCommandParser {
         for (i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
             if (Word.isPreposition(token)) {
-                action.setPreposition(token);
+                playerAction.setPreposition(token);
                 break;
             } else {
                 directTokens.add(token);
@@ -294,11 +295,11 @@ public abstract class PlayerCommandParser {
         }
 
         // Create the object phrases from the token lists
-        action.setDirectObjectPhrase(getObjectPhrase(directTokens));
-        action.setIndirectObjectPhrase(getObjectPhrase(indirectTokens));
+        playerAction.setDirectObjectPhrase(getObjectPhrase(directTokens));
+        playerAction.setIndirectObjectPhrase(getObjectPhrase(indirectTokens));
 
-        // Add complete action to player command
-        playerCommand.addAction(action);
+        // Add complete playerAction to player command
+        playerCommand.addAction(playerAction);
     }
 
     // /**
@@ -306,7 +307,7 @@ public abstract class PlayerCommandParser {
     // * <p>
     // * TODO Creates a player command from a list of words. Depending on the
     // relation
-    // * between words, the action {@link Verb} and object {@link Noun} are
+    // * between words, the playerAction {@link Verb} and object {@link Noun} are
     // * determined.
     // *
     // * @param input
@@ -319,9 +320,9 @@ public abstract class PlayerCommandParser {
     // int actionIndex = 0;
     // int objectIndex = 0;
     // // 1. The first word of the command should either be a verb, or a shortcut
-    // // represents some action
+    // // represents some playerAction
     //
-    // // return new PlayerCommand(command, action, object);
+    // // return new PlayerCommand(command, playerAction, object);
     // return null;
     // }
 }

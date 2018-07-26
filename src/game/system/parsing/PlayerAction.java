@@ -1,10 +1,11 @@
 package game.system.parsing;
 
 import game.system.parsing.words.ObjectPhrase;
+import game.system.parsing.words.VerbPhrase;
 import util.FuncUtils;
 
 /**
- * Represents an action for the player to do. Confirms to the following grammar:
+ * Represents an  action for the player to do. Confirms to the following grammar:
  * <p>
  * Verb? ObjectPhrase? Preposition? ObjectPhrase?
  * <p>
@@ -12,18 +13,18 @@ import util.FuncUtils;
  * @author Evan Quan
  *
  */
-public class Action {
+public class PlayerAction {
 
-    private String verbPhrase;
+    private VerbPhrase verbPhrase;
     private ObjectPhrase directObjectPhrase;
     private String preposition;
     private ObjectPhrase indirectObjectPhrase;
 
     @Override
     public boolean equals(Object other) {
-        if (other instanceof Action) {
-            return hasSameVerbPhrase((Action) other) && hasSameDirectObjectPhrase((Action) other)
-                    && hasSamePreposition((Action) other) && hasSameIndirectObjectPhrase((Action) other);
+        if (other instanceof PlayerAction) {
+            return hasSameVerbPhrase((PlayerAction) other) && hasSameDirectObjectPhrase((PlayerAction) other)
+                    && hasSamePreposition((PlayerAction) other) && hasSameIndirectObjectPhrase((PlayerAction) other);
         }
         return false;
     }
@@ -40,7 +41,7 @@ public class Action {
         return this.preposition;
     }
 
-    public String getVerbPhrase() {
+    public VerbPhrase getVerbPhrase() {
         return this.verbPhrase;
     }
 
@@ -64,24 +65,28 @@ public class Action {
         return this.preposition != null;
     }
 
-    public boolean hasSameDirectObjectPhrase(Action other) {
+    public boolean hasSameDirectObjectPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.directObjectPhrase, other.getDirectObjectPhrase());
     }
 
-    public boolean hasSameIndirectObjectPhrase(Action other) {
+    public boolean hasSameIndirectObjectPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.indirectObjectPhrase, other.getIndirectObjectPhrase());
     }
 
-    public boolean hasSamePreposition(Action other) {
+    public boolean hasSamePreposition(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.preposition, other.getPreposition());
     }
 
-    public boolean hasSameVerbPhrase(Action other) {
+    public boolean hasSameVerbPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.verbPhrase, other.getVerbPhrase());
     }
 
+    /**
+     *
+     * @return true if this command has a {@link VerbPhrase}
+     */
     public boolean hasVerbPhrase() {
-        return this.verbPhrase != null;
+        return this.verbPhrase != null && !this.verbPhrase.isEmpty();
     }
 
     public boolean isEmpty() {
@@ -100,8 +105,17 @@ public class Action {
         this.preposition = preposition;
     }
 
-    public void setVerbPhrase(String verbPhrase) {
+    public void setVerbPhrase(VerbPhrase verbPhrase) {
         this.verbPhrase = verbPhrase;
+    }
+
+    /**
+     * Set the verbPhrase to a new VerbPhrase with the corresponding verb.
+     *
+     * @param verb
+     */
+    public void setVerbPhrase(String verb) {
+        this.verbPhrase = new VerbPhrase(verb);
     }
 
     @Override

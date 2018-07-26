@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
     public static final String LOAD_TITLE = "Loading game...";
     public static final String PAUSE_ERROR_MESSAGE = "ERROR: Pause was interrupted.";
     public static final String WRITING_ERROR_MESSAGE = "ERROR: Unable to write to file.";
-    public static final String ACTION_PERFORMED_ERROR_MESSAGE = "ERROR: Unknown event source. No action performed.";
+    public static final String ACTION_PERFORMED_ERROR_MESSAGE = "ERROR: Unknown event source. No playerAction performed.";
     // Listeners
     private MainWindowListener windowListener;
     // private MyDocumentListener documentListener;
@@ -118,8 +118,8 @@ public class MainFrame extends JFrame {
     }
 
     // /**
-    // * Type of action performed is determined by the source of event
-    // * @param ActionEvent anEvent determines action to perform
+    // * Type of playerAction performed is determined by the source of event
+    // * @param ActionEvent anEvent determines playerAction to perform
     // */
     // public void actionPerformed(ActionEvent anEvent) {
     // Object actionSource = anEvent.getSource();

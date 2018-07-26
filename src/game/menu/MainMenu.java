@@ -107,7 +107,7 @@ public class MainMenu extends Menu {
 //        printPlayer("z");
 //        println(" - Wait");
 //        printPlayer("g");
-//        println(" - Again (Repeat previous action)");
+//        println(" - Again (Repeat previous playerAction)");
 //        println();
 //        printItemln("Movement:");
 //        printPlayer("n");

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import game.system.parsing.Action;
+import game.system.parsing.PlayerAction;
 import game.system.parsing.PlayerCommand;
 import game.system.parsing.VerbAgnosticPlayerCommandParser;
 
@@ -20,16 +20,16 @@ import game.system.parsing.VerbAgnosticPlayerCommandParser;
 public class VerbAgnosticPlayerCommandParser_parse_Test {
 
     public static PlayerCommand command;
-    public static Action action;
-    public static ArrayList<Action> actions;
+    public static PlayerAction playerAction;
+    public static ArrayList<PlayerAction> playerActions;
 
     public void testParse(String string) {
         command = VerbAgnosticPlayerCommandParser.parse(string);
-        actions = command.getActions();
-        if (actions.isEmpty()) {
-            action = null;
+        playerActions = command.getPlayerActions();
+        if (playerActions.isEmpty()) {
+            playerAction = null;
         } else {
-            action = actions.get(0);
+            playerAction = playerActions.get(0);
         }
     }
 
@@ -47,10 +47,10 @@ public class VerbAgnosticPlayerCommandParser_parse_Test {
     public void word1_directDeterminer() {
         testParse("the");
 
-        assertFalse(action.hasVerbPhrase());
+        assertFalse(playerAction.hasVerbPhrase());
 
-        assertTrue(action.hasDirectObjectPhrase());
-        assertEquals("the", action.getDirectObjectPhrase().getDeterminer());
+        assertTrue(playerAction.hasDirectObjectPhrase());
+        assertEquals("the", playerAction.getDirectObjectPhrase().getDeterminer());
     }
 
     /**
@@ -61,32 +61,32 @@ public class VerbAgnosticPlayerCommandParser_parse_Test {
     public void word1_preposition() {
         testParse("to");
 
-        assertFalse(action.hasVerbPhrase());
+        assertFalse(playerAction.hasVerbPhrase());
 
-        assertFalse(action.hasDirectObjectPhrase());
+        assertFalse(playerAction.hasDirectObjectPhrase());
 
-        assertTrue(action.hasPreposition());
-        assertEquals("to", action.getPreposition());
+        assertTrue(playerAction.hasPreposition());
+        assertEquals("to", playerAction.getPreposition());
 
-        assertFalse(action.hasIndirectObjectPhrase());
+        assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
     /**
-     * Check that a single non-preposition word counts as a verb. Other action
+     * Check that a single non-preposition word counts as a verb. Other playerAction
      * components are null.
      */
     @Test
     public void word1_verb() {
         testParse("b");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertFalse(action.hasDirectObjectPhrase());
+        assertFalse(playerAction.hasDirectObjectPhrase());
 
-        assertFalse(action.hasPreposition());
+        assertFalse(playerAction.hasPreposition());
 
-        assertFalse(action.hasIndirectObjectPhrase());
+        assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
     /**
@@ -96,32 +96,32 @@ public class VerbAgnosticPlayerCommandParser_parse_Test {
     public void word2_verb_directNoun() {
         testParse("b c");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertTrue(action.hasDirectObjectPhrase());
-        assertFalse(action.getDirectObjectPhrase().hasDeterminer());
-        assertFalse(action.getDirectObjectPhrase().hasAdjectives());
-        assertEquals("c", action.getDirectObjectPhrase().getNoun());
+        assertTrue(playerAction.hasDirectObjectPhrase());
+        assertFalse(playerAction.getDirectObjectPhrase().hasDeterminer());
+        assertFalse(playerAction.getDirectObjectPhrase().hasAdjectives());
+        assertEquals("c", playerAction.getDirectObjectPhrase().getNoun());
 
-        assertFalse(action.hasPreposition());
+        assertFalse(playerAction.hasPreposition());
 
-        assertFalse(action.hasIndirectObjectPhrase());
+        assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
     @Test
     public void word2_verb_preposition() {
         testParse("b to");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertFalse(action.hasDirectObjectPhrase());
+        assertFalse(playerAction.hasDirectObjectPhrase());
 
-        assertTrue(action.hasPreposition());
-        assertEquals("to", action.getPreposition());
+        assertTrue(playerAction.hasPreposition());
+        assertEquals("to", playerAction.getPreposition());
 
-        assertFalse(action.hasIndirectObjectPhrase());
+        assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
     /**
@@ -131,37 +131,37 @@ public class VerbAgnosticPlayerCommandParser_parse_Test {
     public void word3_verb_directAdjective1Noun() {
         testParse("b c d");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertTrue(action.hasDirectObjectPhrase());
-        assertFalse(action.getDirectObjectPhrase().hasDeterminer());
-        assertEquals(1, action.getDirectObjectPhrase().getAdjectives().size());
-        assertEquals("c", action.getDirectObjectPhrase().getAdjectives().get(0));
-        assertEquals("d", action.getDirectObjectPhrase().getNoun());
+        assertTrue(playerAction.hasDirectObjectPhrase());
+        assertFalse(playerAction.getDirectObjectPhrase().hasDeterminer());
+        assertEquals(1, playerAction.getDirectObjectPhrase().getAdjectives().size());
+        assertEquals("c", playerAction.getDirectObjectPhrase().getAdjectives().get(0));
+        assertEquals("d", playerAction.getDirectObjectPhrase().getNoun());
 
-        assertFalse(action.hasPreposition());
+        assertFalse(playerAction.hasPreposition());
 
-        assertFalse(action.hasIndirectObjectPhrase());
+        assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
     @Test
     public void word3_verb_preposition_indirectNoun() {
         testParse("b to c");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertFalse(action.hasDirectObjectPhrase());
+        assertFalse(playerAction.hasDirectObjectPhrase());
 
-        assertTrue(action.hasPreposition());
-        assertEquals("to", action.getPreposition());
+        assertTrue(playerAction.hasPreposition());
+        assertEquals("to", playerAction.getPreposition());
 
-        assertTrue(action.hasIndirectObjectPhrase());
-        assertFalse(action.getIndirectObjectPhrase().hasDeterminer());
-        assertFalse(action.getIndirectObjectPhrase().hasAdjectives());
-        assertTrue(action.getIndirectObjectPhrase().hasNoun());
-        assertEquals("c", action.getIndirectObjectPhrase().getNoun());
+        assertTrue(playerAction.hasIndirectObjectPhrase());
+        assertFalse(playerAction.getIndirectObjectPhrase().hasDeterminer());
+        assertFalse(playerAction.getIndirectObjectPhrase().hasAdjectives());
+        assertTrue(playerAction.getIndirectObjectPhrase().hasNoun());
+        assertEquals("c", playerAction.getIndirectObjectPhrase().getNoun());
     }
 
     /**
@@ -171,58 +171,58 @@ public class VerbAgnosticPlayerCommandParser_parse_Test {
     public void word4_verb_directAdjective2Noun() {
         testParse("b c d e ");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertTrue(action.hasDirectObjectPhrase());
-        assertFalse(action.getDirectObjectPhrase().hasDeterminer());
-        assertEquals(2, action.getDirectObjectPhrase().getAdjectives().size());
-        assertEquals("c", action.getDirectObjectPhrase().getAdjectives().get(0));
-        assertEquals("d", action.getDirectObjectPhrase().getAdjectives().get(1));
-        assertEquals("e", action.getDirectObjectPhrase().getNoun());
+        assertTrue(playerAction.hasDirectObjectPhrase());
+        assertFalse(playerAction.getDirectObjectPhrase().hasDeterminer());
+        assertEquals(2, playerAction.getDirectObjectPhrase().getAdjectives().size());
+        assertEquals("c", playerAction.getDirectObjectPhrase().getAdjectives().get(0));
+        assertEquals("d", playerAction.getDirectObjectPhrase().getAdjectives().get(1));
+        assertEquals("e", playerAction.getDirectObjectPhrase().getNoun());
 
-        assertFalse(action.hasPreposition());
+        assertFalse(playerAction.hasPreposition());
 
-        assertFalse(action.hasIndirectObjectPhrase());
+        assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
     @Test
     public void word4_verb_directDeterminerAdjectiveNoun() {
         testParse("b a c d");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertTrue(action.hasDirectObjectPhrase());
-        assertTrue(action.getDirectObjectPhrase().hasDeterminer());
-        assertEquals("a", action.getDirectObjectPhrase().getDeterminer());
-        assertTrue(action.getDirectObjectPhrase().hasAdjectives());
-        assertEquals(1, action.getDirectObjectPhrase().getAdjectives().size());
-        assertEquals("c", action.getDirectObjectPhrase().getAdjectives().get(0));
-        assertTrue(action.getDirectObjectPhrase().hasNoun());
-        assertEquals("d", action.getDirectObjectPhrase().getNoun());
+        assertTrue(playerAction.hasDirectObjectPhrase());
+        assertTrue(playerAction.getDirectObjectPhrase().hasDeterminer());
+        assertEquals("a", playerAction.getDirectObjectPhrase().getDeterminer());
+        assertTrue(playerAction.getDirectObjectPhrase().hasAdjectives());
+        assertEquals(1, playerAction.getDirectObjectPhrase().getAdjectives().size());
+        assertEquals("c", playerAction.getDirectObjectPhrase().getAdjectives().get(0));
+        assertTrue(playerAction.getDirectObjectPhrase().hasNoun());
+        assertEquals("d", playerAction.getDirectObjectPhrase().getNoun());
     }
 
     @Test
     public void word4_verb_directNoun_preposition_indirectNoun() {
         testParse("b c to d");
 
-        assertTrue(action.hasVerbPhrase());
-        assertEquals("b", action.getVerbPhrase());
+        assertTrue(playerAction.hasVerbPhrase());
+        assertEquals("b", playerAction.getVerbPhrase().getVerb());
 
-        assertTrue(action.hasDirectObjectPhrase());
-        assertFalse(action.getDirectObjectPhrase().hasDeterminer());
-        assertFalse(action.getDirectObjectPhrase().hasAdjectives());
-        assertTrue(action.getDirectObjectPhrase().hasNoun());
-        assertEquals("c", action.getDirectObjectPhrase().getNoun());
+        assertTrue(playerAction.hasDirectObjectPhrase());
+        assertFalse(playerAction.getDirectObjectPhrase().hasDeterminer());
+        assertFalse(playerAction.getDirectObjectPhrase().hasAdjectives());
+        assertTrue(playerAction.getDirectObjectPhrase().hasNoun());
+        assertEquals("c", playerAction.getDirectObjectPhrase().getNoun());
 
-        assertTrue(action.hasPreposition());
-        assertEquals("to", action.getPreposition());
+        assertTrue(playerAction.hasPreposition());
+        assertEquals("to", playerAction.getPreposition());
 
-        assertTrue(action.hasIndirectObjectPhrase());
-        assertFalse(action.getIndirectObjectPhrase().hasDeterminer());
-        assertEquals("d", action.getIndirectObjectPhrase().getNoun());
-        assertFalse(action.getIndirectObjectPhrase().hasAdjectives());
+        assertTrue(playerAction.hasIndirectObjectPhrase());
+        assertFalse(playerAction.getIndirectObjectPhrase().hasDeterminer());
+        assertEquals("d", playerAction.getIndirectObjectPhrase().getNoun());
+        assertFalse(playerAction.getIndirectObjectPhrase().hasAdjectives());
     }
 
 }

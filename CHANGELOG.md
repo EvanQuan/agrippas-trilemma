@@ -14,7 +14,7 @@ TODO
 - Parsing is in the process of a complete revamp
     - Input string is broken up into token, each represented by a `Word` object
     - `Word` objects are semantically related to each other
-    - `PlayerCommand` determines the main action `Verb` and object `Noun` that describes the command
+    - `PlayerCommand` determines the main playerAction `Verb` and object `Noun` that describes the command
     - Game will base player turn by `PlayerCommand` object
 - `Multiset` class
 ### Changed

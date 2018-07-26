@@ -8,7 +8,7 @@ import game.system.Save;
 import util.ArrayUtils;
 
 /**
- * Manages all in game actions
+ * Manages all in game playerActions
  */
 public class GameMenu extends Menu {
 
@@ -98,10 +98,10 @@ public class GameMenu extends Menu {
     }
 
     /**
-     * In game actions - End game - Increment turn counter - Regulate player statics
+     * In game playerActions - End game - Increment turn counter - Regulate player statics
      * - Health - Mana - Corruption - Hunger - Living status - Change current room
-     * Player actions - Take - Drop - Eat - Drink - Buy - Sell - Give - Examine -
-     * Mine - Throw Room actions - firstTime toggling - Look - Transfer items -
+     * Player playerActions - Take - Drop - Eat - Drink - Buy - Sell - Give - Examine -
+     * Mine - Throw Room playerActions - firstTime toggling - Look - Transfer items -
      * Change direction block status - Lock/unlock/open/close containers
      */
 

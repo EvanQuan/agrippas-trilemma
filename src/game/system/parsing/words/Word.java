@@ -25,8 +25,8 @@ public abstract class Word {
     public static final HashSet<String> QUANTIFIERS = ArrayUtils.getHashSet(new String[] { "a", "all" });
 
     /**
-     * Action separators separates {@link PlayerCommand} actions. These are used for
-     * parsing multi-action commands.
+     * PlayerAction separators separates {@link PlayerCommand} playerActions. These are used for
+     * parsing multi-playerAction commands.
      */
     public static final HashSet<String> ACTION_SEPARATORS = ArrayUtils.getHashSet(new String[] { ",", "then", "." });
 
@@ -72,7 +72,7 @@ public abstract class Word {
     }
 
     /**
-     * TODO. This is for resolving the indeterminism of parsing multi-action
+     * TODO. This is for resolving the indeterminism of parsing multi-playerAction
      * commands.
      *
      * @param word

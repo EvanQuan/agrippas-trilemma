@@ -23,7 +23,7 @@ public class PlayerCommandParser_splitTokensByActions_Test {
     public static ArrayList<ArrayList<String>> expected;
 
     /**
-     * Add an action (in token form) to expected results.
+     * Add an playerAction (in token form) to expected results.
      *
      * @param tokens
      */

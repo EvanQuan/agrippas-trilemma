@@ -5,22 +5,22 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import game.system.parsing.PlayerAction;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.system.parsing.Action;
 import game.system.parsing.words.ObjectPhrase;
 
 /**
- * Tests for {@link Action}
+ * Tests for {@link PlayerAction}
  *
  * @author Evan Quan
  *
  */
 public class ActionTest {
 
-    public static Action one;
-    public static Action two;
+    public static PlayerAction one;
+    public static PlayerAction two;
     public static ObjectPhrase onedo;
     public static ObjectPhrase oneio;
     public static ObjectPhrase twodo;
@@ -122,8 +122,8 @@ public class ActionTest {
 
     @Before
     public void setUp() {
-        one = new Action();
-        two = new Action();
+        one = new PlayerAction();
+        two = new PlayerAction();
         onedo = new ObjectPhrase();
         oneio = new ObjectPhrase();
         twodo = new ObjectPhrase();
