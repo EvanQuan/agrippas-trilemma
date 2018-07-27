@@ -45,7 +45,7 @@ public class ObjectPhrase {
      *         adjective list can be modified for parsing purposes if need be
      *         without actually affecting the actual adjectives.<br>
      *         null if adjectives is null. NOTE: Due to current
-     *         PlayerCommandParser.getObjectPhrase() implementation, adjectives will
+     *         PlayerInputParser.getObjectPhrase() implementation, adjectives will
      *         never be null, as an ObjectPhrase with no adjectives will have an
      *         empty ArrayList
      */

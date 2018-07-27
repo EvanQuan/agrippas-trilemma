@@ -25,7 +25,7 @@ public class ExitTest {
     private static String eastRoomDescription = "This is east of the West Room";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         westRoom = new Location(westRoomName, westRoomDescription);
         eastRoom = new Location(eastRoomName, eastRoomDescription);
     }

@@ -9,7 +9,7 @@ import game.system.parsing.words.Word;
 import util.ArrayUtils;
 
 /**
- * <b>This exists as a backup for {@link PlayerCommandParser}.</b>
+ * <b>This exists as a backup for {@link PlayerInputParser}.</b>
  * <p>
  * Parses a string into a {@link PlayerCommand}. The parser abides by the
  * following grammar rules:

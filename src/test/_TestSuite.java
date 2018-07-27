@@ -8,12 +8,12 @@ import test.util.MultisetTest;
 import test.util.TextUtilsTest;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ ArrayUtilsTest.class, FuncUtilsTest.class, LocationTest.class, TestTest.class, ActionTest.class,
-        PlayerCommandParser_lexicalAnalysis_Test.class, PlayerCommandParser_addToken_Test.class,
-        PlayerCommandParser_getObjectPhrase_Test.class, PlayerCommandParser_parse_Test.class,
-        PlayerCommandParser_splitTokensByActions_Test.class, VerbAgnosticPlayerCommandParser_lexicalAnalysis_Test.class,
-        VerbAgnosticPlayerCommandParser_addToken_Test.class, VerbAgnosticPlayerCommandParser_getObjectPhrase_Test.class,
-        VerbAgnosticPlayerCommandParser_parse_Test.class, ObjectPhraseTest.class, MultisetTest.class,
+@Suite.SuiteClasses({ ArrayUtilsTest.class, FuncUtilsTest.class, LocationTest.class, TestTest.class, PlayerActionTest.class,
+        PlayerInputParser_lexicalAnalysis_Test.class, PlayerInputParser_addToken_Test.class,
+        PlayerInputParser_getObjectPhrase_Test.class, PlayerInputParser_parse_Test.class,
+        PlayerInputParser_splitTokensByActions_Test.class, VerbAgnosticPlayerInputParser_lexicalAnalysis_Test.class,
+        VerbAgnosticPlayerInputParser_addToken_Test.class, VerbAgnosticPlayerInputParser_getObjectPhrase_Test.class,
+        VerbAgnosticPlayerInputParser_parse_Test.class, ObjectPhraseTest.class, MultisetTest.class,
         TextUtilsTest.class, WordTest.class, ExitTest.class })
 /**
  * Runs all test classes under JUnit 4

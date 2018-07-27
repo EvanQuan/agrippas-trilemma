@@ -5,7 +5,8 @@ import game.system.parsing.words.VerbPhrase;
 import util.FuncUtils;
 
 /**
- * Represents an  action for the player to do. Confirms to the following grammar:
+ * Represents a single action for the player to do. A {@link PlayerCommand} may be composed of multiple actions.
+ * Confirms to the following grammar:
  * <p>
  * Verb? ObjectPhrase? Preposition? ObjectPhrase?
  * <p>
