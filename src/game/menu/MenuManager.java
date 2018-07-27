@@ -1,6 +1,7 @@
 package game.menu;
 
-import game.system.*;
+import game.system.output.GUIPrinter;
+
 /**
  * Gets input String from InputPanel, prrocesses it, outputs it to game menu
  * Acts as a shell for menu types

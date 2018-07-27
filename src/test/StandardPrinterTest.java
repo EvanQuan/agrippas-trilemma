@@ -1,6 +1,6 @@
 package test;
 
-import game.system.ConsolePrinter;
+import game.system.output.ConsolePrinter;
 
 /**
  * Not a formal JUnit test. Just to see the colors

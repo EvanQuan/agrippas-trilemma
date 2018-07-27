@@ -5,11 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import game.system.parsing.PlayerAction;
+import game.system.input.PlayerAction;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.system.parsing.words.ObjectPhrase;
+import game.system.input.words.ObjectPhrase;
 
 /**
  * Tests for {@link PlayerAction}

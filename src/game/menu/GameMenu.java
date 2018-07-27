@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import game.object.item.background.character.Player;
 import game.object.location.Location;
-import game.system.Save;
+import game.system.save.Save;
 import util.ArrayUtils;
 
 /**

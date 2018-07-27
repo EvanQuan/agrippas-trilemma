@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.system.parsing.VerbAgnosticPlayerCommandParser;
+import game.system.input.VerbAgnosticPlayerCommandParser;
 
 /**
  *

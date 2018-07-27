@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import game.system.parsing.words.Word;
+import game.system.input.words.Word;
 
 public class WordTest {
 

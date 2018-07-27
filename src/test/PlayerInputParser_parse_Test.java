@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import game.system.parsing.PlayerAction;
+import game.system.input.PlayerAction;
 import org.junit.Test;
 
-import game.system.parsing.PlayerCommand;
-import game.system.parsing.PlayerInputParser;
+import game.system.input.PlayerCommand;
+import game.system.input.PlayerInputParser;
 
 /**
  *
@@ -41,7 +41,7 @@ public class PlayerInputParser_parse_Test {
     }
 
     /**
-     * Check that a single determiner skips the verb parsing.
+     * Check that a single determiner skips the verb input.
      */
     @Test
     public void word1_directDeterminer() {
@@ -55,7 +55,7 @@ public class PlayerInputParser_parse_Test {
 
     /**
      * Check that a single preposition skips the verb and direct object phrase
-     * parsing.
+     * input.
      */
     @Test
     public void word1_preposition() {

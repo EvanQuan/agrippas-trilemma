@@ -10,7 +10,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.system.parsing.words.ObjectPhrase;
+import game.system.input.words.ObjectPhrase;
 
 /**
  * JUnit 4 tests for {@link ObjectPhrase}

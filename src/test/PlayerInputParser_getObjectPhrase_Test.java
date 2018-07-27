@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.system.parsing.PlayerInputParser;
-import game.system.parsing.words.ObjectPhrase;
+import game.system.input.PlayerInputParser;
+import game.system.input.words.ObjectPhrase;
 import util.ArrayUtils;
 
 /**

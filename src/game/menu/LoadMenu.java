@@ -1,8 +1,11 @@
 package game.menu;
 
-import java.io.*;
 import java.util.*;
-import game.system.*;
+
+import game.system.save.InvalidSaveNameException;
+import game.system.save.InvalidSaveNumException;
+import game.system.save.Save;
+import game.system.save.SaveManager;
 
 /**
  * Prompts to load game save

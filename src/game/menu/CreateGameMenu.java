@@ -1,6 +1,8 @@
 package game.menu;
 
-import game.system.*;
+import game.system.save.InvalidSaveNameException;
+import game.system.save.Save;
+import game.system.save.SaveManager;
 
 /**
  * Gets user input for creating game save name

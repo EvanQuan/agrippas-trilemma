@@ -1,15 +1,17 @@
-package game.system.parsing;
+package game.system.input;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import game.system.parsing.words.ObjectPhrase;
-import game.system.parsing.words.VerbPhrase;
-import game.system.parsing.words.Word;
+import game.system.input.words.ObjectPhrase;
+import game.system.input.words.VerbPhrase;
+import game.system.input.words.Word;
 import util.ArrayUtils;
 
 /**
- * Parses an input string into a {@link PlayerCommand}. The parser abides by the
+ * <b>This exists as a backup for {@link PlayerInputParser}.</b>
+ * <p>
+ * Parses a string into a {@link PlayerCommand}. The parser abides by the
  * following grammar rules:
  * <p>
  * 1. The dictionary of all possible verbs, adjectives, direct objects, and
@@ -22,10 +24,9 @@ import util.ArrayUtils;
  * phrases.<br>
  * 5. The dictionary of all possible prepositions is known.<br>
  * 6. The dictionary of all possible determiners is known.<br>
- * 7. The dictionary of all possible verbs is known.<br>
  *
  * <p>
- * <b>TODO</b>
+ * <b>Due to not having a verb dictionary, this cannot do the following:</b>
  * <p>
  * Multiple playerAction commands, such as:<br>
  * Multiverb commands: (look up, eat pie, go west)<br>
@@ -46,7 +47,7 @@ import util.ArrayUtils;
  * @author Evan Quan
  *
  */
-public abstract class PlayerInputParser {
+public abstract class VerbAgnosticPlayerCommandParser {
 
     // NOTE: For now, only "," as end punctuation will count, as quotes are
     // causing problems with syntactical analysis
@@ -61,7 +62,7 @@ public abstract class PlayerInputParser {
      * split and count as its own token.
      */
     // public static final char[] END_PUNCTUATION = { '\'', '"', ',' };
-    public static final char[] END_PUNCTUATION = { ',', '.' };
+    public static final char[] END_PUNCTUATION = { ',' };
 
     public static final String[] VALID_PREPOSITIONS = {};
 
@@ -189,41 +190,6 @@ public abstract class PlayerInputParser {
     }
 
     /**
-     * For multi-playerAction commands, playerAction separators define the number of playerActions
-     * that are present in a command. Single syntacticalAnalsysis() assumes an
-     * ArrayList of tokens is a single playerAction, we need to make an ArrayList of
-     * ArrayLists (playerActions). Separators are not included in any token array.
-     *
-     * @param tokens
-     * @return
-     */
-    public static ArrayList<ArrayList<String>> splitTokensByActions(ArrayList<String> tokens) {
-        // Each ArrayList sublist separated by separators counts as its own playerAction
-        // Find the number of playerActions and track what index the playerActions are separated by.
-        ArrayList<Integer> separatorIndices = new ArrayList<>();
-        ArrayList<ArrayList<String>> actionTokens = new ArrayList<>();
-        for (int i = 0; i < tokens.size(); i++) {
-            if (Word.isActionSeparator(tokens.get(i))) {
-                separatorIndices.add(i);
-            }
-        }
-        // Separate each playerAction, defined by separatorIndices, into its own ArrayList of
-        // tokens. PlayerAction separators are not included in the arrays.
-        int startIndex = 0;
-        int endIndex;
-        for (int i : separatorIndices) {
-            endIndex = i; // excludes separator token
-            actionTokens.add(new ArrayList<>(tokens.subList(startIndex, endIndex)));
-            startIndex = endIndex + 1; // skips over separator token
-        }
-        // Add remaining tokens until end of tokens.
-        endIndex = tokens.size();
-        actionTokens.add(new ArrayList<>(tokens.subList(startIndex, endIndex)));
-
-        return actionTokens;
-    }
-
-    /**
      * <b>Step 2: Syntactical Analysis</b>
      * <p>
      * Takes a sequence of tokens and sees whether the sequences matches a known
@@ -242,7 +208,7 @@ public abstract class PlayerInputParser {
      * 3. Direct object phrases are always positioned before indirect object
      * phrases.<br>
      * 4. The dictionary of all possible Prepositions is known.<br>
-     * 5. The dictionary of all possible determiners is known.<br>
+     * 5. The dictionary of all possible determiners is known.
      *
      * @param playerCommand
      * @param tokens
@@ -253,7 +219,6 @@ public abstract class PlayerInputParser {
             // This happens when the player input an empty string
             return;
         }
-
         // TODO when multi-playerAction commands are implemented, make this part a loop for
         // every separator section
 

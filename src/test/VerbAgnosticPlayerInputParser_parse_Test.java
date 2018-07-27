@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import game.system.parsing.PlayerAction;
-import game.system.parsing.PlayerCommand;
-import game.system.parsing.VerbAgnosticPlayerCommandParser;
+import game.system.input.PlayerAction;
+import game.system.input.PlayerCommand;
+import game.system.input.VerbAgnosticPlayerCommandParser;
 
 /**
  *
@@ -41,7 +41,7 @@ public class VerbAgnosticPlayerInputParser_parse_Test {
     }
 
     /**
-     * Check that a single determiner skips the verb parsing.
+     * Check that a single determiner skips the verb input.
      */
     @Test
     public void word1_directDeterminer() {
@@ -55,7 +55,7 @@ public class VerbAgnosticPlayerInputParser_parse_Test {
 
     /**
      * Check that a single preposition skips the verb and direct object phrase
-     * parsing.
+     * input.
      */
     @Test
     public void word1_preposition() {
