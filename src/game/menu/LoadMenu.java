@@ -1,11 +1,11 @@
 package game.menu;
 
-import java.util.*;
-
 import game.system.save.InvalidSaveNameException;
 import game.system.save.InvalidSaveNumException;
 import game.system.save.Save;
 import game.system.save.SaveManager;
+
+import java.util.ArrayList;
 
 /**
  * Prompts to load game save
@@ -64,18 +64,18 @@ public class LoadMenu extends Menu {
         ArrayList<Save> saves = saver.getSaves();
         for (int i = 0; i < saves.size(); i++) {
 //            printItem(i + 1);
-//            print(". ");
+//            append(". ");
             outputSaveInfo(saves.get(i));
         }
 //        println();
 //        printPlayer("Create");
-//        print(", ");
+//        append(", ");
 //        printPlayer("Load");
-//        print(", or ");
+//        append(", or ");
 //        printPlayer("Delete");
-//        print(" a game, or ");
+//        append(" a game, or ");
 //        printPlayer("Return");
-//        print(" to the ");
+//        append(" to the ");
         if (MenuManager.getInstance().getPreviousMenu().equals(MainMenu.getInstance())) {
 //            printLocation("Main Menu");
 //            println(".");
@@ -87,9 +87,9 @@ public class LoadMenu extends Menu {
     public void outputSaveInfo(Save save) {
 //        println(save.getName());
 //        printItem("     Room: ");
-//        print(save.getRoom().getSingleName());
+//        append(save.getRoom().getSingleName());
 //        printItem("     Turns: ");
-//        print(save.getTurnCount());
+//        append(save.getTurnCount());
 //        printItem("     Version: ");
 //        println(save.getVersion());
     }
@@ -210,23 +210,23 @@ public class LoadMenu extends Menu {
     // Prompts
     public void outputInvalid(String action) {
 //        if (saveNums.size() == 0) {
-//            print("There are no games to ");
+//            append("There are no games to ");
 //            printPlayer(toTitleCase(playerAction));
 //            println(".");
 //        } else {
-//            print("The only game");
+//            append("The only game");
 //            if (saveNums.size() > 1) {
-//                print("s");
+//                append("s");
 //            }
-//            print(" to " + playerAction.toLowerCase() + " ");
+//            append(" to " + playerAction.toLowerCase() + " ");
 //            if (saveNums.size() > 1) {
-//                print("are from ");
+//                append("are from ");
 //            } else {
-//                print("is ");
+//                append("is ");
 //            }
 //            printPlayer(1);
 //            if (saveNums.size() > 1) {
-//                print(" to ");
+//                append(" to ");
 //                printPlayer(saveNums.size());
 //            }
 //            println(".");
@@ -235,13 +235,13 @@ public class LoadMenu extends Menu {
     }
 
     public void outputDeleted() {
-//        print("Save \"");
+//        append("Save \"");
 //        printItem(saver.getCurrentSaveName());
 //        println("\" deleted.");
     }
 
     public void outputNotDeleted() {
-//        print("Save \"");
+//        append("Save \"");
 //        printItem(getInputString());
 //        println("\" does not exist and cannot be deleted.");
     }

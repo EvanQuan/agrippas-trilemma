@@ -234,14 +234,14 @@ package game.object.location;
 //
 // public void outputDirectionRoom(String direction, Location room) {
 // printDirection(direction);
-// print(" is ");
+// append(" is ");
 // printLocation(room.getAdjacentName());
 // }
 //
 // public void outputDownRoom() {
 // outputDirectionRoom("Down", downRoom);
 // if (isDownBlocked()) {
-// print(", " + downBlockedReason);
+// append(", " + downBlockedReason);
 // }
 // println(".");
 // }
@@ -249,7 +249,7 @@ package game.object.location;
 // public void outputEastRoom() {
 // outputDirectionRoom("East", eastRoom);
 // if (isEastBlocked()) {
-// print(", " + eastBlockedReason);
+// append(", " + eastBlockedReason);
 // }
 // println(".");
 // }
@@ -269,28 +269,28 @@ package game.object.location;
 // public void outputItems() {
 // // TODO
 // if (!items.isEmpty()) {
-// print("There is ");
+// append("There is ");
 // int i = 0; // Iterator used for establishing last item in inventory
 // int count;
 // for (Collectible item : items.getObjectSet()) {
 // count = items.getCount(item);
 // if (count == 1) {
-// print("a");
+// append("a");
 // if (startsWithVowel(item.getSingleName())) {
-// print("n");
+// append("n");
 // }
 // printItem(" " + item.getSingleName());
 // } else {
-// print(Integer.toString(count));
+// append(Integer.toString(count));
 // printItem(" " + item.getPluralName());
 // }
 // if ((i == items.getObjectCount() - 2) && (items.getObjectCount() > 1)) { //
 // second last
-// print(" and ");
+// append(" and ");
 // } else if (i == items.getObjectCount() - 1) { // last
 // println(" here.");
 // } else {
-// print(", ");
+// append(", ");
 // }
 // i++;
 // }
@@ -300,7 +300,7 @@ package game.object.location;
 // public void outputNorthRoom() {
 // outputDirectionRoom("North", northRoom);
 // if (isNorthBlocked()) {
-// print(", " + northBlockedReason);
+// append(", " + northBlockedReason);
 // }
 // println(".");
 //
@@ -313,7 +313,7 @@ package game.object.location;
 // public void outputSouthRoom() {
 // outputDirectionRoom("South", southRoom);
 // if (isSouthBlocked()) {
-// print(", " + southBlockedReason);
+// append(", " + southBlockedReason);
 // }
 // println(".");
 // }
@@ -321,7 +321,7 @@ package game.object.location;
 // public void outputUpRoom() {
 // outputDirectionRoom("Up", upRoom);
 // if (isUpBlocked()) {
-// print(", " + upBlockedReason);
+// append(", " + upBlockedReason);
 // }
 // println(".");
 // }
@@ -329,7 +329,7 @@ package game.object.location;
 // public void outputWestRoom() {
 // outputDirectionRoom("West", westRoom);
 // if (isWestBlocked()) {
-// print(", " + westBlockedReason);
+// append(", " + westBlockedReason);
 // }
 // println(".");
 // }

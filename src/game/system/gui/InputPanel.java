@@ -1,19 +1,14 @@
 package game.system.gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
+import game.menu.MainMenu;
+import game.menu.MenuManager;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-
-import game.menu.MainMenu;
-import game.menu.MenuManager;
 
 /**
  * Gets input from the user and outputs it to game Consists of JTextField for
@@ -76,7 +71,7 @@ public class InputPanel extends GridBagPanel {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    // System.out.print("UP: Index: " + inputIndex + " -> ");
+                    // System.out.append("UP: Index: " + inputIndex + " -> ");
                     inputIndex = (inputIndex + 1) % (previousInput.size()); // Move up
                     // System.out.println(inputIndex);
                     e.consume();
@@ -86,7 +81,7 @@ public class InputPanel extends GridBagPanel {
                 case KeyEvent.VK_KP_DOWN:
                 case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_KP_RIGHT:
-                    // System.out.print("DOWN: Index: " + inputIndex + " -> ");
+                    // System.out.append("DOWN: Index: " + inputIndex + " -> ");
                     inputIndex = (inputIndex - 1) % (previousInput.size()); // Move down
                     if (inputIndex < 0) { // Ensures positive
                         inputIndex = previousInput.size() - 1;

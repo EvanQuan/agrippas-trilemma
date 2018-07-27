@@ -1,7 +1,5 @@
 package game.menu;
 
-import game.system.*;
-
 /**
  * Mediates post-game decisions
  * Asks to save before returning to MainMenu
@@ -33,11 +31,11 @@ public class GameOverMenu extends Menu {
 //        printTitleln(title);
 //
 //        printPlayer("Restart");
-//        print(" or ");
+//        append(" or ");
 //        printPlayer("Load");
-//        print(" a game save, or ");
+//        append(" a game save, or ");
 //        printPlayer("Return");
-//        print(" to the ");
+//        append(" to the ");
 //        printLocation(" Main Menu");
 //        println(".");
     }

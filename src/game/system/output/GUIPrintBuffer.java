@@ -4,74 +4,78 @@ import game.system.gui.OutputPanel;
 import util.TextUtils;
 
 /**
- * Prints text to OutputPanel GUI
+ * Prints text to OutputPanel GUI. Does not wrap text as wrapping is done automatically (and dynamically as window
+ * size changes.
+ *
+ * @author Evan Quan
+ *
  */
-public class GUIPrinter implements IPrinter {
+public class GUIPrintBuffer implements IPrintBuffer {
 
     protected OutputPanel outputPanel;
 
-    public GUIPrinter() {
+    public GUIPrintBuffer() {
         outputPanel = OutputPanel.getInstance();
     }
 
     @Override
-    public void print(double output) {
-        print(Double.toString(output));
+    public void append(double output) {
+        append(Double.toString(output));
     }
 
     @Override
-    public void print(int output) {
-        print(Integer.toString(output));
+    public void append(int output) {
+        append(Integer.toString(output));
     }
 
     @Override
-    public void print(Object output) {
-        print(output.toString());
+    public void append(Object output) {
+        append(output.toString());
     }
 
     @Override
-    public void print(String output) {
+    public void append(String output) {
         outputPanel.append(output);
     }
 
     @Override
-    public void printCharacter(double output) {
-        printCharacter(Double.toString(output));
+    public void appendCharacter(double output) {
+        appendCharacter(Double.toString(output));
     }
 
     @Override
-    public void printCharacter(int output) {
-        printCharacter(Integer.toString(output));
+    public void appendCharacter(int output) {
+        appendCharacter(Integer.toString(output));
     }
 
     @Override
-    public void printCharacter(Object output) {
-        printCharacter(output.toString());
+    public void appendCharacter(Object output) {
+        appendCharacter(output.toString());
     }
 
     @Override
-    public void printCharacter(String output) {
+    public void appendCharacter(String output) {
         outputPanel.appendCharacter(output);
     }
 
     @Override
-    public void printCharacterln(double output) {
-        printCharacterln(Double.toString(output));
+    public void appendCharacterln(double output) {
+        appendCharacterln(Double.toString(output));
     }
 
     @Override
-    public void printCharacterln(int output) {
-        printCharacterln(Integer.toString(output));
+    public void appendCharacterln(int output) {
+        appendCharacterln(Integer.toString(output));
     }
 
     @Override
-    public void printCharacterln(Object output) {
-        printCharacterln(output.toString());
+    public void appendCharacterln(Object output) {
+        appendCharacterln(output.toString());
     }
 
     @Override
-    public void printCharacterln(String output) {
-        printCharacter(output + "\n");
+    public void appendCharacterln(String output) {
+        appendCharacter(output + "\n");
     }
 
     @Override
@@ -176,7 +180,7 @@ public class GUIPrinter implements IPrinter {
 
     @Override
     public void println(String output) {
-        print(output + "\n");
+        append(output + "\n");
     }
 
     @Override
@@ -285,7 +289,7 @@ public class GUIPrinter implements IPrinter {
 
     @Override
     public void printPlayerInputNoSpace(String output) {
-        print(INPUT_MARKER);
+        append(INPUT_MARKER);
         printPlayer(output + "\n");
     }
 

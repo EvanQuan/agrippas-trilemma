@@ -29,9 +29,9 @@ public class CreateGameMenu extends GhostMenu {
     }
     public void processInput() {
 //        String name = getInputString();
-//        print("Game \"");
+//        append("Game \"");
 //        printItem(toTitleCase(name));
-//        print("\" ");
+//        append("\" ");
 //        if (LoadMenu.getInstance().getSaveNames().contains(toTitleCase(name))) { // Does not create a new game
 //            println("already exists.");
 //        } else {
@@ -68,13 +68,13 @@ public class CreateGameMenu extends GhostMenu {
      * NOTE: Assumes SaveManager.INVALID_CHARACTERS is not empty
      */
     public void outputInvalidSaveName() {
-//        print(" cannot contain the special characters ");
+//        append(" cannot contain the special characters ");
 //        for (int i = 0; i < SaveManager.INVALID_CHARACTERS.length - 1; i++) {
 //            printPlayer(SaveManager.INVALID_CHARACTERS[i]);
-//            print(", ");
+//            append(", ");
 //        }
 //        if (SaveManager.INVALID_CHARACTERS.length > 1) {
-//            print("or ");
+//            append("or ");
 //        }
 //        printPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
 //        println(".");

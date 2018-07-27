@@ -1,12 +1,12 @@
 package game.menu;
 
-import game.system.output.GUIPrinter;
+import game.system.output.GUIPrintBuffer;
 
 /**
  * Gets input String from InputPanel, prrocesses it, outputs it to game menu
  * Acts as a shell for menu types
  */
-public class MenuManager extends GUIPrinter {
+public class MenuManager extends GUIPrintBuffer {
     public static final int VERB = 0;
     private String input;
     private String output;
@@ -29,6 +29,9 @@ public class MenuManager extends GUIPrinter {
         // }
     }
 
+    /**
+     * @return singleton instance of MenuManger
+     */
     public static MenuManager getInstance() {
         if (instance == null) {
             instance = new MenuManager();

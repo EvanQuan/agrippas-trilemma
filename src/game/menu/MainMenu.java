@@ -1,10 +1,9 @@
 package game.menu;
 
+import util.ArrayUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import main.CheeseQuest;
-import util.ArrayUtils;
 
 public class MainMenu extends Menu {
     private static MainMenu instance;
@@ -35,19 +34,19 @@ public class MainMenu extends Menu {
         aboutThisGameVerbs = new ArrayList<String>(ArrayUtils
                 .getArrayList(new String[] { "3", "3.", "about this game", "about", "about game", "a" }));
         validVerbs = new ArrayList<ArrayList>(
-                Arrays.asList(new ArrayList[] { startGameVerbs, howToPlayVerbs, aboutThisGameVerbs }));
+                Arrays.asList(startGameVerbs, howToPlayVerbs, aboutThisGameVerbs));
     }
 
     public void outputAboutThisGame() {
 //        printTitleln("Current version: " + CheeseQuest.getVersion());
 //        printItem("Cheese Quest 2");
-//        print(" started development in ");
+//        append(" started development in ");
 //        printItem("August of 2017");
-//        print(". It was inspired by ");
+//        append(". It was inspired by ");
 //        printItem("The Hitchhiker's Guide to the Galaxy");
-//        print(" text adventure game published by ");
+//        append(" text adventure game published by ");
 //        printItem("Infocom");
-//        print(" in ");
+//        append(" in ");
 //        printItem("1984");
 //        println(".");
     }
@@ -67,22 +66,22 @@ public class MainMenu extends Menu {
     }
 
     public void outputInvalid() {
-//        print("Choose ");
+//        append("Choose ");
 //        printPlayer("Start Game");
-//        print(", ");
+//        append(", ");
 //        printPlayer("How to Play");
-//        print(", or ");
+//        append(", or ");
 //        printPlayer("About this Game");
 //        println(".");
     }
 
     public void outputOptions() {
 //        printlns(OPTIONS_SPACING);
-//        print("                ");
+//        append("                ");
 //        printPlayer("1");
-//        print(". Start Game        ");
+//        append(". Start Game        ");
 //        printPlayer("2");
-//        print(". How to Play        ");
+//        append(". How to Play        ");
 //        printPlayer("3");
 //        println(". About this Game");
     }

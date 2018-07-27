@@ -383,7 +383,7 @@ public abstract class Menu {
     // * If the use has too many words at the end of a command
     // */
     // public void outputExcessCommand() {
-    // print("I only understand as far as you wanting to \"");
+    // append("I only understand as far as you wanting to \"");
     // printPlayer(getVerb());
     // println(".\"");
     // }
@@ -392,7 +392,7 @@ public abstract class Menu {
     // * If the user has an incomplete command, prompt to complete command
     // */
     // public void outputIncompleteCommand() {
-    // print(toTitleCase(verb));
+    // append(toTitleCase(verb));
     // println(" what?");
     // }
     //

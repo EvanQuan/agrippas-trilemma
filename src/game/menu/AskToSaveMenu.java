@@ -19,11 +19,11 @@ public class AskToSaveMenu extends GhostMenu {
 
     public void outputPrompt() {
 //        println("Would you like to save the game first?");
-//        print("(");
+//        append("(");
 //        printPlayer("Yes");
-//        print("/");
+//        append("/");
 //        printPlayer("No");
-//        print("/");
+//        append("/");
 //        printPlayer("Return");
 //        println(")");
     }

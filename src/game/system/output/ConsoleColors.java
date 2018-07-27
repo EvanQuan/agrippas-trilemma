@@ -10,7 +10,7 @@ package game.system.output;
 public enum ConsoleColors {
 
     // Reset
-    RESET("\033[0m"), // Text Reset
+    RESET("\033[0m"), // Text reset to default color
 
     // Regular Colors
     BLACK("\033[0;30m"),
@@ -100,7 +100,7 @@ public enum ConsoleColors {
     }
 
     /**
-     * Iteratively print all colors
+     * Iteratively append all colors
      */
     public static void printEach() {
         for (ConsoleColors color : ConsoleColors.values()) {
@@ -115,7 +115,7 @@ public enum ConsoleColors {
         }
     }
     /**
-     * Hardcode print all colors
+     * Hardcode append all colors
      */
     public static void printAll() {
         System.out.println("Black");
