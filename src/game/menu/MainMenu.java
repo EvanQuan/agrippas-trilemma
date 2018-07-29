@@ -27,13 +27,13 @@ public class MainMenu extends Menu {
     private ArrayList<String> aboutThisGameVerbs;
 
     private MainMenu() {
-        startGameVerbs = new ArrayList<String>(
+        startGameVerbs = new ArrayList<>(
                 ArrayUtils.getArrayList(new String[] { "1", "1.", "start game", "start", "s" }));
-        howToPlayVerbs = new ArrayList<String>(
+        howToPlayVerbs = new ArrayList<>(
                 ArrayUtils.getArrayList(new String[] { "2", "2.", "how to play", "how", "h" }));
-        aboutThisGameVerbs = new ArrayList<String>(ArrayUtils
+        aboutThisGameVerbs = new ArrayList<>(ArrayUtils
                 .getArrayList(new String[] { "3", "3.", "about this game", "about", "about game", "a" }));
-        validVerbs = new ArrayList<ArrayList>(
+        validVerbs = new ArrayList<>(
                 Arrays.asList(startGameVerbs, howToPlayVerbs, aboutThisGameVerbs));
     }
 

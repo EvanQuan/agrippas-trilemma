@@ -76,7 +76,7 @@ public class MenuManager extends GUIPrintBuffer {
 
     /**
      * Sets new value of menu
-     * @param
+     * @param menu
      */
     public void setMenu(Menu menu) {
         if (this.menu == null) {
@@ -90,7 +90,8 @@ public class MenuManager extends GUIPrintBuffer {
 
     /**
      * Sets new value of previousMenu
-     * @param
+     * @param previousMenu
+     * @param newMenu
      */
     public void setPreviousMenu(Menu previousMenu, Menu newMenu) {
         // outputln("Before set: Current menu is " + newMenu.getClass().getSimpleName());

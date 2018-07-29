@@ -45,7 +45,7 @@ public class CreateGameMenu extends GhostMenu {
 
     /**
      * Create new game
-     * @param String gameName of the world to create
+     * @param gameName of the world to create
      */
     public boolean createGame(String gameName) {
         try {
