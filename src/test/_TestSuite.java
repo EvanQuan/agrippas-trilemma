@@ -3,6 +3,7 @@ package test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import test.game.system.input.*;
 import test.util.ArrayUtilsTest;
 import test.util.MultisetTest;
 import test.util.TextUtilsTest;

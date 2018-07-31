@@ -32,9 +32,9 @@ public interface IPrintBuffer {
 
     /**
      * @param output to append to output buffer
-     * @param color  of output
+     * @param semanticColor  of output
      */
-    void append(double output, ConsoleColors color);
+    void append(double output, SemanticColor semanticColor);
 
     /**
      * @param output to append to output buffer in default color.
@@ -43,9 +43,9 @@ public interface IPrintBuffer {
 
     /**
      * @param output to append to output buffer
-     * @param color  of output
+     * @param semanticColor  of output
      */
-    void append(int output, ConsoleColors color);
+    void append(int output, SemanticColor semanticColor);
 
     /**
      * @param output to append to output buffer in default color.
@@ -54,9 +54,9 @@ public interface IPrintBuffer {
 
     /**
      * @param output to append to output buffer
-     * @param color  of output
+     * @param semanticColor  of output
      */
-    void append(Object output, ConsoleColors color);
+    void append(Object output, SemanticColor semanticColor);
 
     /**
      * @param output to append to output buffer in default color.
@@ -65,17 +65,51 @@ public interface IPrintBuffer {
 
     /**
      * @param output to append to output buffer
-     * @param color  of output
+     * @param semanticColor of output
      */
-    void append(String output, ConsoleColors color);
+    void append(String output, SemanticColor semanticColor);
 
     /**
-     * Send output buffer contents to output and clear output buffer.
+     * @param output to append to output buffer in default color.
      */
-    void flush();
+    void appendln(double output);
 
     /**
-     * @return true if output buffer is empty.
+     * @param output to append to output buffer
+     * @param semanticColor  of output
      */
-    boolean isEmpty();
+    void appendln(double output, SemanticColor semanticColor);
+
+    /**
+     * @param output to append to output buffer in default color.
+     */
+    void appendln(int output);
+
+    /**
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    void appendln(int output, SemanticColor semanticColor);
+
+    /**
+     * @param output to append to output buffer in default color.
+     */
+    void appendln(Object output);
+
+    /**
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    void appendln(Object output, SemanticColor semanticColor);
+
+    /**
+     * @param output to append to output buffer in default color.
+     */
+    void appendln(String output);
+
+    /**
+     * @param output to append to output buffer
+     * @param semanticColor of output
+     */
+    void appendln(String output, SemanticColor semanticColor);
 }

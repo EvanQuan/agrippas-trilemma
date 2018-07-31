@@ -1,5 +1,7 @@
 package game.system.gui;
 
+import game.system.output.SemanticColor;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -28,25 +30,18 @@ public class OutputPanel extends GridBagPanel {
     public static final String DEFAULT_NAME = "Consolas";
     public static final int DEFAULT_STYLE = Font.PLAIN;
     public static final int DEFAULT_SIZE = 16;
-    public static final Color DEFAULT_COLOR = Color.BLACK;
 
     // Player input font
     public static final String INPUT_NAME = "Consolas";
     public static final int INPUT_STYLE = Font.BOLD;
     public static final int INPUT_SIZE = DEFAULT_SIZE;
-    public static final Color INPUT_COLOR = new Color(0, 125, 255); // medium blue
 
     // Special font
     public static final String SPECIAL_NAME = "Consolas";
     public static final int SPECIAL_STYLE = Font.BOLD;
     public static final int SPECIAL_SIZE = DEFAULT_SIZE;
-    public static final Color ITEM_COLOR = new Color(185, 0, 0); // red
-    public static final Color PERSON_COLOR = new Color(60, 150, 130); // green
-    public static final Color ROOM_COLOR = new Color(255, 84, 0); // orange
     public static final int SPEECH_STYLE = Font.ITALIC;
-    public static final Color SPEECH_COLOR = new Color(120, 57, 145); // purple
     public static final int DIRECTION_STYLE = Font.BOLD;
-    public static final Color DIRECTION_COLOR = new Color(89, 73, 73); // brown
 
     // Border font
     public static final String BORDER_NAME = "SansSerif";
@@ -58,7 +53,6 @@ public class OutputPanel extends GridBagPanel {
     public static final String TITLE_NAME = "Consolas";
     public static final int TITLE_STYLE = Font.BOLD;
     public static final int TITLE_SIZE = DEFAULT_SIZE + 2;
-    public static final Color TITLE_COLOR = ROOM_COLOR;
 
     // Speech font
 
@@ -140,17 +134,18 @@ public class OutputPanel extends GridBagPanel {
 
     /**
      * Append text to textPane with given font and color
-     * @param String string to append to outputPanel
-     * @param Font   font   of string
-     * @param Color  color  of string
+     * @param string to append to outputPanel
+     * @param font   of string
+     * @param color  of string
      */
-    public void append(String string, Font font, Color color) {
+    public void append(String string, Font font, SemanticColor color) {
         StyledDocument doc = textPane.getStyledDocument();
 
 
 
         StyleContext styleContext = StyleContext.getDefaultStyleContext();
-        AttributeSet attributeSet = styleContext.addAttribute(SimpleAttributeSet.EMPTY,StyleConstants.Foreground, color);
+        AttributeSet attributeSet = styleContext.addAttribute(SimpleAttributeSet.EMPTY,StyleConstants.Foreground,
+                SemanticColor.toGUIColor(color));
 
         attributeSet = styleContext.addAttribute(attributeSet, StyleConstants.FontFamily, font.getName());
         attributeSet = styleContext.addAttribute(attributeSet, StyleConstants.FontSize, font.getSize());
@@ -183,29 +178,22 @@ public class OutputPanel extends GridBagPanel {
         }
 
     }
-    public void append(String string) {
-        append(string,defaultFont,DEFAULT_COLOR);
+
+    /**
+     * Append text of default font and color to output panel.
+     * @param output
+     */
+    public void append(String output) {
+        append(output, defaultFont, SemanticColor.DEFAULT);
     }
-    public void appendInput(String string) {
-        append(string,inputFont,INPUT_COLOR);
-    }
-    public void appendItem(String string) {
-        append(string,specialFont,ITEM_COLOR);
-    }
-    public void appendCharacter(String string) {
-        append(string,specialFont,PERSON_COLOR);
-    }
-    public void appendLocation(String string) {
-        append(string,specialFont,ROOM_COLOR);
-    }
-    public void appendTitle(String string) {
-        append(string,titleFont,TITLE_COLOR);
-    }
-    public void appendSpeech(String string) {
-        append(string,speechFont,SPEECH_COLOR);
-    }
-    public void appendDirection(String string) {
-        append(string,directionFont,DIRECTION_COLOR);
+
+    /**
+     * Append text of default font and specified color to output panel.
+     * @param output
+     * @param semanticColor
+     */
+    public void append(String output, SemanticColor semanticColor) {
+        append(output, defaultFont, semanticColor);
     }
 
     /**
@@ -216,7 +204,7 @@ public class OutputPanel extends GridBagPanel {
      * Source
      * http://javatechniques.com/blog/setting-jtextpane-font-and-color/
      */
-    // public void setJTextPaneFont(Font font, Color c) {
+    // public void setJTextPaneFont(Font font, SemanticColor c) {
     //     // Start with the current input attributes for the JTextPane. This
     //     // should ensure that we do not wipe out any existing attributes
     //     // (such as alignment or other paragraph attributes) currently
@@ -244,131 +232,131 @@ public class OutputPanel extends GridBagPanel {
     //     doc.setCharacterAttributes(0, doc.getLength() + 1, attrs, false);
     // }
 
-	/**
-	* Returns value of textPane
-	* @return
-	*/
-	public JTextPane getTextPane() {
-		return this.textPane;
-	}
+    /**
+    * Returns value of textPane
+    * @return
+    */
+    public JTextPane getTextPane() {
+        return this.textPane;
+    }
 
-	/**
-	* Returns value of scrollPane
-	* @return
-	*/
-	public JScrollPane getScrollPane() {
-		return this.scrollPane;
-	}
+    /**
+    * Returns value of scrollPane
+    * @return
+    */
+    public JScrollPane getScrollPane() {
+        return this.scrollPane;
+    }
 
-	/**
-	* Returns value of border
-	* @return
-	*/
-	public TitledBorder getBorder() {
-		return this.border;
-	}
+    /**
+    * Returns value of border
+    * @return
+    */
+    public TitledBorder getBorder() {
+        return this.border;
+    }
 
-	/**
-	* Returns value of defaultFont
-	* @return
-	*/
-	public Font getDefaultFont() {
-		return this.defaultFont;
-	}
+    /**
+    * Returns value of defaultFont
+    * @return
+    */
+    public Font getDefaultFont() {
+        return this.defaultFont;
+    }
 
-	/**
-	* Returns value of inputFont
-	* @return
-	*/
-	public Font getInputFont() {
-		return this.inputFont;
-	}
+    /**
+    * Returns value of inputFont
+    * @return
+    */
+    public Font getInputFont() {
+        return this.inputFont;
+    }
 
-	/**
-	* Returns value of specialFont
-	* @return
-	*/
-	public Font getSpecialFont() {
-		return this.specialFont;
-	}
+    /**
+    * Returns value of specialFont
+    * @return
+    */
+    public Font getSpecialFont() {
+        return this.specialFont;
+    }
 
-	/**
-	* Returns value of borderFont
-	* @return
-	*/
-	public Font getBorderFont() {
-		return this.borderFont;
-	}
+    /**
+    * Returns value of borderFont
+    * @return
+    */
+    public Font getBorderFont() {
+        return this.borderFont;
+    }
 
-	/**
-	* Returns value of outputPanel
-	* @return
-	*/
-	public static OutputPanel getOutputPanel() {
-		return outputPanel;
-	}
+    /**
+    * Returns value of outputPanel
+    * @return
+    */
+    public static OutputPanel getOutputPanel() {
+        return outputPanel;
+    }
 
-	/**
-	* Sets new value of textPane
-	* @param
-	*/
-	public void setTextPane(JTextPane textPane) {
-		this.textPane = textPane;
-	}
+    /**
+    * Sets new value of textPane
+    * @param
+    */
+    public void setTextPane(JTextPane textPane) {
+        this.textPane = textPane;
+    }
 
-	/**
-	* Sets new value of scrollPane
-	* @param
-	*/
-	public void setScrollPane(JScrollPane scrollPane) {
-		this.scrollPane = scrollPane;
-	}
+    /**
+    * Sets new value of scrollPane
+    * @param
+    */
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
 
-	/**
-	* Sets new value of border
-	* @param
-	*/
-	public void setBorder(TitledBorder border) {
-		this.border = border;
-	}
+    /**
+    * Sets new value of border
+    * @param
+    */
+    public void setBorder(TitledBorder border) {
+        this.border = border;
+    }
 
-	/**
-	* Sets new value of defaultFont
-	* @param
-	*/
-	public void setDefaultFont(Font defaultFont) {
-		this.defaultFont = defaultFont;
-	}
+    /**
+    * Sets new value of defaultFont
+    * @param
+    */
+    public void setDefaultFont(Font defaultFont) {
+        this.defaultFont = defaultFont;
+    }
 
-	/**
-	* Sets new value of inputFont
-	* @param
-	*/
-	public void setInputFont(Font inputFont) {
-		this.inputFont = inputFont;
-	}
+    /**
+    * Sets new value of inputFont
+    * @param
+    */
+    public void setInputFont(Font inputFont) {
+        this.inputFont = inputFont;
+    }
 
-	/**
-	* Sets new value of specialFont
-	* @param
-	*/
-	public void setSpecialFont(Font specialFont) {
-		this.specialFont = specialFont;
-	}
+    /**
+    * Sets new value of specialFont
+    * @param
+    */
+    public void setSpecialFont(Font specialFont) {
+        this.specialFont = specialFont;
+    }
 
-	/**
-	* Sets new value of borderFont
-	* @param
-	*/
-	public void setBorderFont(Font borderFont) {
-		this.borderFont = borderFont;
-	}
+    /**
+    * Sets new value of borderFont
+    * @param
+    */
+    public void setBorderFont(Font borderFont) {
+        this.borderFont = borderFont;
+    }
 
-	/**
-	* Sets new value of outputPanel
-	* @param
-	*/
-	public static void setOutputPanel(OutputPanel outputPanel) {
-		OutputPanel.outputPanel = outputPanel;
-	}
+    /**
+    * Sets new value of outputPanel
+    * @param
+    */
+    public static void setOutputPanel(OutputPanel outputPanel) {
+        OutputPanel.outputPanel = outputPanel;
+    }
 }
