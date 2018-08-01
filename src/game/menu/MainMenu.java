@@ -1,12 +1,15 @@
 package game.menu;
 
+import game.system.input.PlayerCommand;
 import util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.WeakHashMap;
 
 public class MainMenu extends Menu {
     private static MainMenu instance;
+
     /**
      * ASCII text: http://patorjk.com/software/taag/ Title Font: Doom Character
      * Width: Default Character Height: Default Subtitle Font: Small Character
@@ -37,8 +40,39 @@ public class MainMenu extends Menu {
                 Arrays.asList(startGameVerbs, howToPlayVerbs, aboutThisGameVerbs));
     }
 
+    @Override
+    protected void initializeCommands() {
+        addCommand(new String[] {"1", "1.", "start game", "start", "s"}, () -> startGame());
+        addCommand(new String[] {"2", "2.", "how to play", "how", "h"}, () -> startHowToPlay());
+        addCommand(new String[] {"3", "3.", "about this game", "about", "about game", "a"}, () -> startAboutThisGame());
+
+    }
+
+    /**
+     * To start the game, go the load menu to choose a game to start.
+     */
+    private void startGame() {
+        changeTo(LoadMenu.getInstance());
+    }
+
+    /**
+     * Print information about how to play this game and re-prompt options.
+     */
+    public void startHowToPlay() {
+        outputHowToPlay();
+        outputOptions();
+    }
+
+    /**
+     * Print information about this game and re-prompt options.
+     */
+    public void startAboutThisGame() {
+        outputAboutThisGame();
+        outputOptions();
+    }
+
     public void outputAboutThisGame() {
-//        printTitleln("Current version: " + CheeseQuest.getVersion());
+//        printTitleln("Current version: " + Main.getVersion());
 //        printItem("Cheese Quest 2");
 //        append(" started development in ");
 //        printItem("August of 2017");
@@ -177,7 +211,7 @@ public class MainMenu extends Menu {
 //                + "|       |               _  __           _     _ |___/               _                |\n"
 //                + "|       |              | |/ / __ _  ___| |_  | |__ __ _ __ __ __ _ | |               |\n"
 //                + "|       |              | ' < / _` |(_-<| ' \\ | / // _` |\\ V // _` || |               |\n"
-//                + "|       |              |_|\\_\\\\__,_|/__/|_||_||_\\_\\\\__,_| \\_/ \\__,_||_|               |\n"
+//                + "|       |              |_|\\_s\\\__,_|/__/|_||_||_\\_\\\\__,_| \\_/ \\__,_||_|               |\n"
 //                + "|       |                                                                           /\n"
 //                + "|       |--------------------------------------------------------------------------'\n"
 //                + "\\       |\n" + " \\     /");
@@ -195,25 +229,21 @@ public class MainMenu extends Menu {
 //        } else {
 //            processInput();
 //        }
+
     }
 
     /**
-     * Traverse main menu
+     *
+     * @param playerCommand to processInput
      */
-    public void processInput() {
-//        if (inputEquals(startGameVerbs)) {
-//            changeToLoadMenu();
-//            // changeToTestMenu();
-//        } else if (inputEquals(howToPlayVerbs)) {
-//            outputHowToPlay();
-//            outputOptions();
-//        } else if (inputEquals(aboutThisGameVerbs)) {
-//            outputAboutThisGame();
-//            outputOptions();
-//        } else {
-//            outputInvalid();
-//            outputOptions();
-//        }
-    }
+    @Override
+    public void processInput(PlayerCommand playerCommand) {
+        // Only care about matching the total string for simplicity.
+        String command = playerCommand.getString().toLowerCase();
+        if (commands.containsKey(command)) {
+            commands.get(command).run();
+        } else {
 
+        }
+    }
 }

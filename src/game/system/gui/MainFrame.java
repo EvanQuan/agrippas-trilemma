@@ -139,16 +139,11 @@ public class MainFrame extends JFrame {
      * Add a component to inputed coordinates with inputed dimensions using
      * GridBagLayout and GridBagConstraints
      *
-     * @param Component
-     *            aComponent to add to frame
-     * @param int
-     *            xCoordinate of aComponent
-     * @param int
-     *            yCoordinate of aComponent
-     * @param int
-     *            width of aComponent
-     * @param int
-     *            height of aComponent
+     * @param aComponent to add to frame
+     * @param xCoordinate of aComponent
+     * @param yCoordinate of aComponent
+     * @param width of aComponent
+     * @param height of aComponent
      */
     public void addComponent(Component aComponent, int xCoordinate, int yCoordinate, int width, int height) {
         constraint.gridx = xCoordinate;

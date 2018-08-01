@@ -1,91 +1,72 @@
 package game.menu;
 
-import game.system.output.GUIPrintBuffer;
-
 /**
- * Gets input String from InputPanel, prrocesses it, outputs it to game menu
- * Acts as a shell for menu types
+ * Gets input {@link game.system.input.PlayerCommand} from InputPanel, prrocesses it, outputs it to game currentMenu
+ * Acts as a shell for currentMenu types
  */
-public class MenuManager extends GUIPrintBuffer {
-    public static final int VERB = 0;
-    private String input;
-    private String output;
-    private Menu menu;
-    private Menu previousMenu;
-    private Menu ghostPreviousMenu;
-
-    private static MenuManager instance;
+public abstract class MenuManager {
     /**
-     * Default TextManager constructor
+     * Current currentMenu. All {@link game.system.input.PlayerCommand}s interact with this currentMenu.
      */
-    private MenuManager() {
-        // setMenu(MainMenu.getInstance()); // Default menu
-        // setMenu(TestMenu.getInstance());
-        // System.out.println("MenuManager():");
-        // if (instance == null) {
-        //     System.out.println("    menuManager is NULL");
-        // } else {
-        //     System.out.println("    menuManager is " + instance);
-        // }
-    }
+    private static Menu currentMenu;
 
     /**
-     * @return singleton instance of MenuManger
+     * The last currentMenu the player was at. This is tracked in case the player wants to return to the previous currentMenu.
      */
-    public static MenuManager getInstance() {
-        if (instance == null) {
-            instance = new MenuManager();
-        }
-        return instance;
-    }
+    private static Menu previousMenu;
+
+    /**
+     * The last currentMenu the player was at from the current ghost currentMenu. This is tracked so the player can return to the
+     * previous "real" currentMenu after leaving the current ghost currentMenu.
+     */
+    private static Menu ghostPreviousMenu;
 
     /**
      * Retreieves and processes input string
      */
-    public void input(String input) {
-//        menu.input(input);
+    public static void input(String input) {
+//        currentMenu.input(input);
     }
 
     /**
-     * Returns value of menu
-     * @return
+     *
+     * @return the current currentMenu
      */
-    public Menu getMenu() {
-    	return this.menu;
+    public static Menu getCurrentMenu() {
+    	return currentMenu;
     }
 
     /**
-     * Returns value of previousMenu
-     * @return
+     *
+     * @return the previous currentMenu
      */
-    public Menu getPreviousMenu() {
-        if (this.menu instanceof GhostMenu) {
-            return this.ghostPreviousMenu;
-        } else {
-            return this.previousMenu;
-        }
+    public static Menu getPreviousMenu() {
+        return (currentMenu instanceof GhostMenu) ? ghostPreviousMenu : previousMenu;
     }
 
     /**
      * Returns value of ghostPreviousMenu
      * @return
      */
-    public Menu getGhostPreviousMenu() {
-        return this.ghostPreviousMenu;
+    @Deprecated
+    public static Menu getGhostPreviousMenu() {
+        return ghostPreviousMenu;
     }
 
     /**
-     * Sets new value of menu
+     * Sets new value of currentMenu
      * @param menu
      */
-    public void setMenu(Menu menu) {
-        if (this.menu == null) {
-            this.menu = menu;
+    public static void setCurrentMenu(Menu menu) {
+        if (currentMenu == null) {
+            // This ensures that previous menu is never null.
+            // At the start the current menu is also the previous menu.
+            currentMenu = menu;
         }
-        setPreviousMenu(this.menu,menu);
-    	this.menu = menu;
-        // outputln("After set: Current menu is " + this.menu.getClass().getSimpleName());
-//        this.menu.outputPrompt();
+        setPreviousMenu(currentMenu, menu);
+    	currentMenu = menu;
+        // outputln("After set: Current currentMenu is " + this.currentMenu.getClass().getSimpleName());
+//        this.currentMenu.outputPrompt();
     }
 
     /**
@@ -93,19 +74,40 @@ public class MenuManager extends GUIPrintBuffer {
      * @param previousMenu
      * @param newMenu
      */
-    public void setPreviousMenu(Menu previousMenu, Menu newMenu) {
-        // outputln("Before set: Current menu is " + newMenu.getClass().getSimpleName());
-        if (newMenu instanceof GhostMenu) {
-            this.ghostPreviousMenu = previousMenu;
-            // outputln("which is a GhostMenu, so will return to " + ghostPreviousMenu.getClass().getSimpleName());
-        } else if (!(previousMenu instanceof GhostMenu)) {
-            this.previousMenu = previousMenu;
-        }
+    public static void setPreviousMenu(Menu previousMenu, Menu newMenu) {
+        previousMenu = newMenu;
         // outputln("previousMenu is " + this.previousMenu.getClass().getSimpleName());
         // if (this.previousMenu == null) {
         //     System.out.println("previousMenu is null");
         // } else {
         //     System.out.println("previousMenu is " + this.previousMenu.getClass().getSimpleName());
         // }
+    }
+
+    /**
+     *
+     * @param previousMenu
+     * @param newMenu
+     */
+    public static void setPreviousMenu(Menu previousMenu, GhostMenu newMenu) {
+        ghostPreviousMenu = previousMenu;
+    }
+
+    /**
+     * This represents the player returning to a real currentMenu from a ghost currentMenu. To prevent an infinite
+     * loop, do nothing so that the ghostPrevious menu always returns to a real menu.
+     * @param previousMenu
+     * @param newMenu
+     */
+    public static void setPreviousMenu(GhostMenu previousMenu, Menu newMenu) {
+    }
+
+    /**
+     * This represents the player moving between ghost menus. To prevent an infinite loop, do nothing so that the
+     * ghostPrevious menu always returns to a real menu.
+     * @param previousMenu
+     * @param newMenu
+     */
+    public static void setPreviousMenu(GhostMenu previousMenu, GhostMenu newMenu) {
     }
 }

@@ -1,23 +1,27 @@
 package game.menu;
 
+import game.system.input.PlayerCommand;
+import game.system.output.IPrintBuffer;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
- * Receives input string Outputs corresponding output string NOTE Unchecked
- * ArrayList methods imply types are String, Double, or Integer only
+ * Receives a {@link PlayerCommand}. Directly outputs to its static {@link IPrintBuffer}.
  */
 public abstract class Menu {
 
-    public static final String EMPTY = "";
+    /**
+     * Output
+     */
+    public static IPrintBuffer out;
+
+    /**
+     * Individual inputs correspond to runnable actions for the menu to do. Each runnable should call a menu method.
+     */
+    protected HashMap<String, Runnable> commands;
+
     protected ArrayList<ArrayList> validVerbs;
-    private String originalInputString;
-    private String inputString;
-    private String[] originalInputWords;
-    private String[] inputWords;
-    // private String remainingString;
-    // private String[] remainingWords;
-    private String verb;
-    private MenuManager menuManager; // Cannot have menuManeger, or infinite recursion occurs??
 
     // Input options
     protected String[] yes;
@@ -25,7 +29,8 @@ public abstract class Menu {
     protected String[] returnToPreviousMenu;
 
     public Menu() {
-        menuManager = MenuManager.getInstance();
+        commands = new HashMap<>();
+        initializeCommands();
         // validVerbs = new ArrayList<ArrayList<String>>();
         yes = new String[] { "yes", "y", "yeah", "yee", "yup" };
         no = new String[] { "no", "n", "nay", "nope" };
@@ -33,52 +38,55 @@ public abstract class Menu {
                 "return to menu" };
     }
 
-    public void changeToAskSaveMenu() {
-        menuManager.setMenu(AskToSaveMenu.getInstance());
-    }
-
-    public void changeToCreateGameMenu() {
-        menuManager.setMenu(CreateGameMenu.getInstance());
-    }
-
-    public void changeToGameMenu() {
-        menuManager.setMenu(GameMenu.getInstance());
-    }
-
-    public void changeToGameOverMenu() {
-        menuManager.setMenu(GameOverMenu.getInstance());
-    }
-
-    public void changeToLoadMenu() {
-        menuManager.setMenu(LoadMenu.getInstance());
-    }
-
-    // Change menu
     /**
-     * Change from current menu to next menu
+     * Set the {@link IPrintBuffer} for all menus to output to.
+     *
+     * @param printBuffer
      */
-    public void changeToMainMenu() {
-        menuManager.setMenu(MainMenu.getInstance());
+    public static void setOut(IPrintBuffer printBuffer) {
+        out = printBuffer;
     }
 
+    /**
+     * Set the {@link MenuManager}s current menu. This will immediately change the menu after the current menu's
+     * input is done processing.
+     *
+     * @param menu
+     */
+    public void changeTo(Menu menu) {
+        MenuManager.setCurrentMenu(menu);
+    }
+
+    /**
+     * Change the {@link MenuManager}s current menu to the previous menu.
+     */
     public void changeToPreviousMenu() {
-        menuManager.setMenu(menuManager.getPreviousMenu());
+        MenuManager.setCurrentMenu(MenuManager.getPreviousMenu());
     }
 
-    public void changeToRestartMenu() {
-        menuManager.setMenu(RestartMenu.getInstance());
-    }
+    /**
+     * Process a {@link PlayerCommand} as input. This will set some corresponding output to this menu's currently set
+     * {@link game.system.output.IPrintBuffer}.
+     *
+     * @param playerCommand to processInput
+     */
+    public abstract void processInput(PlayerCommand playerCommand);
 
-    public void changeToSaveMenu() {
-        menuManager.setMenu(SaveMenu.getInstance());
-    }
+    /**
+     * Create all valid commands for this menu. Use addCommand().
+     */
+    protected abstract void initializeCommands();
 
-    public void changeToTestMenu() {
-        try {
-            menuManager.setMenu(TestMenu.getInstance());
-        } catch (Exception e) {
-            System.out.println("Uh Oh...");
-            e.printStackTrace();
+    /**
+     * Every command is composed of a list of possible input options that correspond with Menu method for the Menu to
+     * execute. As a result, be careful not to have commands share options, or an option will be overridden
+     *
+     * @param options all strings that corresponding to method. All are converted to lower case.
+     * @param method with no parameters and Menu method in body
+     */
+    public void addCommand(String[] options, Runnable method) {
+        for (String option : options) {
+            commands.put(option.toLowerCase(), method);
         }
     }
 

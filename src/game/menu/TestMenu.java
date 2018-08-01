@@ -1,5 +1,7 @@
 package game.menu;
 
+import game.system.input.PlayerCommand;
+
 import java.util.*;
 
 /**
@@ -20,7 +22,10 @@ public class TestMenu extends Menu {
 //        println("Valid input: " + Arrays.asList(VALID_INPUT));
 //        println("To go to the main menu, type \"" + Arrays.asList(BACK) + "\"");
     }
-    public void processInput() {
+
+    @Override
+    public void processInput(PlayerCommand playerCommand) {
+        // TODO
 //        if (inputStartsWith(BACK)) {
 //            changeToMainMenu();
 //        } else if (inputStartsWithStrip(VALID_INPUT)) {
@@ -47,7 +52,18 @@ public class TestMenu extends Menu {
 //        }
     }
 
+    /**
+     *
+     */
+    @Override
+    public void initializeCommands() {
+        // TODO
+    }
 
+    /**
+     *
+     * @return Singleton instance of TestMenu
+     */
     public static TestMenu getInstance() {
         if (instance == null) {
             instance = new TestMenu();

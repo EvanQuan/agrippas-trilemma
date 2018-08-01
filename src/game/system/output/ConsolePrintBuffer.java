@@ -78,7 +78,6 @@ public class ConsolePrintBuffer implements IPrintBuffer {
     @Override
     public void append(int output) {
         append(Integer.toString(output));
-
     }
 
     /**

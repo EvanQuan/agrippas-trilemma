@@ -31,17 +31,15 @@ public abstract class TextUtils {
     /**
      * Split word by upper case letters by spaces
      *
-     * @param String
-     *            string [description]
-     * @return [description]
+     * @param string
+     * @return
      */
     public static String splitCamelCaseToString(String string) {
         return String.join(" ", splitCamelCase(string));
     }
 
     /**
-     * @param String
-     *            string
+     * @param string
      * @return true if string starts with a vowel
      */
     public static boolean startsWithVowel(String string) {
@@ -60,8 +58,7 @@ public abstract class TextUtils {
     /**
      * Removes extension from file name, noted by a '.'
      *
-     * @param String
-     *            fileName
+     * @param fileName
      * @return fileName without extension
      */
     public static String stripExtension(String fileName) {
@@ -76,8 +73,7 @@ public abstract class TextUtils {
      * Converts to lower case before title case Important for convert upper case or
      * mixed case to title case
      *
-     * @param String
-     *            string to be converted
+     * @param string to be converted
      * @return title case string
      */
     public static String toLowerTitleCase(String string) {
@@ -87,8 +83,7 @@ public abstract class TextUtils {
     /**
      * Converts beginning of each word in string to upper case
      *
-     * @param String
-     *            string to be converted
+     * @param string
      * @return title case string
      */
     public static String toTitleCase(String string) {

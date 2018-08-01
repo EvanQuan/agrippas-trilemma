@@ -117,8 +117,7 @@ public class InputPanel extends GridBagPanel {
         this.inputTextField.setFont(font);
         button = new JButton("Send");
 
-        menuManager = MenuManager.getInstance();
-        menuManager.setMenu(MainMenu.getInstance());
+        MenuManager.setCurrentMenu(MainMenu.getInstance());
 
         this.inputTextField.addActionListener(action);
 
@@ -159,8 +158,7 @@ public class InputPanel extends GridBagPanel {
      * Replaces inputTextField text with output string and places caret to end of
      * output string
      *
-     * @param String
-     *            output The string to replace inputTextField text
+     * @param output The string to replace inputTextField text
      */
     public void replaceText(String output) {
         inputTextField.setText(output);

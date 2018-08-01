@@ -19,7 +19,7 @@ public class LocationTest {
     private static String defaultDescription = "Primary description";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         l = new Location(defaultSingleName, defaultDescription);
     }
 

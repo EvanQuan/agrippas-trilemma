@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import game.object.item.background.character.Player;
 import game.object.location.Location;
-import main.CheeseQuest;
+import main.Main;
 import util.TextUtils;
 
 /**
@@ -30,13 +30,13 @@ public class Save implements Serializable {
         this.turnCount = turnCount;
         // player = Player.getInstance();
         setName(name);
-        this.version = CheeseQuest.getVersion();
+        this.version = Main.getVersion();
     }
 
     public Save(String name) {
         initialize();
         this.turnCount = 0;
-        this.version = CheeseQuest.getVersion();
+        this.version = Main.getVersion();
         setName(name);
 
     }
