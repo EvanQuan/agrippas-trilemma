@@ -220,7 +220,7 @@ public class MainMenu extends Menu {
     }
 
     /**
-     * Process input that applies to inheritance
+     * Process receiveInput that applies to inheritance
      */
     public void preProcessInput() {
 //        if (inputEquals(EMPTY)) {

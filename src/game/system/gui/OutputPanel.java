@@ -31,7 +31,7 @@ public class OutputPanel extends GridBagPanel {
     public static final int DEFAULT_STYLE = Font.PLAIN;
     public static final int DEFAULT_SIZE = 16;
 
-    // Player input font
+    // Player receiveInput font
     public static final String INPUT_NAME = "Consolas";
     public static final int INPUT_STYLE = Font.BOLD;
     public static final int INPUT_SIZE = DEFAULT_SIZE;
@@ -205,7 +205,7 @@ public class OutputPanel extends GridBagPanel {
      * http://javatechniques.com/blog/setting-jtextpane-font-and-color/
      */
     // public void setJTextPaneFont(Font font, SemanticColor c) {
-    //     // Start with the current input attributes for the JTextPane. This
+    //     // Start with the current receiveInput attributes for the JTextPane. This
     //     // should ensure that we do not wipe out any existing attributes
     //     // (such as alignment or other paragraph attributes) currently
     //     // set on the text area.

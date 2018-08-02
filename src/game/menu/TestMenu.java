@@ -19,7 +19,7 @@ public class TestMenu extends Menu {
     public void outputPrompt() {
 //        printTitleln("Test Menu");
 //        println("You are now in the Test menu.");
-//        println("Valid input: " + Arrays.asList(VALID_INPUT));
+//        println("Valid receiveInput: " + Arrays.asList(VALID_INPUT));
 //        println("To go to the main menu, type \"" + Arrays.asList(BACK) + "\"");
     }
 
@@ -37,12 +37,12 @@ public class TestMenu extends Menu {
 //            } else {
 //                println("there is no " + getInputString() + " here to pick up");
 //            }
-//            println("Valid input.");
+//            println("Valid receiveInput.");
 //            println("inputString: \"" + getInputString() + "\"");
 //            println("inputWords: \"" + Arrays.asList(getInputWords()) + "\"");
 //            println("remainingWords: \"" + getRemainingString() + "\"");
 //        } else {
-//            println("Invalid input.");
+//            println("Invalid receiveInput.");
 //        }
     }
 

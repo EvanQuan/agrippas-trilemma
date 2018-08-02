@@ -9,13 +9,13 @@ import game.system.input.words.Word;
 import util.ArrayUtils;
 
 /**
- * Parses an input string into a {@link PlayerCommand}. The parser abides by the
+ * Parses an receiveInput string into a {@link PlayerCommand}. The parser abides by the
  * following grammar rules:
  * <p>
  * 1. The dictionary of all possible verbs, adjectives, direct objects, and
  * indirect objects is not known.<br>
  * - The game handles the validity of these words, not the parser.<br>
- * 2. The first word of the input is always a verb.<br>
+ * 2. The first word of the receiveInput is always a verb.<br>
  * - Player commands are 2nd person imperative statements.<br>
  * 3. Indirect object phrases are always preceded by a preposition.<br>
  * 4. Direct object phrases are always positioned before indirect object
@@ -113,7 +113,7 @@ public abstract class PlayerInputParser {
         }
         ObjectPhrase objectPhrase = new ObjectPhrase();
         // Scan for an determiner. If one is found, remove it and parse the
-        // rest of the input.
+        // rest of the receiveInput.
         // NOTE: The preposition must be the first word in the list for it to
         // make sense grammatically. If a determiner is preceded with another
         // word, be it another determiner or not, it will be counted as an
@@ -121,13 +121,13 @@ public abstract class PlayerInputParser {
         if (Word.isDeterminer(tokens.get(0))) {
             objectPhrase.setDeterminer(tokens.remove(0));
         }
-        // The last word in the input is the object. Remove it and parse the
-        // rest of the input.
+        // The last word in the receiveInput is the object. Remove it and parse the
+        // rest of the receiveInput.
         if (!tokens.isEmpty()) {
             // If no more tokens remain, then the last word is not a noun
             objectPhrase.setNoun(tokens.remove(tokens.size() - 1));
         }
-        // If any input remains, they are adjectives which modify the object.
+        // If any receiveInput remains, they are adjectives which modify the object.
         // TODO: This WILL need to change once multiple commands separated by commas
         // with a
         // single verb is implemented. Either here, or in syntactical analysis.
@@ -142,13 +142,13 @@ public abstract class PlayerInputParser {
     /**
      * <b>Step 1: Lexical Analysis</b>
      * <p>
-     * Splits the input string into tokens, each representing a word of the command.
-     * The tokens are in the same order as they appear in the input string. Each
+     * Splits the receiveInput string into tokens, each representing a word of the command.
+     * The tokens are in the same order as they appear in the receiveInput string. Each
      * character of punctuation counts as its own token only if it is a single or
      * double quote around a word, or a comma after a word.
      *
      * @param input
-     *            - input String
+     *            - receiveInput String
      * @return list of all tokens.
      */
     public static ArrayList<String> lexicalAnalysis(String input) {
@@ -167,11 +167,11 @@ public abstract class PlayerInputParser {
         // Right, now just using basic split by spaces. May need to change this when
         // things get
         // more complicated
-        // return new ArrayList<>(Arrays.asList(input.split(" ")));
+        // return new ArrayList<>(Arrays.asList(receiveInput.split(" ")));
     }
 
     /**
-     * Parse input text into words and apply their appropriate meanings and
+     * Parse receiveInput text into words and apply their appropriate meanings and
      * relationships. Accepts only imperative statements.
      *
      * @param input
@@ -179,7 +179,7 @@ public abstract class PlayerInputParser {
      * @return command that represents the player {@link PlayerCommand}
      */
     public static PlayerCommand parse(String input) {
-        // Add unaltered input to PlayerCommand
+        // Add unaltered receiveInput to PlayerCommand
         PlayerCommand playerCommand = new PlayerCommand(input);
         // https://groups.google.com/forum/#!topic/rec.arts.int-fiction/VpsWZdWRnlA
         ArrayList<String> tokens = lexicalAnalysis(input);
@@ -233,7 +233,7 @@ public abstract class PlayerInputParser {
      * <p>
      * 0. The dictionary of all possible verbs, adjectives, direct objects, and
      * indirect objects is <b>not</b> known.<br>
-     * 1. The first world of the input is a always a verb unless<br>
+     * 1. The first world of the receiveInput is a always a verb unless<br>
      * - it is a valid determiner, which then the verb phrase is skipped and the
      * indirect object phrase is parsed.<br>
      * - it is a preposition, which then the verb phrase and indirect object phrase
@@ -250,7 +250,7 @@ public abstract class PlayerInputParser {
      */
     public static void syntacticalAnalysis(PlayerCommand playerCommand, ArrayList<String> tokens) {
         if (tokens.isEmpty()) {
-            // This happens when the player input an empty string
+            // This happens when the player receiveInput an empty string
             return;
         }
 
@@ -261,15 +261,15 @@ public abstract class PlayerInputParser {
 
         String first = tokens.get(0);
         if (!Word.isDeterminer(first) && !Word.isPreposition(first)) {
-            // 0. The first word is a verb. Remove it and parse the rest of the input.
+            // 0. The first word is a verb. Remove it and parse the rest of the receiveInput.
             // No adverbs are allowed as it would not be possible to distinguish between the
             // end of the verb phrase and the start of the proceeding indirect/direct object
             // phrase without a dictionary of all possible verbs.
             tokens.remove(0);
             playerAction.setVerbPhrase(new VerbPhrase(first));
         }
-        // 1. Scan for a preposition. If one is found, remove it. Parse the input
-        // preceding the preposition as a direct object phrase. Parse the input
+        // 1. Scan for a preposition. If one is found, remove it. Parse the receiveInput
+        // preceding the preposition as a direct object phrase. Parse the receiveInput
         // following the preposition as an indirect object phrase.
         // For the sake of how the PlayerCommand will be parsed in the game, the
         // preposition
@@ -310,12 +310,12 @@ public abstract class PlayerInputParser {
     // * between words, the playerAction {@link Verb} and object {@link Noun} are
     // * determined.
     // *
-    // * @param input
-    // * - original input string
+    // * @param receiveInput
+    // * - original receiveInput string
     // * @param statement
     // * @return
     // */
-    // private static PlayerCommand translation(String input, Sentence statement) {
+    // private static PlayerCommand translation(String receiveInput, Sentence statement) {
     // // Index tracking
     // int actionIndex = 0;
     // int objectIndex = 0;

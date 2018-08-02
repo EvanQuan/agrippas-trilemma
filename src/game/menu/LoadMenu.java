@@ -1,5 +1,7 @@
 package game.menu;
 
+import game.system.input.PlayerCommand;
+import game.system.output.IPrintBuffer;
 import game.system.save.InvalidSaveNameException;
 import game.system.save.InvalidSaveNumException;
 import game.system.save.Save;
@@ -46,6 +48,25 @@ public class LoadMenu extends Menu {
         updateSaves();
     }
 
+    /**
+     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
+     * {@link IPrintBuffer}.
+     *
+     * @param playerCommand to processInput
+     */
+    @Override
+    public void processInput(PlayerCommand playerCommand) {
+        // TODO
+    }
+
+    /**
+     * Create all valid commands for this menu. Use addCommand().
+     */
+    @Override
+    protected void initializeCommands() {
+        // TODO
+    }
+
     public static LoadMenu getInstance() {
         if (instance == null) {
             instance = new LoadMenu();
@@ -76,13 +97,13 @@ public class LoadMenu extends Menu {
 //        append(" a game, or ");
 //        printPlayer("Return");
 //        append(" to the ");
-        if (MenuManager.getInstance().getPreviousMenu().equals(MainMenu.getInstance())) {
+        if (MenuStack.getPreviousMenu().equals(MainMenu.getInstance())) {
 //            printLocation("Main Menu");
 //            println(".");
         } else {
 //            println("the game.");
         }
-        // outputlnRoom(splitCamelCaseToString(MenuManager.getInstance().getPreviousMenu().getClass().getSimpleName()));
+        // outputlnRoom(splitCamelCaseToString(MenuStack.getInstance().getPreviousMenu().getClass().getSimpleName()));
     }
     public void outputSaveInfo(Save save) {
 //        println(save.getName());
@@ -174,7 +195,7 @@ public class LoadMenu extends Menu {
 
     /**
      * Sets the GameMenu's world to saveNum
-     * @param int saveNum of save to load
+     * @param saveNum of save to load
      */
     public void loadGame(int saveNum) {
         try {
@@ -191,7 +212,7 @@ public class LoadMenu extends Menu {
     }
     /**
      * Sets the GameMenu's world to saveName
-     * @param String saveName of save to load
+     * @param saveName of save to load
      */
     public void loadGame(String saveName) {
         try {
@@ -259,7 +280,7 @@ public class LoadMenu extends Menu {
     // }
 
     /**
-     * Updates saveNums, saveNames (for user input comparison)
+     * Updates saveNums, saveNames (for user receiveInput comparison)
      */
     public void updateSaves() {
         // outputln("updateSaves() started");

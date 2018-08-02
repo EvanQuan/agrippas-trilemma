@@ -26,7 +26,7 @@ public abstract class Word {
 
     /**
      * PlayerAction separators separates {@link PlayerCommand} playerActions. These are used for
-     * input multi-playerAction commands.
+     * receiveInput multi-playerAction commands.
      */
     public static final HashSet<String> ACTION_SEPARATORS = ArrayUtils.getHashSet(new String[] { ",", "then", "." });
 
@@ -72,7 +72,7 @@ public abstract class Word {
     }
 
     /**
-     * TODO. This is for resolving the indeterminism of input multi-playerAction
+     * TODO. This is for resolving the indeterminism of receiveInput multi-playerAction
      * commands.
      *
      * @param word

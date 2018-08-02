@@ -1,11 +1,12 @@
 package game.menu;
 
+import game.system.input.PlayerCommand;
 import game.system.save.InvalidSaveNameException;
 import game.system.save.Save;
 import game.system.save.SaveManager;
 
 /**
- * Gets user input for creating game save name
+ * Gets user receiveInput for creating game save name
  */
 public class CreateGameMenu extends GhostMenu {
 
@@ -78,6 +79,16 @@ public class CreateGameMenu extends GhostMenu {
 //        }
 //        printPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
 //        println(".");
+    }
+
+    @Override
+    public void initializeCommands() {
+        // TODO
+    }
+
+    @Override
+    public void processInput(PlayerCommand playerCommand) {
+        // TODO
     }
 
 }

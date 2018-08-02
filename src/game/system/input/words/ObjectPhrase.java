@@ -42,7 +42,7 @@ public class ObjectPhrase {
     /**
      *
      * @return a shallow copy of this phrase's adjectives. This is so that the
-     *         adjective list can be modified for input purposes if need be
+     *         adjective list can be modified for receiveInput purposes if need be
      *         without actually affecting the actual adjectives.<br>
      *         null if adjectives is null. NOTE: Due to current
      *         PlayerInputParser.getObjectPhrase() implementation, adjectives will

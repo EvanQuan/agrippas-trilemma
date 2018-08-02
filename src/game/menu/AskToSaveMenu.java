@@ -1,5 +1,7 @@
 package game.menu;
 
+import game.system.input.PlayerCommand;
+
 /**
  * Prompts user if they want to save
  */
@@ -27,7 +29,11 @@ public class AskToSaveMenu extends GhostMenu {
 //        printPlayer("Return");
 //        println(")");
     }
-    public void processInput() {
+
+
+    @Override
+    public void processInput(PlayerCommand playerCommand) {
+        // TODO
 //        if (inputEquals(yes)) {
 //            changeToSaveMenu();
 //        } else if (inputEquals(no)) {
@@ -37,5 +43,10 @@ public class AskToSaveMenu extends GhostMenu {
 //        } else {
 //            outputPrompt();
 //        }
+    }
+
+    @Override
+    public void initializeCommands() {
+        // TODO
     }
 }

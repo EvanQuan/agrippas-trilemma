@@ -48,24 +48,24 @@ public abstract class Menu {
     }
 
     /**
-     * Set the {@link MenuManager}s current menu. This will immediately change the menu after the current menu's
-     * input is done processing.
+     * Set the {@link MenuStack}s current menu. This will immediately change the menu after the current menu's
+     * receiveInput is done processing.
      *
      * @param menu
      */
     public void changeTo(Menu menu) {
-        MenuManager.setCurrentMenu(menu);
+        MenuStack.pushCurrentMenu(menu);
     }
 
     /**
-     * Change the {@link MenuManager}s current menu to the previous menu.
+     * Change the {@link MenuStack}s current menu to the previous menu.
      */
     public void changeToPreviousMenu() {
-        MenuManager.setCurrentMenu(MenuManager.getPreviousMenu());
+        MenuStack.pushCurrentMenu(MenuStack.getPreviousMenu());
     }
 
     /**
-     * Process a {@link PlayerCommand} as input. This will set some corresponding output to this menu's currently set
+     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
      * {@link game.system.output.IPrintBuffer}.
      *
      * @param playerCommand to processInput
@@ -78,7 +78,7 @@ public abstract class Menu {
     protected abstract void initializeCommands();
 
     /**
-     * Every command is composed of a list of possible input options that correspond with Menu method for the Menu to
+     * Every command is composed of a list of possible receiveInput options that correspond with Menu method for the Menu to
      * execute. As a result, be careful not to have commands share options, or an option will be overridden
      *
      * @param options all strings that corresponding to method. All are converted to lower case.
@@ -157,12 +157,12 @@ public abstract class Menu {
     // }
 
     // /**
-    // * Get input from user and stores the line in inputLine and individual words
+    // * Get receiveInput from user and stores the line in inputLine and individual words
     // in
     // * inputWords
     // */
-    // public void input(String input) {
-    // this.inputString = input;
+    // public void receiveInput(String receiveInput) {
+    // this.inputString = receiveInput;
     // this.originalInputString = inputString;
     // this.inputWords = inputString.split(" ");
     // this.originalInputWords = inputWords;
@@ -248,15 +248,15 @@ public abstract class Menu {
     // // first one
     // // Input processing
     // // Words are processed one by one from the start and are stripped away
-    // // Verb can be manually set or is automatically defined upon new player input
+    // // Verb can be manually set or is automatically defined upon new player receiveInput
     // /**
-    // * Checks if input starts with an element of arrayList
+    // * Checks if receiveInput starts with an element of arrayList
     // *
     // * @param ArrayList
     // * arrayList
     // * @param boolean
     // * strip to determine if element is stripped from inputWords
-    // * @return true if input starts with element of arrayList
+    // * @return true if receiveInput starts with element of arrayList
     // */
     // private boolean inputStartsWithChoice(ArrayList arrayList, boolean strip,
     // boolean setVerb) {
@@ -318,7 +318,7 @@ public abstract class Menu {
     // }
     //
     // /**
-    // * Checks if input starts with an element of arrayList If so, strips away
+    // * Checks if receiveInput starts with an element of arrayList If so, strips away
     // * starting words for inputWords and returns true
     // *
     // * @param ArrayList<String>
@@ -411,7 +411,7 @@ public abstract class Menu {
     // }
     //
     // /**
-    // * Output player input with input marker
+    // * Output player receiveInput with receiveInput marker
     // */
     // public void outputPlayerInput() {
     // printlns(INPUT_SPACING);
@@ -420,13 +420,13 @@ public abstract class Menu {
     // }
     //
     // /**
-    // * Print prompt for user input
+    // * Print prompt for user receiveInput
     // */
     // public void outputPrompt() {
     // }
     //
     // /**
-    // * Process input that applies to inheritance
+    // * Process receiveInput that applies to inheritance
     // */
     // public void preProcessInput() {
     // if (inputEquals(EMPTY)) {
@@ -472,7 +472,7 @@ public abstract class Menu {
     // *
     // * @param int
     // * index of new beginning inputWords
-    // * @return words stripped away from input
+    // * @return words stripped away from receiveInput
     // */
     // public String stripInput(int index) {
     // String output = "";
@@ -496,7 +496,7 @@ public abstract class Menu {
     // }
     //
     // /**
-    // * Checks if input starts with an element of arrayList If so, sets starting
+    // * Checks if receiveInput starts with an element of arrayList If so, sets starting
     // * word(s) to verb and rest to remainingWords
     // *
     // * @param ArrayList<String>

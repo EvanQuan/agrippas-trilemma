@@ -41,7 +41,7 @@ public class VerbAgnosticPlayerInputParser_parse_Test {
     }
 
     /**
-     * Check that a single determiner skips the verb input.
+     * Check that a single determiner skips the verb receiveInput.
      */
     @Test
     public void word1_directDeterminer() {
@@ -55,7 +55,7 @@ public class VerbAgnosticPlayerInputParser_parse_Test {
 
     /**
      * Check that a single preposition skips the verb and direct object phrase
-     * input.
+     * receiveInput.
      */
     @Test
     public void word1_preposition() {

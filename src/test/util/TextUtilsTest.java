@@ -121,7 +121,7 @@ public class TextUtilsTest {
 
     @Test
     public void testToTitleCaseWithLowerCaseInput() {
-        String input = "this is the input string";
+        String input = "this is the receiveInput string";
         String expected = "This Is The Input String";
         String result = TextUtils.toTitleCase(input);
         assertEquals(expected, result);

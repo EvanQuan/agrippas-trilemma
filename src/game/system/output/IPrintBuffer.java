@@ -6,7 +6,7 @@ package game.system.output;
  * impact for {@link GUIPrintBuffer}, this helps {@link ConsolePrintBuffer} accumulate colored-text segments
  * and hard-wrap them as the output text is built. Also, as a slight performance boost, this allows the output to be
  * built with {@link StringBuilder} instead of {@link String} and making only a single call to output for every player
- * input.
+ * receiveInput.
  *
  * @author Evan Quan
  *
@@ -14,14 +14,14 @@ package game.system.output;
 public interface IPrintBuffer {
 
     /**
-     * Number of lines to separate the player input text line and its proceeding prompt. Visually, this groups each
-     * player input line with its resulting text prompt, so that when scrolling back, the player can see their inputs
+     * Number of lines to separate the player receiveInput text line and its proceeding prompt. Visually, this groups each
+     * player receiveInput line with its resulting text prompt, so that when scrolling back, the player can see their inputs
      * and the corresponding results of those inputs.
      */
     int INPUT_SPACING = 4;
 
     /**
-     * This symbol is placed immediately left of the player input to mark it separate from the rest of the text.
+     * This symbol is placed immediately left of the player receiveInput to mark it separate from the rest of the text.
      */
     String INPUT_MARKER = "> ";
 

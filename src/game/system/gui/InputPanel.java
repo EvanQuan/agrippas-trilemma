@@ -1,7 +1,9 @@
 package game.system.gui;
 
 import game.menu.MainMenu;
-import game.menu.MenuManager;
+import game.menu.MenuStack;
+import game.system.input.PlayerCommand;
+import game.system.input.PlayerInputParser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +13,10 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
- * Gets input from the user and outputs it to game Consists of JTextField for
- * input text Can send text with enter key
+ * Gets receiveInput from the user and outputs it to game Consists of JTextField for
+ * receiveInput text Can send text with enter key
  *
- * Saves previous input, which can be acquired through up arrow like in terminal
+ * Saves previous receiveInput, which can be acquired through up arrow like in terminal
  */
 public class InputPanel extends GridBagPanel {
 
@@ -31,29 +33,43 @@ public class InputPanel extends GridBagPanel {
     public static final String NAME = "Consolas";
     public static final int STYLE = Font.PLAIN;
     public static final int SIZE = 14;
-    public static final Color COLOR = new Color(0, 125, 255);
     private Font font;
 
-    private JTextField inputTextField;
-    private JButton button;
-    private MenuManager menuManager;
-
-    private ArrayList<String> previousInput;
-    private int inputIndex;
     /**
-     * Sends text of text area when ENTER key is pressed Works alongside manually
-     * pressing inputButton
+     * The text field where the user inputs a command.
+     */
+    private JTextField inputTextField;
+
+    /**
+     * Instead of pressing ENTER to send a command, the user can alternatively press this button with the mouse.
+     * TODO: Currently not implemented.
+     */
+    private JButton button;
+
+    /**
+     * The history of all previous inputs from the current session.
+     */
+    private ArrayList<String> previousInput;
+    /**
+     * The index in previousIndex to retrieve receiveInput history.
+     */
+    private int inputHistoryIndex;
+
+    /**
+     * Sends text of text area when ENTER key is pressed. Works alongside manually
+     * pressing inputButton (which is yet to be implemented).
      */
     private AbstractAction action = new AbstractAction() {
         private static final long serialVersionUID = 1L;
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String input = inputTextField.getText();
-            menuManager.input(input);
-            previousInput.add(0, input);
-            inputTextField.setText(EMPTY);
-            inputIndex = 0;
+            String input = inputTextField.getText();                    // Retrieve raw receiveInput
+            PlayerCommand command = PlayerInputParser.parse(input);     // Parse receiveInput to command
+            MenuStack.receiveInput(command);                                 // Send command to game logic
+            previousInput.add(0, input);                            // Add receiveInput to history
+            inputTextField.setText(EMPTY);                              // Clear receiveInput field
+            inputHistoryIndex = 0;
         }
     };
     private KeyAdapter key = new KeyAdapter() {
@@ -66,33 +82,33 @@ public class InputPanel extends GridBagPanel {
                 case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_KP_LEFT:
                     try {
-                        String store = previousInput.get(inputIndex);
+                        String store = previousInput.get(inputHistoryIndex);
                         replaceText(store);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    // System.out.append("UP: Index: " + inputIndex + " -> ");
-                    inputIndex = (inputIndex + 1) % (previousInput.size()); // Move up
-                    // System.out.println(inputIndex);
+                    // System.out.append("UP: Index: " + inputHistoryIndex + " -> ");
+                    inputHistoryIndex = (inputHistoryIndex + 1) % (previousInput.size()); // Move up
+                    // System.out.println(inputHistoryIndex);
                     e.consume();
                     break;
-                // Down - Scroll forward from first input
+                // Down - Scroll forward from first receiveInput
                 case KeyEvent.VK_DOWN:
                 case KeyEvent.VK_KP_DOWN:
                 case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_KP_RIGHT:
-                    // System.out.append("DOWN: Index: " + inputIndex + " -> ");
-                    inputIndex = (inputIndex - 1) % (previousInput.size()); // Move down
-                    if (inputIndex < 0) { // Ensures positive
-                        inputIndex = previousInput.size() - 1;
+                    // System.out.append("DOWN: Index: " + inputHistoryIndex + " -> ");
+                    inputHistoryIndex = (inputHistoryIndex - 1) % (previousInput.size()); // Move down
+                    if (inputHistoryIndex < 0) { // Ensures positive
+                        inputHistoryIndex = previousInput.size() - 1;
                     }
                     try {
-                        String store = previousInput.get(inputIndex);
+                        String store = previousInput.get(inputHistoryIndex);
                         replaceText(store);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    // System.out.println(inputIndex);
+                    // System.out.println(inputHistoryIndex);
                     e.consume();
                     break;
             }
@@ -111,13 +127,13 @@ public class InputPanel extends GridBagPanel {
      */
     public InputPanel() {
         previousInput = new ArrayList<String>();
-        inputIndex = 0;
+        inputHistoryIndex = 0;
         this.inputTextField = new JTextField(TEXT_MAX_WIDTH);
         font = new Font(NAME, STYLE, SIZE);
         this.inputTextField.setFont(font);
         button = new JButton("Send");
 
-        MenuManager.setCurrentMenu(MainMenu.getInstance());
+        MenuStack.pushCurrentMenu(MainMenu.getInstance());
 
         this.inputTextField.addActionListener(action);
 
