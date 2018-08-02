@@ -111,7 +111,7 @@ public class MainMenu extends Menu {
     }
 
     public void outputOptions() {
-        printlns(OPTIONS_SPACING);
+        out.appendlns(OPTIONS_SPACING);
         out.append("                ");
         out.append("1", SemanticColor.PLAYER);
         out.append(". Start Game        ");

@@ -44,7 +44,7 @@ public abstract class MenuManager {
      * Receive playerCommand and passes it to the current menu to process.
      */
     public static void receiveInput(PlayerCommand playerCommand) {
-        currentMenu.processInput(playerCommand);
+        currentMenu.receiveInput(playerCommand);
     }
 
     /**

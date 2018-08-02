@@ -11,6 +11,7 @@ import java.util.HashMap;
  */
 public abstract class Menu {
 
+    private static final String EMPTY_COMMAND_MESSAGE = "I beg your pardon?";
     /**
      * Output
      */
@@ -78,7 +79,7 @@ public abstract class Menu {
      *
      * @param playerCommand to processInput
      */
-    public abstract void processInput(PlayerCommand playerCommand);
+    protected abstract void processInput(PlayerCommand playerCommand);
 
     /**
      * Create all valid commands for this menu. Use addCommand().
@@ -96,6 +97,43 @@ public abstract class Menu {
         for (String option : options) {
             commands.put(option.toLowerCase(), method);
         }
+    }
+
+    /**
+     * Retrieve and process a player command.
+     *
+     * @param playerCommand
+     */
+    public void receiveInput(PlayerCommand playerCommand) {
+        if (preprocessInput(playerCommand)) {
+            processInput(playerCommand);
+            postprocessInput(playerCommand);
+        }
+    }
+
+    /**
+     * Checks player command before processing. By default, checks if the command is empty. If so, print a prompt and
+     * skip processInput() and postprocessInput().
+     *
+     * @param playerCommand
+     * @return true if pre-process was successful.
+     */
+    protected boolean preprocessInput(PlayerCommand playerCommand) {
+        if (playerCommand.isEmpty()) {
+            out.append(EMPTY_COMMAND_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Retrieves information about the playerCommand after it has been process. This may influence how future
+     * commands are processed. By default this does nothing. TODO: Sure about this?????
+     *
+     * @param playerCommand
+     */
+    protected void postprocessInput(PlayerCommand playerCommand) {
+
     }
 
     // /**

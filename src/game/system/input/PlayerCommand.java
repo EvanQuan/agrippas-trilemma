@@ -55,6 +55,14 @@ public class PlayerCommand {
         return false;
     }
 
+    /**
+     *
+     * @return true if this command represents an empty string.
+     */
+    public boolean isEmpty() {
+        return this.string.isEmpty();
+    }
+
     public ArrayList<PlayerAction> getPlayerActions() {
         return this.playerActions;
     }

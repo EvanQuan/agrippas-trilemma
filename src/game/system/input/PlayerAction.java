@@ -90,6 +90,10 @@ public class PlayerAction {
         return this.verbPhrase != null && !this.verbPhrase.isEmpty();
     }
 
+    /**
+     *
+     * @return true if all components are empty.
+     */
     public boolean isEmpty() {
         return !hasVerbPhrase() && !hasDirectObjectPhrase() && !hasPreposition() && !hasIndirectObjectPhrase();
     }
