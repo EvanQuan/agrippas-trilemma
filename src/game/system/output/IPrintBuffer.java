@@ -1,12 +1,12 @@
 package game.system.output;
 
 /**
- * Game text output. Unlike {@link java.io.PrintStream}, which directly prints to the output, this appends output in a
- * buffer, and finally prints and flushes the text contained buffer together. While this change has little to no
- * impact for {@link GUIPrintBuffer}, this helps {@link ConsolePrintBuffer} accumulate colored-text segments
- * and hard-wrap them as the output text is built. Also, as a slight performance boost, this allows the output to be
- * built with {@link StringBuilder} instead of {@link String} and making only a single call to output for every player
- * receiveInput.
+ * Game text output interface. Unlike {@link java.io.PrintStream}, which directly prints to the output, this appends
+ * output to a buffer, where the output is dealt with however its implementation needs to. While this change has
+ * little to no impact for {@link game.system.gui.OutputPanel} which "prints" by appending, this helps
+ * {@link ConsolePrintBuffer} accumulate colored-text segments and hard-wrap them as the output text is built. Also,
+ * as a slight performance boost, this allows the output to be built with {@link StringBuilder} instead of
+ * {@link String} and making only a single call to output for every player input.
  *
  * @author Evan Quan
  *
@@ -112,4 +112,15 @@ public interface IPrintBuffer {
      * @param semanticColor of output
      */
     void appendln(String output, SemanticColor semanticColor);
+
+    /**
+     * Append a number of System.lineseparator() to output buffer.
+     * @param lines to append
+     */
+    void appendlns(int lines);
+
+    /**
+     * Append a System.lineseparator() to output buffer.
+     */
+    void appendln();
 }

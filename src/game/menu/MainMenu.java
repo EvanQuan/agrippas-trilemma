@@ -1,11 +1,12 @@
 package game.menu;
 
 import game.system.input.PlayerCommand;
+import game.system.output.SemanticColor;
+import main.Main;
 import util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.WeakHashMap;
 
 public class MainMenu extends Menu {
     private static MainMenu instance;
@@ -72,17 +73,17 @@ public class MainMenu extends Menu {
     }
 
     public void outputAboutThisGame() {
-//        printTitleln("Current version: " + Main.getVersion());
-//        printItem("Cheese Quest 2");
-//        append(" started development in ");
-//        printItem("August of 2017");
-//        append(". It was inspired by ");
-//        printItem("The Hitchhiker's Guide to the Galaxy");
-//        append(" text adventure game published by ");
-//        printItem("Infocom");
-//        append(" in ");
-//        printItem("1984");
-//        println(".");
+        out.appendln("Current version: " + Main.getVersion(), SemanticColor.TITLE);
+        out.append("Cheese Quest 2", SemanticColor.ITEM);
+        out.append(" started development in ");
+        out.append("August of 2017", SemanticColor.ITEM);
+        out.append(". It was inspired by ");
+        out.append("The Hitchhiker's Guide to the Galaxy", SemanticColor.ITEM);
+        out.append(" text adventure game published by ");
+        out.append("Infocom", SemanticColor.ITEM);
+        out.append(" in ");
+        out.append("1984", SemanticColor.ITEM);
+        out.append(".");
     }
 
     public void outputHowToPlay() {
@@ -100,24 +101,24 @@ public class MainMenu extends Menu {
     }
 
     public void outputInvalid() {
-//        append("Choose ");
-//        printPlayer("Start Game");
-//        append(", ");
-//        printPlayer("How to Play");
-//        append(", or ");
-//        printPlayer("About this Game");
-//        println(".");
+        out.append("Choose ");
+        out.append("Start Game", SemanticColor.PLAYER);
+        out.append(", ");
+        out.append("How to Play", SemanticColor.PLAYER);
+        out.append(", or ");
+        out.append("About this Game", SemanticColor.PLAYER);
+        out.append(".");
     }
 
     public void outputOptions() {
-//        printlns(OPTIONS_SPACING);
-//        append("                ");
-//        printPlayer("1");
-//        append(". Start Game        ");
-//        printPlayer("2");
-//        append(". How to Play        ");
-//        printPlayer("3");
-//        println(". About this Game");
+        printlns(OPTIONS_SPACING);
+        out.append("                ");
+        out.append("1", SemanticColor.PLAYER);
+        out.append(". Start Game        ");
+        out.append("2", SemanticColor.PLAYER);
+        out.append(". How to Play        ");
+        out.append("3", SemanticColor.PLAYER);
+        out.appendln(". About this Game");
     }
 
     public void outputPrompt() {
@@ -126,35 +127,35 @@ public class MainMenu extends Menu {
     }
 
     public void outputShortcuts() {
-//        printItemln("Basic shortcut commands:");
-//        printPlayer("l");
-//        println(" - Look");
-//        printPlayer("x");
-//        println(" - Examine");
-//        printPlayer("i");
-//        println(" - Inventory");
-//        printPlayer("h");
-//        println(" - Health/Hunger (stats)");
-//        printPlayer("o");
-//        println(" - Current objective");
-//        printPlayer("z");
-//        println(" - Wait");
-//        printPlayer("g");
-//        println(" - Again (Repeat previous playerAction)");
-//        println();
-//        printItemln("Movement:");
-//        printPlayer("n");
-//        println(" - Go North");
-//        printPlayer("e");
-//        println(" - Go East");
-//        printPlayer("w");
-//        println(" - Go West");
-//        printPlayer("s");
-//        println(" - Go South");
-//        printPlayer("u");
-//        println(" - Go Up");
-//        printPlayer("d");
-//        println(" - Go Down");
+        out.appendln("Basic shortcut commands:", SemanticColor.ITEM);
+        out.append("l", SemanticColor.PLAYER);
+        out.appendln(" - Look");
+        out.append("x", SemanticColor.PLAYER);
+        out.appendln(" - Examine");
+        out.append("i", SemanticColor.PLAYER);
+        out.appendln(" - Inventory");
+        out.append("h", SemanticColor.PLAYER);
+        out.appendln(" - Health/Hunger (stats)");
+        out.append("o", SemanticColor.PLAYER);
+        out.appendln(" - Current objective");
+        out.append("z", SemanticColor.PLAYER);
+        out.appendln(" - Wait");
+        out.append("g", SemanticColor.PLAYER);
+        out.appendln(" - Again (Repeat previous playerAction)");
+        out.appendln();
+        out.appendln("Movement:", SemanticColor.ITEM);
+        out.append("n", SemanticColor.PLAYER);
+        out.appendln(" - Go North");
+        out.append("e", SemanticColor.PLAYER);
+        out.appendln(" - Go East");
+        out.append("w", SemanticColor.PLAYER);
+        out.appendln(" - Go West");
+        out.append("s", SemanticColor.PLAYER);
+        out.appendln(" - Go South");
+        out.append("u", SemanticColor.PLAYER);
+        out.appendln(" - Go Up");
+        out.append("d", SemanticColor.PLAYER);
+        out.appendln(" - Go Down");
     }
 
     public void outputTitleScreen() {

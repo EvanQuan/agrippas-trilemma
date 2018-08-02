@@ -25,8 +25,8 @@ import util.ArrayUtils;
  * 7. The dictionary of all possible verbs is known.<br>
  *
  * <p>
- * <b>TODO</b>
- * <p>
+ *      <b>TODO</b>
+ * </p>
  * Multiple playerAction commands, such as:<br>
  * Multiverb commands: (look up, eat pie, go west)<br>
  * Verbsharing commands: (eat pie, potato, cake)<br>
@@ -42,6 +42,10 @@ import util.ArrayUtils;
  * - syntacticalAnalys() needs to separate playerActions by separators<br>
  * - incomplete playerActions need to be able to "fill in the gaps" from context of
  * previously parsed playerActions in the same command<br>
+ * <p>
+ *     Alternatively...
+ * </p>
+ * Subsequent actions can be reparsed (or backtracked) depending on the verb.
  *
  * @author Evan Quan
  *

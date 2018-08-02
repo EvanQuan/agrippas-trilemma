@@ -5,7 +5,7 @@ import game.system.input.PlayerCommand;
 /**
  * Prompts user if they want to save
  */
-public class AskToSaveMenu extends GhostMenu {
+public class AskToSaveMenu extends Menu {
 
     private static AskToSaveMenu instance;
 

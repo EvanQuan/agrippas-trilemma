@@ -58,6 +58,17 @@ public enum SemanticColor {
     }
 
     /**
+     * Apply a color change to a string.
+     *
+     * @param string
+     * @param semanticColor
+     * @return
+     */
+    public static String apply(String string, SemanticColor semanticColor) {
+        return toConsoleColor(semanticColor) + string + toConsoleColor(DEFAULT);
+    }
+
+    /**
      * Convert a SemanticColor to a {@link Color}
      * @param semanticColor
      * @return

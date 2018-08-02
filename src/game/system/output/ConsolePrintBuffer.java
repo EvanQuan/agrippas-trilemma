@@ -1,7 +1,6 @@
 package game.system.output;
 
 import java.io.PrintStream;
-import java.util.Arrays;
 
 /**
  * Prints hard-wrapped colored text to console.
@@ -251,6 +250,27 @@ public class ConsolePrintBuffer implements IPrintBuffer {
     public void appendln(String output, SemanticColor semanticColor) {
         append(output + System.lineSeparator(), semanticColor);
     }
+
+    /**
+     * Append a number of System.lineseparator() to output buffer.
+     *
+     * @param lines to append
+     */
+    @Override
+    public void appendlns(int lines) {
+        for (int i = 0; i < lines; i++) {
+            appendln();
+        }
+    }
+
+    /**
+     * Append a System.lineseparator to output buffer.
+     */
+    @Override
+    public void appendln() {
+        append(System.lineSeparator());
+    }
+
 
     /**
      * Send output buffer contents to output and clear output buffer.

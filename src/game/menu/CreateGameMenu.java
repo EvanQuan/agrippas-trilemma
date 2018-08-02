@@ -8,7 +8,7 @@ import game.system.save.SaveManager;
 /**
  * Gets user receiveInput for creating game save name
  */
-public class CreateGameMenu extends GhostMenu {
+public class CreateGameMenu extends Menu {
 
     private static CreateGameMenu instance;
     private SaveManager saver;

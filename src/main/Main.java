@@ -1,5 +1,6 @@
 package main;
 
+import game.system.console.GameLoop;
 import game.system.gui.MainFrame;
 
 /**
@@ -30,7 +31,8 @@ public class Main {
         if (args.length != 1) {
             help();
         } else if (args[0].equals("-c")) {
-
+            GameLoop loop = new GameLoop();
+            loop.start();
         } else if (args[0].equals("-g")) {
             MainFrame frame = new MainFrame();
         } else {
@@ -39,7 +41,8 @@ public class Main {
     }
 
     private static void help() {
-        System.out.println("Usage: java Main [args...]" + System.lineSeparator()
+        System.out.println("Agripp'a Trilemma v" + version + System.lineSeparator()
+                            + "Usage: java Main [args...]" + System.lineSeparator()
                             + "Argument options:" + System.lineSeparator()
                             + "\t-c"
                             + "\t\tOpen the game in the console."

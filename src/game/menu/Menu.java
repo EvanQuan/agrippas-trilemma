@@ -28,7 +28,15 @@ public abstract class Menu {
     protected String[] no;
     protected String[] returnToPreviousMenu;
 
-    public Menu() {
+    /**
+     *
+     * @throws RuntimeException
+     */
+    protected Menu() throws RuntimeException {
+        if (out == null) {
+            throw new RuntimeException("Cannot instantiate any menus until an IPrintBuffer is set for all menus via " +
+                    "Menu.setOut().");
+        }
         commands = new HashMap<>();
         initializeCommands();
         // validVerbs = new ArrayList<ArrayList<String>>();
@@ -48,20 +56,20 @@ public abstract class Menu {
     }
 
     /**
-     * Set the {@link MenuStack}s current menu. This will immediately change the menu after the current menu's
+     * Set the {@link MenuManager}s current menu. This will immediately change the menu after the current menu's
      * receiveInput is done processing.
      *
      * @param menu
      */
     public void changeTo(Menu menu) {
-        MenuStack.pushCurrentMenu(menu);
+        MenuManager.pushCurrentMenu(menu);
     }
 
     /**
-     * Change the {@link MenuStack}s current menu to the previous menu.
+     * Change the {@link MenuManager}s current menu to the previous menu.
      */
     public void changeToPreviousMenu() {
-        MenuStack.pushCurrentMenu(MenuStack.getPreviousMenu());
+        MenuManager.pushCurrentMenu(MenuManager.getPreviousMenu());
     }
 
     /**

@@ -1,20 +1,37 @@
 package game.menu;
 
+import game.system.GameInstance;
 import game.system.input.PlayerCommand;
 
 import java.util.Stack;
 
 /**
- * Receives {@link game.system.input.PlayerCommand}s as an receiveInput, and sends it to the current {@link Menu} to process,
- * where the Menu outputs the results to its respective output. All player receiveInput should feed into this class not
+ * Receives {@link PlayerCommand}s as an input, and sends it to the current {@link Menu} to process,
+ * where the Menu outputs the results to its respective output. All player input should feed into this class not
  * directly to any individual menu instance since menus can change what the MenuManger's current menu is based on
  * player receiveInput.
+ * <br><br>
+ * This class is abstract and all it's methods/fields static because while this stores menu singleton instances,
+ * the menus themselves are what are altering the menu stack, and not some other external source. This prevents
+ * the menus from needing to store a MenuManager singleton of their own, or having them retrieve a MenuManager instance
+ * from some other source. The former doesn't work because infinite mutual recursion, and the later is annoying
+ * because the MenuManager could be acquired from either the {@link game.system.gui.InputPanel}, or
+ * {@link GameInstance}, (or both), which work in radically different ways.
  */
-public abstract class MenuStack {
+public abstract class MenuManager {
     /**
      * Current currentMenu. All {@link game.system.input.PlayerCommand}s interact with this currentMenu.
      */
     private static Menu currentMenu;
+
+    /**
+     * The lack of current menu signifies that MenuManger has not been initialized, or that the game is over and the
+     * program should quit.
+     * @return true if MenuManager has a current menu.
+     */
+    public static boolean hasCurrentMenu() {
+        return currentMenu != null;
+    }
 
     /**
      * The previous {@link Menu}s the player was at. This is tracked in case the player wants to return to the

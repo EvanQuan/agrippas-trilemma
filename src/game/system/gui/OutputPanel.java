@@ -1,5 +1,6 @@
 package game.system.gui;
 
+import game.system.output.IPrintBuffer;
 import game.system.output.SemanticColor;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ import javax.swing.text.StyledDocument;
  * Output of game text
  * Has a scroll pane
  */
-public class OutputPanel extends GridBagPanel {
+public class OutputPanel extends GridBagPanel implements IPrintBuffer {
 
     private static final long serialVersionUID = 1L;
 
@@ -71,16 +72,26 @@ public class OutputPanel extends GridBagPanel {
 
     private static OutputPanel outputPanel = new OutputPanel();
 
+    /**
+     * Private constructor.
+     */
     private OutputPanel() {
         initFont();
         initTextPane();
         // initBorder(); // text pane does not have a border?
     }
 
+    /**
+     *
+     * @return singleton instance of OutputPanel
+     */
     public static OutputPanel getInstance() {
         return outputPanel;
     }
 
+    /**
+     * Initialize the fonts used in the text pane.
+     */
     private void initFont() {
         defaultFont = new Font(DEFAULT_NAME,DEFAULT_STYLE,DEFAULT_SIZE);
         inputFont = new Font(INPUT_NAME,INPUT_STYLE,INPUT_SIZE);
@@ -92,6 +103,9 @@ public class OutputPanel extends GridBagPanel {
     }
 
 
+    /**
+     * Initialize all the GUI components of the output panel. Currently composed of a text pane, and scroll pane.
+     */
     private void initTextPane() {
         textPane = new JTextPane();
         textPane.setEditable(false);
@@ -196,6 +210,154 @@ public class OutputPanel extends GridBagPanel {
         append(output, defaultFont, semanticColor);
     }
 
+    /**
+     *
+     * @param output to append to output buffer in default color.
+     */
+    @Override
+    public void append(double output) {
+        append(Double.toString(output));
+    }
+
+    /**
+     *
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    @Override
+    public void append(double output, SemanticColor semanticColor) {
+        append(Double.toString(output), semanticColor);
+    }
+
+    /**
+     *
+     * @param output to append to output buffer in default color.
+     */
+    @Override
+    public void append(int output) {
+        append(Integer.toString(output));
+    }
+
+    /**
+     *
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    @Override
+    public void append(int output, SemanticColor semanticColor) {
+        append(Integer.toString(output), semanticColor);
+    }
+
+    /**
+     *
+     * @param output to append to output buffer in default color.
+     */
+    @Override
+    public void append(Object output) {
+        append(output.toString());
+    }
+
+    /**
+     *
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    @Override
+    public void append(Object output, SemanticColor semanticColor) {
+        append(output.toString(), semanticColor);
+    }
+
+    /**
+     *
+     * @param output to append to output buffer in default color.
+     */
+    @Override
+    public void appendln(double output) {
+        appendln(Double.toString(output));
+    }
+
+    /**
+     *
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    @Override
+    public void appendln(double output, SemanticColor semanticColor) {
+        appendln(Double.toString(output), semanticColor);
+    }
+
+    /**
+     *
+     * @param output to append to output buffer in default color.
+     */
+    @Override
+    public void appendln(int output) {
+        appendln(Integer.toString(output));
+    }
+
+    /**
+     *
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    @Override
+    public void appendln(int output, SemanticColor semanticColor) {
+        appendln(Integer.toString(output), semanticColor);
+    }
+
+    @Override
+    public void appendln(Object output)  {
+        appendln(output.toString());
+    }
+
+    /**
+     *
+     * @param output to append to output buffer
+     * @param semanticColor  of output
+     */
+    @Override
+    public void appendln(Object output, SemanticColor semanticColor) {
+        appendln(output.toString(), semanticColor);
+    }
+
+    /**
+     *
+     * @param output to append to output buffer in default color.
+     */
+    @Override
+    public void appendln(String output) {
+        appendln(output, SemanticColor.DEFAULT);
+    }
+
+    /**
+     *
+     * @param output to append to output buffer
+     * @param semanticColor of output
+     */
+    @Override
+    public void appendln(String output, SemanticColor semanticColor) {
+        append(output + System.lineSeparator(), semanticColor);
+    }
+
+    /**
+     * Append a number of System.lineseparator() to output buffer.
+     *
+     * @param lines to append
+     */
+    @Override
+    public void appendlns(int lines) {
+        for (int i = 0; i < lines; i++) {
+            appendln();
+        }
+    }
+
+    /**
+     * Append System.lineseparator to output buffer.
+     */
+    @Override
+    public void appendln() {
+        append(System.lineSeparator());
+    }
     /**
      * Utility method for setting the font and color of a JTextPane. The
      * result is roughly equivalent to calling setFont(...) and

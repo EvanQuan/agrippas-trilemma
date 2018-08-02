@@ -1,5 +1,8 @@
 package game.system.gui;
 
+import game.menu.Menu;
+import game.system.output.GUIPrintBuffer;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,7 +15,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 /**
- * The main window of the game. Contains all GUI components
+ * The main window of the game. Contains all GUI components. This window and its constituent parts store and
+ * communicate all parts of the game logic.
  *
  * @author Evan Quan
  *
@@ -57,7 +61,8 @@ public class MainFrame extends JFrame {
     private GridBagConstraints constraint;
 
     /**
-     * Default constructor
+     * Default constructor. Once this is instantiated, the whole game is all set up and nothing
+     * further needs to be done.
      */
     public MainFrame() {
         setGameIcon();
@@ -78,6 +83,8 @@ public class MainFrame extends JFrame {
         getContentPane().setBackground(BACKGROUND_COLOR);
 
         outputPanel = OutputPanel.getInstance();
+        Menu.setOut(outputPanel);  // Set all menus to print to OutputPanel
+
         inputPanel = new InputPanel();
         // documentListener = new DocumentListener();
         // saveButton = new JButton(SAVE_LABEL);
@@ -187,7 +194,7 @@ public class MainFrame extends JFrame {
     // }
     // }
     /**
-     * Pauses window and sets title to inputed value Resets back to default title
+     * Pauses window and sets title to inputted value Resets back to default title
      * after pause
      *
      * @param String
@@ -212,7 +219,7 @@ public class MainFrame extends JFrame {
     // }
 
     /**
-     * [setGameIcon description]
+     * Sets the application icon from the default Java logo to the custom game icon.
      */
     public void setGameIcon() {
         try {

@@ -26,8 +26,8 @@ import util.ArrayUtils;
  * 6. The dictionary of all possible determiners is known.<br>
  *
  * <p>
- * <b>Due to not having a verb dictionary, this cannot do the following:</b>
- * <p>
+ *     <b>Due to not having a verb dictionary, this cannot do the following:</b>
+ * </p>
  * Multiple playerAction commands, such as:<br>
  * Multiverb commands: (look up, eat pie, go west)<br>
  * Verbsharing commands: (eat pie, potato, cake)<br>
@@ -44,9 +44,13 @@ import util.ArrayUtils;
  * - incomplete playerActions need to be able to "fill in the gaps" from context of
  * previously parsed playerActions in the same command<br>
  *
+ * @deprecated {@link PlayerInputParser}, while still verb-agnostic, can evaluate multiple {@link PlayerAction}s per
+ * {@link PlayerCommand}, and parses more complicated aspects of {@link ObjectPhrase}s.
+ *
  * @author Evan Quan
  *
  */
+@Deprecated
 public abstract class VerbAgnosticPlayerCommandParser {
 
     // NOTE: For now, only "," as end punctuation will count, as quotes are

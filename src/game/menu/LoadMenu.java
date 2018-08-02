@@ -97,13 +97,13 @@ public class LoadMenu extends Menu {
 //        append(" a game, or ");
 //        printPlayer("Return");
 //        append(" to the ");
-        if (MenuStack.getPreviousMenu().equals(MainMenu.getInstance())) {
+        if (MenuManager.getPreviousMenu().equals(MainMenu.getInstance())) {
 //            printLocation("Main Menu");
 //            println(".");
         } else {
 //            println("the game.");
         }
-        // outputlnRoom(splitCamelCaseToString(MenuStack.getInstance().getPreviousMenu().getClass().getSimpleName()));
+        // outputlnRoom(splitCamelCaseToString(MenuManager.getInstance().getPreviousMenu().getClass().getSimpleName()));
     }
     public void outputSaveInfo(Save save) {
 //        println(save.getName());

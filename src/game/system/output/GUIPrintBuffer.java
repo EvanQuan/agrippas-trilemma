@@ -3,16 +3,22 @@ package game.system.output;
 import game.system.gui.OutputPanel;
 
 /**
- * Prints text to OutputPanel GUI. Does not wrap text as wrapping is done automatically (and dynamically as window
- * size changes.
+ * Prints text to {@link OutputPanel} GUI. Does not wrap text as wrapping is done automatically (and dynamically as
+ * window size changes.
  *
+ * @deprecated {@link OutputPanel} now directly implements {@link IPrintBuffer} and no longer needs this intermediate
+ * class.
  * @author Evan Quan
  *
  */
+@Deprecated
 public class GUIPrintBuffer implements IPrintBuffer {
 
     protected OutputPanel outputPanel;
 
+    /**
+     * Default constructor. This transfers text to {@link OutputPanel}.
+     */
     public GUIPrintBuffer() {
         outputPanel = OutputPanel.getInstance();
     }

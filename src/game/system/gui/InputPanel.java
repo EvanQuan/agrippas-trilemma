@@ -1,7 +1,7 @@
 package game.system.gui;
 
 import game.menu.MainMenu;
-import game.menu.MenuStack;
+import game.menu.MenuManager;
 import game.system.input.PlayerCommand;
 import game.system.input.PlayerInputParser;
 
@@ -66,7 +66,7 @@ public class InputPanel extends GridBagPanel {
         public void actionPerformed(ActionEvent e) {
             String input = inputTextField.getText();                    // Retrieve raw receiveInput
             PlayerCommand command = PlayerInputParser.parse(input);     // Parse receiveInput to command
-            MenuStack.receiveInput(command);                                 // Send command to game logic
+            MenuManager.receiveInput(command);                                 // Send command to game logic
             previousInput.add(0, input);                            // Add receiveInput to history
             inputTextField.setText(EMPTY);                              // Clear receiveInput field
             inputHistoryIndex = 0;
@@ -123,7 +123,7 @@ public class InputPanel extends GridBagPanel {
     };
 
     /**
-     * Default InputPanel constructor
+     * Default InputPanel constructor.
      */
     public InputPanel() {
         previousInput = new ArrayList<String>();
@@ -133,7 +133,7 @@ public class InputPanel extends GridBagPanel {
         this.inputTextField.setFont(font);
         button = new JButton("Send");
 
-        MenuStack.pushCurrentMenu(MainMenu.getInstance());
+        MenuManager.pushCurrentMenu(MainMenu.getInstance());
 
         this.inputTextField.addActionListener(action);
 
