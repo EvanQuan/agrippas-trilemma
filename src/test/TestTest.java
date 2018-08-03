@@ -28,6 +28,8 @@ public class TestTest {
         String output = "\\" + System.lineSeparator();
         c.appendln(output);
 
+        // Looks like line separator connects to the end of the previous element
+        // add to its visual size, without increasing the token size
         c.appendln("\\");
         c.appendln(System.lineSeparator());
         c.appendln("1 2 3");

@@ -205,33 +205,39 @@ public class ConsolePrintBuffer implements IPrintBuffer {
         // VERSION 2 -- cleaner, but wrapping is slightly different, potentially doesn't work
         // for multiple line input text
         String[] words = output.split(" ", -1);
-//        out.print("[ Before" + cursorColumn + "]");
+        // DEBUG START
+//        out.println("[ Before" + cursorColumn + "]");
 //        ArrayList<String> a = new ArrayList(Arrays.asList(words));
-//        out.print("[Length: " + output.length() + "]");
-//        out.print(a);
+//        out.println("[Length: " + output.length() + "]");
+//        out.println(a);
 //        int visualLength = 0;
-//        for (String e : a) {
-//            visualLength += e.length();
+//        out.print("Visual length: ");
+//        for (int i = 0; i < a.size(); i++) {
+//            visualLength += a.get(i).length();
+//            out.print("(" + i + ") length:" + a.get(i).length() + "[" + a.get(i) + "], ");
 //        }
-//        out.print("[Visual length: " + visualLength + "]");
-//        out.print("[Tokens: " + words.length + "]");
+//        out.println("[Visual length: " + visualLength + "]");
+//        out.println("[Tokens: " + words.length + "]");
+        // DEBUG END
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
-            if (word.equals("\n")) {
-                out.println();
-                cursorColumn = 0;
-            } else if (words.equals("\r")) {
-            } else if (cursorColumn + word.length() > wrapWidth) {
+            boolean wordEndsWithNewline = word.endsWith(System.lineSeparator());
+            if (wordEndsWithNewline) {
+                word = word.substring(0, word.length() - System.lineSeparator().length());
+            }
+
+            if (cursorColumn + word.length() > wrapWidth) {
                 printDirect(System.lineSeparator() + word, consoleColor);
                 cursorColumn = System.lineSeparator().length() + word.length();
-                if (word.startsWith("\\")) {
-                    cursorColumn--;
-                }
-            }
-            else { // Add space before word, if word is not itself a space
+            }else { // Add space before word, if word is not itself a space
                 boolean addSpace = i == 0 || output.isEmpty();
                 printDirect((addSpace ? "" : " ") + word, consoleColor);
                 cursorColumn += (addSpace ? 0 : 1)  + word.length();
+            }
+
+            if (wordEndsWithNewline) {
+                out.println();
+                cursorColumn = 0;
             }
         }
         if (output.endsWith(System.lineSeparator())) {

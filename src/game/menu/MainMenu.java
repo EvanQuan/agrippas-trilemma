@@ -78,7 +78,7 @@ public class MainMenu extends Menu {
                         "          \\_/_|  |_|_|\\___|_| |_| |_|_| |_| |_|\\__,_|" + System.lineSeparator(),
                 SemanticColor.ITEM);
         out.appendln();
-        out.appendln("                 A Text Adventure Game");
+        out.appendln("                    A Text Adventure Game");
         out.appendln();
         // Cheese Quest
 //        printLocation("                                                                               .---.\n"
