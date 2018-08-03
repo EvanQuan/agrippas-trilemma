@@ -32,7 +32,7 @@ public class GameLoop {
         Scanner in = new Scanner(System.in);
         MenuManager.setCurrentMenu(MainMenu.getInstance());
         while(MenuManager.hasCurrentMenu()) {
-            out.printDirect(IPrintBuffer.INPUT_MARKER, SemanticColor.PLAYER);
+            out.append(IPrintBuffer.INPUT_MARKER, SemanticColor.PLAYER);
             MenuManager.receiveInput(PlayerInputParser.parse(in.nextLine()));
         }
     }

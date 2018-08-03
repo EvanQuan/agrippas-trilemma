@@ -123,10 +123,10 @@ public class MainMenu extends Menu {
         out.appendln();
         out.appendln("Examples:");
         out.appendln();
-        out.appendln(IPrintBuffer.INPUT_MARKER + " drink eggnog", SemanticColor.PLAYER);
+        out.appendln(IPrintBuffer.INPUT_MARKER + "drink eggnog", SemanticColor.PLAYER);
         out.appendln("You drink the eggnog. It's like Christmas morning!");
         out.appendln();
-        out.appendln(IPrintBuffer.INPUT_MARKER + " give catnip to the kitten", SemanticColor.PLAYER);
+        out.appendln(IPrintBuffer.INPUT_MARKER + "give catnip to the kitten", SemanticColor.PLAYER);
         out.appendln("You give the catnip to the kitten, making it go crazy.");
         out.appendln();
     }
@@ -146,7 +146,7 @@ public class MainMenu extends Menu {
 
     public void appendOptions() {
         out.appendlns(OPTIONS_SPACING);
-        out.append("    1", SemanticColor.PLAYER);
+        out.append("1", SemanticColor.PLAYER);
         out.append(". Start Game    ");
         out.append("2", SemanticColor.PLAYER);
         out.append(". How to Play    ");

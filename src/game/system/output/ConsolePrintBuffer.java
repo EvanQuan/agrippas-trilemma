@@ -253,18 +253,8 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      * @param output
      * @param consoleColor
      */
-    public void printDirect(String output, ConsoleColor consoleColor) {
+    private void printDirect(String output, ConsoleColor consoleColor) {
         out.print(consoleColor + output + currentColor);
-    }
-
-    /**
-     * Directly print an output with a specified color without wrapping. Does not affect cursorColumn.
-     *
-     * @param output
-     * @param semanticColor
-     */
-    public void printDirect(String output, SemanticColor semanticColor) {
-        printDirect(output, SemanticColor.toConsoleColor(semanticColor));
     }
 
     /**
