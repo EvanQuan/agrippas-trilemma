@@ -25,7 +25,7 @@ public class CreateGameMenu extends Menu {
         return instance;
     }
 
-    public void outputPrompt() {
+    public void appendPrompt() {
 //        println("Enter the name of your new game.");
     }
     public void processInput() {

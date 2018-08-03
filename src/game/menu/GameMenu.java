@@ -84,7 +84,7 @@ public class GameMenu extends Menu {
 
     }
 
-    public void outputPrompt() {
+    public void appendPrompt() {
 //        println("room: " + room);
         playerLook();
     }
@@ -109,8 +109,8 @@ public class GameMenu extends Menu {
 //            } else {
 //                quit(); // NOTE: Change to GameOverMenu
 //            }
-//        } else if (!extendInput) { // outputInvalid must be manually set for children extendInput
-//            outputInvalid();
+//        } else if (!extendInput) { // appendInvalid must be manually set for children extendInput
+//            appendInvalid();
 //        }
     }
 

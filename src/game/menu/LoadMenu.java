@@ -78,7 +78,7 @@ public class LoadMenu extends Menu {
      * Outputs numerical list of existing save files by name and information
      * and New game option
      */
-    public void outputPrompt() {
+    public void appendPrompt() {
         updateSaves();
 //        printTitleln(LOAD_GAME);
         String gameName;
@@ -141,8 +141,8 @@ public class LoadMenu extends Menu {
 //                loadGame(getInputString());
 //                changeToGameMenu();
 //            } else {
-//                outputInvalid("load");
-//                outputPrompt();
+//                appendInvalid("load");
+//                appendPrompt();
 //            }
 //        } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
 //
@@ -179,12 +179,12 @@ public class LoadMenu extends Menu {
 //                outputNotDeleted();
 //            }
 //            println();
-//            outputPrompt();
+//            appendPrompt();
 //        } else if (inputStartsWithStrip(returnToPreviousMenu)) {
 //            changeToPreviousMenu();
 //        } else { //
 //            println("You cannot do that.");
-//            outputPrompt();
+//            appendPrompt();
 //        }
     }
 

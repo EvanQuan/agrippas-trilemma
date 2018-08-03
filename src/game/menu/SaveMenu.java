@@ -43,7 +43,7 @@ public class SaveMenu extends Menu {
         return instance;
     }
 
-    public void outputPrompt() {
+    public void appendPrompt() {
 
     }
 

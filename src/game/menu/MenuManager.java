@@ -9,7 +9,8 @@ import java.util.Stack;
  * Receives {@link PlayerCommand}s as an input, and sends it to the current {@link Menu} to process,
  * where the Menu outputs the results to its respective output. All player input should feed into this class not
  * directly to any individual menu instance since menus can change what the MenuManger's current menu is based on
- * player receiveInput.
+ * player receiveInput. Also prompts the menus when to output, such as when switching between menus, or when
+ * responding to player input.
  * <br><br>
  * This class is abstract and all it's methods/fields static because while this stores menu singleton instances,
  * the menus themselves are what are altering the menu stack, and not some other external source. This prevents
@@ -68,6 +69,7 @@ public abstract class MenuManager {
 
     /**
      * Set the specified menu as the current menu, and push the previous current menu to the previous menu stack.
+     * After the menu has been set, the new current menu outputs its main prompt.
      *
      * @param menu
      */
@@ -77,20 +79,22 @@ public abstract class MenuManager {
             // ex. At the start of the program, the main menu is pushed (not set) as the current menu.
             previousMenus.push(currentMenu);
         }
-    	currentMenu = menu;
+    	setCurrentMenu(menu);
     }
 
     /**
      * Set the current main as the top of ths previous menu stack. If the previous menu stack is empty, do nothing.
+     * After the menu has been set, the new current menu outputs its main prompt.
      */
     public static void popPreviousMenu() {
         if (previousMenus.peek() != null) {
-            currentMenu = previousMenus.pop();
+            setCurrentMenu(previousMenus.pop());
         }
     }
 
     /**
-     * Set the specified menu as the current menu. Does not affect the previous menu stack.
+     * Set the specified menu as the current menu. Does not affect the previous menu stack. After the menu has been
+     * set, the new current menu outputs its main prompt.
      * <br><br>
      * NOTE: Use this for in-game sub-menus so that they always return back to {@link GameMenu}, and so that the
      * underlying menu is still the {@link MainMenu}.
@@ -99,5 +103,6 @@ public abstract class MenuManager {
      */
     public static void setCurrentMenu(Menu menu) {
         currentMenu = menu;
+        currentMenu.appendPrompt();
     }
 }

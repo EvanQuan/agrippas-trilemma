@@ -23,7 +23,7 @@ public interface IPrintBuffer {
     /**
      * This symbol is placed immediately left of the player receiveInput to mark it separate from the rest of the text.
      */
-    String INPUT_MARKER = "> ";
+    String INPUT_MARKER = System.lineSeparator() + "> ";
 
     /**
      * @param output to append to output buffer in default color.
@@ -123,4 +123,32 @@ public interface IPrintBuffer {
      * Append a System.lineseparator() to output buffer.
      */
     void appendln();
+
+//    /**
+//     * Append the output in wrapped form.
+//     */
+//    void appendWrap(String output);
+//
+//    /**
+//     * Append the output wrapped with the specified color.
+//     *
+//     * @param output
+//     * @param semanticColor
+//     */
+//    void appendWrap(String output, SemanticColor semanticColor);
+//
+//    /**
+//     * Append the output in wrapped form with a System.lineseparator() to the output buffer.
+//     *
+//     * @param output to append to the output buffer.
+//     */
+//    void appendWrapln(String output);
+//
+//    /**
+//     * Append the output in wrapped with specified color with a System.lineseparator() to the output buffer.
+//     *
+//     * @param output to append to the output buffer.
+//     * @param semanticColor
+//     */
+//    void appendWrapln(String output, SemanticColor semanticColor);
 }

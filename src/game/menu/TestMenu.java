@@ -16,7 +16,7 @@ public class TestMenu extends Menu {
 
     }
 
-    public void outputPrompt() {
+    public void appendPrompt() {
 //        printTitleln("Test Menu");
 //        println("You are now in the Test menu.");
 //        println("Valid receiveInput: " + Arrays.asList(VALID_INPUT));

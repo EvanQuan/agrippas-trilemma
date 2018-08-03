@@ -20,6 +20,5 @@ public class StandardPrinterTest {
         for (SemanticColor color : SemanticColor.values()) {
             out.appendln(message, color);
         }
-        out.print();
     }
 }

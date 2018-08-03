@@ -1,6 +1,11 @@
 package game.system.output;
 
+import java.awt.*;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.ConsoleHandler;
 
 /**
  * Prints hard-wrapped colored text to console.
@@ -13,10 +18,14 @@ public class ConsolePrintBuffer implements IPrintBuffer {
     public static final int DEFAULT_WRAP_WIDTH = 79;
 
     public static final PrintStream DEFAULT_OUT = System.out;
+
+    private ConsoleColor currentColor;
+
     /**
      * The maximum column before the text is hard-wrapped to the next line.
      */
     private int wrapWidth;
+
     /**
      * Where the text is outputted to. This may need to be changed for debugging purposes.
      */
@@ -25,7 +34,7 @@ public class ConsolePrintBuffer implements IPrintBuffer {
     /**
      * Output text is built and stored here until it is finally printed.
      */
-    private StringBuilder outputBuffer;
+//    private StringBuilder outputBuffer;
 
     /**
      * Current column location of the cursor in the outputBuffer. This is necessary to track as the text is
@@ -36,8 +45,17 @@ public class ConsolePrintBuffer implements IPrintBuffer {
     public ConsolePrintBuffer() {
         wrapWidth = DEFAULT_WRAP_WIDTH;
         out = DEFAULT_OUT;
+//        outputBuffer = new StringBuilder();
+        currentColor = SemanticColor.toConsoleColor(SemanticColor.DEFAULT);
+    }
 
-        outputBuffer = new StringBuilder();
+    /**
+     * Set the default {@link SemanticColor} that this buffer prints in.
+     *
+     * @param semanticColor
+     */
+    public void setCurrentColor(SemanticColor semanticColor) {
+        this.currentColor = SemanticColor.toConsoleColor(semanticColor);
     }
 
     /**
@@ -112,7 +130,7 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      */
     @Override
     public void append(String output) {
-        append(output, SemanticColor.DEFAULT);
+        append(output, currentColor);
     }
 
     /**
@@ -124,55 +142,123 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      * TODO. Treating first word different not implemented yet. Seems very expensive to do it O(n).
      *
      * @param output to append to output buffer
-     * @param semanticColor of output
+     * @param consoleColor of output
      */
-    @Override
-    public void append(String output, SemanticColor semanticColor) {
-        ConsoleColor consoleColor = SemanticColor.toConsoleColor(semanticColor);
-        // Split output into an array of lines, delimited by System.lineSeparator()
-        String[] lines = output.split(System.lineSeparator(), 2);
-        String[] words;
-        // Iterate through each line to check if further splitting is needed (to hard-wrap)
-        for (int i = 0; i < lines.length; i++) {
-            if (cursorColumn + lines[i].length() > wrapWidth) {
-                // Split line into words and add them to conform to wrapWidth
-                words = lines[i].split(" ");
-                for (String word : words) {
-                    if (cursorColumn + word.length() + 1 > wrapWidth && cursorColumn > 0) {
-                        // +1 is for the space before word
-                        // Check cursorColumn is not at start, since a word longer than wrapWidth will then create
-                        // an extra new line if the cursor is already at the start.
-                        outputBuffer.append(System.lineSeparator());
-                        cursorColumn = 0;
-                    } else if (cursorColumn > 0) {
-                        // Add space before word if it is not the start of the column
-                        // and not first word of line (since spaces separated words only within the line).
-                        // TODO. Treating first word different not implemented yet. Seems expensive to do it O(n).
-                        outputBuffer.append(" ");
-                        cursorColumn++;
-                    }
-                    outputBuffer.append(consoleColor + word + ConsoleColor.RESET);
-                    cursorColumn += word.length();
+    public void append(String output, ConsoleColor consoleColor) {
+        // VERSION 1 -- complicated, but covers more edge cases for extra/missing spaces (maybe)
+//        if (lastAppendEndedWithSpace || output.startsWith(" ")) {
+//            out.print(" ");
+//            cursorColumn++;
+//        }
+//        // Split output into an array of lines, delimited by System.lineSeparator()
+//        String[] lines = output.split(System.lineSeparator(), 2);
+//        String[] words;
+//        // Iterate through each line to check if further splitting is needed (to hard-wrap)
+//        for (int i = 0; i < lines.length; i++) {
+//            if (cursorColumn + lines[i].length() > wrapWidth) {
+//                // Split line into words and add them to conform to wrapWidth
+//                words = lines[i].split(" ");
+//                for (String word : words) {
+//                    if (cursorColumn + word.length() + 1 > wrapWidth && cursorColumn > 0) {
+//                        // +1 is for the space before word
+//                        // Check cursorColumn is not at start, since a word longer than wrapWidth will then create
+//                        // an extra new line if the cursor is already at the start.
+////                            outputBuffer.append(System.lineSeparator());
+//                        out.println();
+//                        cursorColumn = 0;
+//                    } else if (cursorColumn > 0) {
+//                        // Add space before word if it is not the start of the column
+//                        // and not first word of line (since spaces separated words only within the line).
+//                        // TODO. Treating first word different not implemented yet. Seems expensive to do it O(n).
+////                            outputBuffer.append(" ");
+//                        out.print(" ");
+//                        cursorColumn++;
+//                    }
+//                    append(word, consoleColor);
+//                    cursorColumn += word.length();
+//                }
+//            } else if (!lines[i].isEmpty()) {
+//                // else if the line is not empty
+//                // Add line directly as it is less than wrap width
+//                // strip space at the end and re-add it for next append so there is no trailing whitespace
+//                append(lines[i].trim(), consoleColor);
+//                // Apply semanticColor and add new line that was removed
+//                cursorColumn += lines[i].length();   // Move cursor back to the start
+//            } else {
+//                // If the line is blank, which is due to how the line is split when there was a new line character,
+//                // then add a new line.
+//                out.println();
+//                cursorColumn = 0;
+//            }
+//        }
+//        if (lines.length > 1 && lines[lines.length -1].isEmpty()) {
+//            // If there are multiple lines and we are processing the final line which is blank, that means there was
+//            // a final new line that was removed and needs to re-added.
+//            // The reason why this is only true for multiple lines is that if there is a single blank line, then the
+//            // user simply inputted an empty string.
+//            out.println();
+//            cursorColumn = 0;
+//        }
+//
+//        lastAppendEndedWithSpace = output.endsWith(" ");
+
+        // VERSION 2 -- cleaner, but wrapping is slightly different, potentially doesn't work
+        // for multiple line input text
+        String[] words = output.split(" ", -1);
+//        out.print("[ Before" + cursorColumn + "]");
+//        ArrayList<String> a = new ArrayList(Arrays.asList(words));
+//        out.print("[Length: " + output.length() + "]");
+//        out.print(a);
+//        int visualLength = 0;
+//        for (String e : a) {
+//            visualLength += e.length();
+//        }
+//        out.print("[Visual length: " + visualLength + "]");
+//        out.print("[Tokens: " + words.length + "]");
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (word.equals("\n")) {
+                out.println();
+                cursorColumn = 0;
+            } else if (words.equals("\r")) {
+            } else if (cursorColumn + word.length() > wrapWidth) {
+                printDirect(System.lineSeparator() + word, consoleColor);
+                cursorColumn = System.lineSeparator().length() + word.length();
+                if (word.startsWith("\\")) {
+                    cursorColumn--;
                 }
-            } else if (lines[i].length() > 0) {
-                // Add line directly as it is less than wrap width
-                // If the line is blank, which is due to how the line is split when there was a new line character,
-                // then don't add a new line, as that would double the new lines.
-                outputBuffer.append(consoleColor + lines[i] + ConsoleColor.RESET + (lines[i].length() > 1 ?
-                        System.lineSeparator() :
-                        ""));
-                // Apply semanticColor and add new line that was removed
-                cursorColumn = 0;   // Move cursor back to the start
+            }
+            else { // Add space before word, if word is not itself a space
+                boolean addSpace = i == 0 || output.isEmpty();
+                printDirect((addSpace ? "" : " ") + word, consoleColor);
+                cursorColumn += (addSpace ? 0 : 1)  + word.length();
             }
         }
-        if (lines.length > 1 && lines[lines.length -1].isEmpty()) {
-            // If there are multiple lines and we are processing the final line which is blank, that means there was
-            // a final new line that was removed and needs to re-added.
-            // The reason why this is only true for multiple lines is that if there is a single blank line, then the
-            // user simply inputed an empty string.
-            outputBuffer.append(System.lineSeparator());
+        if (output.endsWith(System.lineSeparator())) {
             cursorColumn = 0;
         }
+
+//        out.print("[ After" + cursorColumn + "]");
+    }
+
+    /**
+     * Directly print an output with a specified color without wrapping. Does not affect cursorColumn.
+     *
+     * @param output
+     * @param consoleColor
+     */
+    public void printDirect(String output, ConsoleColor consoleColor) {
+        out.print(consoleColor + output + currentColor);
+    }
+
+    /**
+     * Directly print an output with a specified color without wrapping. Does not affect cursorColumn.
+     *
+     * @param output
+     * @param semanticColor
+     */
+    public void printDirect(String output, SemanticColor semanticColor) {
+        printDirect(output, SemanticColor.toConsoleColor(semanticColor));
     }
 
     /**
@@ -238,7 +324,7 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      */
     @Override
     public void appendln(String output) {
-        append(output, SemanticColor.DEFAULT);
+        append(output + System.lineSeparator(), currentColor);
     }
 
     /**
@@ -259,7 +345,7 @@ public class ConsolePrintBuffer implements IPrintBuffer {
     @Override
     public void appendlns(int lines) {
         for (int i = 0; i < lines; i++) {
-            appendln();
+            out.println();
         }
     }
 
@@ -268,15 +354,17 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      */
     @Override
     public void appendln() {
-        append(System.lineSeparator());
+        out.println();
     }
 
-
     /**
-     * Send output buffer contents to output and clear output buffer.
+     * Append the output with the specified {@link SemanticColor} color.
+     *
+     * @param output
+     * @param semanticColor
      */
-    public void print() {
-        out.print(outputBuffer);        // Print output
-        outputBuffer.setLength(0);      // Empty outputBuffer
+    @Override
+    public void append(String output, SemanticColor semanticColor) {
+        append(output, SemanticColor.toConsoleColor(semanticColor));
     }
 }

@@ -358,6 +358,7 @@ public class OutputPanel extends GridBagPanel implements IPrintBuffer {
     public void appendln() {
         append(System.lineSeparator());
     }
+
     /**
      * Utility method for setting the font and color of a JTextPane. The
      * result is roughly equivalent to calling setFont(...) and

@@ -30,6 +30,16 @@ public class RestartMenu extends Menu {
         // TODO
     }
 
+    /**
+     * Appends prompt to output {@link IPrintBuffer}. This should be called every time a {@link Menu}is changed in
+     * {@link MenuManager} to signify to the user that the menu has changed, and what input is appropriate for the given
+     * menu.
+     */
+    @Override
+    public void appendPrompt() {
+
+    }
+
     public static RestartMenu getInstance() {
         return restartMenu;
     }

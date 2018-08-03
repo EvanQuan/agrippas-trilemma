@@ -1,12 +1,10 @@
 package game.menu;
 
 import game.system.input.PlayerCommand;
+import game.system.output.ConsolePrintBuffer;
+import game.system.output.IPrintBuffer;
 import game.system.output.SemanticColor;
 import main.Main;
-import util.ArrayUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainMenu extends Menu {
     private static MainMenu instance;
@@ -26,19 +24,7 @@ public class MainMenu extends Menu {
         return instance;
     }
 
-    private ArrayList<String> startGameVerbs;
-    private ArrayList<String> howToPlayVerbs;
-    private ArrayList<String> aboutThisGameVerbs;
-
     private MainMenu() {
-        startGameVerbs = new ArrayList<>(
-                ArrayUtils.getArrayList(new String[] { "1", "1.", "start game", "start", "s" }));
-        howToPlayVerbs = new ArrayList<>(
-                ArrayUtils.getArrayList(new String[] { "2", "2.", "how to play", "how", "h" }));
-        aboutThisGameVerbs = new ArrayList<>(ArrayUtils
-                .getArrayList(new String[] { "3", "3.", "about this game", "about", "about game", "a" }));
-        validVerbs = new ArrayList<>(
-                Arrays.asList(startGameVerbs, howToPlayVerbs, aboutThisGameVerbs));
     }
 
     @Override
@@ -46,7 +32,6 @@ public class MainMenu extends Menu {
         addCommand(new String[] {"1", "1.", "start game", "start", "s"}, () -> startGame());
         addCommand(new String[] {"2", "2.", "how to play", "how", "h"}, () -> startHowToPlay());
         addCommand(new String[] {"3", "3.", "about this game", "about", "about game", "a"}, () -> startAboutThisGame());
-
     }
 
     /**
@@ -60,47 +45,96 @@ public class MainMenu extends Menu {
      * Print information about how to play this game and re-prompt options.
      */
     public void startHowToPlay() {
-        outputHowToPlay();
-        outputOptions();
+        appendTitleScreen();
+        appendHowToPlay();
+        appendShortcuts();
+        appendOptions();
     }
 
     /**
      * Print information about this game and re-prompt options.
      */
     public void startAboutThisGame() {
-        outputAboutThisGame();
-        outputOptions();
+        appendTitleScreen();
+        appendAboutThisGame();
+        appendOptions();
     }
 
-    public void outputAboutThisGame() {
-        out.appendln("Current version: " + Main.getVersion(), SemanticColor.TITLE);
-        out.append("Cheese Quest 2", SemanticColor.ITEM);
-        out.append(" started development in ");
-        out.append("August of 2017", SemanticColor.ITEM);
-        out.append(". It was inspired by ");
-        out.append("The Hitchhiker's Guide to the Galaxy", SemanticColor.ITEM);
-        out.append(" text adventure game published by ");
-        out.append("Infocom", SemanticColor.ITEM);
-        out.append(" in ");
-        out.append("1984", SemanticColor.ITEM);
-        out.append(".");
+    public void appendTitleScreen() {
+        out.appendln("        Welcome to...");
+        out.append("          ___             _                   _" + System.lineSeparator() +
+                        "         / _ \\           (_)                 ( )" + System.lineSeparator() +
+                        "        / /_\\ \\ __ _ _ __ _ _ __  _ __   __ _|/ ___" + System.lineSeparator() +
+                        "        |  _  |/ _` | '__| | '_ \\| '_ \\ / _` | / __|" + System.lineSeparator() +
+                        "        | | | | (_| | |  | | |_) | |_) | (_| | \\__ \\" + System.lineSeparator() +
+                        "        \\_| |_/\\__, |_|  |_| .__/| .__/ \\__,_| |___/" + System.lineSeparator() +
+                        "                __/ |      | |   | |" + System.lineSeparator() +
+                        "               |___/       |_|   |_|" + System.lineSeparator() +
+                        "         _____    _ _" + System.lineSeparator() +
+                        "        |_   _|  (_) |" + System.lineSeparator() +
+                        "          | |_ __ _| | ___ _ __ ___  _ __ ___   __ _" + System.lineSeparator() +
+                        "          | | '__| | |/ _ \\ '_ ` _ \\| '_ ` _ \\ / _` |" + System.lineSeparator() +
+                        "          | | |  | | |  __/ | | | | | | | | | | (_| |" + System.lineSeparator() +
+                        "          \\_/_|  |_|_|\\___|_| |_| |_|_| |_| |_|\\__,_|" + System.lineSeparator(),
+                SemanticColor.ITEM);
+        out.appendln();
+        out.appendln("                 A Text Adventure Game");
+        out.appendln();
+        // Cheese Quest
+//        printLocation("                                                                               .---.\n"
+//                + "                                                                              /  .  \\ \n"
+//                + "                                                                             |\\_/|   |\n"
+//                + "                                                                             |   |  /|\n"
+//                + "  .--------------------------------------------------------------------------------' |\n"
+//                + " /  .-.     _____  _   _  _____ _____ _____ _____   _____ _   _ _____ _____ _____    |\n"
+//                + "|  /   \\   /  __ \\| | | ||  ___|  ___/  ___|  ___| |  _  | | | |  ___/  ___|_   _|   |\n"
+//                + "| |\\_.  |  | /  \\/| |_| || |__ | |__ \\ `--.| |__   | | | | | | | |__ \\ `--.  | |     |\n"
+//                + "|\\|  | /|  | |    |  _  ||  __||  __| `--. \\  __|  | | | | | | |  __| `--. \\ | |     |\n"
+//                + "| `---' |  | \\__/\\| | | || |___| |___/\\__/ / |___  \\ \\/' / |_| | |___/\\__/ / | |     |\n"
+//                + "|       |   \\____/\\_| |_/\\____/\\____/\\____/\\____/   \\_/\\_\\\\___/\\____/\\____/  \\_/     |\n"
+//                + "|       |       _____  _           ___  _                                __          |\n"
+//                + "|       |      |_   _|| |_   ___  | _ \\| | __ _  __ _  _  _  ___   ___  / _|         |\n"
+//                + "|       |        | |  | ' \\ / -_) |  _/| |/ _` |/ _` || || |/ -_) / _ \\|  _|         |\n"
+//                + "|       |        |_|  |_||_|\\___| |_|  |_|\\__,_|\\__, | \\_,_|\\___| \\___/|_|           |\n"
+//                + "|       |               _  __           _     _ |___/               _                |\n"
+//                + "|       |              | |/ / __ _  ___| |_  | |__ __ _ __ __ __ _ | |               |\n"
+//                + "|       |              | ' < / _` |(_-<| ' \\ | / // _` |\\ V // _` || |               |\n"
+//                + "|       |              |_|\\_s\\\__,_|/__/|_||_||_\\_\\\\__,_| \\_/ \\__,_||_|               |\n"
+//                + "|       |                                                                           /\n"
+//                + "|       |--------------------------------------------------------------------------'\n"
+//                + "\\       |\n" + " \\     /");
+//        println("                          A Text Adventure Game");
+//        printLocationln("  `---'");
     }
 
-    public void outputHowToPlay() {
-//        println("Type in commands to do stuff. See what works and what doesn't.");
-//        println();
-//        printItemln("Examples:");
-//        println();
-//        printPlayerInputNoSpace("drink eggnog");
-//        println("You drink the eggnog. It's like Christmas morning!");
-//        println();
-//        printPlayerInputNoSpace("give catnip to kitten");
-//        println("You give the catnip to the kitten, making it go crazy.");
-//        println();
-        outputShortcuts();
+    public void appendAboutThisGame() {
+        out.appendln("Current version: v" + Main.getVersion() + System.lineSeparator(), SemanticColor.TITLE);
+        out.append("Agrippa's Trilemma", SemanticColor.ITEM);
+        out.append(" started development in August of 2017. It was inspired by ");
+        out.append("\"The Hitchhiker's Guide to the Galaxy\"", SemanticColor.SPEECH);
+        out.append(" text adventure game published by Infocom in 1984. You can learn more about the game's history " +
+                "and development at: ");
+        out.appendln("https://github.com/EvanQuan/AgrippasTrilemma/wiki.");
     }
 
-    public void outputInvalid() {
+    public void appendHowToPlay() {
+        out.appendln("Type in commands to do stuff. See what works and what doesn't. Trial and error is your " +
+                "friend.");
+        out.appendln();
+        out.appendln("Examples:");
+        out.appendln();
+        out.appendln(IPrintBuffer.INPUT_MARKER + " drink eggnog", SemanticColor.PLAYER);
+        out.appendln("You drink the eggnog. It's like Christmas morning!");
+        out.appendln();
+        out.appendln(IPrintBuffer.INPUT_MARKER + " give catnip to the kitten", SemanticColor.PLAYER);
+        out.appendln("You give the catnip to the kitten, making it go crazy.");
+        out.appendln();
+    }
+
+    /**
+     * If command was invalid, explicitly prompt what
+     */
+    public void appendInvalid() {
         out.append("Choose ");
         out.append("Start Game", SemanticColor.PLAYER);
         out.append(", ");
@@ -110,23 +144,28 @@ public class MainMenu extends Menu {
         out.append(".");
     }
 
-    public void outputOptions() {
+    public void appendOptions() {
         out.appendlns(OPTIONS_SPACING);
-        out.append("                ");
-        out.append("1", SemanticColor.PLAYER);
-        out.append(". Start Game        ");
+        out.append("    1", SemanticColor.PLAYER);
+        out.append(". Start Game    ");
         out.append("2", SemanticColor.PLAYER);
-        out.append(". How to Play        ");
+        out.append(". How to Play    ");
         out.append("3", SemanticColor.PLAYER);
-        out.appendln(". About this Game");
+        out.append(". About this Game    ");
+        out.append("4", SemanticColor.PLAYER);
+        out.appendln(". Quit");
     }
 
-    public void outputPrompt() {
-        outputTitleScreen();
-        outputOptions();
+    /**
+     * Outputs the title screen and menu options.
+     */
+    @Override
+    public void appendPrompt() {
+        appendTitleScreen();
+        appendOptions();
     }
 
-    public void outputShortcuts() {
+    public void appendShortcuts() {
         out.appendln("Basic shortcut commands:", SemanticColor.ITEM);
         out.append("l", SemanticColor.PLAYER);
         out.appendln(" - Look");
@@ -158,80 +197,6 @@ public class MainMenu extends Menu {
         out.appendln(" - Go Down");
     }
 
-    public void outputTitleScreen() {
-        // Cheese Quest 2
-        // outputRoom(" .---.\n" +
-        // " / . \\ \n" +
-        // " |\\_/| |\n" +
-        // " | | /|\n" +
-        // "
-        // .----------------------------------------------------------------------------------------'
-        // |\n" +
-        // " / .-. _____ _ _ _____ _____ _____ _____ _____ _ _ _____ _____ _____ _____
-        // |\n" +
-        // "| / \\ / __ \\| | | || ___| ___/ ___| ___| | _ | | | | ___/ ___|_ _| / __ \\
-        // |\n" +
-        // "| |\\_. | | / \\/| |_| || |__ | |__ \\ `--.| |__ | | | | | | | |__ \\ `--. |
-        // | `' / /' |\n" +
-        // "|\\| | /| | | | _ || __|| __| `--. \\ __| | | | | | | | __| `--. \\ | | / /
-        // |\n" +
-        // "| `---' | | \\__/\\| | | || |___| |___/\\__/ / |___ \\ \\/' / |_| |
-        // |___/\\__/ / | | ./ /___ |\n" +
-        // "| | \\____/\\_| |_/\\____/\\____/\\____/\\____/
-        // \\_/\\_\\\\___/\\____/\\____/ \\_/ \\_____/ |\n" +
-        // "| | _____ _ ___ _ __ |\n" +
-        // "| | |_ _|| |_ ___ | _ \\| | __ _ __ _ _ _ ___ ___ / _| |\n" +
-        // "| | | | | ' \\ / -_) | _/| |/ _` |/ _` || || |/ -_) / _ \\| _| |\n" +
-        // "| | |_| |_||_|\\___| |_| |_|\\__,_|\\__, | \\_,_|\\___| \\___/|_| |\n" +
-        // "| | _ __ _ _ |___/ _ |\n" +
-        // "| | | |/ / __ _ ___| |_ | |__ __ _ __ __ __ _ | | |\n" +
-        // "| | | ' < / _` |(_-<| ' \\ | / // _` |\\ V // _` || | |\n" +
-        // "| | |_|\\_\\\\__,_|/__/|_||_||_\\_\\\\__,_| \\_/ \\__,_||_| |\n" +
-        // "| | /\n" +
-        // "|
-        // |----------------------------------------------------------------------------------'\n"
-        // +
-        // "\\ |\n" +
-        // " \\ /");
-        // Cheese Quest
-//        printLocation("                                                                               .---.\n"
-//                + "                                                                              /  .  \\ \n"
-//                + "                                                                             |\\_/|   |\n"
-//                + "                                                                             |   |  /|\n"
-//                + "  .--------------------------------------------------------------------------------' |\n"
-//                + " /  .-.     _____  _   _  _____ _____ _____ _____   _____ _   _ _____ _____ _____    |\n"
-//                + "|  /   \\   /  __ \\| | | ||  ___|  ___/  ___|  ___| |  _  | | | |  ___/  ___|_   _|   |\n"
-//                + "| |\\_.  |  | /  \\/| |_| || |__ | |__ \\ `--.| |__   | | | | | | | |__ \\ `--.  | |     |\n"
-//                + "|\\|  | /|  | |    |  _  ||  __||  __| `--. \\  __|  | | | | | | |  __| `--. \\ | |     |\n"
-//                + "| `---' |  | \\__/\\| | | || |___| |___/\\__/ / |___  \\ \\/' / |_| | |___/\\__/ / | |     |\n"
-//                + "|       |   \\____/\\_| |_/\\____/\\____/\\____/\\____/   \\_/\\_\\\\___/\\____/\\____/  \\_/     |\n"
-//                + "|       |       _____  _           ___  _                                __          |\n"
-//                + "|       |      |_   _|| |_   ___  | _ \\| | __ _  __ _  _  _  ___   ___  / _|         |\n"
-//                + "|       |        | |  | ' \\ / -_) |  _/| |/ _` |/ _` || || |/ -_) / _ \\|  _|         |\n"
-//                + "|       |        |_|  |_||_|\\___| |_|  |_|\\__,_|\\__, | \\_,_|\\___| \\___/|_|           |\n"
-//                + "|       |               _  __           _     _ |___/               _                |\n"
-//                + "|       |              | |/ / __ _  ___| |_  | |__ __ _ __ __ __ _ | |               |\n"
-//                + "|       |              | ' < / _` |(_-<| ' \\ | / // _` |\\ V // _` || |               |\n"
-//                + "|       |              |_|\\_s\\\__,_|/__/|_||_||_\\_\\\\__,_| \\_/ \\__,_||_|               |\n"
-//                + "|       |                                                                           /\n"
-//                + "|       |--------------------------------------------------------------------------'\n"
-//                + "\\       |\n" + " \\     /");
-//        println("                          A Text Adventure Game");
-//        printLocationln("  `---'");
-    }
-
-    /**
-     * Process receiveInput that applies to inheritance
-     */
-    public void preProcessInput() {
-//        if (inputEquals(EMPTY)) {
-//            println("I beg your pardon?");
-//            outputOptions();
-//        } else {
-//            processInput();
-//        }
-
-    }
 
     /**
      *
@@ -244,7 +209,7 @@ public class MainMenu extends Menu {
         if (commands.containsKey(command)) {
             commands.get(command).run();
         } else {
-
+            appendInvalid();
         }
     }
 }

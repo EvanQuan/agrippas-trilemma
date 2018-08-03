@@ -11,7 +11,6 @@ import java.util.HashMap;
  */
 public abstract class Menu {
 
-    private static final String EMPTY_COMMAND_MESSAGE = "I beg your pardon?";
     /**
      * Output
      */
@@ -74,8 +73,8 @@ public abstract class Menu {
     }
 
     /**
-     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
-     * {@link game.system.output.IPrintBuffer}.
+     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently
+     * set {@link game.system.output.IPrintBuffer}. This is occurs after preprocessInput() is called and succeeds.
      *
      * @param playerCommand to processInput
      */
@@ -87,7 +86,7 @@ public abstract class Menu {
     protected abstract void initializeCommands();
 
     /**
-     * Every command is composed of a list of possible receiveInput options that correspond with Menu method for the Menu to
+     * Every command is composed of a list of possible inputs options that correspond with Menu method for the Menu to
      * execute. As a result, be careful not to have commands share options, or an option will be overridden
      *
      * @param options all strings that corresponding to method. All are converted to lower case.
@@ -104,7 +103,7 @@ public abstract class Menu {
      *
      * @param playerCommand
      */
-    public void receiveInput(PlayerCommand playerCommand) {
+    public final void receiveInput(PlayerCommand playerCommand) {
         if (preprocessInput(playerCommand)) {
             processInput(playerCommand);
             postprocessInput(playerCommand);
@@ -112,29 +111,35 @@ public abstract class Menu {
     }
 
     /**
-     * Checks player command before processing. By default, checks if the command is empty. If so, print a prompt and
-     * skip processInput() and postprocessInput().
+     * Checks player command before processing. By default, checks if the command is empty. If so, output the main
+     * prompt and skip processInput() and postprocessInput().
      *
      * @param playerCommand
      * @return true if pre-process was successful.
      */
     protected boolean preprocessInput(PlayerCommand playerCommand) {
         if (playerCommand.isEmpty()) {
-            out.append(EMPTY_COMMAND_MESSAGE);
-            return false;
+            appendPrompt();
         }
-        return true;
+        return !playerCommand.isEmpty();
     }
 
     /**
      * Retrieves information about the playerCommand after it has been process. This may influence how future
-     * commands are processed. By default this does nothing. TODO: Sure about this?????
+     * commands are processed. This is only ran if preprocessInput() is successful. By default this does nothing.
      *
      * @param playerCommand
      */
     protected void postprocessInput(PlayerCommand playerCommand) {
 
     }
+
+    /**
+     * Appends prompt to output {@link IPrintBuffer}. This should be called every time a {@link Menu}is changed in
+     * {@link MenuManager} to signify to the user that the menu has changed, and what input is appropriate for the
+     * given menu.
+     */
+    public abstract void appendPrompt();
 
     // /**
     // * Returns value of inputString
@@ -453,7 +458,7 @@ public abstract class Menu {
     // public void outputIncompleteCommandAndReprompt() {
     // outputIncompleteCommand();
     // println();
-    // outputPrompt();
+    // appendPrompt();
     // }
     //
     // /**
@@ -465,25 +470,7 @@ public abstract class Menu {
     // outputPanel.appendInput(inputString + "\n");
     // }
     //
-    // /**
-    // * Print prompt for user receiveInput
-    // */
-    // public void outputPrompt() {
-    // }
-    //
-    // /**
-    // * Process receiveInput that applies to inheritance
-    // */
-    // public void preProcessInput() {
-    // if (inputEquals(EMPTY)) {
-    // println("I beg your pardon?");
-    // // outputPrompt();
-    // // } else if (!validInput()) {
-    // // outputln("I don't know the word " + getVerb());
-    // } else {
-    // processInput();
-    // }
-    // }
+
 
     // public boolean remainingWordsEquals(){}
     // public boolean remainingEquals(String[] array) {
@@ -496,21 +483,6 @@ public abstract class Menu {
     // return wordEquals(getRemainingString(),word);
     // }
 
-    // /**
-    // * With inputString and inputWords, determine output
-    // */
-    // public void processInput() {
-    //
-    // }
-    //
-    // /**
-    // * Strips away 1 word from inputWords
-    // *
-    // * @return word stripped
-    // */
-    // public String stripInput() {
-    // return stripInput(1);
-    // }
     //
     // /**
     // * Strips away starting words by index from inputWords and inputString If more

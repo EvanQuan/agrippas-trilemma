@@ -49,7 +49,7 @@ public class GameOverMenu extends Menu {
         return instance;
     }
 
-    public void outputPrompt() {
+    public void appendPrompt() {
 //        printTitleln(title);
 //
 //        printPlayer("Restart");
@@ -63,7 +63,7 @@ public class GameOverMenu extends Menu {
     }
 
     /**
-     * Mode detemines outputPrompt text and decisions???
+     * Mode detemines appendPrompt text and decisions???
      * @param  int mode          of menu
      */
     public void setMode(int mode) {

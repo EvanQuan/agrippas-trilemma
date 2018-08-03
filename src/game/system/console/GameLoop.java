@@ -6,7 +6,9 @@ import game.menu.MenuManager;
 import game.system.input.PlayerInputParser;
 import game.system.output.ConsolePrintBuffer;
 import game.system.output.IPrintBuffer;
+import game.system.output.SemanticColor;
 
+import java.util.Currency;
 import java.util.Scanner;
 
 /**
@@ -14,13 +16,13 @@ import java.util.Scanner;
  */
 public class GameLoop {
 
-    private IPrintBuffer out;
+    private ConsolePrintBuffer out = new ConsolePrintBuffer();
 
     /**
      * Default constructor. Sets up all game components to be used in the console.
      */
     public GameLoop() {
-        Menu.setOut(new ConsolePrintBuffer());  // Set output to console
+        Menu.setOut(out);  // Set output to console
     }
 
     /**
@@ -28,13 +30,10 @@ public class GameLoop {
      */
     public void start() {
         Scanner in = new Scanner(System.in);
-        System.out.println("Start");
         MenuManager.setCurrentMenu(MainMenu.getInstance());
-        System.out.println("Main menu set");
         while(MenuManager.hasCurrentMenu()) {
-            System.out.println("Start loop...");
+            out.printDirect(IPrintBuffer.INPUT_MARKER, SemanticColor.PLAYER);
             MenuManager.receiveInput(PlayerInputParser.parse(in.nextLine()));
-            System.out.println("End loop...");
         }
     }
 }

@@ -2,10 +2,12 @@ package test;
 
 import static org.junit.Assert.assertTrue;
 
+import game.system.output.ConsolePrintBuffer;
 import game.system.output.IPrintBuffer;
 import game.system.output.SemanticColor;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -22,13 +24,12 @@ public class TestTest {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String message = "hi";
-        while (!message.equals("")) {
-            System.out.print(SemanticColor.apply(IPrintBuffer.INPUT_MARKER, SemanticColor.PLAYER));
-            message = in.nextLine();
-            System.out.println(SemanticColor.apply("Your message was: ", SemanticColor.CHARACTER) + SemanticColor.apply("\"" + message + "\"", SemanticColor.SPEECH));
-        }
-    }
+        ConsolePrintBuffer c = new ConsolePrintBuffer();
+        String output = "\\" + System.lineSeparator();
+        c.appendln(output);
 
+        c.appendln("\\");
+        c.appendln(System.lineSeparator());
+        c.appendln("1 2 3");
+    }
 }
