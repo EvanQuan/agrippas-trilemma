@@ -26,129 +26,101 @@ public interface IPrintBuffer {
     String INPUT_MARKER = System.lineSeparator() + "> ";
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void append(double output);
+    void print(double output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
-    void append(double output, SemanticColor semanticColor);
+    void print(double output, SemanticColor semanticColor);
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void append(int output);
+    void print(int output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
-    void append(int output, SemanticColor semanticColor);
+    void print(int output, SemanticColor semanticColor);
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void append(Object output);
+    void print(Object output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
-    void append(Object output, SemanticColor semanticColor);
+    void print(Object output, SemanticColor semanticColor);
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void append(String output);
+    void print(String output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
-    void append(String output, SemanticColor semanticColor);
+    void print(String output, SemanticColor semanticColor);
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void appendln(double output);
+    void println(double output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
-    void appendln(double output, SemanticColor semanticColor);
+    void println(double output, SemanticColor semanticColor);
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void appendln(int output);
+    void println(int output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
-    void appendln(int output, SemanticColor semanticColor);
+    void println(int output, SemanticColor semanticColor);
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void appendln(Object output);
+    void println(Object output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
-    void appendln(Object output, SemanticColor semanticColor);
+    void println(Object output, SemanticColor semanticColor);
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
-    void appendln(String output);
+    void println(String output);
 
     /**
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
-    void appendln(String output, SemanticColor semanticColor);
+    void println(String output, SemanticColor semanticColor);
 
     /**
      * Append a number of System.lineseparator() to output buffer.
-     * @param lines to append
+     * @param lines to print
      */
-    void appendlns(int lines);
+    void printlns(int lines);
 
     /**
      * Append a System.lineseparator() to output buffer.
      */
-    void appendln();
-
-//    /**
-//     * Append the output in wrapped form.
-//     */
-//    void appendWrap(String output);
-//
-//    /**
-//     * Append the output wrapped with the specified color.
-//     *
-//     * @param output
-//     * @param semanticColor
-//     */
-//    void appendWrap(String output, SemanticColor semanticColor);
-//
-//    /**
-//     * Append the output in wrapped form with a System.lineseparator() to the output buffer.
-//     *
-//     * @param output to append to the output buffer.
-//     */
-//    void appendWrapln(String output);
-//
-//    /**
-//     * Append the output in wrapped with specified color with a System.lineseparator() to the output buffer.
-//     *
-//     * @param output to append to the output buffer.
-//     * @param semanticColor
-//     */
-//    void appendWrapln(String output, SemanticColor semanticColor);
+    void println();
 }

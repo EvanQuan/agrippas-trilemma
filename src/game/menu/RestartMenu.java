@@ -23,7 +23,7 @@ public class RestartMenu extends Menu {
     }
 
     /**
-     * Create all valid commands for this menu. Use addCommand().
+     * Create all valid stringCommands for this menu. Use addStringCommand().
      */
     @Override
     protected void initializeCommands() {
@@ -36,7 +36,7 @@ public class RestartMenu extends Menu {
      * menu.
      */
     @Override
-    public void appendPrompt() {
+    public void printMainPrompt() {
 
     }
 

@@ -7,9 +7,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * Has utility functions for objects
+ * Has utility functions for objects, and higher order functions.
  *
- * @author Quan
+ * @author Evan Quan
  *
  */
 public abstract class FuncUtils {

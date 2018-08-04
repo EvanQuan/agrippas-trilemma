@@ -1,11 +1,11 @@
 package game.system.input.words;
 
-import java.util.HashSet;
-
 import game.object.item.background.character.Player;
 import game.system.input.PlayerCommand;
 import util.ArrayUtils;
 import util.TextUtils;
+
+import java.util.HashSet;
 
 /**
  * Represents a word. A word must contain one or more alphanumeric characters.
@@ -26,7 +26,7 @@ public abstract class Word {
 
     /**
      * PlayerAction separators separates {@link PlayerCommand} playerActions. These are used for
-     * receiveInput multi-playerAction commands.
+     * receiveInput multi-playerAction stringCommands.
      */
     public static final HashSet<String> ACTION_SEPARATORS = ArrayUtils.getHashSet(new String[] { ",", "then", "." });
 
@@ -73,7 +73,7 @@ public abstract class Word {
 
     /**
      * TODO. This is for resolving the indeterminism of receiveInput multi-playerAction
-     * commands.
+     * stringCommands.
      *
      * @param word
      * @return false, until actually implemented

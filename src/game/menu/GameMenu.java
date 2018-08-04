@@ -1,13 +1,13 @@
 package game.menu;
 
-import java.util.ArrayList;
-
 import game.object.item.background.character.Player;
 import game.object.location.Location;
 import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
 import game.system.save.Save;
 import util.ArrayUtils;
+
+import java.util.ArrayList;
 
 /**
  * Manages all in game playerActions
@@ -50,7 +50,7 @@ public class GameMenu extends Menu {
     }
 
     /**
-     * Create all valid commands for this menu. Use addCommand().
+     * Create all valid stringCommands for this menu. Use addStringCommand().
      */
     @Override
     protected void initializeCommands() {
@@ -58,7 +58,7 @@ public class GameMenu extends Menu {
     }
 
     /**
-     * Allows children to extend basic processInput commands
+     * Allows children to extend basic processInput stringCommands
      */
     public void enableExtendInput() {
         extendInput = true;
@@ -84,7 +84,7 @@ public class GameMenu extends Menu {
 
     }
 
-    public void appendPrompt() {
+    public void printMainPrompt() {
 //        println("room: " + room);
         playerLook();
     }
@@ -109,8 +109,8 @@ public class GameMenu extends Menu {
 //            } else {
 //                quit(); // NOTE: Change to GameOverMenu
 //            }
-//        } else if (!extendInput) { // appendInvalid must be manually set for children extendInput
-//            appendInvalid();
+//        } else if (!extendInput) { // printInvalidInput must be manually set for children extendInput
+//            printInvalidInput();
 //        }
     }
 

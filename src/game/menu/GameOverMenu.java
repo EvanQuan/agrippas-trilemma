@@ -35,7 +35,7 @@ public class GameOverMenu extends Menu {
     }
 
     /**
-     * Create all valid commands for this menu. Use addCommand().
+     * Create all valid stringCommands for this menu. Use addStringCommand().
      */
     @Override
     protected void initializeCommands() {
@@ -49,21 +49,21 @@ public class GameOverMenu extends Menu {
         return instance;
     }
 
-    public void appendPrompt() {
+    public void printMainPrompt() {
 //        printTitleln(title);
 //
 //        printPlayer("Restart");
-//        append(" or ");
+//        print(" or ");
 //        printPlayer("Load");
-//        append(" a game save, or ");
+//        print(" a game save, or ");
 //        printPlayer("Return");
-//        append(" to the ");
+//        print(" to the ");
 //        printLocation(" Main Menu");
 //        println(".");
     }
 
     /**
-     * Mode detemines appendPrompt text and decisions???
+     * Mode detemines printMainPrompt text and decisions???
      * @param  int mode          of menu
      */
     public void setMode(int mode) {

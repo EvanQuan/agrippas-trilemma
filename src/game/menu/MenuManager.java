@@ -103,6 +103,8 @@ public abstract class MenuManager {
      */
     public static void setCurrentMenu(Menu menu) {
         currentMenu = menu;
-        currentMenu.appendPrompt();
+        if (currentMenu != null) {
+            currentMenu.printMainPrompt();
+        }
     }
 }

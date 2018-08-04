@@ -3,7 +3,6 @@ package game.menu;
 import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -17,11 +16,13 @@ public abstract class Menu {
     public static IPrintBuffer out;
 
     /**
-     * Individual inputs correspond to runnable actions for the menu to do. Each runnable should call a menu method.
+     * String inputs correspond to runnable actions for the menu to do. Each runnable should call a menu method.
      */
-    protected HashMap<String, Runnable> commands;
-
-    protected ArrayList<ArrayList> validVerbs;
+    protected HashMap<String, Runnable> stringCommands;
+    protected HashMap<String, Runnable> verbCommands;
+    protected HashMap<String, Runnable> directObjectCommands;
+    protected HashMap<String, Runnable> prepositionCommands;
+    protected HashMap<String, Runnable> indirectObjectCommands;
 
     // Input options
     protected String[] yes;
@@ -37,7 +38,11 @@ public abstract class Menu {
             throw new RuntimeException("Cannot instantiate any menus until an IPrintBuffer is set for all menus via " +
                     "Menu.setOut().");
         }
-        commands = new HashMap<>();
+        stringCommands = new HashMap<>();
+        verbCommands = new HashMap<>();
+        directObjectCommands = new HashMap<>();
+        prepositionCommands = new HashMap<>();
+        indirectObjectCommands = new HashMap<>();
         initializeCommands();
         // validVerbs = new ArrayList<ArrayList<String>>();
         yes = new String[] { "yes", "y", "yeah", "yee", "yup" };
@@ -81,18 +86,33 @@ public abstract class Menu {
     protected abstract void processInput(PlayerCommand playerCommand);
 
     /**
-     * Create all valid commands for this menu. Use addCommand().
+     * Create all valid stringCommands for this menu. Use addStringCommand().
      */
     protected abstract void initializeCommands();
 
     /**
      * Every command is composed of a list of possible inputs options that correspond with Menu method for the Menu to
-     * execute. As a result, be careful not to have commands share options, or an option will be overridden
+     * execute. As a result, be careful not to have stringCommands share options, or an option will be overridden
      *
      * @param options all strings that corresponding to method. All are converted to lower case.
      * @param method with no parameters and Menu method in body
      */
-    public void addCommand(String[] options, Runnable method) {
+    @Deprecated
+    public void addStringCommand(String[] options, Runnable method) {
+        addCommand(stringCommands, options, method);
+    }
+
+    /**
+     * Every command is composed of a list of possible inputs options that
+     * correspond with Menu method for the Menu to execute. As a result, be
+     * careful not to have stringCommands share options, or an option will be
+     * overridden
+     *
+     * @param commands
+     * @param options
+     * @param method
+     */
+    protected void addCommand(HashMap<String, Runnable> commands, String[] options, Runnable method) {
         for (String option : options) {
             commands.put(option.toLowerCase(), method);
         }
@@ -111,22 +131,24 @@ public abstract class Menu {
     }
 
     /**
-     * Checks player command before processing. By default, checks if the command is empty. If so, output the main
-     * prompt and skip processInput() and postprocessInput().
+     * Checks player command before processing. By default, checks if the
+     * command is empty. If so, output the main prompt and skip processInput()
+     * and postprocessInput().
      *
      * @param playerCommand
      * @return true if pre-process was successful.
      */
     protected boolean preprocessInput(PlayerCommand playerCommand) {
         if (playerCommand.isEmpty()) {
-            appendPrompt();
+            printMainPrompt();
         }
         return !playerCommand.isEmpty();
     }
 
     /**
-     * Retrieves information about the playerCommand after it has been process. This may influence how future
-     * commands are processed. This is only ran if preprocessInput() is successful. By default this does nothing.
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future stringCommands are processed. This is
+     * only ran if preprocessInput() is successful. By default this does nothing.
      *
      * @param playerCommand
      */
@@ -135,11 +157,12 @@ public abstract class Menu {
     }
 
     /**
-     * Appends prompt to output {@link IPrintBuffer}. This should be called every time a {@link Menu}is changed in
-     * {@link MenuManager} to signify to the user that the menu has changed, and what input is appropriate for the
-     * given menu.
+     * Print the main prompt to output {@link IPrintBuffer}. This should be
+     * called every time a {@link Menu} is changed in {@link MenuManager} to
+     * signify to the user that the menu has changed, and what input is
+     * appropriate for the given menu.
      */
-    public abstract void appendPrompt();
+    public abstract void printMainPrompt();
 
     // /**
     // * Returns value of inputString
@@ -442,7 +465,7 @@ public abstract class Menu {
     // * If the use has too many words at the end of a command
     // */
     // public void outputExcessCommand() {
-    // append("I only understand as far as you wanting to \"");
+    // print("I only understand as far as you wanting to \"");
     // printPlayer(getVerb());
     // println(".\"");
     // }
@@ -451,14 +474,14 @@ public abstract class Menu {
     // * If the user has an incomplete command, prompt to complete command
     // */
     // public void outputIncompleteCommand() {
-    // append(toTitleCase(verb));
+    // print(toTitleCase(verb));
     // println(" what?");
     // }
     //
     // public void outputIncompleteCommandAndReprompt() {
     // outputIncompleteCommand();
     // println();
-    // appendPrompt();
+    // printMainPrompt();
     // }
     //
     // /**
@@ -466,7 +489,7 @@ public abstract class Menu {
     // */
     // public void outputPlayerInput() {
     // printlns(INPUT_SPACING);
-    // outputPanel.append(INPUT_MARKER);
+    // outputPanel.print(INPUT_MARKER);
     // outputPanel.appendInput(inputString + "\n");
     // }
     //

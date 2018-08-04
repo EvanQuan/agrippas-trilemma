@@ -10,16 +10,13 @@ import game.system.save.SaveManager;
 import java.util.ArrayList;
 
 /**
- * Prompts to load game save
+ * Prompts the user to load a game save.
  * Uses ReadObject to detect and load games
  */
 public class LoadMenu extends Menu {
 
     public static final String LOAD_GAME = "Load game";
     // public static final String NEW_GAME = "New game";
-    public static final String[] CREATE_OPTIONS = {"create","c","create new game","create game","create new"};
-    public static final String[] LOAD_OPTIONS = {"load","l"};
-    public static final String[] DELETE_OPTIONS = {"delete","d"};
     private static LoadMenu instance;
     /**
      * Enumerated order of saves
@@ -41,9 +38,9 @@ public class LoadMenu extends Menu {
      * Default LoadMenu constructor
      */
     private LoadMenu() {
-        saveNums = new ArrayList<Integer>();
-        saveNames = new ArrayList<String>();
-        saveInfo = new ArrayList<String>();
+        saveNums = new ArrayList<>();
+        saveNames = new ArrayList<>();
+        saveInfo = new ArrayList<>();
         saver = SaveManager.getInstance();
         updateSaves();
     }
@@ -60,11 +57,13 @@ public class LoadMenu extends Menu {
     }
 
     /**
-     * Create all valid commands for this menu. Use addCommand().
+     * Create all valid stringCommands for this menu. Use addStringCommand().
      */
     @Override
     protected void initializeCommands() {
-        // TODO
+        addStringCommand(new String[]{"create", "c", "create new game", "create game", "create new"}, () -> createNewGame());
+        addStringCommand(new String[]{"load", "l"}, () -> loadGame());
+        addStringCommand("delete", "d", () -> deleteGame());
     }
 
     public static LoadMenu getInstance() {
@@ -78,25 +77,25 @@ public class LoadMenu extends Menu {
      * Outputs numerical list of existing save files by name and information
      * and New game option
      */
-    public void appendPrompt() {
+    public void printMainPrompt() {
         updateSaves();
 //        printTitleln(LOAD_GAME);
         String gameName;
         ArrayList<Save> saves = saver.getSaves();
         for (int i = 0; i < saves.size(); i++) {
 //            printItem(i + 1);
-//            append(". ");
+//            print(". ");
             outputSaveInfo(saves.get(i));
         }
 //        println();
 //        printPlayer("Create");
-//        append(", ");
+//        print(", ");
 //        printPlayer("Load");
-//        append(", or ");
+//        print(", or ");
 //        printPlayer("Delete");
-//        append(" a game, or ");
+//        print(" a game, or ");
 //        printPlayer("Return");
-//        append(" to the ");
+//        print(" to the ");
         if (MenuManager.getPreviousMenu().equals(MainMenu.getInstance())) {
 //            printLocation("Main Menu");
 //            println(".");
@@ -108,9 +107,9 @@ public class LoadMenu extends Menu {
     public void outputSaveInfo(Save save) {
 //        println(save.getName());
 //        printItem("     Room: ");
-//        append(save.getRoom().getSingleName());
+//        print(save.getRoom().getSingleName());
 //        printItem("     Turns: ");
-//        append(save.getTurnCount());
+//        print(save.getTurnCount());
 //        printItem("     Version: ");
 //        println(save.getVersion());
     }
@@ -141,8 +140,8 @@ public class LoadMenu extends Menu {
 //                loadGame(getInputString());
 //                changeToGameMenu();
 //            } else {
-//                appendInvalid("load");
-//                appendPrompt();
+//                printInvalidInput("load");
+//                printMainPrompt();
 //            }
 //        } else if (inputStartsWithStrip(DELETE_OPTIONS)) {
 //
@@ -179,12 +178,12 @@ public class LoadMenu extends Menu {
 //                outputNotDeleted();
 //            }
 //            println();
-//            appendPrompt();
+//            printMainPrompt();
 //        } else if (inputStartsWithStrip(returnToPreviousMenu)) {
 //            changeToPreviousMenu();
 //        } else { //
 //            println("You cannot do that.");
-//            appendPrompt();
+//            printMainPrompt();
 //        }
     }
 
@@ -231,23 +230,23 @@ public class LoadMenu extends Menu {
     // Prompts
     public void outputInvalid(String action) {
 //        if (saveNums.size() == 0) {
-//            append("There are no games to ");
+//            print("There are no games to ");
 //            printPlayer(toTitleCase(playerAction));
 //            println(".");
 //        } else {
-//            append("The only game");
+//            print("The only game");
 //            if (saveNums.size() > 1) {
-//                append("s");
+//                print("s");
 //            }
-//            append(" to " + playerAction.toLowerCase() + " ");
+//            print(" to " + playerAction.toLowerCase() + " ");
 //            if (saveNums.size() > 1) {
-//                append("are from ");
+//                print("are from ");
 //            } else {
-//                append("is ");
+//                print("is ");
 //            }
 //            printPlayer(1);
 //            if (saveNums.size() > 1) {
-//                append(" to ");
+//                print(" to ");
 //                printPlayer(saveNums.size());
 //            }
 //            println(".");
@@ -256,13 +255,13 @@ public class LoadMenu extends Menu {
     }
 
     public void outputDeleted() {
-//        append("Save \"");
+//        print("Save \"");
 //        printItem(saver.getCurrentSaveName());
 //        println("\" deleted.");
     }
 
     public void outputNotDeleted() {
-//        append("Save \"");
+//        print("Save \"");
 //        printItem(getInputString());
 //        println("\" does not exist and cannot be deleted.");
     }

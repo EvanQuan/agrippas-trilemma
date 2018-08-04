@@ -1,6 +1,5 @@
 package game.menu;
 
-import game.system.*;
 import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
 
@@ -29,7 +28,7 @@ public class SaveMenu extends Menu {
     }
 
     /**
-     * Create all valid commands for this menu. Use addCommand().
+     * Create all valid stringCommands for this menu. Use addStringCommand().
      */
     @Override
     protected void initializeCommands() {
@@ -43,7 +42,7 @@ public class SaveMenu extends Menu {
         return instance;
     }
 
-    public void appendPrompt() {
+    public void printMainPrompt() {
 
     }
 

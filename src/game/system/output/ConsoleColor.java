@@ -1,8 +1,5 @@
 package game.system.output;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * You can do standard output in color! That's pretty neat! Credited to:
  * https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -106,7 +103,7 @@ public enum ConsoleColor {
     }
 
     /**
-     * Iteratively append all colors
+     * Iteratively print all colors
      */
     public static void printEach() {
         for (ConsoleColor color : ConsoleColor.values()) {

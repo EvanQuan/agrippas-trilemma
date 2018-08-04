@@ -8,7 +8,6 @@ import game.system.output.ConsolePrintBuffer;
 import game.system.output.IPrintBuffer;
 import game.system.output.SemanticColor;
 
-import java.util.Currency;
 import java.util.Scanner;
 
 /**
@@ -32,7 +31,7 @@ public class GameLoop {
         Scanner in = new Scanner(System.in);
         MenuManager.setCurrentMenu(MainMenu.getInstance());
         while(MenuManager.hasCurrentMenu()) {
-            out.append(IPrintBuffer.INPUT_MARKER, SemanticColor.PLAYER);
+            out.print(IPrintBuffer.INPUT_MARKER, SemanticColor.PLAYER);
             MenuManager.receiveInput(PlayerInputParser.parse(in.nextLine()));
         }
     }

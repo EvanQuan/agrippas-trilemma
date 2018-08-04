@@ -2,8 +2,6 @@ package game.menu;
 
 import game.system.input.PlayerCommand;
 
-import java.util.*;
-
 /**
  * Test menu for menu manager to transfer between menuss
  */
@@ -16,7 +14,7 @@ public class TestMenu extends Menu {
 
     }
 
-    public void appendPrompt() {
+    public void printMainPrompt() {
 //        printTitleln("Test Menu");
 //        println("You are now in the Test menu.");
 //        println("Valid receiveInput: " + Arrays.asList(VALID_INPUT));

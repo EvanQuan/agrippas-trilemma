@@ -5,11 +5,10 @@ import game.system.input.words.VerbPhrase;
 import util.FuncUtils;
 
 /**
- * Represents a single action for the player to do. A {@link PlayerCommand} may be composed of multiple actions.
- * Confirms to the following grammar:
- * <p>
+ * Represents a single action for the player to do. A {@link PlayerCommand} may
+ * be composed of multiple actions. Confirms to the following grammar:
+ * <br><br>
  * Verb? ObjectPhrase? Preposition? ObjectPhrase?
- * <p>
  *
  * @author Evan Quan
  *
@@ -24,8 +23,10 @@ public class PlayerAction {
     @Override
     public boolean equals(Object other) {
         if (other instanceof PlayerAction) {
-            return hasSameVerbPhrase((PlayerAction) other) && hasSameDirectObjectPhrase((PlayerAction) other)
-                    && hasSamePreposition((PlayerAction) other) && hasSameIndirectObjectPhrase((PlayerAction) other);
+            return hasSameVerbPhrase((PlayerAction) other)
+                    && hasSameDirectObjectPhrase((PlayerAction) other)
+                    && hasSamePreposition((PlayerAction) other)
+                    && hasSameIndirectObjectPhrase((PlayerAction) other);
         }
         return false;
     }
@@ -51,7 +52,8 @@ public class PlayerAction {
      * @return true if this command has a direct {@link ObjectPhrase}
      */
     public boolean hasDirectObjectPhrase() {
-        return this.directObjectPhrase != null && !this.directObjectPhrase.isEmpty();
+        return this.directObjectPhrase != null
+                && !this.directObjectPhrase.isEmpty();
     }
 
     /**
@@ -95,7 +97,10 @@ public class PlayerAction {
      * @return true if all components are empty.
      */
     public boolean isEmpty() {
-        return !hasVerbPhrase() && !hasDirectObjectPhrase() && !hasPreposition() && !hasIndirectObjectPhrase();
+        return !hasVerbPhrase()
+                && !hasDirectObjectPhrase()
+                && !hasPreposition()
+                && !hasIndirectObjectPhrase();
     }
 
     public void setDirectObjectPhrase(ObjectPhrase directObjectPhrase) {
@@ -125,7 +130,9 @@ public class PlayerAction {
 
     @Override
     public String toString() {
-        return "[verbPhrase: " + verbPhrase + " | directObjectPhrase: " + directObjectPhrase + " | preposition: "
-                + preposition + " | indirectObjectPhrase: " + indirectObjectPhrase + "]";
+        return "[verbPhrase: " + verbPhrase
+                + " | directObjectPhrase: " + directObjectPhrase
+                + " | preposition: " + preposition
+                + " | indirectObjectPhrase: " + indirectObjectPhrase + "]";
     }
 }

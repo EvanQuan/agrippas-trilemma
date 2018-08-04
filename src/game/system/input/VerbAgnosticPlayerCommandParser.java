@@ -1,12 +1,12 @@
 package game.system.input;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import game.system.input.words.ObjectPhrase;
 import game.system.input.words.VerbPhrase;
 import game.system.input.words.Word;
 import util.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * <b>This exists as a backup for {@link PlayerInputParser}.</b>
@@ -18,7 +18,7 @@ import util.ArrayUtils;
  * indirect objects is not known.<br>
  * - The game handles the validity of these words, not the parser.<br>
  * 2. The first word of the receiveInput is always a verb.<br>
- * - Player commands are 2nd person imperative statements.<br>
+ * - Player stringCommands are 2nd person imperative statements.<br>
  * 3. Indirect object phrases are always preceded by a preposition.<br>
  * 4. Direct object phrases are always positioned before indirect object
  * phrases.<br>
@@ -28,13 +28,13 @@ import util.ArrayUtils;
  * <p>
  *     <b>Due to not having a verb dictionary, this cannot do the following:</b>
  * </p>
- * Multiple playerAction commands, such as:<br>
- * Multiverb commands: (look up, eat pie, go west)<br>
- * Verbsharing commands: (eat pie, potato, cake)<br>
+ * Multiple playerAction stringCommands, such as:<br>
+ * Multiverb stringCommands: (look up, eat pie, go west)<br>
+ * Verbsharing stringCommands: (eat pie, potato, cake)<br>
  * Object pronouns (this may not be implemented here): (take pie, eat it)<br>
  * <br>
  * With the current implementation, an indeterminism problem arises in trying to
- * parse these kind of commands without a dictionary of valid verbs. As a bonus
+ * parse these kind of stringCommands without a dictionary of valid verbs. As a bonus
  * this would allow for verbs to be modified with adverbs<br>
  * For this to be implemented, what needs to be done:<br>
  * - A verb dictionary<br>
@@ -84,7 +84,7 @@ public abstract class VerbAgnosticPlayerCommandParser {
         char firstChar = token.charAt(0);
         if (ArrayUtils.contains(START_PUNCTUATION, firstChar)) {
             tokens.add(Character.toString(firstChar));
-            token = token.substring(1, token.length());
+            token = token.substring(1);
         }
 
         boolean changedLastChar = false;
@@ -133,7 +133,7 @@ public abstract class VerbAgnosticPlayerCommandParser {
             objectPhrase.setNoun(tokens.remove(tokens.size() - 1));
         }
         // If any receiveInput remains, they are adjectives which modify the object.
-        // TODO: This WILL need to change once multiple commands separated by commas
+        // TODO: This WILL need to change once multiple stringCommands separated by commas
         // with a
         // single verb is implemented. Either here, or in syntactical analysis.
         ArrayList<String> adjectives = new ArrayList<>();
@@ -223,7 +223,7 @@ public abstract class VerbAgnosticPlayerCommandParser {
             // This happens when the player receiveInput an empty string
             return;
         }
-        // TODO when multi-playerAction commands are implemented, make this part a loop for
+        // TODO when multi-playerAction stringCommands are implemented, make this part a loop for
         // every separator section
 
         PlayerAction playerAction = new PlayerAction();

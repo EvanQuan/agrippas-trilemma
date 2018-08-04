@@ -25,7 +25,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     public void append(double output) {
         append(Double.toString(output));
@@ -33,7 +33,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     public void append(double output, SemanticColor semanticColor) {
@@ -42,7 +42,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     public void append(int output) {
         append(Integer.toString(output));
@@ -50,7 +50,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     public void append(int output, SemanticColor semanticColor) {
@@ -59,7 +59,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     public void append(Object output) {
         append(output.toString());
@@ -67,7 +67,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     public void append(Object output, SemanticColor semanticColor) {
@@ -77,24 +77,24 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     public void append(String output) {
-        outputPanel.append(output);
+        outputPanel.print(output);
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     public void append(String output, SemanticColor semanticColor) {
-        outputPanel.append(output, semanticColor);
+        outputPanel.print(output, semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     public void appendln(double output) {
         appendln(Double.toString(output));
@@ -102,7 +102,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     public void appendln(double output, SemanticColor semanticColor) {
@@ -111,7 +111,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     public void appendln(int output) {
         appendln(Integer.toString(output));
@@ -119,7 +119,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     public void appendln(int output, SemanticColor semanticColor) {
@@ -132,7 +132,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     public void appendln(Object output, SemanticColor semanticColor) {
@@ -141,7 +141,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     public void appendln(String output) {
         appendln(output, SemanticColor.DEFAULT);
@@ -149,7 +149,7 @@ public class GUIPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
     public void appendln(String output, SemanticColor semanticColor) {

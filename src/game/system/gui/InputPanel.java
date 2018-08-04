@@ -87,7 +87,7 @@ public class InputPanel extends GridBagPanel {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    // System.out.append("UP: Index: " + inputHistoryIndex + " -> ");
+                    // System.out.print("UP: Index: " + inputHistoryIndex + " -> ");
                     inputHistoryIndex = (inputHistoryIndex + 1) % (previousInput.size()); // Move up
                     // System.out.println(inputHistoryIndex);
                     e.consume();
@@ -97,7 +97,7 @@ public class InputPanel extends GridBagPanel {
                 case KeyEvent.VK_KP_DOWN:
                 case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_KP_RIGHT:
-                    // System.out.append("DOWN: Index: " + inputHistoryIndex + " -> ");
+                    // System.out.print("DOWN: Index: " + inputHistoryIndex + " -> ");
                     inputHistoryIndex = (inputHistoryIndex - 1) % (previousInput.size()); // Move down
                     if (inputHistoryIndex < 0) { // Ensures positive
                         inputHistoryIndex = previousInput.size() - 1;

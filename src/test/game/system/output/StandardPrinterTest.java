@@ -18,7 +18,7 @@ public class StandardPrinterTest {
         LoremGenerator l = new LoremGenerator();
         String message = l.generate(100, true);
         for (SemanticColor color : SemanticColor.values()) {
-            out.appendln(message, color);
+            out.println(message, color);
         }
     }
 }

@@ -1,13 +1,13 @@
 package game.system.input;
 
-import java.util.ArrayList;
-
 import util.FuncUtils;
+
+import java.util.ArrayList;
 
 /**
  * Represents a command that the player has issued to the game in a form of a
- * {@link String}. A player command is composed of a series of {@link PlayerAction}s
- * that are sequentially ordered.
+ * {@link String}. A player command is composed of a series of
+ * {@link PlayerAction}s that are sequentially ordered.
  *
  * @author Evan Quan
  *
@@ -35,7 +35,7 @@ public class PlayerCommand {
     }
 
     /**
-     * Add a single playerAction to this commands list of playerActions.
+     * Add a single playerAction to this stringCommands list of playerActions.
      * 
      * @param playerAction
      */
@@ -50,7 +50,8 @@ public class PlayerCommand {
     @Override
     public boolean equals(Object other) {
         if (other instanceof PlayerCommand) {
-            return hasSameString((PlayerCommand) other) && hasSameActions((PlayerCommand) other);
+            return hasSameString((PlayerCommand) other)
+                    && hasSameActions((PlayerCommand) other);
         }
         return false;
     }

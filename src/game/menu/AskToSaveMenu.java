@@ -19,13 +19,13 @@ public class AskToSaveMenu extends Menu {
         return instance;
     }
 
-    public void appendPrompt() {
+    public void printMainPrompt() {
 //        println("Would you like to save the game first?");
-//        append("(");
+//        print("(");
 //        printPlayer("Yes");
-//        append("/");
+//        print("/");
 //        printPlayer("No");
-//        append("/");
+//        print("/");
 //        printPlayer("Return");
 //        println(")");
     }
@@ -41,7 +41,7 @@ public class AskToSaveMenu extends Menu {
 //        } else if (inputEquals(returnToPreviousMenu)) {
 //            changeToPreviousMenu();
 //        } else {
-//            appendPrompt();
+//            printMainPrompt();
 //        }
     }
 

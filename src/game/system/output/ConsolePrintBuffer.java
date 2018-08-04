@@ -1,11 +1,6 @@
 package game.system.output;
 
-import java.awt.*;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.ConsoleHandler;
 
 /**
  * Prints hard-wrapped colored text to console.
@@ -72,65 +67,65 @@ public class ConsolePrintBuffer implements IPrintBuffer {
     }
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void append(double output) {
-        append(Double.toString(output));
+    public void print(double output) {
+        print(Double.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
     @Override
-    public void append(double output, SemanticColor semanticColor) {
-        append(Double.toString(output), semanticColor);
+    public void print(double output, SemanticColor semanticColor) {
+        print(Double.toString(output), semanticColor);
     }
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void append(int output) {
-        append(Integer.toString(output));
+    public void print(int output) {
+        print(Integer.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
     @Override
-    public void append(int output, SemanticColor semanticColor) {
-        append(Integer.toString(output), semanticColor);
+    public void print(int output, SemanticColor semanticColor) {
+        print(Integer.toString(output), semanticColor);
     }
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void append(Object output) {
-        append(output.toString());
+    public void print(Object output) {
+        print(output.toString());
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
     @Override
-    public void append(Object output, SemanticColor semanticColor) {
-        append(output.toString(), semanticColor);
+    public void print(Object output, SemanticColor semanticColor) {
+        print(output.toString(), semanticColor);
     }
 
     /**
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void append(String output) {
-        append(output, currentColor);
+    public void print(String output) {
+        print(output, currentColor);
     }
 
     /**
@@ -141,10 +136,10 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      * <br><br>
      * TODO. Treating first word different not implemented yet. Seems very expensive to do it O(n).
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param consoleColor of output
      */
-    public void append(String output, ConsoleColor consoleColor) {
+    public void print(String output, ConsoleColor consoleColor) {
         // VERSION 1 -- complicated, but covers more edge cases for extra/missing spaces (maybe)
 //        if (lastAppendEndedWithSpace || output.startsWith(" ")) {
 //            out.print(" ");
@@ -163,25 +158,25 @@ public class ConsolePrintBuffer implements IPrintBuffer {
 //                        // +1 is for the space before word
 //                        // Check cursorColumn is not at start, since a word longer than wrapWidth will then create
 //                        // an extra new line if the cursor is already at the start.
-////                            outputBuffer.append(System.lineSeparator());
+////                            outputBuffer.print(System.lineSeparator());
 //                        out.println();
 //                        cursorColumn = 0;
 //                    } else if (cursorColumn > 0) {
 //                        // Add space before word if it is not the start of the column
 //                        // and not first word of line (since spaces separated words only within the line).
 //                        // TODO. Treating first word different not implemented yet. Seems expensive to do it O(n).
-////                            outputBuffer.append(" ");
+////                            outputBuffer.print(" ");
 //                        out.print(" ");
 //                        cursorColumn++;
 //                    }
-//                    append(word, consoleColor);
+//                    print(word, consoleColor);
 //                    cursorColumn += word.length();
 //                }
 //            } else if (!lines[i].isEmpty()) {
 //                // else if the line is not empty
 //                // Add line directly as it is less than wrap width
-//                // strip space at the end and re-add it for next append so there is no trailing whitespace
-//                append(lines[i].trim(), consoleColor);
+//                // strip space at the end and re-add it for next print so there is no trailing whitespace
+//                print(lines[i].trim(), consoleColor);
 //                // Apply semanticColor and add new line that was removed
 //                cursorColumn += lines[i].length();   // Move cursor back to the start
 //            } else {
@@ -259,87 +254,87 @@ public class ConsolePrintBuffer implements IPrintBuffer {
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void appendln(double output) {
-        appendln(Double.toString(output));
+    public void println(double output) {
+        println(Double.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void appendln(double output, SemanticColor semanticColor) {
-        appendln(Double.toString(output), semanticColor);
+    public void println(double output, SemanticColor semanticColor) {
+        println(Double.toString(output), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void appendln(int output) {
-        appendln(Integer.toString(output));
+    public void println(int output) {
+        println(Integer.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void appendln(int output, SemanticColor semanticColor) {
-        appendln(Integer.toString(output), semanticColor);
+    public void println(int output, SemanticColor semanticColor) {
+        println(Integer.toString(output), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void appendln(Object output)  {
-        appendln(output.toString());
+    public void println(Object output) {
+        println(output.toString());
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void appendln(Object output, SemanticColor semanticColor) {
-        appendln(output.toString(), semanticColor);
+    public void println(Object output, SemanticColor semanticColor) {
+        println(output.toString(), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void appendln(String output) {
-        append(output + System.lineSeparator(), currentColor);
+    public void println(String output) {
+        print(output + System.lineSeparator(), currentColor);
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
     @Override
-    public void appendln(String output, SemanticColor semanticColor) {
-        append(output + System.lineSeparator(), semanticColor);
+    public void println(String output, SemanticColor semanticColor) {
+        print(output + System.lineSeparator(), semanticColor);
     }
 
     /**
      * Append a number of System.lineseparator() to output buffer.
      *
-     * @param lines to append
+     * @param lines to print
      */
     @Override
-    public void appendlns(int lines) {
+    public void printlns(int lines) {
         for (int i = 0; i < lines; i++) {
             out.println();
         }
@@ -349,7 +344,7 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      * Append a System.lineseparator to output buffer.
      */
     @Override
-    public void appendln() {
+    public void println() {
         out.println();
     }
 
@@ -360,7 +355,7 @@ public class ConsolePrintBuffer implements IPrintBuffer {
      * @param semanticColor
      */
     @Override
-    public void append(String output, SemanticColor semanticColor) {
-        append(output, SemanticColor.toConsoleColor(semanticColor));
+    public void print(String output, SemanticColor semanticColor) {
+        print(output, SemanticColor.toConsoleColor(semanticColor));
     }
 }

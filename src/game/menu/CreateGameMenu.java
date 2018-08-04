@@ -25,14 +25,14 @@ public class CreateGameMenu extends Menu {
         return instance;
     }
 
-    public void appendPrompt() {
+    public void printMainPrompt() {
 //        println("Enter the name of your new game.");
     }
     public void processInput() {
 //        String name = getInputString();
-//        append("Game \"");
+//        print("Game \"");
 //        printItem(toTitleCase(name));
-//        append("\" ");
+//        print("\" ");
 //        if (LoadMenu.getInstance().getSaveNames().contains(toTitleCase(name))) { // Does not create a new game
 //            println("already exists.");
 //        } else {
@@ -69,13 +69,13 @@ public class CreateGameMenu extends Menu {
      * NOTE: Assumes SaveManager.INVALID_CHARACTERS is not empty
      */
     public void outputInvalidSaveName() {
-//        append(" cannot contain the special characters ");
+//        print(" cannot contain the special characters ");
 //        for (int i = 0; i < SaveManager.INVALID_CHARACTERS.length - 1; i++) {
 //            printPlayer(SaveManager.INVALID_CHARACTERS[i]);
-//            append(", ");
+//            print(", ");
 //        }
 //        if (SaveManager.INVALID_CHARACTERS.length > 1) {
-//            append("or ");
+//            print("or ");
 //        }
 //        printPlayer(SaveManager.INVALID_CHARACTERS[SaveManager.INVALID_CHARACTERS.length - 1]);
 //        println(".");

@@ -3,14 +3,10 @@ package game.system.gui;
 import game.system.output.IPrintBuffer;
 import game.system.output.SemanticColor;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import java.awt.*;
 
 /**
  * Output of game text
@@ -142,17 +138,17 @@ public class OutputPanel extends GridBagPanel implements IPrintBuffer {
      * Append text to textArea
      * @param String s to output
      */
-    // public void append(String s) {
+    // public void print(String s) {
     //     textArea.setText(textArea.getText() + s);
     // }
 
     /**
      * Append text to textPane with given font and color
-     * @param string to append to outputPanel
+     * @param string to print to outputPanel
      * @param font   of string
      * @param color  of string
      */
-    public void append(String string, Font font, SemanticColor color) {
+    public void print(String string, Font font, SemanticColor color) {
         StyledDocument doc = textPane.getStyledDocument();
 
 
@@ -197,8 +193,8 @@ public class OutputPanel extends GridBagPanel implements IPrintBuffer {
      * Append text of default font and color to output panel.
      * @param output
      */
-    public void append(String output) {
-        append(output, defaultFont, SemanticColor.DEFAULT);
+    public void print(String output) {
+        print(output, defaultFont, SemanticColor.DEFAULT);
     }
 
     /**
@@ -206,148 +202,148 @@ public class OutputPanel extends GridBagPanel implements IPrintBuffer {
      * @param output
      * @param semanticColor
      */
-    public void append(String output, SemanticColor semanticColor) {
-        append(output, defaultFont, semanticColor);
+    public void print(String output, SemanticColor semanticColor) {
+        print(output, defaultFont, semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void append(double output) {
-        append(Double.toString(output));
+    public void print(double output) {
+        print(Double.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void append(double output, SemanticColor semanticColor) {
-        append(Double.toString(output), semanticColor);
+    public void print(double output, SemanticColor semanticColor) {
+        print(Double.toString(output), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void append(int output) {
-        append(Integer.toString(output));
+    public void print(int output) {
+        print(Integer.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void append(int output, SemanticColor semanticColor) {
-        append(Integer.toString(output), semanticColor);
+    public void print(int output, SemanticColor semanticColor) {
+        print(Integer.toString(output), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void append(Object output) {
-        append(output.toString());
+    public void print(Object output) {
+        print(output.toString());
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void append(Object output, SemanticColor semanticColor) {
-        append(output.toString(), semanticColor);
+    public void print(Object output, SemanticColor semanticColor) {
+        print(output.toString(), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void appendln(double output) {
-        appendln(Double.toString(output));
+    public void println(double output) {
+        println(Double.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void appendln(double output, SemanticColor semanticColor) {
-        appendln(Double.toString(output), semanticColor);
+    public void println(double output, SemanticColor semanticColor) {
+        println(Double.toString(output), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void appendln(int output) {
-        appendln(Integer.toString(output));
+    public void println(int output) {
+        println(Integer.toString(output));
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void appendln(int output, SemanticColor semanticColor) {
-        appendln(Integer.toString(output), semanticColor);
+    public void println(int output, SemanticColor semanticColor) {
+        println(Integer.toString(output), semanticColor);
     }
 
     @Override
-    public void appendln(Object output)  {
-        appendln(output.toString());
+    public void println(Object output) {
+        println(output.toString());
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor  of output
      */
     @Override
-    public void appendln(Object output, SemanticColor semanticColor) {
-        appendln(output.toString(), semanticColor);
+    public void println(Object output, SemanticColor semanticColor) {
+        println(output.toString(), semanticColor);
     }
 
     /**
      *
-     * @param output to append to output buffer in default color.
+     * @param output to print to output buffer in default color.
      */
     @Override
-    public void appendln(String output) {
-        appendln(output, SemanticColor.DEFAULT);
+    public void println(String output) {
+        println(output, SemanticColor.DEFAULT);
     }
 
     /**
      *
-     * @param output to append to output buffer
+     * @param output to print to output buffer
      * @param semanticColor of output
      */
     @Override
-    public void appendln(String output, SemanticColor semanticColor) {
-        append(output + System.lineSeparator(), semanticColor);
+    public void println(String output, SemanticColor semanticColor) {
+        print(output + System.lineSeparator(), semanticColor);
     }
 
     /**
      * Append a number of System.lineseparator() to output buffer.
      *
-     * @param lines to append
+     * @param lines to print
      */
     @Override
-    public void appendlns(int lines) {
+    public void printlns(int lines) {
         for (int i = 0; i < lines; i++) {
-            appendln();
+            println();
         }
     }
 
@@ -355,8 +351,8 @@ public class OutputPanel extends GridBagPanel implements IPrintBuffer {
      * Append System.lineseparator to output buffer.
      */
     @Override
-    public void appendln() {
-        append(System.lineSeparator());
+    public void println() {
+        print(System.lineSeparator());
     }
 
     /**
