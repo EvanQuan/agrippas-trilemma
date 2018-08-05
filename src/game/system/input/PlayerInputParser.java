@@ -105,8 +105,8 @@ public abstract class PlayerInputParser {
      *
      * @param tokens
      * @return object phrase that is composed of all token components, or null
-     * if tokens is empty. Since this is recursively called for owners,
-     * an ObjectPhrase without an owner will have a null owner.
+     * if tokens is empty. Since this is recursively called for owners, an
+     * ObjectPhrase without an owner will have a null owner.
      */
     public static ObjectPhrase getObjectPhrase(ArrayList<String> tokens) {
         if (tokens.isEmpty()) {
@@ -220,6 +220,10 @@ public abstract class PlayerInputParser {
      * syntacticalAnalsysis() assumes an ArrayList of tokens is a single
      * playerAction, we need to make an ArrayList of ArrayLists (playerActions).
      * Separators are not included in any token array.
+     * <br><br>
+     * NOTE: Multi-action commands may not be implemented (soon at least)
+     * because backtracking algorithm is required if the parser is to stay
+     * verb-agnostic. May also break things
      *
      * @param tokens
      * @return

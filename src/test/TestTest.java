@@ -1,7 +1,11 @@
 package test;
 
+import game.system.input.PlayerCommand;
+import game.system.input.PlayerInputParser;
 import game.system.output.ConsolePrintBuffer;
 import org.junit.Test;
+
+import java.util.Scanner;
 
 import static org.junit.Assert.assertTrue;
 
@@ -19,14 +23,10 @@ public class TestTest {
     }
 
     public static void main(String[] args) {
-        ConsolePrintBuffer c = new ConsolePrintBuffer();
-        String output = "\\" + System.lineSeparator();
-        c.println(output);
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        PlayerCommand command = PlayerInputParser.parse(input);
 
-        // Looks like line separator connects to the end of the previous element
-        // add to its visual size, without increasing the token size
-        c.println("\\");
-        c.println(System.lineSeparator());
-        c.println("1 2 3");
+        System.out.println(command);
     }
 }

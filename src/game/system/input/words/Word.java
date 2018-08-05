@@ -26,6 +26,9 @@ public abstract class Word {
     public static final HashSet<String> ARTICLES = new HashSet<>(Set.of("the",
             "this", "that"));
 
+    public static final HashSet<String> PLAYER_ARTICLES =
+            new HashSet<>(Set.of("my"));
+
     public static final HashSet<String> QUANTIFIERS = new HashSet<>(Set.of(
             "a", "all"));
 
@@ -55,7 +58,7 @@ public abstract class Word {
      * @return true if the specified word is recognized as a valid article.
      */
     public static boolean isArticle(String word) {
-        return ARTICLES.contains(word);
+        return ARTICLES.contains(word) || PLAYER_ARTICLES.contains(word);
     }
 
     public static boolean isDeterminer(String word) {

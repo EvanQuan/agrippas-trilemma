@@ -84,6 +84,14 @@ public class ObjectPhrase {
         return this.noun != null;
     }
 
+    public boolean hasBelongingPreposition() {
+        return this.belongingPreposition != null;
+    }
+
+    public boolean hasOwner() {
+        return this.owner != null;
+    }
+
     public boolean hasSameAdjectives(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.adjectives, other.getAdjectives());
     }
@@ -153,11 +161,13 @@ public class ObjectPhrase {
 
     @Override
     public String toString() {
-        return "[determiner: " + determiner
-                + " | adjectives: " + adjectives
-                + " | noun: " + noun
-                + " | preposition: " + belongingPreposition
-                + " | owner: " + owner
+        return "["
+                + (hasDeterminer()? "determiner: " + determiner : "")
+                + (hasAdjectives() ? " | adjectives: " + adjectives : "")
+                + (hasNoun() ? " | noun: " + noun : "")
+                + (hasBelongingPreposition() ?
+                " | preposition: " + belongingPreposition : "")
+                + (hasOwner() ? " | owner: " + owner : "")
                 + "]";
     }
 }

@@ -130,9 +130,13 @@ public class PlayerAction {
 
     @Override
     public String toString() {
-        return "[verbPhrase: " + verbPhrase
-                + " | directObjectPhrase: " + directObjectPhrase
-                + " | preposition: " + preposition
-                + " | indirectObjectPhrase: " + indirectObjectPhrase + "]";
+        return "["
+                + (hasVerbPhrase() ? "verbPhrase: " + verbPhrase : "")
+                + (hasDirectObjectPhrase() ?
+                " | directObjectPhrase: " + directObjectPhrase : "")
+                + (hasPreposition() ? " | preposition: " + preposition : "")
+                + (hasIndirectObjectPhrase() ?
+                " | indirectObjectPhrase: " + indirectObjectPhrase : "")
+                + "]";
     }
 }
