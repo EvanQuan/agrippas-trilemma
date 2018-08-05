@@ -6,11 +6,12 @@ import util.FuncUtils;
 import java.util.ArrayList;
 
 /**
- * Object phrases describe an object, or Noun. They conform to the following
+ * Object phrases describe an object, or noun. They conform to the following
  * grammar:
- * <p>
- * Determiner? Adjective* Noun (of)? ObjectPhrase
- *
+ * <br><br>
+ * Determiner? Adjective* Noun? (of ObjectPhrase?)?
+ * <br><br>
+ * (ooooo recursion, spooky!)
  * @author Evan Quan
  */
 public class ObjectPhrase {
