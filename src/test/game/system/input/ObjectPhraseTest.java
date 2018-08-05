@@ -1,9 +1,5 @@
 package test.game.system.input;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import game.system.input.words.ObjectPhrase;
+
+import static org.junit.Assert.*;
 
 /**
  * JUnit 4 tests for {@link ObjectPhrase}
@@ -27,6 +25,12 @@ public class ObjectPhraseTest {
     public void equals_adjectives_adjectives_true() {
         one.setAdjectives(new ArrayList<>());
         two.setAdjectives(new ArrayList<>());
+        assertEquals(one, two);
+    }
+
+    @Test
+    public void equals_adjectivesEmpty_adjectivesNull_true() {
+        one.setAdjectives(new ArrayList<>());
         assertEquals(one, two);
     }
 
@@ -96,6 +100,56 @@ public class ObjectPhraseTest {
     @Test
     public void hasSameArticle_allNull_allNull_true() {
         assertTrue(one.hasSameDeterminer(two));
+    }
+
+    @Test
+    public void hasSamePreposition_allNull_allNull_true() {
+        assertTrue(one.hasSamePreposition(two));
+    }
+
+    @Test
+    public void hasSameOwner_allNull_allNull_true() {
+        assertTrue(one.hasSameOwner(two));
+    }
+
+    @Test
+    public void hasSameOwner_empty_empty_true() {
+        ObjectPhrase three = new ObjectPhrase();
+        one.setOwner(three);
+        two.setOwner(three);
+        assertTrue(one.hasSameOwner(two));
+    }
+
+    @Test
+    public void hasSameOwner_noun_noun_true() {
+        ObjectPhrase three = new ObjectPhrase();
+        three.setNoun("a");
+        three.setBelongingPreposition("of");
+        one.setOwner(three);
+        two.setOwner(three);
+        assertTrue(one.hasSameOwner(two));
+    }
+
+    @Test
+    public void hasSameOwner_differentNoun_false() {
+        ObjectPhrase three = new ObjectPhrase();
+        ObjectPhrase four = new ObjectPhrase();
+        three.setNoun("a");
+        one.setOwner(three);
+        two.setOwner(four);
+        assertFalse(one.hasSameOwner(two));
+    }
+
+    @Test
+    public void hasSameOwner_differentPreposition_false() {
+        ObjectPhrase three = new ObjectPhrase();
+        ObjectPhrase four = new ObjectPhrase();
+        three.setNoun("a");
+        four.setNoun("a");
+        three.setBelongingPreposition("of");
+        one.setOwner(three);
+        two.setOwner(four);
+        assertFalse(one.hasSameOwner(two));
     }
 
     @Before

@@ -61,9 +61,15 @@ public class LoadMenu extends Menu {
      */
     @Override
     protected void initializeCommands() {
-        addStringCommand(new String[]{"create", "c", "create new game", "create game", "create new"}, () -> createNewGame());
-        addStringCommand(new String[]{"load", "l"}, () -> loadGame());
-        addStringCommand("delete", "d", () -> deleteGame());
+//        addCommand(stringCommands, new String[]{"create",
+//                "c",
+//                "create new game",
+//                "create game",
+//                "create new"}, () -> createNewGame());
+//        addCommand(stringCommands, new String[]{"load",
+//                "l"}, () -> loadGame());
+//        addCommand(stringCommands, new String[] {"delete",
+//                "d"}, () -> deleteGame());
     }
 
     public static LoadMenu getInstance() {

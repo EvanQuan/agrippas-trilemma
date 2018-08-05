@@ -9,71 +9,67 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Parses an receiveInput string into a {@link PlayerCommand}. The parser
- * abides by the following grammar rules:
+ * Parses an receiveInput string into a {@link PlayerCommand}. The parser abides
+ * by the following grammar rules:
  * <p>
  * 1. The dictionary of all possible verbs, adjectives, direct objects, and
- * indirect objects is not known.<br>
- * - The game handles the validity of these words, not the parser.<br>
- * 2. The first word of the receiveInput is always a verb.<br>
- * - Player stringCommands are 2nd person imperative statements.<br>
- * 3. Indirect object phrases are always preceded by a preposition.<br>
- * 4. Direct object phrases are always positioned before indirect object
- * phrases.<br>
- * 5. The dictionary of all possible prepositions is known.<br>
- * 6. The dictionary of all possible determiners is known.<br>
- * 7. The dictionary of all possible verbs is known.<br>
+ * indirect objects is not known.<br> - The game handles the validity of these
+ * words, not the parser.<br> 2. The first word of the receiveInput is always a
+ * verb.<br> - Player stringCommands are 2nd person imperative statements.<br>
+ * 3. Indirect object phrases are always preceded by a preposition.<br> 4.
+ * Direct object phrases are always positioned before indirect object
+ * phrases.<br> 5. The dictionary of all possible prepositions is known.<br> 6.
+ * The dictionary of all possible determiners is known.<br> 7. The dictionary of
+ * all possible verbs is known.<br>
  *
  * <p>
- *      <b>TODO</b>
+ * <b>TODO</b>
  * </p>
- * Multiple playerAction stringCommands, such as:<br>
- * Multiverb stringCommands: (look up, eat pie, go west)<br>
- * Verbsharing stringCommands: (eat pie, potato, cake)<br>
- * Object pronouns (this may not be implemented here): (take pie, eat it)<br>
+ * Multiple playerAction stringCommands, such as:<br> Multiverb stringCommands:
+ * (look up, eat pie, go west)<br> Verbsharing stringCommands: (eat pie, potato,
+ * cake)<br> Object pronouns (this may not be implemented here): (take pie, eat
+ * it)<br>
  * <br>
  * With the current implementation, an indeterminism problem arises in trying to
- * parse these kind of stringCommands without a dictionary of valid verbs. As a bonus
- * this would allow for verbs to be modified with adverbs<br>
- * For this to be implemented, what needs to be done:<br>
- * - A verb dictionary<br>
- * - lexicalAnalysis() needs to recognize commas at the end of words as their
- * own tokens<br>
- * - syntacticalAnalys() needs to separate playerActions by separators<br>
- * - incomplete playerActions need to be able to "fill in the gaps" from context of
- * previously parsed playerActions in the same command<br>
+ * parse these kind of stringCommands without a dictionary of valid verbs. As a
+ * bonus this would allow for verbs to be modified with adverbs<br> For this to
+ * be implemented, what needs to be done:<br> - A verb dictionary<br> -
+ * lexicalAnalysis() needs to recognize commas at the end of words as their own
+ * tokens<br> - syntacticalAnalys() needs to separate playerActions by
+ * separators<br> - incomplete playerActions need to be able to "fill in the
+ * gaps" from context of previously parsed playerActions in the same
+ * command<br>
  * <p>
- *     Alternatively...
+ * Alternatively...
  * </p>
  * Subsequent actions can be reparsed (or backtracked) depending on the verb.
  *
  * @author Evan Quan
- *
  */
 public abstract class PlayerInputParser {
 
     // NOTE: For now, only "," as end punctuation will count, as quotes are
     // causing problems with syntactical analysis
     /**
-     * Defines the type of punctuation that can exist at the start of a word that
-     * will split and count as its own token.
+     * Defines the type of punctuation that can exist at the start of a word
+     * that will split and count as its own token.
      */
     // public static final char[] START_PUNCTUATION = { '\'', '"' };
     public static final char[] START_PUNCTUATION = {};
     /**
-     * Defines the type of punctuation that can exist at the end of a word that will
-     * split and count as its own token.
+     * Defines the type of punctuation that can exist at the end of a word that
+     * will split and count as its own token.
      */
     // public static final char[] END_PUNCTUATION = { '\'', '"', ',' };
-    public static final char[] END_PUNCTUATION = { ',', '.' };
+    public static final char[] END_PUNCTUATION = {',', '.'};
 
     public static final String[] VALID_PREPOSITIONS = {};
 
     /**
-     * Splits token by punctuation and adds punctuation components to tokens.<br>
-     * - Double and single quotes at the start or end of words<br>
-     * - Commas after a word<br>
-     * - Other punctuation and symbols are stripped and ignored.
+     * Splits token by punctuation and adds punctuation components to
+     * tokens.<br> - Double and single quotes at the start or end of words<br> -
+     * Commas after a word<br> - Other punctuation and symbols are stripped and
+     * ignored.
      *
      * @param tokens
      * @param token
@@ -108,8 +104,9 @@ public abstract class PlayerInputParser {
      * later if needed).
      *
      * @param tokens
-     * @return object phrase that is composed of all token components, or null if
-     *         tokens is empty
+     * @return object phrase that is composed of all token components, or null
+     * if tokens is empty. Since this is recursively called for owners,
+     * an ObjectPhrase without an owner will have a null owner.
      */
     public static ObjectPhrase getObjectPhrase(ArrayList<String> tokens) {
         if (tokens.isEmpty()) {
@@ -125,19 +122,45 @@ public abstract class PlayerInputParser {
         if (Word.isDeterminer(tokens.get(0))) {
             objectPhrase.setDeterminer(tokens.remove(0));
         }
-        // The last word in the receiveInput is the object. Remove it and parse the
-        // rest of the receiveInput.
-        if (!tokens.isEmpty()) {
-            // If no more tokens remain, then the last word is not a noun
-            objectPhrase.setNoun(tokens.remove(tokens.size() - 1));
+
+        // Scan for a belonging preposition (of), which determines if this
+        // object phrase is owned by an other object phrase.
+        // thisTokens is composed of tokens to be used for this object phrase
+        // and not its owner (if any).
+        ArrayList<String> thisTokens = new ArrayList<>();
+        int i;
+        for (i = 0; i < tokens.size(); i++) {
+            String token = tokens.get(i);
+            if (Word.isBelongingPreposition(token)) {
+                objectPhrase.setBelongingPreposition(token);
+                break;
+            } else {
+                thisTokens.add(token);
+            }
         }
-        // If any receiveInput remains, they are adjectives which modify the object.
-        // TODO: This WILL need to change once multiple stringCommands separated by commas
-        // with a
-        // single verb is implemented. Either here, or in syntactical analysis.
+
+        // Add remaining tokens after belonging preposition to be parsed
+        // recursively for owner(s).
+        ArrayList<String> ownerTokens = new ArrayList<>();
+        for (i++; i < tokens.size(); i++) {
+            ownerTokens.add(tokens.get(i));
+        }
+        objectPhrase.setOwner(getObjectPhrase(ownerTokens));
+
+        // The last word in the receiveInput is the object. Remove it and parse
+        // the rest of the receiveInput.
+        if (!thisTokens.isEmpty()) {
+            // If no more tokens remain, then the last word is not a noun
+            objectPhrase.setNoun(thisTokens.remove(thisTokens.size() - 1));
+        }
+        // If any receiveInput remains, they are adjectives which modify the
+        // object.
+        // TODO: This WILL need to change once multiple stringCommands separated
+        // by commas with a single verb is implemented. Either here, or in
+        // syntactical analysis.
         ArrayList<String> adjectives = new ArrayList<>();
-        for (int i = 0; i < tokens.size(); i++) {
-            adjectives.add(tokens.get(i));
+        for (i = 0; i < thisTokens.size(); i++) {
+            adjectives.add(thisTokens.get(i));
         }
         objectPhrase.setAdjectives(adjectives);
         return objectPhrase;
@@ -146,13 +169,13 @@ public abstract class PlayerInputParser {
     /**
      * <b>Step 1: Lexical Analysis</b>
      * <p>
-     * Splits the receiveInput string into tokens, each representing a word of the command.
-     * The tokens are in the same order as they appear in the receiveInput string. Each
-     * character of punctuation counts as its own token only if it is a single or
-     * double quote around a word, or a comma after a word.
+     * Splits the receiveInput string into tokens, each representing a word of
+     * the command. The tokens are in the same order as they appear in the
+     * receiveInput string. Each character of punctuation counts as its own
+     * token only if it is a single or double quote around a word, or a comma
+     * after a word.
      *
-     * @param input
-     *            - receiveInput String
+     * @param input - receiveInput String
      * @return list of all tokens.
      */
     public static ArrayList<String> lexicalAnalysis(String input) {
@@ -175,11 +198,10 @@ public abstract class PlayerInputParser {
     }
 
     /**
-     * Parse receiveInput text into words and apply their appropriate meanings and
-     * relationships. Accepts only imperative statements.
+     * Parse receiveInput text into words and apply their appropriate meanings
+     * and relationships. Accepts only imperative statements.
      *
-     * @param input
-     *            - String to parse into words
+     * @param input - String to parse into words
      * @return command that represents the player {@link PlayerCommand}
      */
     public static PlayerCommand parse(String input) {
@@ -193,10 +215,11 @@ public abstract class PlayerInputParser {
     }
 
     /**
-     * For multi-playerAction stringCommands, playerAction separators define the number of playerActions
-     * that are present in a command. Single syntacticalAnalsysis() assumes an
-     * ArrayList of tokens is a single playerAction, we need to make an ArrayList of
-     * ArrayLists (playerActions). Separators are not included in any token array.
+     * For multi-playerAction stringCommands, playerAction separators define the
+     * number of playerActions that are present in a command. Single
+     * syntacticalAnalsysis() assumes an ArrayList of tokens is a single
+     * playerAction, we need to make an ArrayList of ArrayLists (playerActions).
+     * Separators are not included in any token array.
      *
      * @param tokens
      * @return
@@ -236,17 +259,16 @@ public abstract class PlayerInputParser {
      * <b>Grammar Rules</b><br>
      * <p>
      * 0. The dictionary of all possible verbs, adjectives, direct objects, and
-     * indirect objects is <b>not</b> known.<br>
-     * 1. The first world of the receiveInput is a always a verb unless<br>
-     * - it is a valid determiner, which then the verb phrase is skipped and the
-     * indirect object phrase is parsed.<br>
-     * - it is a preposition, which then the verb phrase and indirect object phrase
-     * is skipped and the preposition and indirect object phrase are parsed.<br>
-     * 2. Indirect object phrases are always preceded by a preposition.<br>
-     * 3. Direct object phrases are always positioned before indirect object
-     * phrases.<br>
-     * 4. The dictionary of all possible Prepositions is known.<br>
-     * 5. The dictionary of all possible determiners is known.<br>
+     * indirect objects is <b>not</b> known.<br> 1. The first world of the
+     * receiveInput is a always a verb unless<br> - it is a valid determiner,
+     * which then the verb phrase is skipped and the indirect object phrase is
+     * parsed.<br> - it is a preposition, which then the verb phrase and
+     * indirect object phrase is skipped and the preposition and indirect object
+     * phrase are parsed.<br> 2. Indirect object phrases are always preceded by
+     * a preposition.<br> 3. Direct object phrases are always positioned before
+     * indirect object phrases.<br> 4. The dictionary of all possible
+     * Prepositions is known.<br> 5. The dictionary of all possible determiners
+     * is known.<br>
      *
      * @param playerCommand
      * @param tokens
