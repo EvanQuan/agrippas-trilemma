@@ -3,7 +3,7 @@ package game.system.input;
 import game.system.input.words.ObjectPhrase;
 import game.system.input.words.VerbPhrase;
 import game.system.input.words.Word;
-import util.ArrayUtils;
+import util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -82,7 +82,7 @@ public abstract class VerbAgnosticPlayerCommandParser {
     public static void addToken(ArrayList<String> tokens, String token) {
 
         char firstChar = token.charAt(0);
-        if (ArrayUtils.contains(START_PUNCTUATION, firstChar)) {
+        if (CollectionUtils.contains(START_PUNCTUATION, firstChar)) {
             tokens.add(Character.toString(firstChar));
             token = token.substring(1);
         }
@@ -90,7 +90,7 @@ public abstract class VerbAgnosticPlayerCommandParser {
         boolean changedLastChar = false;
         String endQuote = "";
         char lastChar = token.charAt(token.length() - 1);
-        if (ArrayUtils.contains(END_PUNCTUATION, lastChar)) {
+        if (CollectionUtils.contains(END_PUNCTUATION, lastChar)) {
             endQuote = Character.toString(lastChar);
             token = token.substring(0, token.length() - 1);
             changedLastChar = true;
@@ -229,7 +229,7 @@ public abstract class VerbAgnosticPlayerCommandParser {
         PlayerAction playerAction = new PlayerAction();
 
         String first = tokens.get(0);
-        if (!Word.isDeterminer(first) && !Word.isPreposition(first)) {
+        if (!Word.isDeterminer(first) && !Word.isObjectPhraseSeparatingPreposition(first)) {
             // 0. The first word is a verb. Remove it and parse the rest of the receiveInput.
             // No adverbs are allowed as it would not be possible to distinguish between the
             // end of the verb phrase and the start of the proceeding indirect/direct object
@@ -250,7 +250,7 @@ public abstract class VerbAgnosticPlayerCommandParser {
         int i;
         for (i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
-            if (Word.isPreposition(token)) {
+            if (Word.isObjectPhraseSeparatingPreposition(token)) {
                 playerAction.setPreposition(token);
                 break;
             } else {

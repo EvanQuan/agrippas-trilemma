@@ -3,7 +3,7 @@ package game.object;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import util.ArrayUtils;
+import util.CollectionUtils;
 
 /**
  * All objects in the game. Have names and descriptions.
@@ -47,7 +47,7 @@ public abstract class GameObject implements Serializable {
      *            to add
      */
     public void addDescriptions(String[] descriptions) {
-        ArrayUtils.addArrayToList(descriptions, this.descriptions);
+        CollectionUtils.addArrayToList(descriptions, this.descriptions);
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class GameObject implements Serializable {
      *            to add
      */
     public void addPluralNames(String[] pluralNames) {
-        ArrayUtils.addArrayToList(pluralNames, this.pluralNames);
+        CollectionUtils.addArrayToList(pluralNames, this.pluralNames);
     }
 
     /**
@@ -83,7 +83,7 @@ public abstract class GameObject implements Serializable {
      *            to add
      */
     public void addSingleNames(String[] singleNames) {
-        ArrayUtils.addArrayToList(singleNames, this.singleNames);
+        CollectionUtils.addArrayToList(singleNames, this.singleNames);
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class GameObject implements Serializable {
      * Set descriptions
      */
     public void setDescriptions(String[] descriptions) {
-        ArrayUtils.setArrayToList(descriptions, this.descriptions);
+        CollectionUtils.setArrayToList(descriptions, this.descriptions);
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class GameObject implements Serializable {
     }
 
     public void setPluralNames(String[] pluralNames) {
-        ArrayUtils.setArrayToList(pluralNames, this.pluralNames);
+        CollectionUtils.setArrayToList(pluralNames, this.pluralNames);
     }
 
     /**
@@ -199,7 +199,7 @@ public abstract class GameObject implements Serializable {
     }
 
     public void setSingleNames(String[] singleNames) {
-        ArrayUtils.setArrayToList(singleNames, this.singleNames);
+        CollectionUtils.setArrayToList(singleNames, this.singleNames);
     }
 
     /**

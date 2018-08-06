@@ -5,7 +5,7 @@ import game.object.location.Location;
 import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
 import game.system.save.Save;
-import util.ArrayUtils;
+import util.CollectionUtils;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class GameMenu extends Menu {
 
     private GameMenu() {
         extendInput = false;
-        look = new ArrayList<String>(ArrayUtils.getArrayList(new String[] { "look", "l" }));
+        look = new ArrayList<String>(CollectionUtils.getArrayList(new String[] { "look", "l" }));
     }
 
     /**

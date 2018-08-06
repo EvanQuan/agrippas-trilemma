@@ -1,6 +1,6 @@
 package game.system.input.words;
 
-import util.ArrayUtils;
+import util.CollectionUtils;
 import util.FuncUtils;
 
 import java.util.ArrayList;
@@ -127,7 +127,7 @@ public class ObjectPhrase {
     }
 
     public void setAdjectives(String[] adjectives) {
-        this.adjectives = ArrayUtils.getArrayList(adjectives);
+        this.adjectives = CollectionUtils.getArrayList(adjectives);
     }
 
     public void setDeterminer(String determiner) {

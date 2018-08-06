@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import game.system.input.VerbAgnosticPlayerCommandParser;
 import game.system.input.words.ObjectPhrase;
-import util.ArrayUtils;
+import util.CollectionUtils;
 
 /**
  *
@@ -23,7 +23,7 @@ public class VerbAgnosticPlayerInputParser_getObjectPhrase_Test {
     public static ObjectPhrase actual;
 
     public static void testGetObjectPhrase(String[] array, ObjectPhrase expected) {
-        tokens = ArrayUtils.getArrayList(array);
+        tokens = CollectionUtils.getArrayList(array);
         actual = VerbAgnosticPlayerCommandParser.getObjectPhrase(tokens);
 
     }

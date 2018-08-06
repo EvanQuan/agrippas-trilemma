@@ -211,7 +211,7 @@ public abstract class Menu {
     // private boolean inputStartsWithDoubleChoice(ArrayList<Double> arrayList,
     // boolean strip) {
     // return
-    // inputStartsWithChoice(ArrayUtils.getStringArrayListFromDouble(arrayList),
+    // inputStartsWithChoice(CollectionUtils.getStringArrayListFromDouble(arrayList),
     // strip);
     // }
     //
@@ -226,7 +226,7 @@ public abstract class Menu {
     // */
     // private boolean inputStartsWithIntegerChoice(ArrayList<Integer> arrayList,
     // boolean strip) {
-    // return inputStartsWithChoice(ArrayUtils.getStringArrayList(arrayList),
+    // return inputStartsWithChoice(CollectionUtils.getStringArrayList(arrayList),
     // strip);
     // }
 
@@ -247,7 +247,7 @@ public abstract class Menu {
 
     // public boolean inputEquals(ArrayList arrayList) {
     // return wordEquals(getInputString(),
-    // ArrayUtils.getStringArrayList(arrayList));
+    // CollectionUtils.getStringArrayList(arrayList));
     // }
     //
     // public boolean inputEquals(double word) {
@@ -255,7 +255,7 @@ public abstract class Menu {
     // }
     //
     // public boolean inputEquals(double[] array) {
-    // return wordEquals(getInputString(), ArrayUtils.getStringArrayList(array));
+    // return wordEquals(getInputString(), CollectionUtils.getStringArrayList(array));
     // }
     //
     // public boolean inputEquals(int word) {
@@ -263,7 +263,7 @@ public abstract class Menu {
     // }
     //
     // public boolean inputEquals(int[] array) {
-    // return wordEquals(getInputString(), ArrayUtils.getStringArrayList(array));
+    // return wordEquals(getInputString(), CollectionUtils.getStringArrayList(array));
     // }
     //
     // public boolean inputEquals(String word) {
@@ -296,7 +296,7 @@ public abstract class Menu {
     // // return inputStartsWithDoubleChoice(arrayList, false);
     // // }
     // public boolean inputStartsWith(double[] array) {
-    // return inputStartsWith(ArrayUtils.getDoubleArrayList(array));
+    // return inputStartsWith(CollectionUtils.getDoubleArrayList(array));
     // }
     //
     // public boolean inputStartsWith(int word) {
@@ -307,7 +307,7 @@ public abstract class Menu {
     // // return inputStartsWithIntegerChoice(arrayList, false);
     // // }
     // public boolean inputStartsWith(int[] array) {
-    // return inputStartsWith(ArrayUtils.getIntegerArrayList(array));
+    // return inputStartsWith(CollectionUtils.getIntegerArrayList(array));
     // }
     //
     // public boolean inputStartsWith(String word) {

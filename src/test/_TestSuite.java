@@ -4,13 +4,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import test.game.system.input.*;
-import test.util.ArrayUtilsTest;
+import test.game.system.input.words.ObjectPhraseTest;
+import test.game.system.input.words.WordTest;
+import test.util.CollectionUtilsTest;
 import test.util.MultisetTest;
 import test.util.TextUtilsTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        ArrayUtilsTest.class,
+        CollectionUtilsTest.class,
         FuncUtilsTest.class,
         LocationTest.class,
         TestTest.class,
@@ -28,7 +30,9 @@ import test.util.TextUtilsTest;
         MultisetTest.class,
         TextUtilsTest.class,
         WordTest.class,
-        ExitTest.class })
+        ExitTest.class
+})
+
 /**
  * Runs all test classes under JUnit 4
  *

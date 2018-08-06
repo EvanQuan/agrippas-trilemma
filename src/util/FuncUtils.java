@@ -24,7 +24,7 @@ public abstract class FuncUtils {
      * @return
      */
     public static ArrayList<String> filter(Predicate<? super String> predicate, ArrayList<String> list) {
-        return ArrayUtils.getArrayList(filter(predicate, ArrayUtils.getStringArray(list)));
+        return CollectionUtils.getArrayList(filter(predicate, CollectionUtils.getStringArray(list)));
     }
 
     /**
@@ -48,7 +48,7 @@ public abstract class FuncUtils {
      * @return
      */
     public static ArrayList<String> map(Function<? super String, ? super String> func, ArrayList<String> list) {
-        return ArrayUtils.getArrayList(map(func, ArrayUtils.getStringArray(list)));
+        return CollectionUtils.getArrayList(map(func, CollectionUtils.getStringArray(list)));
     }
 
     /**

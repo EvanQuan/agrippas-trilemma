@@ -3,7 +3,7 @@ package game.system.input;
 import game.system.input.words.ObjectPhrase;
 import game.system.input.words.VerbPhrase;
 import game.system.input.words.Word;
-import util.ArrayUtils;
+import util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -77,7 +77,7 @@ public abstract class PlayerInputParser {
     public static void addToken(ArrayList<String> tokens, String token) {
 
         char firstChar = token.charAt(0);
-        if (ArrayUtils.contains(START_PUNCTUATION, firstChar)) {
+        if (CollectionUtils.contains(START_PUNCTUATION, firstChar)) {
             tokens.add(Character.toString(firstChar));
             token = token.substring(1);
         }
@@ -85,7 +85,7 @@ public abstract class PlayerInputParser {
         boolean changedLastChar = false;
         String endQuote = "";
         char lastChar = token.charAt(token.length() - 1);
-        if (ArrayUtils.contains(END_PUNCTUATION, lastChar)) {
+        if (CollectionUtils.contains(END_PUNCTUATION, lastChar)) {
             endQuote = Character.toString(lastChar);
             token = token.substring(0, token.length() - 1);
             changedLastChar = true;
@@ -229,8 +229,10 @@ public abstract class PlayerInputParser {
      * @return
      */
     public static ArrayList<ArrayList<String>> splitTokensByActions(ArrayList<String> tokens) {
-        // Each ArrayList sublist separated by separators counts as its own playerAction
-        // Find the number of playerActions and track what index the playerActions are separated by.
+        // Each ArrayList sublist separated by separators counts as its own
+        // playerAction
+        // Find the number of playerActions and track what index the
+        // playerActions are separated by.
         ArrayList<Integer> separatorIndices = new ArrayList<>();
         ArrayList<ArrayList<String>> actionTokens = new ArrayList<>();
         for (int i = 0; i < tokens.size(); i++) {
@@ -238,8 +240,9 @@ public abstract class PlayerInputParser {
                 separatorIndices.add(i);
             }
         }
-        // Separate each playerAction, defined by separatorIndices, into its own ArrayList of
-        // tokens. PlayerAction separators are not included in the arrays.
+        // Separate each playerAction, defined by separatorIndices, into its
+        // own ArrayList of tokens. PlayerAction separators are not included
+        // in the arrays.
         int startIndex = 0;
         int endIndex;
         for (int i : separatorIndices) {
@@ -284,26 +287,27 @@ public abstract class PlayerInputParser {
             return;
         }
 
-        // TODO when multi-playerAction stringCommands are implemented, make this part a loop for
-        // every separator section
+        // TODO when multi-playerAction stringCommands are implemented, make
+        // this part a loop for every separator section.
 
         PlayerAction playerAction = new PlayerAction();
 
         String first = tokens.get(0);
-        if (!Word.isDeterminer(first) && !Word.isPreposition(first)) {
-            // 0. The first word is a verb. Remove it and parse the rest of the receiveInput.
-            // No adverbs are allowed as it would not be possible to distinguish between the
-            // end of the verb phrase and the start of the proceeding indirect/direct object
+        if (!Word.isDeterminer(first) && !Word.isObjectPhraseSeparatingPreposition(first)) {
+            // 0. The first word is a verb. Remove it and parse the rest of the
+            // receiveInput. No adverbs are allowed as it would not be
+            // possible to distinguish between the end of the verb phrase and
+            // the start of the proceeding indirect/direct object
             // phrase without a dictionary of all possible verbs.
             tokens.remove(0);
             playerAction.setVerbPhrase(new VerbPhrase(first));
         }
-        // 1. Scan for a preposition. If one is found, remove it. Parse the receiveInput
-        // preceding the preposition as a direct object phrase. Parse the receiveInput
-        // following the preposition as an indirect object phrase.
-        // For the sake of how the PlayerCommand will be parsed in the game, the
-        // preposition
-        // is added to the indirect object phrase.
+        // 1. Scan for a preposition. If one is found, remove it.
+        // Parse the input preceding the preposition as a direct object
+        // phrase. Parse the receiveInput following the preposition as an
+        // indirect object phrase. For the sake of how the PlayerCommand will
+        // be parsed in the game, the preposition is added to the indirect
+        // object phrase.
 
         // Add first tokens before preposition (if any) to direct tokens.
         // If there is a preposition, store it by itself.
@@ -311,7 +315,7 @@ public abstract class PlayerInputParser {
         int i;
         for (i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
-            if (Word.isPreposition(token)) {
+            if (Word.isObjectPhraseSeparatingPreposition(token)) {
                 playerAction.setPreposition(token);
                 break;
             } else {

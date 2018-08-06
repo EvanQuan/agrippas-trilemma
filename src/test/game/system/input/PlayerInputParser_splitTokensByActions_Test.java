@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import game.system.input.PlayerCommand;
 import game.system.input.PlayerInputParser;
-import util.ArrayUtils;
+import util.CollectionUtils;
 
 /**
  * Tests {@link PlayerCommand}.splitTokensByActions()
@@ -28,12 +28,12 @@ public class PlayerInputParser_splitTokensByActions_Test {
      * @param tokens
      */
     public static void addToExpected(String[] tokens) {
-        expected.add(ArrayUtils.getArrayList(tokens));
+        expected.add(CollectionUtils.getArrayList(tokens));
     }
 
     public static void testSplitTokensByActions(String[] tokens) {
         ArrayList<ArrayList<String>> results = PlayerInputParser
-                .splitTokensByActions(ArrayUtils.getArrayList(tokens));
+                .splitTokensByActions(CollectionUtils.getArrayList(tokens));
         assertEquals(expected, results);
     }
 

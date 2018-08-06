@@ -1,4 +1,4 @@
-package test.game.system.input;
+package test.game.system.input.words;
 
 import java.util.ArrayList;
 import java.util.Arrays;

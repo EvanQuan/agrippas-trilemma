@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import game.system.input.PlayerInputParser;
 import game.system.input.words.ObjectPhrase;
-import util.ArrayUtils;
+import util.CollectionUtils;
 
 /**
  *
@@ -23,7 +23,7 @@ public class PlayerInputParser_getObjectPhrase_Test {
     public static ObjectPhrase actual;
 
     public static void testGetObjectPhrase(String[] array) {
-        tokens = ArrayUtils.getArrayList(array);
+        tokens = CollectionUtils.getArrayList(array);
         actual = PlayerInputParser.getObjectPhrase(tokens);
 
     }

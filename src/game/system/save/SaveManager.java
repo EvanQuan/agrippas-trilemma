@@ -4,7 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.lang.SecurityException;
 import java.util.*;
-import util.ArrayUtils;
+import util.CollectionUtils;
 import util.TextUtils;
 
 /**
@@ -15,7 +15,7 @@ import util.TextUtils;
  * Influence: Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public class SaveManager extends ArrayUtils {
+public class SaveManager extends CollectionUtils {
     public static final int MAXIMUM_SAVES = 50;
     public static final int MAX_NAME_LENGTH = 50;
     public static final String SAVE_DIRECTORY = "game/system/saves";
