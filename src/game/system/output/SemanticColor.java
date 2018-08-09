@@ -4,8 +4,9 @@ import java.awt.Color;
 import java.util.Map;
 
 /**
- * SemanticColor for {@link IPrintBuffer}. These colors are semantically valued and link to what their use represents.
- * Implementations of IPrintBuffer decide what colors these color values correspond to.
+ * SemanticColor for {@link IPrintBuffer}. These colors are semantically valued
+ * and link to what their use represents. Implementations of IPrintBuffer decide
+ * what colors these color values correspond to.
  *
  * @author Evan Quan
  *

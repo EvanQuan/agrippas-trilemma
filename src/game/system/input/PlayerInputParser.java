@@ -293,7 +293,8 @@ public abstract class PlayerInputParser {
         PlayerAction playerAction = new PlayerAction();
 
         String first = tokens.get(0);
-        if (!Word.isDeterminer(first) && !Word.isObjectPhraseSeparatingPreposition(first)) {
+//        if (!Word.isDeterminer(first) && !Word.isObjectPhraseSeparatingPreposition(first)) {
+        if (Word.isVerb(first)) {
             // 0. The first word is a verb. Remove it and parse the rest of the
             // receiveInput. No adverbs are allowed as it would not be
             // possible to distinguish between the end of the verb phrase and

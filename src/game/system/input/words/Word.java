@@ -1,6 +1,5 @@
 package game.system.input.words;
 
-import game.object.item.background.character.Player;
 import game.system.input.PlayerCommand;
 import util.CollectionUtils;
 import util.TextUtils;
@@ -16,7 +15,7 @@ import java.util.Set;
 public abstract class Word {
 
     public static final HashSet<String> EXCLUDING_PREPOSITIONS = new HashSet<>(
-            Set.of("but", "except")
+        Set.of("but", "except")
     );
 
     /**
@@ -24,14 +23,14 @@ public abstract class Word {
      * phrase
      */
     public static final HashSet<String> DIRECTIONAL_PREPOSITIONS = new HashSet<>(
-            Set.of("over", "under", "on", "between", "behind", "in", "across")
+        Set.of("over", "under", "on", "between", "behind", "in", "across")
     );
 
     /**
      * Connect 2 object phrases together (in some sense)
      */
     public static final HashSet<String> JOINING_PREPOSITIONS = new HashSet<>(
-            Set.of("with")
+        Set.of("with", "about")
     );
 
     /**
@@ -39,49 +38,126 @@ public abstract class Word {
      * object phrase.
      */
     public static final HashSet<String> MOVEMENT_PREPOSITIONS = new HashSet<>(
-            Set.of("to")
+        Set.of("to", "at")
     );
 
     /**
      * First object phrase is "owned by" or "belongs to" the second object
      * phrase.
      */
-    public static final HashSet<String> BELONGING_PREPOSITIONS =
-            new HashSet<>(Set.of("of")
+    public static final HashSet<String> BELONGING_PREPOSITIONS = new HashSet<>(
+        Set.of("of")
     );
 
     /**
      * All prepositions used to separate object phrases.
      */
     public static final HashSet<String> OBJECT_PHRASE_SEPARATING_PREPOSITION
-        = CollectionUtils.mergeSets(new Set[] {EXCLUDING_PREPOSITIONS,
-            DIRECTIONAL_PREPOSITIONS, JOINING_PREPOSITIONS,
-            MOVEMENT_PREPOSITIONS});
-
-
-    public static final HashSet<String> ARTICLES = new HashSet<>(Set.of("the",
-            "this", "that")
+        = CollectionUtils.mergeSets(
+            new Set[] {EXCLUDING_PREPOSITIONS, DIRECTIONAL_PREPOSITIONS,
+                JOINING_PREPOSITIONS, MOVEMENT_PREPOSITIONS}
     );
 
+
+    /**
+     * These sort of determiners do not give information about the quantity
+     * of objects they refer to.
+     */
+    public static final HashSet<String> GENERAL_ARTICLES = new HashSet<>(
+        Set.of("the", "this", "that")
+    );
+
+    /**
+     * These refer to objects in the player's possession.
+     */
     public static final HashSet<String> PLAYER_ARTICLES = new HashSet<>(
-            Set.of("my")
+        Set.of("my")
     );
 
+    /**
+     * For creating {@link PlayerCommand}s, all articles are treated the same.
+     */
+    public static final HashSet<String> ARTICLES = CollectionUtils.mergeSets(
+        new Set[] {GENERAL_ARTICLES, PLAYER_ARTICLES}
+    );
+
+    /**
+     * A type of determiner that quantifies the object phrase. While
+     * numerical values directly quantify an object phrase (which is valid),
+     * these quantifier words can also give a quantity as well.
+     * Example:
+     * all is used to signify all objects (in inventory, or room)
+     * a/an is equivalent to 1
+     * the is excluded because the noun in the object phrase determines the
+     * quantity.
+     */
     public static final HashSet<String> QUANTIFIERS = new HashSet<>(
-            Set.of("a", "all")
+        Set.of("a", "an", "all")
+    );
+
+    /**
+     * Action verbs that have a direct object phrase attached directly to them,
+     * but never an indirect object phrase.
+     * Examples:
+     * eat cake, take gold
+     */
+    public static final HashSet<String> NON_INDIRECT_TRANSITIVE_VERBS
+        = new HashSet<>(
+            Set.of("eat", "take", "get", "drop", "remove")
+    );
+
+    /**
+     * Action verbs that have a direct object phrase attached directly to them,
+     * and sometimes optionally an indirect object phrase.
+     * Examples:
+     * go (to) west, use key (on door)
+     */
+    public static final HashSet<String> OPTIONALLY_INDIRECT_TRANSITIVE_VERBS
+        = new HashSet<>(
+            Set.of("go", "use", "move", "walk", "run", "travel")
+
+    );
+
+    /**
+     * Transitive verbs that REQUIRE an indirect object phrase for the
+     * command to fully to make sense, although without an indirect object
+     * phrase, it will still parse correctly.
+     * Examples:
+     * give gold to guard (give gold -> give gold to who?)
+     */
+    public static final HashSet<String> MANDATORY_INDIRECT_TRANSITIVE_VERBS
+        = new HashSet<>(
+            Set.of("give")
+
+    );
+
+    /**
+     * Action verbs that cannot attach directly to a directly object phrase to
+     * make complete sense. They need the help of an object phrase separating
+     * preposition (and thus an indirect object phrase to make sense)
+     * Examples:
+     * Die, quit
+     */
+    public static final HashSet<String> INTRANSITIVE_VERBS = new HashSet<>(
+        Set.of("die", "quit", "jump")
+    );
+
+    public static final HashSet<String> VERBS =CollectionUtils.mergeSets(
+            new Set[] {NON_INDIRECT_TRANSITIVE_VERBS,
+                    OPTIONALLY_INDIRECT_TRANSITIVE_VERBS,
+                    MANDATORY_INDIRECT_TRANSITIVE_VERBS,
+                    INTRANSITIVE_VERBS
+            }
     );
 
     /**
      * PlayerAction separators separates {@link PlayerCommand} playerActions.
      * These are used for receiveInput multi-playerAction stringCommands.
      */
-    public static final HashSet<String> ACTION_SEPARATORS = new HashSet(Set.of
-            (",", "then", "."));
+    public static final HashSet<String> ACTION_SEPARATORS = new HashSet(
+            Set.of(",", "and", "then", ".")
+    );
 
-    /**
-     * Robust {@link Player}
-     */
-//    public static final HashSet<String> VERBS;
 
     /**
      * @param word
@@ -97,10 +173,15 @@ public abstract class Word {
      * @return true if the specified word is recognized as a valid article.
      */
     public static boolean isArticle(String word) {
-        return ARTICLES.contains(word.toLowerCase())
-                || PLAYER_ARTICLES.contains(word.toLowerCase());
+        return ARTICLES.contains(word.toLowerCase());
     }
 
+    /**
+     *
+     * @param word
+     * @return true if the specified word is recognized as a valid
+     * determiner, which is either an article or quantifier.
+     */
     public static boolean isDeterminer(String word) {
         return isArticle(word.toLowerCase()) || isQuantifier(word.toLowerCase());
     }
@@ -163,7 +244,7 @@ public abstract class Word {
      * preposition.
      */
     public static boolean isBelongingPreposition(String word) {
-        return BELONGING_PREPOSITIONS.contains(word);
+        return BELONGING_PREPOSITIONS.contains(word.toLowerCase());
     }
 
     /**
@@ -174,7 +255,22 @@ public abstract class Word {
      * @return false, until actually implemented
      */
     public static boolean isVerb(String word) {
-        return false;
+        return VERBS.contains(word);
     }
 
+    public static boolean isNonIndirectTransitiveVerb(String word) {
+        return NON_INDIRECT_TRANSITIVE_VERBS.contains(word);
+    }
+
+    public static boolean isIndirectTransitiveVerb(String word) {
+        return MANDATORY_INDIRECT_TRANSITIVE_VERBS.contains(word);
+    }
+
+    public static boolean isOptionallyIndirectTransitiveVerb(String word) {
+        return OPTIONALLY_INDIRECT_TRANSITIVE_VERBS.contains(word);
+    }
+
+    public static boolean isIntransitiveVerb(String word) {
+        return INTRANSITIVE_VERBS.contains(word);
+    }
 }
