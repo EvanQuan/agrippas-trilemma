@@ -38,7 +38,7 @@ public abstract class Word {
      * object phrase.
      */
     public static final HashSet<String> MOVEMENT_PREPOSITIONS = new HashSet<>(
-        Set.of("to", "at")
+        Set.of("to", "at", "through")
     );
 
     /**
@@ -139,7 +139,7 @@ public abstract class Word {
      * Die, quit
      */
     public static final HashSet<String> INTRANSITIVE_VERBS = new HashSet<>(
-        Set.of("die", "quit", "jump")
+        Set.of("die", "quit", "jump", "look", "examine")
     );
 
     public static final HashSet<String> VERBS =CollectionUtils.mergeSets(

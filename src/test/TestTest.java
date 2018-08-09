@@ -3,6 +3,7 @@ package test;
 import game.system.input.PlayerCommand;
 import game.system.input.PlayerInputParser;
 import game.system.output.ConsolePrintBuffer;
+import game.system.output.IPrintBuffer;
 import org.junit.Test;
 
 import java.util.Scanner;
@@ -24,9 +25,14 @@ public class TestTest {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        PlayerCommand command = PlayerInputParser.parse(input);
+        String input;
+        PlayerCommand command;
+        do {
+            System.out.print(IPrintBuffer.INPUT_MARKER);
+            input = in.nextLine();
+            command = PlayerInputParser.parse(input);
 
-        System.out.println(command);
+            System.out.println(command);
+        } while (!input.isEmpty());
     }
 }

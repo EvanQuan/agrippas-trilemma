@@ -342,4 +342,183 @@ public class PlayerInputParser_parse_Test {
                 playerAction.getIndirectObjectPhrase().getOwner().getNoun());
     }
 
+    /**
+     * Test that the verb "eat" is copied all the way through.
+     */
+    @Test
+    public void multiAction_fixSyntaxForward_singleTransitiveVerbToAll() {
+        testParse("eat b, c, d");
+
+        assertEquals(3, playerActions.size());
+
+        assertEquals("eat", playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
+
+        assertEquals("eat", playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
+
+        assertEquals("eat", playerActions.get(2).getVerbPhrase().getVerb());
+        assertEquals("d", playerActions.get(2).getDirectObjectPhrase().getNoun());
+    }
+
+    /**
+     * Test that the verb "look" and preposition "at" is copied all the way
+     * through.
+     */
+    @Test
+    public void multiAction_fixSyntaxForward_singleIntransitiveVerbToAll() {
+        testParse("look at b, c, d");
+
+        assertEquals(3, playerActions.size());
+
+        assertEquals("look", playerActions.get(0).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(0).hasDirectObjectPhrase());
+        assertEquals("at", playerActions.get(0).getPreposition());
+        assertEquals("b", playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("look", playerActions.get(1).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(1).hasDirectObjectPhrase());
+        assertEquals("at", playerActions.get(1).getPreposition());
+        assertEquals("c", playerActions.get(1).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("look", playerActions.get(2).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(2).hasDirectObjectPhrase());
+        assertEquals("at", playerActions.get(2).getPreposition());
+        assertEquals("d", playerActions.get(2).getIndirectObjectPhrase().getNoun());
+    }
+
+    /**
+     * Test that the verb "look" is copied all the way through and the
+     * preposition to copy is changed from "at" to "through".
+     */
+    @Test
+    public void multiAction_fixSyntaxForward_changePrepositions() {
+        testParse("look at b, c, through d, e");
+
+        assertEquals(4, playerActions.size());
+
+        assertEquals("look", playerActions.get(0).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(0).hasDirectObjectPhrase());
+        assertEquals("at", playerActions.get(0).getPreposition());
+        assertEquals("b", playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("look", playerActions.get(1).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(1).hasDirectObjectPhrase());
+        assertEquals("at", playerActions.get(1).getPreposition());
+        assertEquals("c", playerActions.get(1).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("look", playerActions.get(2).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(2).hasDirectObjectPhrase());
+        assertEquals("through", playerActions.get(2).getPreposition());
+        assertEquals("d", playerActions.get(2).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("look", playerActions.get(3).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(3).hasDirectObjectPhrase());
+        assertEquals("through", playerActions.get(3).getPreposition());
+        assertEquals("e", playerActions.get(3).getIndirectObjectPhrase().getNoun());
+    }
+
+    /**
+     * Test that "walk e" does not turn into "walk through e".
+     */
+    @Test
+    public void multiAction_fixSyntaxForward_changeVerbAndPreposition() {
+        testParse("look at b, c, through d, walk e");
+
+        assertEquals(4, playerActions.size());
+
+        assertEquals("look", playerActions.get(0).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(0).hasDirectObjectPhrase());
+        assertEquals("at", playerActions.get(0).getPreposition());
+        assertEquals("b", playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("look", playerActions.get(1).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(1).hasDirectObjectPhrase());
+        assertEquals("at", playerActions.get(1).getPreposition());
+        assertEquals("c", playerActions.get(1).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("look", playerActions.get(2).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(2).hasDirectObjectPhrase());
+        assertEquals("through", playerActions.get(2).getPreposition());
+        assertEquals("d", playerActions.get(2).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("walk", playerActions.get(3).getVerbPhrase().getVerb());
+        assertEquals("e", playerActions.get(3).getDirectObjectPhrase().getNoun());
+        assertFalse(playerActions.get(3).hasPreposition());
+        assertFalse(playerActions.get(3).hasIndirectObjectPhrase());
+    }
+
+    /**
+     * Test that the verb to copy "eat" changes from "eat" to "go" and
+     * continues to copy all the way through.
+     */
+    @Test
+    public void multiAction_fixSyntaxForward_twoVerbsChangeVerbToAll() {
+        testParse("eat b, go c, d");
+
+        assertEquals(3, playerActions.size());
+
+        assertEquals("eat", playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
+
+        assertEquals("go", playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("c",
+                playerActions.get(1).getDirectObjectPhrase().getNoun());
+
+        assertEquals("go", playerActions.get(2).getVerbPhrase().getVerb());
+        assertEquals("d",
+                playerActions.get(2).getDirectObjectPhrase().getNoun());
+    }
+
+    /**
+     * Once stopping intransitive verb "look" is arrived at, stop copying
+     * verbs. Action "d" should be unaltered.
+     */
+    @Test
+    public void multiAction_fixSyntaxForward_stopCopyingAtStoppingIntransitiveVerb() {
+        testParse("eat b, c, look, d");
+        // TODO
+    }
+
+    /**
+     * Test that preposition "to" and indirect object phrase "e" of direct
+     * object "c" to direct object "b".
+     */
+    @Test
+    public void multiAction_fixSyntaxBackwards_prepositionIndirectToAll() {
+        testParse("give b, c to e");
+
+        assertEquals(2, playerActions.size());
+
+        assertEquals("give",playerActions.get(0).getVerbPhrase());
+        assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertEquals("to", playerActions.get(0).getPreposition());
+        assertEquals("e", playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",playerActions.get(1).getVerbPhrase());
+        assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("to", playerActions.get(1).getPreposition());
+        assertEquals("e", playerActions.get(1).getIndirectObjectPhrase().getNoun());
+    }
+
+    /**
+     * Test that the preposition "at" and indirect object phrase "h" to copy
+     * change to "to" and "e" respectively.
+     */
+    @Test
+    public void multiAction_fixSyntaxBackwards_prepositionIndirectChange() {
+        testParse("give b, c to e, f, g at h");
+
+        assertEquals(2, playerActions.size());
+
+        assertEquals("give",playerActions.get(0).getVerbPhrase());
+        assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertEquals("to", playerActions.get(0).getPreposition());
+        assertEquals("e", playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",playerActions.get(1).getVerbPhrase());
+        assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("to", playerActions.get(1).getPreposition());
+        assertEquals("e", playerActions.get(1).getIndirectObjectPhrase().getNoun());
+    }
 }

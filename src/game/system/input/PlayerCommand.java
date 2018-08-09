@@ -93,9 +93,11 @@ public class PlayerCommand {
         StringBuilder actions = new StringBuilder();
         if (hasActions()) {
             for (PlayerAction playerAction : this.playerActions) {
-                actions.append("\t" + playerAction + System.lineSeparator());
+                actions.append("\t\t" + playerAction + System.lineSeparator());
             }
         }
-        return "[string: " + string + "\nplayerActions: " + actions + "]";
+        return "[string: " + string + System.lineSeparator() +
+                "\tplayerActions[" + playerActions.size() + "]" + System.lineSeparator()
+                + actions + "]";
     }
 }
