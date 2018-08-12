@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import com.intellij.codeInsight.editorActions.smartEnter.PlainEnterProcessor;
 import game.system.input.PlayerAction;
 import org.junit.Test;
 
@@ -458,16 +459,24 @@ public class PlayerInputParser_parse_Test {
 
         assertEquals(3, playerActions.size());
 
+        assertTrue(playerActions.get(0).hasVerbPhrase());
         assertEquals("eat", playerActions.get(0).getVerbPhrase().getVerb());
+        assertTrue(playerActions.get(0).hasDirectObjectPhrase());
         assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertFalse(playerActions.get(0).hasPreposition());
+        assertFalse(playerActions.get(0).hasIndirectObjectPhrase());
 
+        assertTrue(playerActions.get(1).hasVerbPhrase());
         assertEquals("go", playerActions.get(1).getVerbPhrase().getVerb());
-        assertEquals("c",
-                playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertFalse(playerActions.get(1).hasPreposition());
+        assertFalse(playerActions.get(1).hasIndirectObjectPhrase());
 
+        assertTrue(playerActions.get(2).hasVerbPhrase());
         assertEquals("go", playerActions.get(2).getVerbPhrase().getVerb());
-        assertEquals("d",
-                playerActions.get(2).getDirectObjectPhrase().getNoun());
+        assertEquals("d", playerActions.get(2).getDirectObjectPhrase().getNoun());
+        assertFalse(playerActions.get(2).hasPreposition());
+        assertFalse(playerActions.get(2).hasIndirectObjectPhrase());
     }
 
     /**
@@ -477,7 +486,33 @@ public class PlayerInputParser_parse_Test {
     @Test
     public void multiAction_fixSyntaxForward_stopCopyingAtStoppingIntransitiveVerb() {
         testParse("eat b, c, look, d");
-        // TODO
+
+        assertEquals(4, playerActions.size());
+
+        assertEquals("eat", playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertFalse(playerActions.get(0).hasPreposition());
+        assertFalse(playerActions.get(0).hasIndirectObjectPhrase());
+
+        assertEquals("eat", playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertFalse(playerActions.get(1).hasPreposition());
+        assertFalse(playerActions.get(1).hasIndirectObjectPhrase());
+
+        assertEquals("look", playerActions.get(2).getVerbPhrase().getVerb());
+        assertFalse(playerActions.get(2).hasDirectObjectPhrase());
+        assertFalse(playerActions.get(2).hasPreposition());
+        assertFalse(playerActions.get(2).hasIndirectObjectPhrase());
+
+        assertFalse(playerActions.get(3).hasVerbPhrase());
+        assertEquals("d", playerActions.get(3).getDirectObjectPhrase().getNoun());
+        assertFalse(playerActions.get(3).hasPreposition());
+        assertFalse(playerActions.get(3).hasIndirectObjectPhrase());
+    }
+
+    @Test
+    public void multiAction_fixSyntaxForward_() {
+        testParse("give b, c to e");
     }
 
     /**
@@ -490,12 +525,12 @@ public class PlayerInputParser_parse_Test {
 
         assertEquals(2, playerActions.size());
 
-        assertEquals("give",playerActions.get(0).getVerbPhrase());
+        assertEquals("give",playerActions.get(0).getVerbPhrase().getVerb());
         assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
         assertEquals("to", playerActions.get(0).getPreposition());
         assertEquals("e", playerActions.get(0).getIndirectObjectPhrase().getNoun());
 
-        assertEquals("give",playerActions.get(1).getVerbPhrase());
+        assertEquals("give",playerActions.get(1).getVerbPhrase().getVerb());
         assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
         assertEquals("to", playerActions.get(1).getPreposition());
         assertEquals("e", playerActions.get(1).getIndirectObjectPhrase().getNoun());
@@ -509,16 +544,26 @@ public class PlayerInputParser_parse_Test {
     public void multiAction_fixSyntaxBackwards_prepositionIndirectChange() {
         testParse("give b, c to e, f, g at h");
 
-        assertEquals(2, playerActions.size());
+        assertEquals(4, playerActions.size());
 
-        assertEquals("give",playerActions.get(0).getVerbPhrase());
+        assertEquals("give",playerActions.get(0).getVerbPhrase().getVerb());
         assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
         assertEquals("to", playerActions.get(0).getPreposition());
         assertEquals("e", playerActions.get(0).getIndirectObjectPhrase().getNoun());
 
-        assertEquals("give",playerActions.get(1).getVerbPhrase());
+        assertEquals("give",playerActions.get(1).getVerbPhrase().getVerb());
         assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
         assertEquals("to", playerActions.get(1).getPreposition());
         assertEquals("e", playerActions.get(1).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",playerActions.get(2).getVerbPhrase().getVerb());
+        assertEquals("f", playerActions.get(2).getDirectObjectPhrase().getNoun());
+        assertEquals("at", playerActions.get(2).getPreposition());
+        assertEquals("h", playerActions.get(2).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",playerActions.get(3).getVerbPhrase().getVerb());
+        assertEquals("g", playerActions.get(3).getDirectObjectPhrase().getNoun());
+        assertEquals("at", playerActions.get(3).getPreposition());
+        assertEquals("h", playerActions.get(3).getIndirectObjectPhrase().getNoun());
     }
 }
