@@ -356,8 +356,8 @@ public class PlayerInputParser_parse_Test {
      */
     @Test
     public void word8_indirectTransitiveVerb_complete() {
-        testParse("give all of my delicious funnel cakes of deliciousness to " +
-                "the big angry demon of doom");
+        testParse("give all of my delicious funnel cakes of deliciousness"
+                + " to the big angry demon of doom");
 
         assertTrue(playerAction.hasVerbPhrase());
         assertEquals("give", playerAction.getVerbPhrase().getVerb());
