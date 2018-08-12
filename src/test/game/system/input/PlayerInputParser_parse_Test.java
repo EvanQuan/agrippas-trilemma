@@ -91,8 +91,29 @@ public class PlayerInputParser_parse_Test {
     }
 
     @Test
+    public void word1_adverb() {
+        testParse("ly");
+
+        assertEquals(1, playerActions.size());
+
+        assertTrue(playerAction.hasVerbPhrase());
+        assertTrue(playerAction.getVerbPhrase().hasAdverbs());
+        assertEquals(1, playerAction.getVerbPhrase().getAdverbs().size());
+        assertEquals("ly", playerAction.getVerbPhrase().getAdverbs().get(0));
+        assertFalse(playerAction.getVerbPhrase().hasVerb());
+
+        assertFalse(playerAction.hasDirectObjectPhrase());
+
+        assertFalse(playerAction.hasPreposition());
+
+        assertFalse(playerAction.hasIndirectObjectPhrase());
+    }
+
+    @Test
     public void word1_indirectTransitiveVerb_verb() {
         testParse("give");
+
+        assertEquals(1, playerActions.size());
 
         assertTrue(playerAction.hasVerbPhrase());
         assertEquals("give", playerAction.getVerbPhrase().getVerb());
@@ -108,6 +129,8 @@ public class PlayerInputParser_parse_Test {
     public void word1_nonIndirectTransitiveVerb_verb() {
         testParse("eat");
 
+        assertEquals(1, playerActions.size());
+
         assertTrue(playerAction.hasVerbPhrase());
         assertEquals("eat", playerAction.getVerbPhrase().getVerb());
 
@@ -122,8 +145,31 @@ public class PlayerInputParser_parse_Test {
     public void word1_optionallyIndirectTransitiveVerb_verb() {
         testParse("use");
 
+        assertEquals(1, playerActions.size());
+
         assertTrue(playerAction.hasVerbPhrase());
         assertEquals("use", playerAction.getVerbPhrase().getVerb());
+
+        assertFalse(playerAction.hasDirectObjectPhrase());
+
+        assertFalse(playerAction.hasPreposition());
+
+        assertFalse(playerAction.hasIndirectObjectPhrase());
+    }
+
+    @Test
+    public void word2_adverbVerb() {
+        testParse("quickly run");
+
+        assertEquals(1, playerActions.size());
+
+        assertTrue(playerAction.hasVerbPhrase());
+        assertTrue(playerAction.getVerbPhrase().hasAdverbs());
+        assertEquals(1, playerAction.getVerbPhrase().getAdverbs().size());
+        assertEquals("quickly",
+                playerAction.getVerbPhrase().getAdverbs().get(0));
+        assertTrue(playerAction.getVerbPhrase().hasVerb());
+        assertEquals("run", playerAction.getVerbPhrase().getVerb());
 
         assertFalse(playerAction.hasDirectObjectPhrase());
 
@@ -179,6 +225,29 @@ public class PlayerInputParser_parse_Test {
         assertEquals("to", playerAction.getPreposition());
 
         assertFalse(playerAction.hasIndirectObjectPhrase());
+    }
+
+    @Test
+    public void word3_adverbVerbPrepositionIndirect() {
+        testParse("quickly run behind wall");
+
+        assertEquals(1, playerActions.size());
+
+        assertTrue(playerAction.hasVerbPhrase());
+        assertTrue(playerAction.getVerbPhrase().hasAdverbs());
+        assertEquals(1, playerAction.getVerbPhrase().getAdverbs().size());
+        assertEquals("quickly",
+                playerAction.getVerbPhrase().getAdverbs().get(0));
+        assertTrue(playerAction.getVerbPhrase().hasVerb());
+        assertEquals("run", playerAction.getVerbPhrase().getVerb());
+
+        assertFalse(playerAction.hasDirectObjectPhrase());
+
+        assertTrue(playerAction.hasPreposition());
+        assertEquals("behind", playerAction.getPreposition());
+
+        assertTrue(playerAction.hasIndirectObjectPhrase());
+        assertEquals("wall", playerAction.getIndirectObjectPhrase().getNoun());
     }
 
     /**
@@ -447,6 +516,62 @@ public class PlayerInputParser_parse_Test {
         assertEquals("e", playerActions.get(3).getDirectObjectPhrase().getNoun());
         assertFalse(playerActions.get(3).hasPreposition());
         assertFalse(playerActions.get(3).hasIndirectObjectPhrase());
+    }
+
+    /**
+     * Test that direct verb phrase "hammer" and preposition "on" copy over,
+     * and that (initially) direct object phrase "wall" gets converts to an
+     * indirect object phrase, such that the second action becomes "use
+     * hammer on wall".
+     */
+    @Test
+    public void multiAction_fixSyntaxForward_copyDirectAndPrepositionChangeDirect() {
+        testParse("use hammer on door and wall");
+
+        assertEquals(2, playerActions.size());
+
+        assertEquals("use", playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("hammer",
+                playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertEquals("on", playerActions.get(0).getPreposition());
+        assertEquals("door",
+                playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("use", playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("hammer",
+                playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("on", playerActions.get(1).getPreposition());
+        assertEquals("wall",
+                playerActions.get(1).getIndirectObjectPhrase().getNoun());
+
+    }
+
+    @Test
+    public void multiAction_fixSyntaxForward_copyDirectAndPrepositionChangeDirectChangePreposition() {
+        testParse("use hammer on door and wall and against box");
+
+        assertEquals(3, playerActions.size());
+
+        assertEquals("use", playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("hammer",
+                playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertEquals("on", playerActions.get(0).getPreposition());
+        assertEquals("door",
+                playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("use", playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("hammer",
+                playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("on", playerActions.get(1).getPreposition());
+        assertEquals("wall",
+                playerActions.get(1).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("use", playerActions.get(2).getVerbPhrase().getVerb());
+        assertEquals("hammer",
+                playerActions.get(2).getDirectObjectPhrase().getNoun());
+        assertEquals("against", playerActions.get(2).getPreposition());
+        assertEquals("box",
+                playerActions.get(2).getIndirectObjectPhrase().getNoun());
     }
 
     /**

@@ -66,7 +66,7 @@ public class ObjectPhrase {
     }
 
     public boolean hasAdjectives() {
-        return this.adjectives != null && !this.adjectives.isEmpty();
+        return !this.adjectives.isEmpty();
     }
 
     public String getBelongingPreposition() {

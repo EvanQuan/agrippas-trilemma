@@ -30,7 +30,7 @@ public abstract class Word {
      * Connect 2 object phrases together (in some sense)
      */
     public static final HashSet<String> JOINING_PREPOSITIONS = new HashSet<>(
-        Set.of("with", "about")
+        Set.of("with", "about", "against")
     );
 
     /**
@@ -103,7 +103,7 @@ public abstract class Word {
      */
     public static final HashSet<String> NON_INDIRECT_TRANSITIVE_VERBS
         = new HashSet<>(
-            Set.of("eat", "take", "get", "drop", "remove")
+            Set.of("eat", "take", "get", "drop", "remove", "hit")
     );
 
     /**
@@ -248,29 +248,37 @@ public abstract class Word {
     }
 
     /**
-     * TODO. This is for resolving the indeterminism of receiveInput
-     * multi-playerAction stringCommands.
+     * All words that end with "ly" are treated as adverbs for parsing purposes.
      *
      * @param word
-     * @return false, until actually implemented
+     * @return true if the specified word is recognized as valid adverb.
+     */
+    public static boolean isAdverb(String word) {
+        return word.toLowerCase().endsWith("ly");
+    }
+
+    /**
+     *
+     * @param word
+     * @return true if the specified word is recognized as a valid verb.
      */
     public static boolean isVerb(String word) {
-        return VERBS.contains(word);
+        return VERBS.contains(word.toLowerCase());
     }
 
     public static boolean isNonIndirectTransitiveVerb(String word) {
-        return NON_INDIRECT_TRANSITIVE_VERBS.contains(word);
+        return NON_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 
     public static boolean isIndirectTransitiveVerb(String word) {
-        return MANDATORY_INDIRECT_TRANSITIVE_VERBS.contains(word);
+        return MANDATORY_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 
     public static boolean isOptionallyIndirectTransitiveVerb(String word) {
-        return OPTIONALLY_INDIRECT_TRANSITIVE_VERBS.contains(word);
+        return OPTIONALLY_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 
     public static boolean isIntransitiveVerb(String word) {
-        return INTRANSITIVE_VERBS.contains(word);
+        return INTRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 }

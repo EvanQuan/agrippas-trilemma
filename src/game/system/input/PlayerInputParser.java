@@ -301,16 +301,30 @@ public abstract class PlayerInputParser {
 
         PlayerAction playerAction = new PlayerAction();
 
-        String first = tokens.get(0);
-        if (Word.isVerb(first)) {
+        // Get adverbs
+        VerbPhrase verbPhrase = new VerbPhrase();
+        ArrayList<String> adverbs = new ArrayList<>();
+        while (!tokens.isEmpty() && Word.isAdverb(tokens.get(0))) {
+            adverbs.add(tokens.get(0));
+            tokens.remove(0);
+        }
+        verbPhrase.setAdverbs(adverbs);
+        if (tokens.isEmpty()) {
+            // If the action is only adverbs, then return early
+            playerAction.setVerbPhrase(verbPhrase);
+            playerCommand.addAction(playerAction);
+            return;
+        }
+        if (Word.isVerb(tokens.get(0))) {
             // 0. The first word is a verb. Remove it and parse the rest of the
             // input. No adverbs are allowed as it would not be
             // possible to distinguish between the end of the verb phrase and
             // the start of the proceeding indirect/direct object
             // phrase without a dictionary of all possible verbs.
+            verbPhrase.setVerb(tokens.get(0));
             tokens.remove(0);
-            playerAction.setVerbPhrase(new VerbPhrase(first));
         }
+        playerAction.setVerbPhrase(verbPhrase);
         // 1. Scan for a preposition. If one is found, remove it.
         // Parse the input preceding the preposition as a direct object
         // phrase. Parse the input following the preposition as an
@@ -383,14 +397,14 @@ public abstract class PlayerInputParser {
      * @param actions
      */
     public static void fixSyntaxForward(ArrayList<PlayerAction> actions) {
-        String verbToCopy = null;
+        VerbPhrase verbPhraseToCopy = null;
         String prepositionToCopy = null;
         for (PlayerAction action : actions) {
-            verbToCopy = getForwardVerbToCopy(action, verbToCopy);
-            prepositionToCopy = getForwardPrepositionToCopy(action, verbToCopy,
+            verbPhraseToCopy = getForwardVerbPhraseToCopy(action, verbPhraseToCopy);
+            prepositionToCopy = getForwardPrepositionToCopy(action, verbPhraseToCopy,
                     prepositionToCopy);
 
-            setForwardVerbPhraseToCopy(action, verbToCopy);
+            setForwardVerbPhraseToCopy(action, verbPhraseToCopy);
             setForwardPrepositionToCopy(action, prepositionToCopy);
             moveForwardDirectToIndirect(action, prepositionToCopy);
 
@@ -398,16 +412,16 @@ public abstract class PlayerInputParser {
         }
     }
 
-    private static String getForwardVerbToCopy(PlayerAction action,
-                                               String previousVerbToCopy) {
+    private static VerbPhrase getForwardVerbPhraseToCopy(PlayerAction action,
+                                                     VerbPhrase previousVerbPhraseToCopy) {
         if (action.hasVerbPhrase()
                 && (action.hasDirectObjectPhrase() || action.hasIndirectObjectPhrase())) {
-            return action.getVerbPhrase().getVerb();
+            return action.getVerbPhrase();
         }
         if (action.hasVerbPhrase()) {
             return null;
         }
-        return previousVerbToCopy;
+        return previousVerbPhraseToCopy;
     }
 
     /**
@@ -418,9 +432,9 @@ public abstract class PlayerInputParser {
      * @return
      */
     private static String getForwardPrepositionToCopy(PlayerAction action,
-                                                      String verbToCopy,
+                                                      VerbPhrase verbPhraseToCopy,
                                                       String previousPrepositionToCopy) {
-        if (verbToCopy != null) {
+        if (verbPhraseToCopy != null) {
             if (!action.hasDirectObjectPhrase()
                     && action.hasPreposition()
                     && action.hasIndirectObjectPhrase()) {
@@ -439,12 +453,12 @@ public abstract class PlayerInputParser {
      * If there is a verb to copy forward, then copy it to the action.
      *
      * @param action
-     * @param verbToCopy
+     * @param verbPhraseToCopy
      */
     private static void setForwardVerbPhraseToCopy(PlayerAction action,
-                                                   String verbToCopy) {
-        if (verbToCopy != null) {
-            action.setVerbPhrase(verbToCopy);
+                                                   VerbPhrase verbPhraseToCopy) {
+        if (verbPhraseToCopy != null) {
+            action.setVerbPhrase(verbPhraseToCopy);
         }
     }
 
@@ -489,8 +503,8 @@ public abstract class PlayerInputParser {
      * @param actions
      */
     public static void fixSyntaxBackwards(ArrayList<PlayerAction> actions) {
-        String lastVerb = actions.get(0).hasVerbPhrase() ?
-                actions.get(0).getVerbPhrase().getVerb() : null;
+        VerbPhrase lastVerbPhrase = actions.get(0).hasVerbPhrase() ?
+                actions.get(0).getVerbPhrase() : null;
         String prepositionToCopy = null;
         ObjectPhrase indirectToCopy = null;
         PlayerAction action;
@@ -498,9 +512,9 @@ public abstract class PlayerInputParser {
             action = actions.get(i);
 
             prepositionToCopy = getBackwardPrepositionToCopyBefore(action,
-                    lastVerb, prepositionToCopy);
+                    lastVerbPhrase, prepositionToCopy);
             indirectToCopy = getBackwardsIndirectToCopyBefore(action,
-                    lastVerb, indirectToCopy);
+                    lastVerbPhrase, indirectToCopy);
 
             setBackwardsPrepositionToCopy(action, prepositionToCopy);
             setBackwardsIndirectToCopy(action, indirectToCopy);
@@ -510,8 +524,8 @@ public abstract class PlayerInputParser {
 //            indirectToCopy = getBackwardsIndirectToCopyAfter(action,
 //                    indirectToCopy);
 
-            lastVerb = action.hasVerbPhrase() ?
-                    action.getVerbPhrase().getVerb() : null;
+            lastVerbPhrase = action.hasVerbPhrase() ?
+                    action.getVerbPhrase() : null;
         }
 
     }
@@ -525,9 +539,9 @@ public abstract class PlayerInputParser {
      * @return
      */
     private static String getBackwardPrepositionToCopyBefore(PlayerAction action,
-                                                             String lastVerb,
+                                                             VerbPhrase lastVerbPhrase,
                                                              String prepositionToCopy) {
-        if (action.hasVerbPhrase() && action.getVerbPhrase().getVerb().equals(lastVerb)) {
+        if (action.hasVerbPhrase() && action.getVerbPhrase().equals(lastVerbPhrase)) {
             if (action.hasPreposition()) {
                 // Same verb, different preposition means update to new
                 // preposition to copy
@@ -540,9 +554,9 @@ public abstract class PlayerInputParser {
     }
 
     private static ObjectPhrase getBackwardsIndirectToCopyBefore(PlayerAction action,
-                                                                 String lastVerb,
+                                                                 VerbPhrase lastVerbPhrase,
                                                                  ObjectPhrase indirectToCopy) {
-        if (action.hasVerbPhrase() && action.getVerbPhrase().getVerb().equals(lastVerb)) {
+        if (action.hasVerbPhrase() && action.getVerbPhrase().equals(lastVerbPhrase)) {
             if (action.hasIndirectObjectPhrase()) {
                 return action.getIndirectObjectPhrase();
             }
