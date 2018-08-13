@@ -24,9 +24,30 @@ public class PlayerInputParser_parse_Test {
     public static PlayerAction playerAction;
     public static ArrayList<PlayerAction> playerActions;
 
+    /**
+     * Test parse by parsing an input string and conveniently saving its
+     * components in global variables.
+     *
+     * @param string
+     */
     public void testParse(String string) {
+        testParse(string, false);
+    }
+
+    /**
+     * Test parse by parsing an input string and conveniently saving its
+     * components in global variables. Can print the command to see all the
+     * components. Useful for when test case fails.
+     *
+     * @param string
+     * @param print
+     */
+    public void testParse(String string, boolean print) {
         command = PlayerInputParser.parse(string);
         playerActions = command.getPlayerActions();
+        if (print) {
+            System.out.println(command);
+        }
         if (playerActions.isEmpty()) {
             playerAction = null;
         } else {
@@ -34,15 +55,19 @@ public class PlayerInputParser_parse_Test {
         }
     }
 
+    /**
+     * Test that an empty string parses into an empty command with no actions.
+     */
     @Test
     public void word0_empty() {
         testParse("");
 
         assertFalse(command.hasActions());
+        assertTrue(command.isEmpty());
     }
 
     /**
-     * Check that a single determiner skips the verb receiveInput.
+     * Test that a single determiner skips the verb parsing.
      */
     @Test
     public void word1_directDeterminer() {
@@ -52,11 +77,15 @@ public class PlayerInputParser_parse_Test {
 
         assertTrue(playerAction.hasDirectObjectPhrase());
         assertEquals("the", playerAction.getDirectObjectPhrase().getDeterminer());
+
+        assertFalse(playerAction.hasPreposition());
+
+        assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
     /**
      * Check that a single preposition skips the verb and direct object phrase
-     * receiveInput.
+     * input.
      */
     @Test
     public void word1_preposition() {
@@ -73,7 +102,7 @@ public class PlayerInputParser_parse_Test {
     }
 
     /**
-     * Check that a single non-verb word counts as a noun. Other playerAction
+     * Test that a single non-verb word counts as a noun. Other playerAction
      * components are null.
      */
     @Test
@@ -90,8 +119,11 @@ public class PlayerInputParser_parse_Test {
         assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
+    /**
+     * Test that an adverb suffix is treated as an adverb.
+     */
     @Test
-    public void word1_adverb() {
+    public void word1_adverbSuffix() {
         testParse("ly");
 
         assertEquals(1, playerActions.size());
@@ -100,6 +132,29 @@ public class PlayerInputParser_parse_Test {
         assertTrue(playerAction.getVerbPhrase().hasAdverbs());
         assertEquals(1, playerAction.getVerbPhrase().getAdverbs().size());
         assertEquals("ly", playerAction.getVerbPhrase().getAdverbs().get(0));
+        assertFalse(playerAction.getVerbPhrase().hasVerb());
+
+        assertFalse(playerAction.hasDirectObjectPhrase());
+
+        assertFalse(playerAction.hasPreposition());
+
+        assertFalse(playerAction.hasIndirectObjectPhrase());
+    }
+
+    /**
+     * Test that an adverb is treated as an adverb.
+     */
+    @Test
+    public void word1_adverbQuickly() {
+        testParse("quickly");
+
+        assertEquals(1, playerActions.size());
+
+        assertTrue(playerAction.hasVerbPhrase());
+        assertTrue(playerAction.getVerbPhrase().hasAdverbs());
+        assertEquals(1, playerAction.getVerbPhrase().getAdverbs().size());
+        assertEquals("quickly",
+                playerAction.getVerbPhrase().getAdverbs().get(0));
         assertFalse(playerAction.getVerbPhrase().hasVerb());
 
         assertFalse(playerAction.hasDirectObjectPhrase());
@@ -178,6 +233,10 @@ public class PlayerInputParser_parse_Test {
         assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
+    /**
+     * Test that the last word is treated is a noun, and preceding word is
+     * treated as an adjective.
+     */
     @Test
     public void word2_directAdjectiveNoun() {
         testParse("b c");
@@ -193,7 +252,7 @@ public class PlayerInputParser_parse_Test {
     }
 
     /**
-     * Test that a noun can be parsed
+     * Test that a noun can be parsed have a known verb.
      */
     @Test
     public void word2_nonIndirectTransitiveVerb_directNoun() {
@@ -212,6 +271,9 @@ public class PlayerInputParser_parse_Test {
         assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
+    /**
+     * Test that a known preposition can be parsed have a known verb.
+     */
     @Test
     public void word2_optionallyIndirectTransitiveVerb_preposition() {
         testParse("go to");
@@ -227,6 +289,9 @@ public class PlayerInputParser_parse_Test {
         assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
+    /**
+     * Check that an adverb is not removed by forward or backwards syntax fix.
+     */
     @Test
     public void word3_adverbVerbPrepositionIndirect() {
         testParse("quickly run behind wall");
@@ -251,7 +316,7 @@ public class PlayerInputParser_parse_Test {
     }
 
     /**
-     * Test that 1 adjective can be parsed
+     * Test that 1 adjective can be parsed between a verb and noun
      */
     @Test
     public void word3_nonIndirectTransitiveVerb_directAdjective1Noun() {
@@ -271,6 +336,10 @@ public class PlayerInputParser_parse_Test {
         assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
+    /**
+     * Test that the object phrase after the preposition is parsed as an
+     * indirect object phrase.
+     */
     @Test
     public void word3_indirectTransitiveVerb_preposition_indirectNoun() {
         testParse("give to c");
@@ -291,11 +360,12 @@ public class PlayerInputParser_parse_Test {
     }
 
     /**
-     * Test that multiple adjectives can be parsed
+     * Test that multiple adjectives can be parsed before a noun for a direct
+     * object phrase.
      */
     @Test
     public void word4_nonIndirectTransitiveVerb_directAdjective2Noun() {
-        testParse("eat c d e ");
+        testParse("eat c d e");
 
         assertTrue(playerAction.hasVerbPhrase());
         assertEquals("eat", playerAction.getVerbPhrase().getVerb());
@@ -312,6 +382,10 @@ public class PlayerInputParser_parse_Test {
         assertFalse(playerAction.hasIndirectObjectPhrase());
     }
 
+    /**
+     * Test that a known determiner is parsed not as an adjective for a
+     * direct object phrase.
+     */
     @Test
     public void word4_nonIndirectTransitiveVerb_directDeterminerAdjectiveNoun() {
         testParse("eat a c d");
@@ -329,6 +403,10 @@ public class PlayerInputParser_parse_Test {
         assertEquals("d", playerAction.getDirectObjectPhrase().getNoun());
     }
 
+    /**
+     * Test that a direct and indirect object phrase is is parsed around a
+     * preposition.
+     */
     @Test
     public void word4_indirectTransitiveVerb_directNoun_preposition_indirectNoun() {
         testParse("give c to d");
@@ -413,7 +491,8 @@ public class PlayerInputParser_parse_Test {
     }
 
     /**
-     * Test that the verb "eat" is copied all the way through.
+     * Test that the verb "eat" is copied all the way through to following
+     * actions.
      */
     @Test
     public void multiAction_fixSyntaxForward_singleTransitiveVerbToAll() {
@@ -433,7 +512,7 @@ public class PlayerInputParser_parse_Test {
 
     /**
      * Test that the verb "look" and preposition "at" is copied all the way
-     * through.
+     * through to following actions.
      */
     @Test
     public void multiAction_fixSyntaxForward_singleIntransitiveVerbToAll() {
@@ -526,7 +605,7 @@ public class PlayerInputParser_parse_Test {
      */
     @Test
     public void multiAction_fixSyntaxForward_copyDirectAndPrepositionChangeDirect() {
-        testParse("use hammer on door and wall");
+        testParse("use hammer on door and wall", true);
 
         assertEquals(2, playerActions.size());
 
@@ -548,7 +627,7 @@ public class PlayerInputParser_parse_Test {
 
     @Test
     public void multiAction_fixSyntaxForward_copyDirectAndPrepositionChangeDirectChangePreposition() {
-        testParse("use hammer on door and wall and against box");
+        testParse("use hammer on door and wall and against box", true);
 
         assertEquals(3, playerActions.size());
 

@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 /**
  * Represents a command that the player has issued to the game in a form of a
- * {@link String}. A player command is composed of a series of
- * {@link PlayerAction}s that are sequentially ordered.
+ * {@link String}. A player command is composed of an {@link ArrayList} of
+ * {@link PlayerAction}s that are sequentially ordered from how they are
+ * ordered in the input string.
  *
  * @author Evan Quan
  *
@@ -25,9 +26,10 @@ public class PlayerCommand {
     ArrayList<PlayerAction> playerActions;
 
     /**
-     * Creates a Player Command instance.
+     * Default constructor. Does not initially contain any
+     * {@link PlayerAction}s.
      *
-     * @param string
+     * @param string input string representation of the command.
      */
     public PlayerCommand(String string) {
         this.string = string;
@@ -35,7 +37,7 @@ public class PlayerCommand {
     }
 
     /**
-     * Add a single playerAction to this stringCommands list of playerActions.
+     * Add a single playerAction to this command's list of playerActions.
      * 
      * @param playerAction
      */
@@ -43,10 +45,22 @@ public class PlayerCommand {
         this.playerActions.add(playerAction);
     }
 
+    /**
+     *
+     * @param playerAction to check
+     * @return true if this command's {@link ArrayList} of {@link PlayerAction}s
+     * contains the specified playerAction.
+     */
     public boolean contains(PlayerAction playerAction) {
         return this.playerActions.contains(playerAction);
     }
 
+    /**
+     *
+     * @param other object to compare
+     * @return true if the other object is a PlayerCommand that has the same
+     * input string representation and same {@link PlayerAction}s.
+     */
     @Override
     public boolean equals(Object other) {
         if (other instanceof PlayerCommand) {
@@ -64,22 +78,50 @@ public class PlayerCommand {
         return this.string.isEmpty();
     }
 
+    /**
+     *
+     * @return all the actions that this command represents.
+     */
     public ArrayList<PlayerAction> getPlayerActions() {
         return this.playerActions;
     }
 
+    /**
+     * Get the input string that represents this command. This is different
+     * from toString(), which gives a detailed representation of all
+     * components of this command in terms of how it was parsed.
+     *
+     * @return the input string that represents this command.
+     */
     public String getString() {
         return this.string;
     }
 
+    /**
+     * Check if this command's {@link ArrayList} of {@link PlayerAction}s is
+     * not empty.
+     *
+     * @return true if this command contains at least one action.
+     */
     public boolean hasActions() {
-        return this.playerActions != null && !this.playerActions.isEmpty();
+        return !this.playerActions.isEmpty();
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if the other command has the same actions as this command.
+     */
     public boolean hasSameActions(PlayerCommand other) {
         return FuncUtils.nullablesEqual(this.playerActions, other.getPlayerActions());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if the other command has the same input string as this
+     * command.
+     */
     public boolean hasSameString(PlayerCommand other) {
         return FuncUtils.nullablesEqual(this.string, other.getString());
     }
@@ -88,6 +130,11 @@ public class PlayerCommand {
         this.playerActions = playerActions;
     }
 
+    /**
+     *
+     * @return the string representation of this command in terms of all its
+     * components.
+     */
     @Override
     public String toString() {
         StringBuilder actions = new StringBuilder();

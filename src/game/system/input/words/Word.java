@@ -160,6 +160,10 @@ public abstract class Word {
 
 
     /**
+     * Action separators are words (or characters) that split a input string
+     * from a {@link PlayerCommand} into multiple
+     * {@link game.system.input.PlayerAction}s.
+     *
      * @param word
      * @return true if the specified word is recognized as a valid action
      * separator.
@@ -169,6 +173,8 @@ public abstract class Word {
     }
 
     /**
+     * An article specify a noun.
+     *
      * @param word
      * @return true if the specified word is recognized as a valid article.
      */
@@ -177,6 +183,7 @@ public abstract class Word {
     }
 
     /**
+     * A determiner is either an article, or a quantifier.
      *
      * @param word
      * @return true if the specified word is recognized as a valid
@@ -228,8 +235,11 @@ public abstract class Word {
     }
 
     /**
+     * Quantifiers specify a quantity of a noun. They can be as specific as a
+     * number, or specify "all" of an noun.
+     *
      * @param word
-     * @return
+     * @return true if the specified word is recognized as a valid quantifier.
      */
     public static boolean isQuantifier(String word) {
         return QUANTIFIERS.contains(word.toLowerCase())
@@ -258,6 +268,7 @@ public abstract class Word {
     }
 
     /**
+     * Verbs are words that specify an action.
      *
      * @param word
      * @return true if the specified word is recognized as a valid verb.

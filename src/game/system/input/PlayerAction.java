@@ -31,18 +31,37 @@ public class PlayerAction {
         return false;
     }
 
+    /**
+     *
+     * @return the {@link ObjectPhrase} placed immediately after this action's
+     * {@link VerbPhrase} (if it has one).
+     */
     public ObjectPhrase getDirectObjectPhrase() {
         return this.directObjectPhrase;
     }
 
+    /**
+     *
+     * @return the {@link ObjectPhrase} placed immediately after this action's
+     * preposition (if it has one).
+     */
     public ObjectPhrase getIndirectObjectPhrase() {
         return this.indirectObjectPhrase;
     }
 
+    /**
+     *
+     * @return the word positioned between this command's direct and indirect
+     * {@link ObjectPhrase}s.
+     */
     public String getPreposition() {
         return this.preposition;
     }
 
+    /**
+     *
+     * @return the {@link VerbPhrase} that is the beginning of this action.
+     */
     public VerbPhrase getVerbPhrase() {
         return this.verbPhrase;
     }
@@ -128,6 +147,11 @@ public class PlayerAction {
         this.verbPhrase = new VerbPhrase(verb);
     }
 
+    /**
+     *
+     * @return the string representation of this action in terms of all its
+     * components.
+     */
     @Override
     public String toString() {
         return "["
