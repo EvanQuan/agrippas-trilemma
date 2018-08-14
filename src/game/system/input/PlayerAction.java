@@ -87,19 +87,19 @@ public class PlayerAction {
         return this.preposition != null;
     }
 
-    public boolean hasSameDirectObjectPhrase(PlayerAction other) {
+    private boolean hasSameDirectObjectPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.directObjectPhrase, other.getDirectObjectPhrase());
     }
 
-    public boolean hasSameIndirectObjectPhrase(PlayerAction other) {
+    private boolean hasSameIndirectObjectPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.indirectObjectPhrase, other.getIndirectObjectPhrase());
     }
 
-    public boolean hasSamePreposition(PlayerAction other) {
+    private boolean hasSamePreposition(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.preposition, other.getPreposition());
     }
 
-    public boolean hasSameVerbPhrase(PlayerAction other) {
+    private boolean hasSameVerbPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.verbPhrase, other.getVerbPhrase());
     }
 

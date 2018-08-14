@@ -26,28 +26,13 @@ import java.util.Scanner;
  * <p>
  * <b>TODO</b>
  * </p>
- * Multiple playerAction stringCommands, such as:<br> Multiverb stringCommands:
- * (look up, eat pie, go west)<br> Verb-sharing stringCommands: (eat pie,
- * potato, cake)<br> Object pronouns (this may not be implemented here):
- * (take pie, eat it)<br>
- * <br>
- * With the current implementation, an indeterminism problem arises in trying to
- * parse these kind of stringCommands without a dictionary of valid verbs. As a
- * bonus this would allow for verbs to be modified with adverbs<br> For this to
- * be implemented, what needs to be done:<br> - A verb dictionary<br> -
- * lexicalAnalysis() needs to recognize commas at the end of words as their own
- * tokens<br> - syntacticalAnalysis() needs to separate playerActions by
- * separators<br> - incomplete playerActions need to be able to "fill in the
- * gaps" from context of previously parsed playerActions in the same
- * command<br>
- * <p>
- * Alternatively...
- * </p>
- * Subsequent actions can be reparsed (or backtracked) depending on the verb.
+ * Action multiplying, when multiple direct objects share a single
+ * preposition with multiple indirect objects, the verb and preposition is
+ * applied to all permutations of direct and indirect object phrases.
  *
  * @author Evan Quan
  */
-public abstract class PlayerInputParser {
+public class PlayerInputParser {
 
     // NOTE: For now, only "," as end punctuation will count, as quotes are
     // causing problems with syntactical analysis
@@ -65,6 +50,11 @@ public abstract class PlayerInputParser {
     public static final char[] END_PUNCTUATION = {',', '.'};
 
     public static final String[] VALID_PREPOSITIONS = {};
+
+    /**
+     * Cannot instantiate.
+     */
+    private PlayerInputParser() {}
 
     /**
      * Splits token by punctuation and adds punctuation components to

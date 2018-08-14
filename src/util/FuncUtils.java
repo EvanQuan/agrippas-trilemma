@@ -12,7 +12,12 @@ import java.util.function.Predicate;
  * @author Evan Quan
  *
  */
-public abstract class FuncUtils {
+public class FuncUtils {
+
+    /**
+     * Cannot instantiate.
+     */
+    private FuncUtils() {}
 
     /**
      *

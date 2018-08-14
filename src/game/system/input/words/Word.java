@@ -12,24 +12,32 @@ import java.util.Set;
  *
  * @author Evan Quan
  */
-public abstract class Word {
+public class Word {
 
-    public static final HashSet<String> EXCLUDING_PREPOSITIONS = new HashSet<>(
-        Set.of("but", "except")
+    /**
+     * Cannot instantiate.
+     */
+    private Word() {}
+
+    /**
+     *
+     */
+    private static final HashSet<String> EXCLUDING_PREPOSITIONS = new HashSet<>(
+        Set.of("but", "except", "without")
     );
 
     /**
      * Situate one object phrase directionally in relation to another object
      * phrase
      */
-    public static final HashSet<String> DIRECTIONAL_PREPOSITIONS = new HashSet<>(
+    private static final HashSet<String> DIRECTIONAL_PREPOSITIONS = new HashSet<>(
         Set.of("over", "under", "on", "between", "behind", "in", "across")
     );
 
     /**
      * Connect 2 object phrases together (in some sense)
      */
-    public static final HashSet<String> JOINING_PREPOSITIONS = new HashSet<>(
+    private static final HashSet<String> JOINING_PREPOSITIONS = new HashSet<>(
         Set.of("with", "about", "against")
     );
 
@@ -37,7 +45,7 @@ public abstract class Word {
      * The first object phrase is being "verbed" from the player to the 2nd
      * object phrase.
      */
-    public static final HashSet<String> MOVEMENT_PREPOSITIONS = new HashSet<>(
+    private static final HashSet<String> MOVEMENT_PREPOSITIONS = new HashSet<>(
         Set.of("to", "at", "through")
     );
 
@@ -45,16 +53,16 @@ public abstract class Word {
      * First object phrase is "owned by" or "belongs to" the second object
      * phrase.
      */
-    public static final HashSet<String> BELONGING_PREPOSITIONS = new HashSet<>(
+    private static final HashSet<String> BELONGING_PREPOSITIONS = new HashSet<>(
         Set.of("of")
     );
 
     /**
      * All prepositions used to separate object phrases.
      */
-    public static final HashSet<String> OBJECT_PHRASE_SEPARATING_PREPOSITION
-        = CollectionUtils.mergeSets(
-            new Set[] {EXCLUDING_PREPOSITIONS, DIRECTIONAL_PREPOSITIONS,
+    private static final HashSet<String> OBJECT_PHRASE_SEPARATING_PREPOSITION
+        = CollectionUtils.mergeHashSets(
+            new HashSet[] {EXCLUDING_PREPOSITIONS, DIRECTIONAL_PREPOSITIONS,
                 JOINING_PREPOSITIONS, MOVEMENT_PREPOSITIONS}
     );
 
@@ -63,22 +71,22 @@ public abstract class Word {
      * These sort of determiners do not give information about the quantity
      * of objects they refer to.
      */
-    public static final HashSet<String> GENERAL_ARTICLES = new HashSet<>(
+    private static final HashSet<String> GENERAL_ARTICLES = new HashSet<>(
         Set.of("the", "this", "that")
     );
 
     /**
      * These refer to objects in the player's possession.
      */
-    public static final HashSet<String> PLAYER_ARTICLES = new HashSet<>(
+    private static final HashSet<String> PLAYER_ARTICLES = new HashSet<>(
         Set.of("my")
     );
 
     /**
      * For creating {@link PlayerCommand}s, all articles are treated the same.
      */
-    public static final HashSet<String> ARTICLES = CollectionUtils.mergeSets(
-        new Set[] {GENERAL_ARTICLES, PLAYER_ARTICLES}
+    private static final HashSet<String> ARTICLES = CollectionUtils.mergeHashSets(
+        new HashSet[] {GENERAL_ARTICLES, PLAYER_ARTICLES}
     );
 
     /**
@@ -91,7 +99,7 @@ public abstract class Word {
      * the is excluded because the noun in the object phrase determines the
      * quantity.
      */
-    public static final HashSet<String> QUANTIFIERS = new HashSet<>(
+    private static final HashSet<String> QUANTIFIERS = new HashSet<>(
         Set.of("a", "an", "all")
     );
 
@@ -101,7 +109,7 @@ public abstract class Word {
      * Examples:
      * eat cake, take gold
      */
-    public static final HashSet<String> NON_INDIRECT_TRANSITIVE_VERBS
+    private static final HashSet<String> NON_INDIRECT_TRANSITIVE_VERBS
         = new HashSet<>(
             Set.of("eat", "take", "get", "drop", "remove", "hit", "examine")
     );
@@ -112,7 +120,7 @@ public abstract class Word {
      * Examples:
      * go (to) west, use key (on door)
      */
-    public static final HashSet<String> OPTIONALLY_INDIRECT_TRANSITIVE_VERBS
+    private static final HashSet<String> OPTIONALLY_INDIRECT_TRANSITIVE_VERBS
         = new HashSet<>(
             Set.of("go", "use", "move", "walk", "run", "travel")
 
@@ -125,7 +133,7 @@ public abstract class Word {
      * Examples:
      * give gold to guard (give gold -> give gold to who?)
      */
-    public static final HashSet<String> MANDATORY_INDIRECT_TRANSITIVE_VERBS
+    private static final HashSet<String> MANDATORY_INDIRECT_TRANSITIVE_VERBS
         = new HashSet<>(
             Set.of("give")
 
@@ -138,15 +146,15 @@ public abstract class Word {
      * Examples:
      * Die, quit
      */
-    public static final HashSet<String> INTRANSITIVE_VERBS = new HashSet<>(
+    private static final HashSet<String> INTRANSITIVE_VERBS = new HashSet<>(
         Set.of("die", "quit", "jump", "look")
     );
 
-    public static final HashSet<String> VERBS =CollectionUtils.mergeSets(
-            new Set[] {NON_INDIRECT_TRANSITIVE_VERBS,
-                    OPTIONALLY_INDIRECT_TRANSITIVE_VERBS,
-                    MANDATORY_INDIRECT_TRANSITIVE_VERBS,
-                    INTRANSITIVE_VERBS
+    private static final HashSet<String> VERBS = CollectionUtils.mergeHashSets(
+            new HashSet[] {NON_INDIRECT_TRANSITIVE_VERBS,
+                           OPTIONALLY_INDIRECT_TRANSITIVE_VERBS,
+                           MANDATORY_INDIRECT_TRANSITIVE_VERBS,
+                           INTRANSITIVE_VERBS
             }
     );
 
@@ -154,7 +162,7 @@ public abstract class Word {
      * PlayerAction separators separates {@link PlayerCommand} playerActions.
      * These are used for receiveInput multi-playerAction stringCommands.
      */
-    public static final HashSet<String> ACTION_SEPARATORS = new HashSet(
+    private static final HashSet<String> ACTION_SEPARATORS = new HashSet<>(
             Set.of(",", "and", "then", ".")
     );
 

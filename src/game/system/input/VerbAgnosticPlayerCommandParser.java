@@ -51,7 +51,7 @@ import java.util.Scanner;
  *
  */
 @Deprecated
-public abstract class VerbAgnosticPlayerCommandParser {
+public class VerbAgnosticPlayerCommandParser {
 
     // NOTE: For now, only "," as end punctuation will count, as quotes are
     // causing problems with syntactical analysis
@@ -68,7 +68,10 @@ public abstract class VerbAgnosticPlayerCommandParser {
     // public static final char[] END_PUNCTUATION = { '\'', '"', ',' };
     public static final char[] END_PUNCTUATION = { ',' };
 
-    public static final String[] VALID_PREPOSITIONS = {};
+    /**
+     * Cannot instantiate.
+     */
+    private VerbAgnosticPlayerCommandParser() {}
 
     /**
      * Splits token by punctuation and adds punctuation components to tokens.<br>

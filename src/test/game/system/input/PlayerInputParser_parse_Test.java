@@ -768,6 +768,36 @@ public class PlayerInputParser_parse_Test {
                 playerActions.get(1).getIndirectObjectPhrase().getNoun());
     }
 
+
+    @Test
+    public void excludingPrepositions_all_except_1() {
+        testParse("drop all except b");
+
+        assertEquals(1, playerActions.size());
+
+        assertEquals("drop", playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("all", playerActions.get(0).getDirectObjectPhrase().getDeterminer());
+        assertFalse(playerActions.get(0).getDirectObjectPhrase().hasNoun());
+        assertEquals("except", playerActions.get(0).getPreposition());
+        assertEquals("b", playerActions.get(0).getIndirectObjectPhrase().getNoun());
+    }
+
+    @Test
+    public void excludingPrepositions_2_except_1() {
+        testParse("drop b, c except b", true);
+
+        assertEquals(2, playerActions.size());
+
+        assertEquals("drop", playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("b", playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertEquals("except", playerActions.get(0).getPreposition());
+        assertEquals("b", playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("drop", playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("c", playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("except", playerActions.get(1).getPreposition());
+        assertEquals("b", playerActions.get(1).getIndirectObjectPhrase().getNoun());
+    }
     /**
      * Check that actions can multiply if multiple direct objects share a
      * single preposition with multiple indirect objects.

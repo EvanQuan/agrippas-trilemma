@@ -6,13 +6,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Has text utility functions for Collections
+ * Has text utility functions for Collections.
  *
  * @author Evan Quan
  */
-public abstract class CollectionUtils {
+public class CollectionUtils {
 
     public static final String EMPTY = "";
+
+    /**
+     * Cannot instantiate.
+     */
+    private CollectionUtils() {}
 
     /**
      * Add array to ArrayList<String>
@@ -198,8 +203,7 @@ public abstract class CollectionUtils {
      * Sorts list from longest to shortest String length
      * https://stackoverflow.com/questions/36292300/how-to-sort-an-arraylist-by-length-of-strings-in-the-array
      *
-     * @param ArrayList<String>
-     *            inList
+     * @param inList
      */
     public static void sortByLongestFirst(ArrayList<String> inList) {
         ArrayList<String> outList = new ArrayList<String>();
@@ -235,9 +239,9 @@ public abstract class CollectionUtils {
      * @param sets
      * @return
      */
-    public static HashSet<String> mergeSets(Set<String>[] sets) {
+    public static HashSet<String> mergeHashSets(HashSet<String>[] sets) {
         HashSet<String> set = new HashSet<>();
-        for (Set<String> s : sets) {
+        for (HashSet<String> s : sets) {
             set.addAll(s);
         }
         return set;

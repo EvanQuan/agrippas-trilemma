@@ -6,7 +6,12 @@ package util;
  * @author Evan Quan
  *
  */
-public abstract class TextUtils {
+public class TextUtils {
+
+    /**
+     * Cannot instantiate.
+     */
+    private TextUtils() {}
 
     /**
      *
