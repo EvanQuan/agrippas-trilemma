@@ -1,5 +1,6 @@
 package game.system.input;
 
+import game.object.item.background.character.Player;
 import game.system.input.words.ObjectPhrase;
 import game.system.input.words.VerbPhrase;
 import game.system.input.words.Word;
@@ -398,17 +399,20 @@ public abstract class PlayerInputParser {
      */
     public static void fixSyntaxForward(ArrayList<PlayerAction> actions) {
         VerbPhrase verbPhraseToCopy = null;
+        ObjectPhrase directObjectToCopy = null;
         String prepositionToCopy = null;
         for (PlayerAction action : actions) {
             verbPhraseToCopy = getForwardVerbPhraseToCopy(action, verbPhraseToCopy);
+            directObjectToCopy = getForwardDirectObjectToCopy(action,
+                    verbPhraseToCopy,
+                    directObjectToCopy);
             prepositionToCopy = getForwardPrepositionToCopy(action, verbPhraseToCopy,
                     prepositionToCopy);
 
             setForwardVerbPhraseToCopy(action, verbPhraseToCopy);
             setForwardPrepositionToCopy(action, prepositionToCopy);
             moveForwardDirectToIndirect(action, prepositionToCopy);
-
-
+            setForwardDirectObjectToCopy(action, directObjectToCopy);
         }
     }
 
@@ -419,15 +423,60 @@ public abstract class PlayerInputParser {
             return action.getVerbPhrase();
         }
         if (action.hasVerbPhrase()) {
+            // Standalone verb phrases signify terminating intransitive verbs.
+            // These verbs alone are their own actions and so don't transfer
+            // to future listed direct or indirect object phrases.
             return null;
         }
+        // At this point, an action with a direct or indirect object phrase
+        // without a corresponding verb phrase is found.
+        // This means that the previously established verb phrase to copy
+        // should be copied to this action.
         return previousVerbPhraseToCopy;
+    }
+
+    /**
+     * A direct object phrase is identified to start copying over if a phrase
+     * has a verb, direct object phrase, preposition and indirect object phrase.
+     *
+     * A direct object phrase continues to copy over until it reaches an action
+     * with a direct object, and (preposition or indirect object phrase),
+     * where the phrase to copy is updated.
+     *
+     * A direct object phrase stops copying completely if it reaches an
+     * action where a new verb is found without a (preposition or indirect
+     * object phrase).
+     *
+     * @param action
+     * @param verbPhraseToCopy
+     * @param previousDirectObjectToCopy
+     * @return
+     */
+    private static ObjectPhrase getForwardDirectObjectToCopy(PlayerAction action,
+                                                             VerbPhrase verbPhraseToCopy,
+                                                             ObjectPhrase previousDirectObjectToCopy) {
+        if (verbPhraseToCopy != null) {
+            if (action.hasDirectObjectPhrase()
+                    && (action.hasPreposition() || action.hasIndirectObjectPhrase())) {
+                // Cannot just be a direct object phrase alone.
+                // If it is, then it will be transferred to an indirect object
+                // phrase.
+                // This updates the direct object phrase to copy, but
+                // continues to copy for this action and future actions.
+                return action.getDirectObjectPhrase();
+            }
+            // An action that is copying, but does not have a direct object
+            // phrase means that it was previously moved to indirect, or is
+            // empty so it can be filled with the direct object to copy.
+            return previousDirectObjectToCopy;
+        }
+        return null;
     }
 
     /**
      *
      * @param action
-     * @param verbToCopy
+     * @param verbPhraseToCopy
      * @param previousPrepositionToCopy
      * @return
      */
@@ -435,16 +484,21 @@ public abstract class PlayerInputParser {
                                                       VerbPhrase verbPhraseToCopy,
                                                       String previousPrepositionToCopy) {
         if (verbPhraseToCopy != null) {
-            if (!action.hasDirectObjectPhrase()
-                    && action.hasPreposition()
-                    && action.hasIndirectObjectPhrase()) {
-                return action.getPreposition(); // swap
+//            if (!action.hasDirectObjectPhrase()
+            // Testing to see if removing the lack of direct object phrase
+            // condition has negative effects
+//                && action.hasPreposition()
+            if (action.hasPreposition()
+                && action.hasIndirectObjectPhrase()) {
+                return action.getPreposition();
             }
             if (action.hasVerbPhrase()) {
                 return null;
             } // else continue copying same preposition
         } else {
-            return null; // stop copying prepositions
+            // stop copying prepositions since a null verbPhraseToCopy
+            // signifies that copying has stopped
+            return null;
         }
         return previousPrepositionToCopy;
     }
@@ -473,6 +527,19 @@ public abstract class PlayerInputParser {
 
         if (prepositionToCopy != null) {
             action.setPreposition(prepositionToCopy);
+        }
+    }
+
+    /**
+     * If there is a direct object phrase to copy, then copy it to the action.
+     *
+     * @param action
+     * @param directObjectToCopy
+     */
+    private static void setForwardDirectObjectToCopy(PlayerAction action,
+                                                     ObjectPhrase directObjectToCopy) {
+        if (directObjectToCopy != null) {
+            action.setDirectObjectPhrase(directObjectToCopy);
         }
     }
 

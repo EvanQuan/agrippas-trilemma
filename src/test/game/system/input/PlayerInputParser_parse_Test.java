@@ -605,7 +605,7 @@ public class PlayerInputParser_parse_Test {
      */
     @Test
     public void multiAction_fixSyntaxForward_copyDirectAndPrepositionChangeDirect() {
-        testParse("use hammer on door and wall", true);
+        testParse("use hammer on door and wall");
 
         assertEquals(2, playerActions.size());
 
@@ -625,9 +625,13 @@ public class PlayerInputParser_parse_Test {
 
     }
 
+    /**
+     * Test that the preposition to copy "on" changes to "against" while the
+     * direct object phrase "hammer" continues to copy forward.
+     */
     @Test
     public void multiAction_fixSyntaxForward_copyDirectAndPrepositionChangeDirectChangePreposition() {
-        testParse("use hammer on door and wall and against box", true);
+        testParse("use hammer on door and wall and against box");
 
         assertEquals(3, playerActions.size());
 
@@ -714,11 +718,6 @@ public class PlayerInputParser_parse_Test {
         assertFalse(playerActions.get(3).hasIndirectObjectPhrase());
     }
 
-    @Test
-    public void multiAction_fixSyntaxForward_() {
-        testParse("give b, c to e");
-    }
-
     /**
      * Test that preposition "to" and indirect object phrase "e" of direct
      * object "c" to direct object "b".
@@ -741,12 +740,97 @@ public class PlayerInputParser_parse_Test {
     }
 
     /**
-     * Test that the preposition "at" and indirect object phrase "h" to copy
-     * change to "to" and "e" respectively.
+     * Test that a direct object "b" and preposition "to" can copy to action
+     * "d" and correct move "d" to the indirect object.
      */
     @Test
-    public void multiAction_fixSyntaxBackwards_prepositionIndirectChange() {
-        testParse("give b, c to e, f, g at h");
+    public void multiAction_fixSyntaxForwards_transferDirectAndPrepositionForward() {
+        testParse("give b to c, d");
+
+        assertEquals(2, playerActions.size());
+
+        assertEquals("give",
+                playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("b",
+                playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertEquals("to",
+                playerActions.get(0).getPreposition());
+        assertEquals("c",
+                playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",
+                playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("b",
+                playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("to",
+                playerActions.get(1).getPreposition());
+        assertEquals("d",
+                playerActions.get(1).getIndirectObjectPhrase().getNoun());
+    }
+
+    /**
+     * Check that actions can multiply if multiple direct objects share a
+     * single preposition with multiple indirect objects.
+     *
+     * This requires that action multiplication is implemented.
+     */
+    @Test
+    public void multiplyActions_2x2() {
+        testParse("give b, c, to d, e", true);
+
+        assertEquals(4, playerActions.size());
+
+        assertEquals("give",
+                playerActions.get(0).getVerbPhrase().getVerb());
+        assertEquals("b",
+                playerActions.get(0).getDirectObjectPhrase().getNoun());
+        assertEquals("to",
+                playerActions.get(0).getPreposition());
+        assertEquals("d",
+                playerActions.get(0).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",
+                playerActions.get(1).getVerbPhrase().getVerb());
+        assertEquals("c",
+                playerActions.get(1).getDirectObjectPhrase().getNoun());
+        assertEquals("to",
+                playerActions.get(1).getPreposition());
+        assertEquals("d",
+                playerActions.get(1).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",
+                playerActions.get(2).getVerbPhrase().getVerb());
+        assertTrue(playerActions.get(2).hasDirectObjectPhrase());
+        assertEquals("b",
+                playerActions.get(2).getDirectObjectPhrase().getNoun());
+        assertEquals("to",
+                playerActions.get(2).getPreposition());
+        assertEquals("e",
+                playerActions.get(2).getIndirectObjectPhrase().getNoun());
+
+        assertEquals("give",
+                playerActions.get(3).getVerbPhrase().getVerb());
+        assertTrue(playerActions.get(3).hasDirectObjectPhrase());
+        assertEquals("c",
+                playerActions.get(3).getDirectObjectPhrase().getNoun());
+        assertEquals("to",
+                playerActions.get(3).getPreposition());
+        assertEquals("e",
+                playerActions.get(3).getIndirectObjectPhrase().getNoun());
+
+    }
+
+    /**
+     * This is tricky what the expected results should be because it is
+     * ambiguous how f should be treated.
+     *
+     * If f is ignored in forward fix, then the backwards fix will changed it
+     * to "give f at h", but messes with other test cases. This gets more
+     * complicated if/when action multiplying gets implemented.
+     */
+    @Test
+    public void multiplyActions_2x2_1() {
+        testParse("give b, c to e, f, g at h", true);
 
         assertEquals(4, playerActions.size());
 

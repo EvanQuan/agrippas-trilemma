@@ -103,7 +103,7 @@ public abstract class Word {
      */
     public static final HashSet<String> NON_INDIRECT_TRANSITIVE_VERBS
         = new HashSet<>(
-            Set.of("eat", "take", "get", "drop", "remove", "hit")
+            Set.of("eat", "take", "get", "drop", "remove", "hit", "examine")
     );
 
     /**
@@ -132,14 +132,14 @@ public abstract class Word {
     );
 
     /**
-     * Action verbs that cannot attach directly to a directly object phrase to
+     * Action verbs that cannot attach directly to a direct object phrase to
      * make complete sense. They need the help of an object phrase separating
      * preposition (and thus an indirect object phrase to make sense)
      * Examples:
      * Die, quit
      */
     public static final HashSet<String> INTRANSITIVE_VERBS = new HashSet<>(
-        Set.of("die", "quit", "jump", "look", "examine")
+        Set.of("die", "quit", "jump", "look")
     );
 
     public static final HashSet<String> VERBS =CollectionUtils.mergeSets(
@@ -277,18 +277,51 @@ public abstract class Word {
         return VERBS.contains(word.toLowerCase());
     }
 
+    /**
+     * Non-indirect transitive verbs must have a direct object phrase attached
+     * directly to them, but never an indirect object phrase in order to make
+     * sense.
+     *
+     * @param word
+     * @return
+     */
     public static boolean isNonIndirectTransitiveVerb(String word) {
         return NON_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 
+    /**
+     * Indirect transitive verbs must have a direct object and indirect object
+     * phrase attached to them in order to make sense.
+     *
+     * @param word
+     * @return
+     */
     public static boolean isIndirectTransitiveVerb(String word) {
         return MANDATORY_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 
+    /**
+     * Optionally-indirect transtive verbs must have a direct object phrase
+     * attached directly to the, and optionally an indirect object phrase to
+     * make sense. The specific context that the verb is being used and what
+     * the direct object phrase is determines whether the indirect object
+     * phrase is needed to make sense.
+     *
+     * @param word
+     * @return
+     */
     public static boolean isOptionallyIndirectTransitiveVerb(String word) {
         return OPTIONALLY_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 
+    /**
+     * Intransitive verbs cannot attach directly to a direct object phrase to
+     * make sense. They need the help of an object phrase separating
+     * preposition and an indirect object phrase to make sense.
+     *
+     * @param word
+     * @return
+     */
     public static boolean isIntransitiveVerb(String word) {
         return INTRANSITIVE_VERBS.contains(word.toLowerCase());
     }
