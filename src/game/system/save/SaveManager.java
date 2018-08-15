@@ -15,13 +15,15 @@ import util.TextUtils;
  * Influence: Credits to Mkyong.com
  * https://www.mkyong.com/java/how-to-write-an-object-to-file-in-java/
  */
-public class SaveManager extends CollectionUtils {
+public class SaveManager {
     public static final int MAXIMUM_SAVES = 50;
     public static final int MAX_NAME_LENGTH = 50;
     public static final String SAVE_DIRECTORY = "game/system/saves";
     public static final String FILE_EXTENTION = "cheese";
     // public static final String FILE_NAME = "World";
-    public static final String[] INVALID_CHARACTERS = {"<",">",":","\"","/","\\","|","?","*"};
+    public static final HashSet<String> INVALID_CHARACTERS = new HashSet<>(
+      Set.of("<", ">",":", "\"","/", "\\","|","?","*")
+    );
     private String saveName; // current save name
     private static SaveManager instance;
     private File directory;
@@ -83,7 +85,7 @@ public class SaveManager extends CollectionUtils {
     // }
     /**
      * Serialize object to save file
-     * @param Object object to be saved
+     * @param object to be saved
      */
     public void save(Object object) {
         FileOutputStream fout = null;
@@ -117,9 +119,8 @@ public class SaveManager extends CollectionUtils {
     }
 
     /**
-     * Deserialize object from file of filename of saveNum
-     * @param  String filename      name of file to retrieve object
-     * @return        object from file
+     * Deserialize object from file of filename of saveNum.
+     * @return object from file
      */
     public Object restore() {
         Object object = null;
@@ -239,7 +240,7 @@ public class SaveManager extends CollectionUtils {
 
     /**
      * Sets new value of currentSaveFile by save name
-     * @param String saveName
+     * @param saveName
      */
     public void setCurrentSave(String saveName) throws InvalidSaveNameException {
         for (String c : INVALID_CHARACTERS) {
@@ -252,7 +253,7 @@ public class SaveManager extends CollectionUtils {
     }
     /**
      * Sets values of currentSaveFile by save number
-     * @param int saveNum
+     * @param saveNum
      */
     public void setCurrentSave(int saveNum) throws InvalidSaveNumException {
         try {
@@ -265,7 +266,7 @@ public class SaveManager extends CollectionUtils {
 
     /**
      * Checks if save directory exists
-     * @return     [description]
+     * @return true if save file exists.
      */
     public boolean directoryExists() {
         return directory.exists();
@@ -273,7 +274,7 @@ public class SaveManager extends CollectionUtils {
 
     /**
      * Checks if save file exists
-     * @return     [description]
+     * @return true if save file exists.
      */
     public boolean currentSaveFileExists() {
         return currentSaveFile.exists();
@@ -293,7 +294,7 @@ public class SaveManager extends CollectionUtils {
     //
     // }
 
-    // public Address deserialzeAddressJDK7(String filename) {
+    // public Address deserializeAddressJDK7(String filename) {
     //
     //     Address address = null;
     //

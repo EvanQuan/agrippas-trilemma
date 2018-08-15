@@ -28,6 +28,7 @@ public class Main {
      */
     @SuppressWarnings("unused")
     public static void main(String[] args) {
+        args = new String[] {"-c"};  // Debug for now
         if (args.length != 1) {
             help();
         } else if (args[0].equals("-c")) {

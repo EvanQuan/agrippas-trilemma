@@ -189,8 +189,7 @@ public class MainMenu extends Menu {
 
     /**
      *
-     * @param playerCommand
-     *            to processInput
+     * @param playerCommand to process
      */
     @Override
     public void processInput(PlayerCommand playerCommand) {
@@ -221,7 +220,8 @@ public class MainMenu extends Menu {
     }
 
     /**
-     * To start the game, go the load menu to choose a game to start.
+     * If there are already existing game saves, go to the load menu.
+     * Otherwise, immediately start a new game.
      */
     private void startGame() {
         changeTo(LoadMenu.getInstance());

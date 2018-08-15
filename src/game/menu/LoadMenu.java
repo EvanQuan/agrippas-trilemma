@@ -2,6 +2,7 @@ package game.menu;
 
 import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
+import game.system.output.SemanticColor;
 import game.system.save.InvalidSaveNameException;
 import game.system.save.InvalidSaveNumException;
 import game.system.save.Save;
@@ -17,6 +18,10 @@ public class LoadMenu extends Menu {
 
     public static final String LOAD_GAME = "Load game";
     // public static final String NEW_GAME = "New game";
+
+    /**
+     * Singleton instance.
+     */
     private static LoadMenu instance;
     /**
      * Enumerated order of saves
@@ -46,7 +51,8 @@ public class LoadMenu extends Menu {
     }
 
     /**
-     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
+     * Process a {@link PlayerCommand} as receiveInput. This will set some
+     * corresponding output to this menu's currently set
      * {@link IPrintBuffer}.
      *
      * @param playerCommand to processInput
@@ -85,10 +91,13 @@ public class LoadMenu extends Menu {
      */
     public void printMainPrompt() {
         updateSaves();
+        out.println(LOAD_GAME, SemanticColor.TITLE);
 //        printTitleln(LOAD_GAME);
         String gameName;
         ArrayList<Save> saves = saver.getSaves();
         for (int i = 0; i < saves.size(); i++) {
+            out.print(i + 1, SemanticColor.PLAYER);
+            out.print(". ");
 //            printItem(i + 1);
 //            print(". ");
             outputSaveInfo(saves.get(i));
@@ -111,6 +120,13 @@ public class LoadMenu extends Menu {
         // outputlnRoom(splitCamelCaseToString(MenuManager.getInstance().getPreviousMenu().getClass().getSimpleName()));
     }
     public void outputSaveInfo(Save save) {
+        out.println(save.getName(), SemanticColor.TITLE);
+        out.print("\tRoom: ", SemanticColor.LOCATION);
+        out.print(save.getRoom().getSingleName());
+        out.print("\tTurns: ", SemanticColor.ITEM);
+        out.print(save.getTurnCount());
+        out.print("\tVersion: ", SemanticColor.DIRECTION);
+        out.print(save.getVersion());
 //        println(save.getName());
 //        printItem("     Room: ");
 //        print(save.getRoom().getSingleName());
