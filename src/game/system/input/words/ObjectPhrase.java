@@ -9,9 +9,8 @@ import java.util.ArrayList;
  * Object phrases describe an object, or noun. They conform to the following
  * grammar:
  * <br><br>
- * Determiner? Adjective* Noun? (of ObjectPhrase?)?
- * <br><br>
- * (ooooo recursion, spooky!)
+ * Determiner? Adjective* Noun? (preposition ObjectPhrase?)?
+ *
  * @author Evan Quan
  */
 public class ObjectPhrase {
@@ -22,12 +21,15 @@ public class ObjectPhrase {
     private String belongingPreposition;
     private ObjectPhrase owner;
 
+    /**
+     * Default constructor. Initializes empty adjectives array. All other
+     * fields are empty.
+     */
     public ObjectPhrase() {
         this.adjectives = new ArrayList<>();
     }
 
     /**
-     * TODO Might have infinite recursion issue.
      *
      * @param other phrase to compare equality with.
      * @return true if the article, adjective, and noun are equal for both
@@ -45,14 +47,6 @@ public class ObjectPhrase {
         return false;
     }
 
-    /**
-     * @return a shallow copy of this phrase's adjectives. This is so that the
-     * adjective list can be modified for receiveInput purposes if need be
-     * without actually affecting the actual adjectives.<br> null if adjectives
-     * is null. NOTE: Due to current PlayerInputParser.getObjectPhrase()
-     * implementation, adjectives will never be null, as an ObjectPhrase with no
-     * adjectives will have an empty ArrayList
-     */
     public ArrayList<String> getAdjectives() {
         return this.adjectives;
     }
@@ -135,9 +129,9 @@ public class ObjectPhrase {
     }
 
     /**
-     * The only valid example is "of"
+     * Use {@link Word}.isBelongingPreposition() to find valid prepositions.
      *
-     * @param belongingPreposition
+     * @param belongingPreposition to set
      */
     public void setBelongingPreposition(String belongingPreposition) {
         this.belongingPreposition = belongingPreposition;
@@ -150,12 +144,17 @@ public class ObjectPhrase {
      * <br>
      * Where the object phrase <b>Horns</b> is owned by <b>Dirge</b>.
      *
-     * @param owner
+     * @param owner to set
      */
     public void setOwner(ObjectPhrase owner) {
         this.owner = owner;
     }
 
+    /**
+     * A noun is person, place or thing.
+     *
+     * @param noun to set
+     */
     public void setNoun(String noun) {
         this.noun = noun;
     }

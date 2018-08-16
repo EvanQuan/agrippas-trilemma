@@ -26,7 +26,7 @@ import java.util.Scanner;
  * <p>
  * <b>TODO</b>
  * </p>
- * Action multiplying, when multiple direct objects share a single
+ * Action multiplying: when multiple direct objects share a single
  * preposition with multiple indirect objects, the verb and preposition is
  * applied to all permutations of direct and indirect object phrases.
  *

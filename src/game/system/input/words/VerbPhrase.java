@@ -52,7 +52,7 @@ public class VerbPhrase {
     public boolean equals(Object other) {
         if (other instanceof VerbPhrase) {
             return hasSameAdverbs((VerbPhrase) other)
-            && hasSameVerb((VerbPhrase) other);
+                && hasSameVerb((VerbPhrase) other);
         }
         return false;
     }

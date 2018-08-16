@@ -44,8 +44,9 @@ import java.util.Scanner;
  * - incomplete playerActions need to be able to "fill in the gaps" from context of
  * previously parsed playerActions in the same command<br>
  *
- * @deprecated {@link PlayerInputParser}, while still verb-agnostic, can evaluate multiple {@link PlayerAction}s per
- * {@link PlayerCommand}, and parses more complicated aspects of {@link ObjectPhrase}s.
+ * @deprecated {@link PlayerInputParser} can evaluate multiple
+ * {@link PlayerAction}s per {@link PlayerCommand}, and parses more
+ * complicated aspects of {@link ObjectPhrase}s.
  *
  * @author Evan Quan
  *

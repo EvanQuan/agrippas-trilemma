@@ -8,7 +8,7 @@ import util.FuncUtils;
  * Represents a single action for the player to do. A {@link PlayerCommand} may
  * be composed of multiple actions. Confirms to the following grammar:
  * <br><br>
- * Verb? ObjectPhrase? Preposition? ObjectPhrase?
+ * VerbPhrase? ObjectPhrase? Preposition? ObjectPhrase?
  *
  * @author Evan Quan
  *
