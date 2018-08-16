@@ -20,7 +20,6 @@ public class MainMenu extends Menu {
      * Width: Default Character Height: Default Scroll border:
      * http://www.chris.com/ascii/index.php?art=art%20and%20design/borders
      */
-    public static final int OPTIONS_SPACING = 2;
 
     public static MainMenu getInstance() {
         if (instance == null) {
@@ -32,7 +31,7 @@ public class MainMenu extends Menu {
     private MainMenu() {
     }
 
-    private void appendHowToPlay() {
+    private void printHowToPlay() {
         out.println("Type in stringCommands to do stuff. See what works and" +
                 "what doesn't. Trial and error is your friend.");
         out.println();
@@ -232,7 +231,7 @@ public class MainMenu extends Menu {
      */
     private void startHowToPlay() {
         printTitleScreen();
-        appendHowToPlay();
+        printHowToPlay();
         printCommandShortcuts();
         printMenuOptions();
     }

@@ -104,6 +104,15 @@ public class Word {
     );
 
     /**
+     * While the {@link game.system.input.PlayerInputParser} will treat any
+     * word that ends with "ly" as an adverb for parsing strings into
+     * {@link PlayerCommand}s, the game will reject all adverbs it doesn't
+     * recognize.
+     */
+    private static final HashSet<String> ADVERBS = new HashSet<>(
+        Set.of("quickly", "slowly", "sneakily", "loudly", "quietly")
+    );
+    /**
      * Action verbs that have a direct object phrase attached directly to them,
      * but never an indirect object phrase.
      * Examples:
@@ -273,6 +282,17 @@ public class Word {
      */
     public static boolean isAdverb(String word) {
         return word.toLowerCase().endsWith("ly");
+    }
+
+    /**
+     * Known adverbs are adverbs that the game recognizes as valid and can be
+     * used in commands.
+     *
+     * @param word
+     * @return
+     */
+    public static boolean isKnownAdverb(String word) {
+        return ADVERBS.contains(word.toLowerCase());
     }
 
     /**

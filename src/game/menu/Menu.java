@@ -6,19 +6,28 @@ import game.system.output.IPrintBuffer;
 import java.util.HashMap;
 
 /**
- * Receives a {@link PlayerCommand}. Directly outputs to its static {@link IPrintBuffer}.
+ * Receives a {@link PlayerCommand}. Directly outputs to its static {@link
+ * IPrintBuffer}.
  */
 public abstract class Menu {
 
+    /**
+     * Spacing between prompt and options.
+     */
+    public static final int OPTIONS_SPACING = 2;
     /**
      * Output
      */
     public static IPrintBuffer out;
 
     /**
-     * String inputs correspond to runnable actions for the menu to do. Each runnable should call a menu method.
+     * String inputs correspond to runnable actions for the menu to do. Each
+     * runnable should call a menu method.
      */
     protected HashMap<String, Runnable> stringCommands;
+    /**
+     * Verbs from VerbPhrases correspond with runnable action.
+     */
     protected HashMap<String, Runnable> verbCommands;
     protected HashMap<String, Runnable> directObjectCommands;
     protected HashMap<String, Runnable> prepositionCommands;
@@ -30,13 +39,12 @@ public abstract class Menu {
     protected String[] returnToPreviousMenu;
 
     /**
-     *
      * @throws RuntimeException
      */
-    protected Menu() throws RuntimeException {
+    public Menu() throws RuntimeException {
         if (out == null) {
-            throw new RuntimeException("Cannot instantiate any menus until an IPrintBuffer is set for all menus via " +
-                    "Menu.setOut().");
+            throw new RuntimeException("Cannot instantiate any menus until an" +
+                    "IPrintBuffer is set for all menus via Menu.setOut().");
         }
         stringCommands = new HashMap<>();
         verbCommands = new HashMap<>();
@@ -45,10 +53,10 @@ public abstract class Menu {
         indirectObjectCommands = new HashMap<>();
         initializeCommands();
         // validVerbs = new ArrayList<ArrayList<String>>();
-        yes = new String[] { "yes", "y", "yeah", "yee", "yup" };
-        no = new String[] { "no", "n", "nay", "nope" };
-        returnToPreviousMenu = new String[] { "return", "r", "return to previous menu", "return menu",
-                "return to menu" };
+        yes = new String[]{"yes", "y", "yeah", "yee", "yup"};
+        no = new String[]{"no", "n", "nay", "nope"};
+        returnToPreviousMenu = new String[]{"return", "r", "return to previous menu", "return menu",
+                "return to menu"};
     }
 
     /**
@@ -61,8 +69,8 @@ public abstract class Menu {
     }
 
     /**
-     * Set the {@link MenuManager}s current menu. This will immediately change the menu after the current menu's
-     * receiveInput is done processing.
+     * Set the {@link MenuManager}s current menu. This will immediately change
+     * the menu after the current menu's input is done processing.
      *
      * @param menu
      */
@@ -78,8 +86,10 @@ public abstract class Menu {
     }
 
     /**
-     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently
-     * set {@link game.system.output.IPrintBuffer}. This is occurs after preprocessInput() is called and succeeds.
+     * Process a {@link PlayerCommand} as receiveInput. This will set some
+     * corresponding output to this menu's currently set {@link
+     * game.system.output.IPrintBuffer}. This is occurs after preprocessInput()
+     * is called and succeeds.
      *
      * @param playerCommand to processInput
      */
@@ -91,11 +101,14 @@ public abstract class Menu {
     protected abstract void initializeCommands();
 
     /**
-     * Every command is composed of a list of possible inputs options that correspond with Menu method for the Menu to
-     * execute. As a result, be careful not to have stringCommands share options, or an option will be overridden
+     * Every command is composed of a list of possible inputs options that
+     * correspond with Menu method for the Menu to execute. As a result, be
+     * careful not to have stringCommands share options, or an option will be
+     * overridden
      *
-     * @param options all strings that corresponding to method. All are converted to lower case.
-     * @param method with no parameters and Menu method in body
+     * @param options all strings that corresponding to method. All are
+     *                converted to lower case.
+     * @param method  with no parameters and Menu method in body
      */
     @Deprecated
     public void addStringCommand(String[] options, Runnable method) {
@@ -147,8 +160,8 @@ public abstract class Menu {
 
     /**
      * Retrieves information about the playerCommand after it has been process.
-     * This may influence how future stringCommands are processed. This is
-     * only ran if preprocessInput() is successful. By default this does nothing.
+     * This may influence how future stringCommands are processed. This is only
+     * ran if preprocessInput() is successful. By default this does nothing.
      *
      * @param playerCommand
      */

@@ -231,7 +231,7 @@ public class SaveManager {
     public String getCurrentSaveName() {
         return TextUtils.stripExtension(this.currentSaveFile.getName());
     }
-    // public ArrayList<String> getSaveNums() {
+    // public ArrayList<String> getSaveNumbers() {
     //     return saveNums;
     // }
     // public ArrayList<String> getSaveNames() {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class LoadMenu extends Menu {
 
-    public static final String LOAD_GAME = "Load game";
+    private static final String TITLE = "Load game";
     // public static final String NEW_GAME = "New game";
 
     /**
@@ -26,7 +26,7 @@ public class LoadMenu extends Menu {
     /**
      * Enumerated order of saves
      */
-    private ArrayList<Integer> saveNums;
+    private ArrayList<Integer> saveNumbers;
     /**
      * String names of saves in order
      */
@@ -43,11 +43,11 @@ public class LoadMenu extends Menu {
      * Default LoadMenu constructor
      */
     private LoadMenu() {
-        saveNums = new ArrayList<>();
+        saveNumbers = new ArrayList<>();
         saveNames = new ArrayList<>();
         saveInfo = new ArrayList<>();
         saver = SaveManager.getInstance();
-        updateSaves();
+        updateSaveInformation();
     }
 
     /**
@@ -78,6 +78,10 @@ public class LoadMenu extends Menu {
 //                "d"}, () -> deleteGame());
     }
 
+    /**
+     *
+     * @return singleton instance
+     */
     public static LoadMenu getInstance() {
         if (instance == null) {
             instance = new LoadMenu();
@@ -90,50 +94,58 @@ public class LoadMenu extends Menu {
      * and New game option
      */
     public void printMainPrompt() {
-        updateSaves();
-        out.println(LOAD_GAME, SemanticColor.TITLE);
-//        printTitleln(LOAD_GAME);
-        String gameName;
+        out.println(TITLE, SemanticColor.TITLE);
+        updateSaveInformation();
+        printAllSaveInformation();
+        printMenuOptions();
+    }
+
+    /**
+     * Print what the player can do while in the Load Menu.
+     */
+    private void printMenuOptions() {
+        out.printlns(OPTIONS_SPACING);
+        out.print("Load", SemanticColor.PLAYER);
+        out.print(", or ");
+        out.print("Delete", SemanticColor.PLAYER);
+        out.print("a game, or ");
+        out.print("Return", SemanticColor.PLAYER);
+        out.print(" to the ");
+        if (MenuManager.getPreviousMenu().equals(MainMenu.getInstance())) {
+            out.print("Main Menu", SemanticColor.LOCATION);
+            out.println(".");
+        } else {
+            out.println("game.");
+        }
+    }
+
+    /**
+     * Updates all save information and prints information about each save.
+     *
+     */
+    private void printAllSaveInformation() {
         ArrayList<Save> saves = saver.getSaves();
         for (int i = 0; i < saves.size(); i++) {
             out.print(i + 1, SemanticColor.PLAYER);
             out.print(". ");
-//            printItem(i + 1);
-//            print(". ");
-            outputSaveInfo(saves.get(i));
+            printSaveInformation(saves.get(i));
         }
-//        println();
-//        printPlayer("Create");
-//        print(", ");
-//        printPlayer("Load");
-//        print(", or ");
-//        printPlayer("Delete");
-//        print(" a game, or ");
-//        printPlayer("Return");
-//        print(" to the ");
-        if (MenuManager.getPreviousMenu().equals(MainMenu.getInstance())) {
-//            printLocation("Main Menu");
-//            println(".");
-        } else {
-//            println("the game.");
-        }
-        // outputlnRoom(splitCamelCaseToString(MenuManager.getInstance().getPreviousMenu().getClass().getSimpleName()));
+
     }
-    public void outputSaveInfo(Save save) {
+
+    /**
+     * Print information about the specified save in a formatted matter.
+     *
+     * @param save to print information about.
+     */
+    private void printSaveInformation(Save save) {
         out.println(save.getName(), SemanticColor.TITLE);
-        out.print("\tRoom: ", SemanticColor.LOCATION);
+        out.print("    Room: ", SemanticColor.LOCATION);
         out.print(save.getRoom().getSingleName());
-        out.print("\tTurns: ", SemanticColor.ITEM);
+        out.print("    Turns: ", SemanticColor.ITEM);
         out.print(save.getTurnCount());
-        out.print("\tVersion: ", SemanticColor.DIRECTION);
+        out.print("    Version: ", SemanticColor.DIRECTION);
         out.print(save.getVersion());
-//        println(save.getName());
-//        printItem("     Room: ");
-//        print(save.getRoom().getSingleName());
-//        printItem("     Turns: ");
-//        print(save.getTurnCount());
-//        printItem("     Version: ");
-//        println(save.getVersion());
     }
 
     public void processInput() {
@@ -152,10 +164,10 @@ public class LoadMenu extends Menu {
 //            // System.out.println("inputString: " + getInputString());
 //            // System.out.println("inputWords: " + Arrays.asList(getInputWords()));
 //            // System.out.println("verb: " + getVerb());
-//            // System.out.println("saveNums.size() + 1 :" + (saveNums.size() + 1));
+//            // System.out.println("saveNumbers.size() + 1 :" + (saveNumbers.size() + 1));
 //            if (!inputRemains()) {
 //                outputIncompleteCommandAndReprompt();
-//            } else if (inputEquals(saveNums)) { // Load game by number
+//            } else if (inputEquals(saveNumbers)) { // Load game by number
 //                loadGame(Integer.parseInt(stripInput()));
 //                changeToGameMenu();
 //            } else if (inputEquals(saveNames)){ // Load game by name
@@ -174,7 +186,7 @@ public class LoadMenu extends Menu {
 //            // System.out.println("verb: " + getVerb());
 //            if (!inputRemains()) {
 //                outputIncompleteCommand();
-//            } else if (inputStartsWith(saveNums)) { // Delete game by number
+//            } else if (inputStartsWith(saveNumbers)) { // Delete game by number
 //                int saveNum = Integer.parseInt(stripInput());
 //                try {
 //                    saver.setCurrentSave(saveNum - 1);
@@ -216,11 +228,11 @@ public class LoadMenu extends Menu {
 
     /**
      * Sets the GameMenu's world to saveNum
-     * @param saveNum of save to load
+     * @param saveNumber of save to load
      */
-    public void loadGame(int saveNum) {
+    public void loadGame(int saveNumber) {
         try {
-            saver.setCurrentSave(saveNum);
+            saver.setCurrentSave(saveNumber);
         } catch (InvalidSaveNumException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -251,25 +263,25 @@ public class LoadMenu extends Menu {
 
     // Prompts
     public void outputInvalid(String action) {
-//        if (saveNums.size() == 0) {
+//        if (saveNumbers.size() == 0) {
 //            print("There are no games to ");
 //            printPlayer(toTitleCase(playerAction));
 //            println(".");
 //        } else {
 //            print("The only game");
-//            if (saveNums.size() > 1) {
+//            if (saveNumbers.size() > 1) {
 //                print("s");
 //            }
 //            print(" to " + playerAction.toLowerCase() + " ");
-//            if (saveNums.size() > 1) {
+//            if (saveNumbers.size() > 1) {
 //                print("are from ");
 //            } else {
 //                print("is ");
 //            }
 //            printPlayer(1);
-//            if (saveNums.size() > 1) {
+//            if (saveNumbers.size() > 1) {
 //                print(" to ");
-//                printPlayer(saveNums.size());
+//                printPlayer(saveNumbers.size());
 //            }
 //            println(".");
 //        }
@@ -301,12 +313,12 @@ public class LoadMenu extends Menu {
     // }
 
     /**
-     * Updates saveNums, saveNames (for user receiveInput comparison)
+     * Updates saveNumbers, saveNames (for user receiveInput comparison)
      */
-    public void updateSaves() {
-        // outputln("updateSaves() started");
+    public void updateSaveInformation() {
+        // outputln("updateSaveInformation() started");
         saveNames.clear();
-        saveNums.clear();
+        saveNumbers.clear();
         Save save;
         ArrayList<Save> saves = saver.getSaves();
         // ArrayList<String> saveNames = saver.getSaveNames();
@@ -315,7 +327,7 @@ public class LoadMenu extends Menu {
             // try {
             save = saves.get(i - 1);
             saveNames.add(save.getName());
-            saveNums.add(i);
+            saveNumbers.add(i);
                 // outputln("i: " + i + " | name: " + name);
                 // saver.setCurrentSave(name);
                 // save = (Save) saver.restore();
@@ -332,8 +344,8 @@ public class LoadMenu extends Menu {
     public ArrayList<String> getSaveNames() {
         return this.saveNames;
     }
-    public ArrayList<Integer> getSaveNums() {
-        return this.saveNums;
+    public ArrayList<Integer> getSaveNumbers() {
+        return this.saveNumbers;
     }
 
 }

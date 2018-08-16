@@ -803,6 +803,8 @@ public class PlayerInputParser_parse_Test {
      * single preposition with multiple indirect objects.
      *
      * This requires that action multiplication is implemented.
+     * Alternatively, a restriction for multiple indirect objects could work
+     * if there are multiple direct objects.
      */
     @Test
     public void multiplyActions_2x2() {
