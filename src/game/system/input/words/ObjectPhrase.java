@@ -47,63 +47,128 @@ public class ObjectPhrase {
         return false;
     }
 
+    /**
+     *
+     * @return this object phrase's adjectives.
+     */
     public ArrayList<String> getAdjectives() {
         return this.adjectives;
     }
 
+    /**
+     *
+     * @return this object phrase's determiner.
+     */
     public String getDeterminer() {
         return this.determiner;
     }
 
+    /**
+     *
+     * @return this object phrase's noun.
+     */
     public String getNoun() {
         return this.noun;
     }
 
+    /**
+     *
+     * @return true if this object phrase has adjectives.
+     */
     public boolean hasAdjectives() {
         return !this.adjectives.isEmpty();
     }
 
+    /**
+     *
+     * @return this object phrase's preposition.
+     */
     public String getBelongingPreposition() {
         return this.belongingPreposition;
     }
 
+    /**
+     *
+     * @return this object phrase's owner.
+     */
     public ObjectPhrase getOwner() {
         return this.owner;
     }
 
+    /**
+     *
+     * @return true if this object phrase has a determiner.
+     */
     public boolean hasDeterminer() {
         return this.determiner != null;
     }
 
+    /**
+     *
+     * @return true if this object phrase has a noun.
+     */
     public boolean hasNoun() {
         return this.noun != null;
     }
 
+    /**
+     *
+     * @return true if this object phrase has a preposition.
+     */
     public boolean hasBelongingPreposition() {
         return this.belongingPreposition != null;
     }
 
+    /**
+     *
+     * @return true if this object phrase has an owner.
+     */
     public boolean hasOwner() {
         return this.owner != null;
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both object phrases have the same adjectives.
+     */
     public boolean hasSameAdjectives(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.adjectives, other.getAdjectives());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both object phrases have the same determiner.
+     */
     public boolean hasSameDeterminer(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.determiner, other.getDeterminer());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both object phrases have the same noun.
+     */
     public boolean hasSameNoun(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.noun, other.getNoun());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both object phrases have the same preposition.
+     */
     public boolean hasSamePreposition(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.belongingPreposition,
                 other.getBelongingPreposition());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both object phrases have the same owner.
+     */
     public boolean hasSameOwner(ObjectPhrase other) {
         return FuncUtils.nullablesEqual(this.owner, other.getOwner());
     }
@@ -116,14 +181,26 @@ public class ObjectPhrase {
         return !hasDeterminer() && !hasAdjectives() && !hasNoun();
     }
 
+    /**
+     *
+     * @param adjectives to set
+     */
     public void setAdjectives(ArrayList<String> adjectives) {
         this.adjectives = adjectives;
     }
 
+    /**
+     *
+     * @param adjectives to set
+     */
     public void setAdjectives(String[] adjectives) {
         this.adjectives = CollectionUtils.getArrayList(adjectives);
     }
 
+    /**
+     *
+     * @param determiner to set
+     */
     public void setDeterminer(String determiner) {
         this.determiner = determiner;
     }
@@ -151,7 +228,7 @@ public class ObjectPhrase {
     }
 
     /**
-     * A noun is person, place or thing.
+     * A noun is a person, place or thing.
      *
      * @param noun to set
      */

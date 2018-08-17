@@ -18,7 +18,7 @@ public class VerbPhrase {
     /**
      * A list of words that describe the verb.
      */
-    ArrayList<String> adverbs;
+    private ArrayList<String> adverbs;
 
     /**
      * A word that describes an action.

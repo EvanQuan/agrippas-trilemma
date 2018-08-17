@@ -3,7 +3,6 @@ package util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Has text utility functions for Collections.
@@ -12,7 +11,6 @@ import java.util.Set;
  */
 public class CollectionUtils {
 
-    public static final String EMPTY = "";
 
     /**
      * Cannot instantiate.
@@ -22,8 +20,7 @@ public class CollectionUtils {
     /**
      * Add array to ArrayList<String>
      *
-     * @param array
-     *            to add to list
+     * @param array to add to list
      * @param list
      */
     public static void addArrayToList(String[] array, ArrayList<String> list) {
@@ -105,8 +102,8 @@ public class CollectionUtils {
 
     public static ArrayList<Double> getDoubleArrayList(double[] doubleArray) {
         ArrayList<Double> doubleList = new ArrayList<Double>();
-        for (int i = 0; i < doubleArray.length; i++) {
-            doubleList.add(doubleArray[i]);
+        for (double d : doubleArray) {
+            doubleList.add(d);
         }
         return doubleList;
     }
@@ -117,8 +114,8 @@ public class CollectionUtils {
 
     public static ArrayList<Integer> getIntegerArrayList(int[] intArray) {
         ArrayList<Integer> intList = new ArrayList<Integer>();
-        for (int i = 0; i < intArray.length; i++) {
-            intList.add(intArray[i]);
+        for (int i : intArray) {
+            intList.add(i);
         }
         return intList;
     }
@@ -152,11 +149,12 @@ public class CollectionUtils {
      * @param inList
      * @return
      */
+    @Deprecated
     public static ArrayList<String> getStringArrayList(ArrayList<Number> inList) {
         ArrayList<String> stringList = new ArrayList<String>();
 
         if (inList.isEmpty()) {
-            stringList.add(EMPTY);
+            stringList.add("");
         } else if (inList.get(0) instanceof Integer) {
             for (int i = 0; i < inList.size(); i++) {
                 try {
@@ -177,6 +175,7 @@ public class CollectionUtils {
         return stringList;
     }
 
+    @Deprecated
     public static ArrayList<String> getStringArrayListFromDouble(ArrayList<Double> doubleList) {
         ArrayList<String> stringList = new ArrayList<String>();
         for (Double doub : doubleList) {
@@ -190,10 +189,12 @@ public class CollectionUtils {
     }
 
     /**
+     * TODO: Delete? Is this even used?
      *
      * @param array
      * @param list
      */
+    @Deprecated
     public static void setArrayToList(String[] array, ArrayList<String> list) {
         list.clear();
         addArrayToList(array, list);
@@ -201,43 +202,42 @@ public class CollectionUtils {
 
     /**
      * Sorts list from longest to shortest String length
-     * https://stackoverflow.com/questions/36292300/how-to-sort-an-arraylist-by-length-of-strings-in-the-array
      *
-     * @param inList
+     * @param list to sort
      */
-    public static void sortByLongestFirst(ArrayList<String> inList) {
+    public static void sortByLongestFirst(ArrayList<String> list) {
         ArrayList<String> outList = new ArrayList<String>();
-        while (!inList.isEmpty()) {
+        while (!list.isEmpty()) {
             String longest = "";
-            for (String string : inList) {
+            for (String string : list) {
                 if (string.length() > longest.length()) {
                     longest = string;
                 }
             }
             outList.add(longest);
-            while (inList.contains(longest)) {
-                inList.remove(longest);
+            while (list.contains(longest)) {
+                list.remove(longest);
             }
         }
-        inList.addAll(outList);
+        list.addAll(outList);
     }
 
     /**
      * Sorts array from longest to shortest String length
      *
-     * @param inArray
+     * @param array to sort
      * @return sorted array
      */
-    public static String[] sortByLongestFirst(String[] inArray) {
-        ArrayList<String> outList = new ArrayList<String>(Arrays.asList(inArray));
+    public static String[] sortByLongestFirst(String[] array) {
+        ArrayList<String> outList = new ArrayList<>(Arrays.asList(array));
         sortByLongestFirst(outList);
         return outList.toArray(new String[0]);
     }
 
     /**
      * Merge a list of sets into 1 set.
-     * @param sets
-     * @return
+     * @param sets to merge
+     * @return a HashSet with the elements of all input hash sets.
      */
     public static HashSet<String> mergeHashSets(HashSet<String>[] sets) {
         HashSet<String> set = new HashSet<>();

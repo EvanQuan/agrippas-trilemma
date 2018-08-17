@@ -20,41 +20,49 @@ public class Word {
     private Word() {}
 
     /**
-     *
+     * For commands that refer to a quantity of object phrases, either by
+     * explicitly listing them or quantifying "all" of them, there may be
+     * some exceptions to the objects to refer to. These prepositions are
+     * followed by the indirect object phrases to ignore.
      */
-    private static final HashSet<String> EXCLUDING_PREPOSITIONS = new HashSet<>(
-        Set.of("but", "except", "without")
+    private static final HashSet<String> EXCLUDING_PREPOSITIONS
+        = new HashSet<>(
+            Set.of("but", "except", "without")
     );
 
     /**
      * Situate one object phrase directionally in relation to another object
      * phrase
      */
-    private static final HashSet<String> DIRECTIONAL_PREPOSITIONS = new HashSet<>(
-        Set.of("over", "under", "on", "between", "behind", "in", "across")
+    private static final HashSet<String> DIRECTIONAL_PREPOSITIONS
+        = new HashSet<>(
+            Set.of("over", "under", "on", "between", "behind", "in", "across")
     );
 
     /**
      * Connect 2 object phrases together (in some sense)
      */
-    private static final HashSet<String> JOINING_PREPOSITIONS = new HashSet<>(
-        Set.of("with", "about", "against")
+    private static final HashSet<String> JOINING_PREPOSITIONS
+        = new HashSet<>(
+            Set.of("with", "about", "against")
     );
 
     /**
      * The first object phrase is being "verbed" from the player to the 2nd
      * object phrase.
      */
-    private static final HashSet<String> MOVEMENT_PREPOSITIONS = new HashSet<>(
-        Set.of("to", "at", "through")
+    private static final HashSet<String> MOVEMENT_PREPOSITIONS
+        = new HashSet<>(
+            Set.of("to", "at", "through")
     );
 
     /**
      * First object phrase is "owned by" or "belongs to" the second object
      * phrase.
      */
-    private static final HashSet<String> BELONGING_PREPOSITIONS = new HashSet<>(
-        Set.of("of")
+    private static final HashSet<String> BELONGING_PREPOSITIONS
+        = new HashSet<>(
+            Set.of("of")
     );
 
     /**
@@ -62,8 +70,10 @@ public class Word {
      */
     private static final HashSet<String> OBJECT_PHRASE_SEPARATING_PREPOSITION
         = CollectionUtils.mergeHashSets(
-            new HashSet[] {EXCLUDING_PREPOSITIONS, DIRECTIONAL_PREPOSITIONS,
-                JOINING_PREPOSITIONS, MOVEMENT_PREPOSITIONS}
+            new HashSet[] {EXCLUDING_PREPOSITIONS,
+                           DIRECTIONAL_PREPOSITIONS,
+                           JOINING_PREPOSITIONS,
+                           MOVEMENT_PREPOSITIONS}
     );
 
 
@@ -71,22 +81,25 @@ public class Word {
      * These sort of determiners do not give information about the quantity
      * of objects they refer to.
      */
-    private static final HashSet<String> GENERAL_ARTICLES = new HashSet<>(
-        Set.of("the", "this", "that")
+    private static final HashSet<String> GENERAL_ARTICLES
+        = new HashSet<>(
+            Set.of("the", "this", "that")
     );
 
     /**
      * These refer to objects in the player's possession.
      */
-    private static final HashSet<String> PLAYER_ARTICLES = new HashSet<>(
-        Set.of("my")
+    private static final HashSet<String> PLAYER_ARTICLES
+        = new HashSet<>(
+            Set.of("my")
     );
 
     /**
      * For creating {@link PlayerCommand}s, all articles are treated the same.
      */
-    private static final HashSet<String> ARTICLES = CollectionUtils.mergeHashSets(
-        new HashSet[] {GENERAL_ARTICLES, PLAYER_ARTICLES}
+    private static final HashSet<String> ARTICLES
+        = CollectionUtils.mergeHashSets(
+            new HashSet[] {GENERAL_ARTICLES, PLAYER_ARTICLES}
     );
 
     /**
@@ -99,8 +112,9 @@ public class Word {
      * the is excluded because the noun in the object phrase determines the
      * quantity.
      */
-    private static final HashSet<String> QUANTIFIERS = new HashSet<>(
-        Set.of("a", "an", "all")
+    private static final HashSet<String> QUANTIFIERS
+        = new HashSet<>(
+            Set.of("a", "an", "all")
     );
 
     /**
@@ -109,8 +123,9 @@ public class Word {
      * {@link PlayerCommand}s, the game will reject all adverbs it doesn't
      * recognize.
      */
-    private static final HashSet<String> ADVERBS = new HashSet<>(
-        Set.of("quickly", "slowly", "sneakily", "loudly", "quietly")
+    private static final HashSet<String> ADVERBS
+        = new HashSet<>(
+            Set.of("quickly", "slowly", "sneakily", "loudly", "quietly")
     );
     /**
      * Action verbs that have a direct object phrase attached directly to them,
@@ -152,14 +167,47 @@ public class Word {
      * Action verbs that cannot attach directly to a direct object phrase to
      * make complete sense. They need the help of an object phrase separating
      * preposition (and thus an indirect object phrase to make sense)
-     * Examples:
-     * Die, quit
      */
-    private static final HashSet<String> INTRANSITIVE_VERBS = new HashSet<>(
-        Set.of("die", "quit", "jump", "look")
+    private static final HashSet<String> NON_TERMINATING_INTRANSITIVE_VERBS
+        = new HashSet<>(
+            Set.of()
     );
 
-    private static final HashSet<String> VERBS = CollectionUtils.mergeHashSets(
+    /**
+     * Optionally terminating intransitive verbs can optionally have an
+     * attached indirect object phrase, but can also be used as a terminating
+     * verb by itself.
+     */
+    private static final HashSet<String> OPTIONALLY_TERMINATING_INTRANSITIVE_VERBS
+        = new HashSet<>(
+            Set.of("jump", "quit", "look")
+    );
+
+    /**
+     * Terminating intransitive verbs cannot have attached direct or indirect
+     * object phrases and are actions entirely on their own.
+     */
+    private static final HashSet<String> TERMINATING_INTRANSITIVE_VERBS
+        = new HashSet<>(
+            Set.of("die")
+    );
+
+    /**
+     * Intransitive verbs cannot attached to a direct object phrase.
+     */
+    private static final HashSet<String> INTRANSITIVE_VERBS
+        = CollectionUtils.mergeHashSets(
+            new HashSet[] {NON_TERMINATING_INTRANSITIVE_VERBS,
+                           OPTIONALLY_TERMINATING_INTRANSITIVE_VERBS,
+                           TERMINATING_INTRANSITIVE_VERBS
+            }
+    );
+
+    /**
+     * Verbs are action words.
+     */
+    private static final HashSet<String> VERBS
+        = CollectionUtils.mergeHashSets(
             new HashSet[] {NON_INDIRECT_TRANSITIVE_VERBS,
                            OPTIONALLY_INDIRECT_TRANSITIVE_VERBS,
                            MANDATORY_INDIRECT_TRANSITIVE_VERBS,
@@ -171,7 +219,8 @@ public class Word {
      * PlayerAction separators separates {@link PlayerCommand} playerActions.
      * These are used for receiveInput multi-playerAction stringCommands.
      */
-    private static final HashSet<String> ACTION_SEPARATORS = new HashSet<>(
+    private static final HashSet<String> ACTION_SEPARATORS
+        = new HashSet<>(
             Set.of(",", "and", "then", ".")
     );
 
@@ -181,7 +230,7 @@ public class Word {
      * from a {@link PlayerCommand} into multiple
      * {@link game.system.input.PlayerAction}s.
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid action
      * separator.
      */
@@ -192,7 +241,7 @@ public class Word {
     /**
      * An article specify a noun.
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid article.
      */
     public static boolean isArticle(String word) {
@@ -202,7 +251,7 @@ public class Word {
     /**
      * A determiner is either an article, or a quantifier.
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid
      * determiner, which is either an article or quantifier.
      */
@@ -212,7 +261,7 @@ public class Word {
 
     /**
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid
      * directional preposition.
      */
@@ -222,7 +271,7 @@ public class Word {
 
     /**
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid
      * joining preposition.
      */
@@ -231,7 +280,7 @@ public class Word {
     }
 
     /**
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid
      * movement preposition.
      */
@@ -243,7 +292,7 @@ public class Word {
      * These types of prepositions signify separating direct and indirect
      * object phrases. This excludes belonging prepositions.
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid preposition
      * for separating object phrases.
      */
@@ -255,7 +304,7 @@ public class Word {
      * Quantifiers specify a quantity of a noun. They can be as specific as a
      * number, or specify "all" of an noun.
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid quantifier.
      */
     public static boolean isQuantifier(String word) {
@@ -266,7 +315,7 @@ public class Word {
     /**
      * This is used for separating object phrases from their owners.
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid belonging
      * preposition.
      */
@@ -277,8 +326,9 @@ public class Word {
     /**
      * All words that end with "ly" are treated as adverbs for parsing purposes.
      *
-     * @param word
-     * @return true if the specified word is recognized as valid adverb.
+     * @param word to check
+     * @return true if the specified word is recognized as following the
+     * structure of an adverb.
      */
     public static boolean isAdverb(String word) {
         return word.toLowerCase().endsWith("ly");
@@ -288,8 +338,8 @@ public class Word {
      * Known adverbs are adverbs that the game recognizes as valid and can be
      * used in commands.
      *
-     * @param word
-     * @return
+     * @param word to check
+     * @return true if the specified word is recognized as a valid adverb.
      */
     public static boolean isKnownAdverb(String word) {
         return ADVERBS.contains(word.toLowerCase());
@@ -298,7 +348,7 @@ public class Word {
     /**
      * Verbs are words that specify an action.
      *
-     * @param word
+     * @param word to check
      * @return true if the specified word is recognized as a valid verb.
      */
     public static boolean isVerb(String word) {
@@ -310,8 +360,8 @@ public class Word {
      * directly to them, but never an indirect object phrase in order to make
      * sense.
      *
-     * @param word
-     * @return
+     * @param word to check
+     * @return true if the specified word is recognized as a valid
      */
     public static boolean isNonIndirectTransitiveVerb(String word) {
         return NON_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
@@ -321,22 +371,24 @@ public class Word {
      * Indirect transitive verbs must have a direct object and indirect object
      * phrase attached to them in order to make sense.
      *
-     * @param word
-     * @return
+     * @param word to check
+     * @return true if the specified word is recognized as an indirect
+     * transitive verb.
      */
     public static boolean isIndirectTransitiveVerb(String word) {
         return MANDATORY_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 
     /**
-     * Optionally-indirect transtive verbs must have a direct object phrase
+     * Optionally-indirect transitive verbs must have a direct object phrase
      * attached directly to the, and optionally an indirect object phrase to
      * make sense. The specific context that the verb is being used and what
      * the direct object phrase is determines whether the indirect object
      * phrase is needed to make sense.
      *
-     * @param word
-     * @return
+     * @param word to check
+     * @return true fi the specified word is recognized as an optionally
+     * indirect transitive verb.
      */
     public static boolean isOptionallyIndirectTransitiveVerb(String word) {
         return OPTIONALLY_INDIRECT_TRANSITIVE_VERBS.contains(word.toLowerCase());
@@ -347,10 +399,48 @@ public class Word {
      * make sense. They need the help of an object phrase separating
      * preposition and an indirect object phrase to make sense.
      *
-     * @param word
-     * @return
+     * @param word to check
+     * @return true if the specified word is an intransitive verb.
      */
     public static boolean isIntransitiveVerb(String word) {
         return INTRANSITIVE_VERBS.contains(word.toLowerCase());
+    }
+
+    /**
+     * Optionally terminating intransitive verbs can optionally have an
+     * attached indirect object phrase, but can also be used as a terminating
+     * verb by itself.
+     *
+     * @param word to check
+     * @return true if the specified word is recognized as an optionally
+     * terminating intransitive verb.
+     */
+    public static boolean isOptionallyTerminatingIntransitiveVerb(String word) {
+        return OPTIONALLY_TERMINATING_INTRANSITIVE_VERBS.contains(word.toLowerCase());
+    }
+
+    /**
+     * Action verbs that cannot attach directly to a direct object phrase to
+     * make complete sense. They need the help of an object phrase separating
+     * preposition (and thus an indirect object phrase to make sense)
+     *
+     * @param word to check
+     * @return true if the specified word is recognized as a terminating
+     * intransitive verb.
+     */
+    public static boolean isTerminatingIntransitiveVerb(String word) {
+        return TERMINATING_INTRANSITIVE_VERBS.contains(word.toLowerCase());
+    }
+
+    /**
+     * Terminating intransitive verbs cannot have attached direct or indirect
+     * object phrases and are actions entirely on their own.
+     *
+     * @param word to check
+     * @return true if the specified word is recognized as a non-terminating
+     * intransitive verb.
+     */
+    public static boolean isNonTerminatingIntransitiveVerb(String word) {
+        return NON_TERMINATING_INTRANSITIVE_VERBS.contains(word.toLowerCase());
     }
 }

@@ -11,7 +11,6 @@ import util.FuncUtils;
  * VerbPhrase? ObjectPhrase? Preposition? ObjectPhrase?
  *
  * @author Evan Quan
- *
  */
 public class PlayerAction {
 
@@ -83,22 +82,47 @@ public class PlayerAction {
         return this.indirectObjectPhrase != null && !this.indirectObjectPhrase.isEmpty();
     }
 
+    /**
+     *
+     * @return true if this action has a preposition.
+     */
     public boolean hasPreposition() {
         return this.preposition != null;
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both player actions have the same direct object phrase.
+     */
     private boolean hasSameDirectObjectPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.directObjectPhrase, other.getDirectObjectPhrase());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both player actions have the same indirect
+     * object phrase.
+     */
     private boolean hasSameIndirectObjectPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.indirectObjectPhrase, other.getIndirectObjectPhrase());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both player actions have the same preposition.
+     */
     private boolean hasSamePreposition(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.preposition, other.getPreposition());
     }
 
+    /**
+     *
+     * @param other to compare
+     * @return true if both player actions have the same verb phrase.
+     */
     private boolean hasSameVerbPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.verbPhrase, other.getVerbPhrase());
     }
@@ -122,18 +146,34 @@ public class PlayerAction {
                 && !hasIndirectObjectPhrase();
     }
 
+    /**
+     *
+     * @param directObjectPhrase to set
+     */
     public void setDirectObjectPhrase(ObjectPhrase directObjectPhrase) {
         this.directObjectPhrase = directObjectPhrase;
     }
 
+    /**
+     *
+     * @param indirectObjectPhrase to set
+     */
     public void setIndirectObjectPhrase(ObjectPhrase indirectObjectPhrase) {
         this.indirectObjectPhrase = indirectObjectPhrase;
     }
 
+    /**
+     *
+     * @param preposition to set
+     */
     public void setPreposition(String preposition) {
         this.preposition = preposition;
     }
 
+    /**
+     *
+     * @param verbPhrase to set
+     */
     public void setVerbPhrase(VerbPhrase verbPhrase) {
         this.verbPhrase = verbPhrase;
     }
@@ -141,7 +181,7 @@ public class PlayerAction {
     /**
      * Set the verbPhrase to a new VerbPhrase with the corresponding verb.
      *
-     * @param verb
+     * @param verb to set
      */
     public void setVerbPhrase(String verb) {
         this.verbPhrase = new VerbPhrase(verb);
