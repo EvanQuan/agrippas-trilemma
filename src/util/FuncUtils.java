@@ -10,17 +10,16 @@ import java.util.function.Predicate;
  * Has utility functions for objects, and higher order functions.
  *
  * @author Evan Quan
- *
  */
 public class FuncUtils {
 
     /**
      * Cannot instantiate.
      */
-    private FuncUtils() {}
+    private FuncUtils() {
+    }
 
     /**
-     *
      * Filter a predicate over a String ArrayList and return the result as a new
      * String ArrayList.
      *
@@ -33,8 +32,8 @@ public class FuncUtils {
     }
 
     /**
-     * Filter a predicate over a String array and return the result as a new String
-     * array.
+     * Filter a predicate over a String array and return the result as a new
+     * String array.
      *
      * @param predicate
      * @param array
@@ -45,8 +44,8 @@ public class FuncUtils {
     }
 
     /**
-     * Map a function over a String ArrayList and return the result as a new String
-     * ArrayList.
+     * Map a function over a String ArrayList and return the result as a new
+     * String ArrayList.
      *
      * @param func
      * @param list
@@ -69,7 +68,6 @@ public class FuncUtils {
     }
 
     /**
-     *
      * @param one
      * @param two
      * @return true if both objects equal each other, or if both are null
@@ -91,8 +89,8 @@ public class FuncUtils {
     }
 
     /**
-     * Reduce a String[] array to a single string using a binary operator. Identity
-     * element is the empty string.
+     * Reduce a String[] array to a single string using a binary operator.
+     * Identity element is the empty string.
      *
      * @param operator
      * @param array

@@ -1,16 +1,13 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-
+import game.object.location.Location;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.object.location.Location;
+import static org.junit.Assert.assertEquals;
 
 /**
- *
  * @author Evan Quan
- *
  */
 public class LocationTest {
 

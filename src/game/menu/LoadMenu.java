@@ -11,8 +11,8 @@ import game.system.save.SaveManager;
 import java.util.ArrayList;
 
 /**
- * Prompts the user to load a game save.
- * Uses ReadObject to detect and load games
+ * Prompts the user to load a game save. Uses ReadObject to detect and load
+ * games
  */
 public class LoadMenu extends Menu {
 
@@ -32,9 +32,7 @@ public class LoadMenu extends Menu {
      */
     private ArrayList<String> saveNames;
     /**
-     * Information about saves in order
-     * Current room
-     *
+     * Information about saves in order Current room
      */
     private ArrayList<String> saveInfo;
     private SaveManager saver;
@@ -52,8 +50,7 @@ public class LoadMenu extends Menu {
 
     /**
      * Process a {@link PlayerCommand} as receiveInput. This will set some
-     * corresponding output to this menu's currently set
-     * {@link IPrintBuffer}.
+     * corresponding output to this menu's currently set {@link IPrintBuffer}.
      *
      * @param playerCommand to processInput
      */
@@ -79,7 +76,6 @@ public class LoadMenu extends Menu {
     }
 
     /**
-     *
      * @return singleton instance
      */
     public static LoadMenu getInstance() {
@@ -90,8 +86,8 @@ public class LoadMenu extends Menu {
     }
 
     /**
-     * Outputs numerical list of existing save files by name and information
-     * and New game option
+     * Outputs numerical list of existing save files by name and information and
+     * New game option
      */
     public void printMainPrompt() {
         out.println(TITLE, SemanticColor.TITLE);
@@ -121,7 +117,6 @@ public class LoadMenu extends Menu {
 
     /**
      * Updates all save information and prints information about each save.
-     *
      */
     private void printAllSaveInformation() {
         ArrayList<Save> saves = saver.getSaves();
@@ -222,12 +217,9 @@ public class LoadMenu extends Menu {
     }
 
 
-
-
-
-
     /**
      * Sets the GameMenu's world to saveNum
+     *
      * @param saveNumber of save to load
      */
     public void loadGame(int saveNumber) {
@@ -243,8 +235,10 @@ public class LoadMenu extends Menu {
         GameMenu gameMenu = GameMenu.getInstance();
         gameMenu.setSave(save);
     }
+
     /**
      * Sets the GameMenu's world to saveName
+     *
      * @param saveName of save to load
      */
     public void loadGame(String saveName) {
@@ -258,7 +252,6 @@ public class LoadMenu extends Menu {
         GameMenu gameMenu = GameMenu.getInstance();
         gameMenu.setSave(save);
     }
-
 
 
     // Prompts
@@ -301,7 +294,6 @@ public class LoadMenu extends Menu {
     }
 
 
-
     /**
      * Determines valid saves depending on MAXIMUM_SAVES
      */
@@ -328,10 +320,10 @@ public class LoadMenu extends Menu {
             save = saves.get(i - 1);
             saveNames.add(save.getName());
             saveNumbers.add(i);
-                // outputln("i: " + i + " | name: " + name);
-                // saver.setCurrentSave(name);
-                // save = (Save) saver.restore();
-                // saveInfo.add(save.getInfo());
+            // outputln("i: " + i + " | name: " + name);
+            // saver.setCurrentSave(name);
+            // save = (Save) saver.restore();
+            // saveInfo.add(save.getInfo());
             // } catch (InvalidSaveNameException e) {
             //     e.printStackTrace();
             // } catch (Exception e) {
@@ -344,6 +336,7 @@ public class LoadMenu extends Menu {
     public ArrayList<String> getSaveNames() {
         return this.saveNames;
     }
+
     public ArrayList<Integer> getSaveNumbers() {
         return this.saveNumbers;
     }

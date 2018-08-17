@@ -1,20 +1,16 @@
 package test.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+import util.TextUtils;
 
 import java.util.Arrays;
 
-import org.junit.Test;
-
-import util.TextUtils;
+import static org.junit.Assert.*;
 
 /**
  * JUnit test class for the TextUtil class
  *
  * @author Evan Quan
- *
  */
 
 public class TextUtilsTest {
@@ -52,7 +48,7 @@ public class TextUtilsTest {
     @Test
     public void testSplitCamelCase() {
         String input = "thisIsTheInputString";
-        String[] expected = { "this", "Is", "The", "Input", "String" };
+        String[] expected = {"this", "Is", "The", "Input", "String"};
         String[] result = TextUtils.splitCamelCase(input);
         assertTrue(Arrays.equals(expected, result));
     }

@@ -4,9 +4,8 @@ import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
 
 /**
- * Prompts to save game save
- * Uses WriteObject to save game
- * Can override preexisting saves
+ * Prompts to save game save Uses WriteObject to save game Can override
+ * preexisting saves
  */
 public class SaveMenu extends Menu {
 
@@ -17,8 +16,8 @@ public class SaveMenu extends Menu {
     }
 
     /**
-     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
-     * {@link IPrintBuffer}.
+     * Process a {@link PlayerCommand} as receiveInput. This will set some
+     * corresponding output to this menu's currently set {@link IPrintBuffer}.
      *
      * @param playerCommand to processInput
      */

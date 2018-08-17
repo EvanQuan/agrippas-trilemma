@@ -10,8 +10,8 @@ public class AskToSaveMenu extends Menu {
     private static AskToSaveMenu instance;
 
     private AskToSaveMenu() {
-
     }
+
     public static AskToSaveMenu getInstance() {
         if (instance == null) {
             instance = new AskToSaveMenu();

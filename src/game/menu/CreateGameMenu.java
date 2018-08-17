@@ -28,6 +28,7 @@ public class CreateGameMenu extends Menu {
     public void printMainPrompt() {
 //        println("Enter the name of your new game.");
     }
+
     public void processInput() {
 //        String name = getInputString();
 //        print("Game \"");
@@ -46,6 +47,7 @@ public class CreateGameMenu extends Menu {
 
     /**
      * Create new game
+     *
      * @param gameName of the world to create
      */
     public boolean createGame(String gameName) {

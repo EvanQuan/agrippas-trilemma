@@ -12,8 +12,8 @@ public class RestartMenu extends Menu {
     }
 
     /**
-     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
-     * {@link IPrintBuffer}.
+     * Process a {@link PlayerCommand} as receiveInput. This will set some
+     * corresponding output to this menu's currently set {@link IPrintBuffer}.
      *
      * @param playerCommand to processInput
      */
@@ -31,9 +31,10 @@ public class RestartMenu extends Menu {
     }
 
     /**
-     * Appends prompt to output {@link IPrintBuffer}. This should be called every time a {@link Menu}is changed in
-     * {@link MenuManager} to signify to the user that the menu has changed, and what input is appropriate for the given
-     * menu.
+     * Appends prompt to output {@link IPrintBuffer}. This should be called
+     * every time a {@link Menu}is changed in {@link MenuManager} to signify to
+     * the user that the menu has changed, and what input is appropriate for the
+     * given menu.
      */
     @Override
     public void printMainPrompt() {

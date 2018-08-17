@@ -1,19 +1,15 @@
 package test.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import util.Multiset;
+
+import static org.junit.Assert.*;
 
 /**
  * JUnit 4 tests for {@link Multiset} class
  *
  * @author Evan Quan
- *
  */
 public class MultisetTest {
 
@@ -22,8 +18,8 @@ public class MultisetTest {
 
     @Before
     public void setup() {
-        set = new Multiset<String>();
-        set2 = new Multiset<String>();
+        set = new Multiset<>();
+        set2 = new Multiset<>();
     }
 
     @Test

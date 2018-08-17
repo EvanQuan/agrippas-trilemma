@@ -4,9 +4,8 @@ import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
 
 /**
- * Mediates post-game decisions
- * Asks to save before returning to MainMenu
- * Asks player to load or restart after death/victory
+ * Mediates post-game decisions Asks to save before returning to MainMenu Asks
+ * player to load or restart after death/victory
  */
 public class GameOverMenu extends Menu {
 
@@ -24,8 +23,8 @@ public class GameOverMenu extends Menu {
     }
 
     /**
-     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
-     * {@link IPrintBuffer}.
+     * Process a {@link PlayerCommand} as receiveInput. This will set some
+     * corresponding output to this menu's currently set {@link IPrintBuffer}.
      *
      * @param playerCommand to processInput
      */
@@ -64,10 +63,11 @@ public class GameOverMenu extends Menu {
 
     /**
      * Mode detemines printMainPrompt text and decisions???
-     * @param  int mode          of menu
+     *
+     * @param int mode          of menu
      */
     public void setMode(int mode) {
-        switch(mode) {
+        switch (mode) {
             case LOSE:
                 title = "Oh no, you died!";
                 break;
@@ -76,9 +76,11 @@ public class GameOverMenu extends Menu {
                 break;
         }
     }
+
     public void setWin() {
         setMode(WIN);
     }
+
     public void setLose() {
         setMode(LOSE);
     }

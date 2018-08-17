@@ -2,7 +2,6 @@ package test;
 
 import game.system.input.PlayerCommand;
 import game.system.input.PlayerInputParser;
-import game.system.output.ConsolePrintBuffer;
 import game.system.output.IPrintBuffer;
 import org.junit.Test;
 
@@ -14,7 +13,6 @@ import static org.junit.Assert.assertTrue;
  * Checks that JUnit 4 is working
  *
  * @author Evan Quan
- *
  */
 public class TestTest {
 

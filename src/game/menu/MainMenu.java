@@ -187,7 +187,6 @@ public class MainMenu extends Menu {
     }
 
     /**
-     *
      * @param playerCommand to process
      */
     @Override
@@ -219,8 +218,8 @@ public class MainMenu extends Menu {
     }
 
     /**
-     * If there are already existing game saves, go to the load menu.
-     * Otherwise, immediately start a new game.
+     * If there are already existing game saves, go to the load menu. Otherwise,
+     * immediately start a new game.
      */
     private void startGame() {
         changeTo(LoadMenu.getInstance());

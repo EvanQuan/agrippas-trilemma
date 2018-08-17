@@ -1,19 +1,16 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import game.object.location.Exit;
+import game.object.location.Location;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.object.location.Exit;
-import game.object.location.Location;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
- *
  * @author Evan Quan
  * @since March 4, 2018
- *
  */
 public class ExitTest {
 
@@ -53,7 +50,8 @@ public class ExitTest {
     }
 
     /**
-     * Check thats mutual exits can be created automatically through addMutualExit()
+     * Check thats mutual exits can be created automatically through
+     * addMutualExit()
      */
     @Test
     public void testAddMutualDefaultExit() {

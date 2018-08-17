@@ -2,7 +2,6 @@ package test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
 import test.game.system.input.*;
 import test.game.system.input.words.ObjectPhraseTest;
 import test.game.system.input.words.WordTest;
@@ -10,6 +9,11 @@ import test.util.CollectionUtilsTest;
 import test.util.MultisetTest;
 import test.util.TextUtilsTest;
 
+/**
+ * Runs all test classes under JUnit 4
+ *
+ * @author Evan Quan
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         CollectionUtilsTest.class,
@@ -32,11 +36,5 @@ import test.util.TextUtilsTest;
         WordTest.class,
         ExitTest.class
 })
-
-/**
- * Runs all test classes under JUnit 4
- *
- * @author Evan Quan
- */
 public class _TestSuite {
 }

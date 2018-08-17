@@ -15,7 +15,8 @@ public class CollectionUtils {
     /**
      * Cannot instantiate.
      */
-    private CollectionUtils() {}
+    private CollectionUtils() {
+    }
 
     /**
      * Add array to ArrayList<String>
@@ -70,14 +71,13 @@ public class CollectionUtils {
     }
 
     public static ArrayList<String> getArrayList(String word) {
-        return getArrayList(new String[] { word });
+        return getArrayList(new String[]{word});
     }
 
     /**
      * Convert a String[] to an ArrayList&lt;String&gt; of the same content.
      *
-     * @param array
-     *            to convert
+     * @param array to convert
      * @return the ArrayList equivalent
      */
     public static ArrayList<String> getArrayList(String[] array) {
@@ -131,8 +131,8 @@ public class CollectionUtils {
     }
 
     /**
-     * Cast an object array to a String array, where the Objects are presumed to be
-     * Strings.
+     * Cast an object array to a String array, where the Objects are presumed to
+     * be Strings.
      *
      * @param array
      * @return
@@ -143,7 +143,7 @@ public class CollectionUtils {
 
     /**
      * Convert ArrayList<Integer> or ArrayList<Double> to ArrayList<String>
-     *
+     * <p>
      * TODO: This is terrible and needs to be redone.
      *
      * @param inList
@@ -236,6 +236,7 @@ public class CollectionUtils {
 
     /**
      * Merge a list of sets into 1 set.
+     *
      * @param sets to merge
      * @return a HashSet with the elements of all input hash sets.
      */

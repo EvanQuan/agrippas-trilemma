@@ -9,7 +9,8 @@ public class TestMenu extends Menu {
     private static TestMenu instance;
 
     public static final String[] BACK = {"q"};
-    public static final String[] VALID_INPUT = {"take", "pick up","get"};
+    public static final String[] VALID_INPUT = {"take", "pick up", "get"};
+
     private TestMenu() {
 
     }
@@ -59,7 +60,6 @@ public class TestMenu extends Menu {
     }
 
     /**
-     *
      * @return Singleton instance of TestMenu
      */
     public static TestMenu getInstance() {
