@@ -1,7 +1,6 @@
 package game.system.gui;
 
 import game.menu.Menu;
-import game.system.output.GUIPrintBuffer;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -83,7 +82,7 @@ public class MainFrame extends JFrame {
         getContentPane().setBackground(BACKGROUND_COLOR);
 
         outputPanel = OutputPanel.getInstance();
-        Menu.setOut(outputPanel);  // Set all menus to print to OutputPanel
+        Menu.setOutput(outputPanel);  // Set all menus to print to OutputPanel
 
         inputPanel = new InputPanel();
         // documentListener = new DocumentListener();

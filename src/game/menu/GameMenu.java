@@ -39,17 +39,6 @@ public class GameMenu extends Menu {
     }
 
     /**
-     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
-     * {@link IPrintBuffer}.
-     *
-     * @param playerCommand to processInput
-     */
-    @Override
-    public void processInput(PlayerCommand playerCommand) {
-        // TODO
-    }
-
-    /**
      * Create all valid stringCommands for this menu. Use addStringCommand().
      */
     @Override
@@ -95,7 +84,10 @@ public class GameMenu extends Menu {
     public void playerLook() {
     }
 
-    // public void output()
+    /**
+     * Process a {@link PlayerCommand} as receiveInput. This will set some corresponding output to this menu's currently set
+     * {@link IPrintBuffer}.
+     */
     public void processInput() {
 //        if (inputStartsWithStrip(look)) {
 //            if (inputRemains()) {

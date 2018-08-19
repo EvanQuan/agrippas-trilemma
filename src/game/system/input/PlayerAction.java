@@ -31,7 +31,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return the {@link ObjectPhrase} placed immediately after this action's
      * {@link VerbPhrase} (if it has one).
      */
@@ -40,7 +39,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return the {@link ObjectPhrase} placed immediately after this action's
      * preposition (if it has one).
      */
@@ -49,7 +47,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return the word positioned between this command's direct and indirect
      * {@link ObjectPhrase}s.
      */
@@ -58,7 +55,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return the {@link VerbPhrase} that is the beginning of this action.
      */
     public VerbPhrase getVerbPhrase() {
@@ -66,7 +62,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return true if this command has a direct {@link ObjectPhrase}
      */
     public boolean hasDirectObjectPhrase() {
@@ -75,7 +70,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return true if this command has an indirect {@link ObjectPhrase}
      */
     public boolean hasIndirectObjectPhrase() {
@@ -83,7 +77,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return true if this action has a preposition.
      */
     public boolean hasPreposition() {
@@ -91,7 +84,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @param other to compare
      * @return true if both player actions have the same direct object phrase.
      */
@@ -100,17 +92,14 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @param other to compare
-     * @return true if both player actions have the same indirect
-     * object phrase.
+     * @return true if both player actions have the same indirect object phrase.
      */
     private boolean hasSameIndirectObjectPhrase(PlayerAction other) {
         return FuncUtils.nullablesEqual(this.indirectObjectPhrase, other.getIndirectObjectPhrase());
     }
 
     /**
-     *
      * @param other to compare
      * @return true if both player actions have the same preposition.
      */
@@ -119,7 +108,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @param other to compare
      * @return true if both player actions have the same verb phrase.
      */
@@ -128,7 +116,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return true if this command has a {@link VerbPhrase}
      */
     public boolean hasVerbPhrase() {
@@ -136,7 +123,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return true if all components are empty.
      */
     public boolean isEmpty() {
@@ -147,7 +133,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @param directObjectPhrase to set
      */
     public void setDirectObjectPhrase(ObjectPhrase directObjectPhrase) {
@@ -155,7 +140,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @param indirectObjectPhrase to set
      */
     public void setIndirectObjectPhrase(ObjectPhrase indirectObjectPhrase) {
@@ -163,7 +147,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @param preposition to set
      */
     public void setPreposition(String preposition) {
@@ -171,7 +154,6 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @param verbPhrase to set
      */
     public void setVerbPhrase(VerbPhrase verbPhrase) {
@@ -188,19 +170,19 @@ public class PlayerAction {
     }
 
     /**
-     *
      * @return the string representation of this action in terms of all its
      * components.
      */
     @Override
     public String toString() {
-        return "["
-                + (hasVerbPhrase() ? "verbPhrase: " + verbPhrase : "")
-                + (hasDirectObjectPhrase() ?
-                " | directObjectPhrase: " + directObjectPhrase : "")
-                + (hasPreposition() ? " | preposition: " + preposition : "")
-                + (hasIndirectObjectPhrase() ?
-                " | indirectObjectPhrase: " + indirectObjectPhrase : "")
+        return "[" + String.join(", ",
+                (hasVerbPhrase() ? "verbPhrase: " + verbPhrase : ""),
+                (hasDirectObjectPhrase() ?
+                        "directObjectPhrase: " + directObjectPhrase : ""),
+                (hasPreposition() ? "preposition: " + preposition : ""),
+                (hasIndirectObjectPhrase() ?
+                        "indirectObjectPhrase: " + indirectObjectPhrase : "")
+        )
                 + "]";
     }
 }

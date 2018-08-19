@@ -1,6 +1,7 @@
 package game.menu;
 
 import game.system.input.PlayerCommand;
+import game.system.output.IPrintBuffer;
 
 /**
  * Prompts user if they want to save
@@ -31,8 +32,13 @@ public class AskToSaveMenu extends Menu {
     }
 
 
+    /**
+     * Process a {@link PlayerCommand} as receiveInput. This will set some
+     * corresponding output to this menu's currently set {@link IPrintBuffer}.
+     * This is occurs after isValidInput() is called and succeeds.
+     */
     @Override
-    public void processInput(PlayerCommand playerCommand) {
+    public void processInput() {
         // TODO
 //        if (inputEquals(yes)) {
 //            changeToSaveMenu();

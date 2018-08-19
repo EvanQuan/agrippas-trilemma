@@ -23,7 +23,7 @@ public class TestMenu extends Menu {
     }
 
     @Override
-    public void processInput(PlayerCommand playerCommand) {
+    public void processInput() {
         // TODO
 //        if (inputStartsWith(BACK)) {
 //            changeToMainMenu();

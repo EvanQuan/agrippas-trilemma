@@ -51,99 +51,13 @@ public class LoadMenu extends Menu {
     /**
      * Process a {@link PlayerCommand} as receiveInput. This will set some
      * corresponding output to this menu's currently set {@link IPrintBuffer}.
-     *
-     * @param playerCommand to processInput
      */
     @Override
-    public void processInput(PlayerCommand playerCommand) {
-        // TODO
-    }
-
-    /**
-     * Create all valid stringCommands for this menu. Use addStringCommand().
-     */
-    @Override
-    protected void initializeCommands() {
-//        addCommand(stringCommands, new String[]{"create",
-//                "c",
-//                "create new game",
-//                "create game",
-//                "create new"}, () -> createNewGame());
-//        addCommand(stringCommands, new String[]{"load",
-//                "l"}, () -> loadGame());
-//        addCommand(stringCommands, new String[] {"delete",
-//                "d"}, () -> deleteGame());
-    }
-
-    /**
-     * @return singleton instance
-     */
-    public static LoadMenu getInstance() {
-        if (instance == null) {
-            instance = new LoadMenu();
-        }
-        return instance;
-    }
-
-    /**
-     * Outputs numerical list of existing save files by name and information and
-     * New game option
-     */
-    public void printMainPrompt() {
-        out.println(TITLE, SemanticColor.TITLE);
-        updateSaveInformation();
-        printAllSaveInformation();
-        printMenuOptions();
-    }
-
-    /**
-     * Print what the player can do while in the Load Menu.
-     */
-    private void printMenuOptions() {
-        out.printlns(OPTIONS_SPACING);
-        out.print("Load", SemanticColor.PLAYER);
-        out.print(", or ");
-        out.print("Delete", SemanticColor.PLAYER);
-        out.print("a game, or ");
-        out.print("Return", SemanticColor.PLAYER);
-        out.print(" to the ");
-        if (MenuManager.getPreviousMenu().equals(MainMenu.getInstance())) {
-            out.print("Main Menu", SemanticColor.LOCATION);
-            out.println(".");
-        } else {
-            out.println("game.");
-        }
-    }
-
-    /**
-     * Updates all save information and prints information about each save.
-     */
-    private void printAllSaveInformation() {
-        ArrayList<Save> saves = saver.getSaves();
-        for (int i = 0; i < saves.size(); i++) {
-            out.print(i + 1, SemanticColor.PLAYER);
-            out.print(". ");
-            printSaveInformation(saves.get(i));
-        }
-
-    }
-
-    /**
-     * Print information about the specified save in a formatted matter.
-     *
-     * @param save to print information about.
-     */
-    private void printSaveInformation(Save save) {
-        out.println(save.getName(), SemanticColor.TITLE);
-        out.print("    Room: ", SemanticColor.LOCATION);
-        out.print(save.getRoom().getSingleName());
-        out.print("    Turns: ", SemanticColor.ITEM);
-        out.print(save.getTurnCount());
-        out.print("    Version: ", SemanticColor.DIRECTION);
-        out.print(save.getVersion());
-    }
-
-    public void processInput() {
+    protected void processInput() {
+//        if (isValidVerbPhrase(thisCommand)) {
+//            //
+//        }
+        // OLD STUFF BELOW /////////////////////////////////////////////////////
         // System.out.println("Before strip");
         // System.out.println("inputString: " + getInputString());
         // System.out.println("inputWords: " + Arrays.asList(getInputWords()));
@@ -216,13 +130,97 @@ public class LoadMenu extends Menu {
 //        }
     }
 
+    /**
+     * Create all valid stringCommands for this menu. Use addStringCommand().
+     */
+    @Override
+    protected void initializeCommands() {
+        addCommand(verbCommands, new String[]{"load", "l"},
+                () -> startLoadGame());
+        addCommand(verbCommands, new String[] {"delete", "d"},
+                () -> startDeleteGame());
+        addCommand(verbCommands, returnToPreviousMenu,
+                () -> changeToPreviousMenu());
+    }
+
+    /**
+     * @return singleton instance
+     */
+    public static LoadMenu getInstance() {
+        if (instance == null) {
+            instance = new LoadMenu();
+        }
+        return instance;
+    }
+
+    /**
+     * Outputs numerical list of existing save files by name and information and
+     * New game option
+     */
+    public void printMainPrompt() {
+        out.println(TITLE, SemanticColor.TITLE);
+        updateSaveInformation();
+        printAllSaveInformation();
+        printMenuOptions();
+    }
+
+    /**
+     * Print what the player can do while in the Load Menu.
+     */
+    private void printMenuOptions() {
+        out.printlns(OPTIONS_SPACING);
+        out.print("Load", SemanticColor.PLAYER);
+        out.print(", or ");
+        out.print("Delete", SemanticColor.PLAYER);
+        out.print("a game, or ");
+        out.print("Return", SemanticColor.PLAYER);
+        out.print(" to the ");
+        if (MenuManager.getPreviousMenu().equals(MainMenu.getInstance())) {
+            out.print("Main Menu", SemanticColor.LOCATION);
+            out.println(".");
+        } else {
+            out.println("game.");
+        }
+    }
+
+    /**
+     * Updates all save information and prints information about each save.
+     */
+    private void printAllSaveInformation() {
+        ArrayList<Save> saves = saver.getSaves();
+        for (int i = 0; i < saves.size(); i++) {
+            out.print(i + 1, SemanticColor.PLAYER);
+            out.print(". ");
+            printSaveInformation(saves.get(i));
+        }
+
+    }
+
+    /**
+     * Print information about the specified save in a formatted matter.
+     *
+     * @param save to print information about.
+     */
+    private void printSaveInformation(Save save) {
+        out.println(save.getName(), SemanticColor.TITLE);
+        out.print("    Room: ", SemanticColor.LOCATION);
+        out.print(save.getRoom().getSingleName());
+        out.print("    Turns: ", SemanticColor.ITEM);
+        out.print(save.getTurnCount());
+        out.print("    Version: ", SemanticColor.DIRECTION);
+        out.print(save.getVersion());
+    }
+
+    private void startLoadGame() {
+        // TODO
+    }
 
     /**
      * Sets the GameMenu's world to saveNum
      *
      * @param saveNumber of save to load
      */
-    public void loadGame(int saveNumber) {
+    private void loadGame(int saveNumber) {
         try {
             saver.setCurrentSave(saveNumber);
         } catch (InvalidSaveNumException e) {
@@ -241,7 +239,7 @@ public class LoadMenu extends Menu {
      *
      * @param saveName of save to load
      */
-    public void loadGame(String saveName) {
+    private void loadGame(String saveName) {
         try {
             saver.setCurrentSave(saveName);
         } catch (InvalidSaveNameException e) {
@@ -255,7 +253,7 @@ public class LoadMenu extends Menu {
 
 
     // Prompts
-    public void outputInvalid(String action) {
+    private void outputInvalid(String action) {
 //        if (saveNumbers.size() == 0) {
 //            print("There are no games to ");
 //            printPlayer(toTitleCase(playerAction));
@@ -281,13 +279,17 @@ public class LoadMenu extends Menu {
 
     }
 
-    public void outputDeleted() {
+    private void startDeleteGame() {
+
+    }
+
+    private void outputDeleted() {
 //        print("Save \"");
 //        printItem(saver.getCurrentSaveName());
 //        println("\" deleted.");
     }
 
-    public void outputNotDeleted() {
+    private void outputNotDeleted() {
 //        print("Save \"");
 //        printItem(getInputString());
 //        println("\" does not exist and cannot be deleted.");
@@ -305,9 +307,9 @@ public class LoadMenu extends Menu {
     // }
 
     /**
-     * Updates saveNumbers, saveNames (for user receiveInput comparison)
+     * Updates saveNumbers with their corresponding saveNames.
      */
-    public void updateSaveInformation() {
+    private void updateSaveInformation() {
         // outputln("updateSaveInformation() started");
         saveNames.clear();
         saveNumbers.clear();

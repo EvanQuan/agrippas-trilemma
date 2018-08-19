@@ -124,7 +124,7 @@ public class ObjectPhraseTest {
     public void hasSameOwner_noun_noun_true() {
         ObjectPhrase three = new ObjectPhrase();
         three.setNoun("a");
-        three.setBelongingPreposition("of");
+        three.setPreposition("of");
         one.setOwner(three);
         two.setOwner(three);
         assertTrue(one.hasSameOwner(two));
@@ -146,7 +146,7 @@ public class ObjectPhraseTest {
         ObjectPhrase four = new ObjectPhrase();
         three.setNoun("a");
         four.setNoun("a");
-        three.setBelongingPreposition("of");
+        three.setPreposition("of");
         one.setOwner(three);
         two.setOwner(four);
         assertFalse(one.hasSameOwner(two));

@@ -25,11 +25,8 @@ public class GameOverMenu extends Menu {
     /**
      * Process a {@link PlayerCommand} as receiveInput. This will set some
      * corresponding output to this menu's currently set {@link IPrintBuffer}.
-     *
-     * @param playerCommand to processInput
      */
-    @Override
-    public void processInput(PlayerCommand playerCommand) {
+    public void processInput() {
         // TODO
     }
 
@@ -62,9 +59,9 @@ public class GameOverMenu extends Menu {
     }
 
     /**
-     * Mode detemines printMainPrompt text and decisions???
+     * Mode determines printMainPrompt text and decisions???
      *
-     * @param int mode          of menu
+     * @param mode of menu
      */
     public void setMode(int mode) {
         switch (mode) {

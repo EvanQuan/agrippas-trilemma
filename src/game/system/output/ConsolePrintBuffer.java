@@ -22,7 +22,7 @@ public class ConsolePrintBuffer implements IPrintBuffer {
 
     /**
      * This is where all output is directed to. This can be configured with
-     * setOut() if needed.
+     * setOutput() if needed.
      */
     private PrintStream out;
 

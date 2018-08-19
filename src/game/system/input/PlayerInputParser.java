@@ -1,6 +1,5 @@
 package game.system.input;
 
-import game.object.item.background.character.Player;
 import game.system.input.words.ObjectPhrase;
 import game.system.input.words.VerbPhrase;
 import game.system.input.words.Word;
@@ -123,7 +122,7 @@ public class PlayerInputParser {
         for (i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
             if (Word.isBelongingPreposition(token)) {
-                objectPhrase.setBelongingPreposition(token);
+                objectPhrase.setPreposition(token);
                 break;
             } else {
                 thisTokens.add(token);

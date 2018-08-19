@@ -5,6 +5,8 @@ import game.system.output.IPrintBuffer;
 import game.system.output.SemanticColor;
 import main.Main;
 
+import java.util.Arrays;
+
 /**
  * Starting menu. Allows the player to start playing, learn more about the game,
  * or quit the program.
@@ -14,6 +16,12 @@ import main.Main;
 public class MainMenu extends Menu {
     private static MainMenu instance;
 
+    private static final String[] START_GAME = {"1", "1.", "start game",
+            "start", "s"};
+    private static final String[] HOW_TO_PLAY = {"2", "2.", "how to play", "how", "h"};
+    private static final String[] ABOUT_GAME = {"3", "3.", "about this game",
+            "about", "about game", "a"};
+    private static final String[] QUIT = {"4", "4.", "quit", "q"};
     /**
      * ASCII text: http://patorjk.com/software/taag/ Title Font: Doom Character
      * Width: Default Character Height: Default Subtitle Font: Small Character
@@ -49,11 +57,10 @@ public class MainMenu extends Menu {
 
     @Override
     protected void initializeCommands() {
-        addCommand(stringCommands, new String[]{"1", "1.", "start game", "start", "s"}, () -> startGame());
-        addCommand(stringCommands, new String[]{"2", "2.", "how to play", "how", "h"}, () -> startHowToPlay());
-        addCommand(stringCommands, new String[]{"3", "3.", "about this game", "about", "about game", "a"},
-                () -> startAboutThisGame());
-        addCommand(stringCommands, new String[]{"4", "4.", "quit", "q"}, () -> quitGame());
+        addCommand(stringCommands, START_GAME, () -> startGame());
+        addCommand(stringCommands, HOW_TO_PLAY, () -> startHowToPlay());
+        addCommand(stringCommands, ABOUT_GAME, () -> startAboutThisGame());
+        addCommand(stringCommands, QUIT, () -> quitGame());
     }
 
     private void printAboutThisGame() {
@@ -67,7 +74,7 @@ public class MainMenu extends Menu {
     }
 
     private void printCommandShortcuts() {
-        out.println("Basic shortcut stringCommands:", SemanticColor.ITEM);
+        out.println("Basic shortcut commands:", SemanticColor.ITEM);
         out.print("l", SemanticColor.PLAYER);
         out.println(" - Look");
         out.print("x", SemanticColor.PLAYER);
@@ -81,7 +88,7 @@ public class MainMenu extends Menu {
         out.print("z", SemanticColor.PLAYER);
         out.println(" - Wait");
         out.print("g", SemanticColor.PLAYER);
-        out.println(" - Again (Repeat previous playerAction)");
+        out.println(" - Again (Repeat previous action)");
         out.println();
         out.println("Movement:", SemanticColor.ITEM);
         out.print("n", SemanticColor.PLAYER);
@@ -101,7 +108,8 @@ public class MainMenu extends Menu {
     /**
      * If command was invalid, explicitly prompt what
      */
-    private void printInvalidInput() {
+    @Override
+    protected void printInvalidInput() {
         out.print("Choose ");
         out.print("Start Game", SemanticColor.PLAYER);
         out.print(", ");
@@ -187,16 +195,32 @@ public class MainMenu extends Menu {
     }
 
     /**
-     * @param playerCommand to process
+     * Every command that does not start the game is sandwiched between the
+     * title screen and the menu options. This checks that the input is not
+     * starting the game, and if it
      */
     @Override
-    public void processInput(PlayerCommand playerCommand) {
+    protected void preProcessInput() {
+        if (!Arrays.asList(START_GAME).contains(thisCommand.getString().toLowerCase())) {
+            printTitleScreen();
+        }
+    }
+
+    @Override
+    protected void processInput() {
         // Only care about matching the total string for simplicity.
-        String command = playerCommand.getString().toLowerCase();
+        String command = thisCommand.getString().toLowerCase();
         if (stringCommands.containsKey(command)) {
             stringCommands.get(command).run();
         } else {
             printInvalidInput();
+        }
+    }
+
+    @Override
+    protected void postProcessInput() {
+        if (!Arrays.asList(START_GAME).contains(thisCommand.getString().toLowerCase())) {
+            printMenuOptions();
         }
     }
 

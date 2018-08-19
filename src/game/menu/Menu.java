@@ -14,11 +14,12 @@ public abstract class Menu {
     /**
      * Spacing between prompt and options.
      */
-    public static final int OPTIONS_SPACING = 2;
+    protected static final int OPTIONS_SPACING = 2;
+
     /**
-     * Output
+     * Game text output.
      */
-    public static IPrintBuffer out;
+    protected static IPrintBuffer out;
 
     /**
      * String inputs correspond to runnable actions for the menu to do. Each
@@ -34,17 +35,32 @@ public abstract class Menu {
     protected HashMap<String, Runnable> indirectObjectCommands;
 
     // Input options
-    protected String[] yes;
-    protected String[] no;
-    protected String[] returnToPreviousMenu;
+    protected final static String[] yes = {"yes", "y", "yeah", "yee", "yup"};
+    protected final static String[] no = {"no", "n", "nay", "nope"};
+    protected final static String[] returnToPreviousMenu = {"return", "r"};
+
 
     /**
-     * @throws RuntimeException
+     * The previous command that the player has issued. If no previous command
+     * has been issued, this will be null.
      */
-    public Menu() throws RuntimeException {
+    protected PlayerCommand previousCommand;
+    /**
+     * The most most recent command that the player has issued. After this
+     */
+    protected PlayerCommand thisCommand;
+
+    /**
+     * Default constructor. Requires an {@link IPrintBuffer} to be set as output
+     * before constructor is called.
+     *
+     * @throws RuntimeException when an {@link IPrintBuffer} for output is not
+     *                          set.
+     */
+    protected Menu() throws RuntimeException {
         if (out == null) {
             throw new RuntimeException("Cannot instantiate any menus until an" +
-                    "IPrintBuffer is set for all menus via Menu.setOut().");
+                    "IPrintBuffer is set for all menus via Menu.setOutput().");
         }
         stringCommands = new HashMap<>();
         verbCommands = new HashMap<>();
@@ -53,18 +69,14 @@ public abstract class Menu {
         indirectObjectCommands = new HashMap<>();
         initializeCommands();
         // validVerbs = new ArrayList<ArrayList<String>>();
-        yes = new String[]{"yes", "y", "yeah", "yee", "yup"};
-        no = new String[]{"no", "n", "nay", "nope"};
-        returnToPreviousMenu = new String[]{"return", "r", "return to previous menu", "return menu",
-                "return to menu"};
     }
 
     /**
      * Set the {@link IPrintBuffer} for all menus to output to.
      *
-     * @param printBuffer
+     * @param printBuffer to set
      */
-    public static void setOut(IPrintBuffer printBuffer) {
+    public static void setOutput(IPrintBuffer printBuffer) {
         out = printBuffer;
     }
 
@@ -72,28 +84,26 @@ public abstract class Menu {
      * Set the {@link MenuManager}s current menu. This will immediately change
      * the menu after the current menu's input is done processing.
      *
-     * @param menu
+     * @param menu to change to
      */
-    public void changeTo(Menu menu) {
+    protected void changeTo(Menu menu) {
         MenuManager.pushCurrentMenu(menu);
     }
 
     /**
      * Change the {@link MenuManager}s current menu to the previous menu.
      */
-    public void changeToPreviousMenu() {
+    protected void changeToPreviousMenu() {
         MenuManager.pushCurrentMenu(MenuManager.getPreviousMenu());
     }
 
     /**
      * Process a {@link PlayerCommand} as receiveInput. This will set some
      * corresponding output to this menu's currently set {@link
-     * game.system.output.IPrintBuffer}. This is occurs after preprocessInput()
+     * game.system.output.IPrintBuffer}. This is occurs after isValidInput()
      * is called and succeeds.
-     *
-     * @param playerCommand to processInput
      */
-    protected abstract void processInput(PlayerCommand playerCommand);
+    protected abstract void processInput();
 
     /**
      * Create all valid stringCommands for this menu. Use addStringCommand().
@@ -121,9 +131,10 @@ public abstract class Menu {
      * careful not to have stringCommands share options, or an option will be
      * overridden
      *
-     * @param commands
-     * @param options
-     * @param method
+     * @param commands to store option/method pairs.
+     * @param options  all strings that correspond to method. All are converted
+     *                 to lower case.
+     * @param method   with no parameters and Menu method in body
      */
     protected void addCommand(HashMap<String, Runnable> commands, String[] options, Runnable method) {
         for (String option : options) {
@@ -134,40 +145,44 @@ public abstract class Menu {
     /**
      * Retrieve and process a player command.
      *
-     * @param playerCommand
+     * @param playerCommand to receive
      */
     public final void receiveInput(PlayerCommand playerCommand) {
-        if (preprocessInput(playerCommand)) {
-            processInput(playerCommand);
-            postprocessInput(playerCommand);
+        if (isValidInput(playerCommand)) {
+            thisCommand = playerCommand;
+            preProcessInput();
+            processInput();
+            postProcessInput();
+            previousCommand = thisCommand;
+        } else {
+            printInvalidInput();
         }
     }
 
     /**
      * Checks player command before processing. By default, checks if the
-     * command is empty. If so, output the main prompt and skip processInput()
-     * and postprocessInput().
+     * command is empty. If so, skip processInput() and postProcessInput(). If
+     * successful, the specified playerCommand will be set as thisCommand, which
+     * can be used for processInput() and postProcessInput().
      *
-     * @param playerCommand
+     * @param playerCommand to process
      * @return true if pre-process was successful.
      */
-    protected boolean preprocessInput(PlayerCommand playerCommand) {
-        if (playerCommand.isEmpty()) {
-            printMainPrompt();
-        }
+    protected boolean isValidInput(PlayerCommand playerCommand) {
         return !playerCommand.isEmpty();
     }
 
     /**
-     * Retrieves information about the playerCommand after it has been process.
-     * This may influence how future stringCommands are processed. This is only
-     * ran if preprocessInput() is successful. By default this does nothing.
-     *
-     * @param playerCommand
+     * Input has already been validated. Do stuff before processing valid input.
      */
-    protected void postprocessInput(PlayerCommand playerCommand) {
+    protected abstract void preProcessInput();
 
-    }
+    /**
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future commands are processed. This is only
+     * ran if isValidInput() is successful.
+     */
+    protected abstract void postProcessInput();
 
     /**
      * Print the main prompt to output {@link IPrintBuffer}. This should be
@@ -175,7 +190,12 @@ public abstract class Menu {
      * signify to the user that the menu has changed, and what input is
      * appropriate for the given menu.
      */
-    public abstract void printMainPrompt();
+    protected abstract void printMainPrompt();
+
+    /**
+     * Prints a message signifying that the user can inputted invalid input.
+     */
+    protected abstract void printInvalidInput();
 
     // /**
     // * Returns value of inputString
@@ -255,7 +275,7 @@ public abstract class Menu {
     // this.originalInputWords = inputWords;
     // this.verb = EMPTY;
     // outputPlayerInput();
-    // preProcessInput();
+    // isValidInput();
     // }
 
     // public boolean inputEquals(ArrayList arrayList) {
@@ -622,5 +642,4 @@ public abstract class Menu {
     // public boolean wordEqualsInteger(String word, ArrayList<Integer> arrayList) {
     // return wordEquals(word, getStringArrayList(arrayList));
     // }
-
 }

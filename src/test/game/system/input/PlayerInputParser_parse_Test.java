@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import com.intellij.codeInsight.editorActions.smartEnter.PlainEnterProcessor;
 import game.system.input.PlayerAction;
 import org.junit.Test;
 
@@ -445,7 +444,7 @@ public class PlayerInputParser_parse_Test {
                 playerAction.getDirectObjectPhrase().getDeterminer());
         assertFalse(playerAction.getDirectObjectPhrase().hasNoun());
 
-        assertEquals("of", playerAction.getDirectObjectPhrase().getBelongingPreposition());
+        assertEquals("of", playerAction.getDirectObjectPhrase().getPreposition());
 
         assertTrue(playerAction.getDirectObjectPhrase().hasOwner());
         assertEquals("my",
@@ -462,7 +461,7 @@ public class PlayerInputParser_parse_Test {
 
 
         assertEquals("of",
-                playerAction.getDirectObjectPhrase().getOwner().getBelongingPreposition());
+                playerAction.getDirectObjectPhrase().getOwner().getPreposition());
 
         assertTrue(playerAction.getDirectObjectPhrase().getOwner().hasOwner());
         assertEquals("deliciousness",
@@ -482,8 +481,8 @@ public class PlayerInputParser_parse_Test {
         assertEquals("demon",
                 playerAction.getIndirectObjectPhrase().getNoun());
 
-        assertTrue(playerAction.getIndirectObjectPhrase().hasBelongingPreposition());
-        assertEquals("of", playerAction.getIndirectObjectPhrase().getBelongingPreposition());
+        assertTrue(playerAction.getIndirectObjectPhrase().hasPreposition());
+        assertEquals("of", playerAction.getIndirectObjectPhrase().getPreposition());
 
         assertTrue(playerAction.getIndirectObjectPhrase().hasOwner());
         assertEquals("doom",

@@ -104,7 +104,7 @@ public class PlayerInputParser_getObjectPhrase_Test {
     @Test
     public void owner1() {
         expected.setNoun("b");
-        expected.setBelongingPreposition("of");
+        expected.setPreposition("of");
         ObjectPhrase owner = new ObjectPhrase();
         owner.setNoun("c");
         expected.setOwner(owner);
@@ -114,7 +114,7 @@ public class PlayerInputParser_getObjectPhrase_Test {
     @Test
     public void ownerDeterminerAdjective1() {
         expected.setNoun("b");
-        expected.setBelongingPreposition("of");
+        expected.setPreposition("of");
         ObjectPhrase owner = new ObjectPhrase();
         owner.setDeterminer("the");
         owner.setAdjectives(new String[] {"c"});
@@ -126,12 +126,12 @@ public class PlayerInputParser_getObjectPhrase_Test {
     @Test
     public void owner2() {
         expected.setNoun("b");
-        expected.setBelongingPreposition("of");
+        expected.setPreposition("of");
         ObjectPhrase owner2 = new ObjectPhrase();
         owner2.setNoun("d");
         ObjectPhrase owner = new ObjectPhrase();
         owner.setNoun("c");
-        owner.setBelongingPreposition("of");
+        owner.setPreposition("of");
         owner.setOwner(owner2);
         expected.setOwner(owner);
         testGetObjectPhraseEquals(new String[] {"b", "of", "c", "of", "d"});
@@ -140,7 +140,7 @@ public class PlayerInputParser_getObjectPhrase_Test {
     @Test
     public void belongingPrepositionWithoutOwner() {
         expected.setNoun("b");
-        expected.setBelongingPreposition("of");
+        expected.setPreposition("of");
         testGetObjectPhraseEquals(new String[] {"b", "of"});
     }
 

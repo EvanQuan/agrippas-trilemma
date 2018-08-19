@@ -21,7 +21,7 @@ public class GameLoop {
      * Default constructor. Sets up all game components to be used in the console.
      */
     public GameLoop() {
-        Menu.setOut(out);  // Set output to console
+        Menu.setOutput(out);  // Set output to console
     }
 
     /**

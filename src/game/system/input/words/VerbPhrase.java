@@ -1,17 +1,16 @@
 package game.system.input.words;
+
 import util.FuncUtils;
 
 import java.util.ArrayList;
 
 /**
- * Verb phrases describe a verb. It is composed of any number of adverbs,
- * ending a verb.
- * Verb phrases conform to the following grammar:
+ * Verb phrases describe a verb. It is composed of any number of adverbs, ending
+ * a verb. Verb phrases conform to the following grammar:
  * <br><br>
  * Adverb* Verb?
  *
  * @author Evan Quan
- *
  */
 public class VerbPhrase {
 
@@ -43,22 +42,20 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @param other phrase to compare equality with.
-     * @return true if the article, adjective, and noun are equal for both object
-     *         phrases.
+     * @return true if the article, adjective, and noun are equal for both
+     * object phrases.
      */
     @Override
     public boolean equals(Object other) {
         if (other instanceof VerbPhrase) {
             return hasSameAdverbs((VerbPhrase) other)
-                && hasSameVerb((VerbPhrase) other);
+                    && hasSameVerb((VerbPhrase) other);
         }
         return false;
     }
 
     /**
-     *
      * @return the list of adverbs this verb phrase has.
      */
     public ArrayList<String> getAdverbs() {
@@ -66,7 +63,6 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @return the verb that this verb phrase represents.
      */
     public String getVerb() {
@@ -75,7 +71,6 @@ public class VerbPhrase {
 
 
     /**
-     *
      * @return true if this verb phrase has at least one adverb.
      */
     public boolean hasAdverbs() {
@@ -83,7 +78,6 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @return true if this verb phrase has a verb.
      */
     public boolean hasVerb() {
@@ -91,17 +85,15 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @param other to compare
-     * @return true if the other {@link VerbPhrase} has the same adverbs
-     * as this phrase.
+     * @return true if the other {@link VerbPhrase} has the same adverbs as this
+     * phrase.
      */
     public boolean hasSameAdverbs(VerbPhrase other) {
         return FuncUtils.nullablesEqual(this.adverbs, other.getAdverbs());
     }
 
     /**
-     *
      * @param other to compare
      * @return ture if the other {@link VerbPhrase} has the same verb as this
      * phrase.
@@ -111,7 +103,6 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @return true if this verb phrase does not have a verb.
      */
     public boolean isEmpty() {
@@ -119,7 +110,6 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @param adverbs to set for this verb phrase.
      */
     public void setAdverbs(ArrayList<String> adverbs) {
@@ -127,7 +117,6 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @param verb to set for this verb phrase.
      */
     public void setVerb(String verb) {
@@ -135,15 +124,15 @@ public class VerbPhrase {
     }
 
     /**
-     *
      * @return the string representation of this command in terms of all its
      * components.
      */
     @Override
     public String toString() {
-        return "["
-                + (hasAdverbs() ? "adverbs: " + adverbs : "")
-                + (hasVerb() ? " | verb: " + verb : "")
+        return "[" + String.join(" ",
+                (hasAdverbs() ? "adverbs: " + adverbs : ""),
+                (hasVerb() ? "verb: " + verb : "")
+        )
                 + "]";
     }
 }

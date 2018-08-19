@@ -14,11 +14,9 @@ public class RestartMenu extends Menu {
     /**
      * Process a {@link PlayerCommand} as receiveInput. This will set some
      * corresponding output to this menu's currently set {@link IPrintBuffer}.
-     *
-     * @param playerCommand to processInput
      */
     @Override
-    public void processInput(PlayerCommand playerCommand) {
+    public void processInput() {
         // TODO
     }
 

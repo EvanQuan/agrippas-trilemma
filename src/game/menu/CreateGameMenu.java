@@ -29,6 +29,7 @@ public class CreateGameMenu extends Menu {
 //        println("Enter the name of your new game.");
     }
 
+    @Override
     public void processInput() {
 //        String name = getInputString();
 //        print("Game \"");
@@ -85,11 +86,6 @@ public class CreateGameMenu extends Menu {
 
     @Override
     public void initializeCommands() {
-        // TODO
-    }
-
-    @Override
-    public void processInput(PlayerCommand playerCommand) {
         // TODO
     }
 
