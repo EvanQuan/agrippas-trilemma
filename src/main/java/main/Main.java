@@ -10,7 +10,7 @@ import game.system.gui.MainFrame;
  * @version 0.10.0
  */
 public class Main {
-    private static String version = "0.10.0";
+    private static String version = "0.11.0";
 
     /**
      * This is used for setting the game version when game saves are made.
@@ -28,6 +28,7 @@ public class Main {
      */
     @SuppressWarnings("unused")
     public static void main(String[] args) {
+
         args = new String[] {"-c"};  // Debug for now
         if (args.length != 1) {
             help();
