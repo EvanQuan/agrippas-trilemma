@@ -17,6 +17,9 @@ import java.util.ArrayList;
 public class LoadMenu extends Menu {
 
     private static final String TITLE = "Load game";
+
+    protected static final String[] LOAD_GAME = {"load", "l"};
+    protected static final String[] DELETE_GAME = {"delete", "d"};
     // public static final String NEW_GAME = "New game";
 
     /**
@@ -135,12 +138,31 @@ public class LoadMenu extends Menu {
      */
     @Override
     protected void initializeCommands() {
-        addCommand(verbCommands, new String[]{"load", "l"},
+        addCommand(verbCommands, LOAD_GAME,
                 () -> startLoadGame());
-        addCommand(verbCommands, new String[] {"delete", "d"},
+        addCommand(verbCommands, DELETE_GAME,
                 () -> startDeleteGame());
         addCommand(verbCommands, returnToPreviousMenu,
                 () -> changeToPreviousMenu());
+    }
+
+    /**
+     * Input has already been validated. Do stuff before processing valid
+     * input.
+     */
+    @Override
+    protected void preProcessInput() {
+
+    }
+
+    /**
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future commands are processed. This is only ran if
+     * isValidInput() is successful.
+     */
+    @Override
+    protected void postProcessInput() {
+
     }
 
     /**
@@ -162,6 +184,14 @@ public class LoadMenu extends Menu {
         updateSaveInformation();
         printAllSaveInformation();
         printMenuOptions();
+    }
+
+    /**
+     * Prints a message signifying that the user can inputted invalid input.
+     */
+    @Override
+    protected void printInvalidInput() {
+        // TODO? Is this even needed?
     }
 
     /**

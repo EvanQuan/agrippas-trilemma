@@ -1,6 +1,5 @@
 package game.menu;
 
-import game.system.input.PlayerCommand;
 import game.system.output.IPrintBuffer;
 import game.system.output.SemanticColor;
 import main.Main;
@@ -16,12 +15,12 @@ import java.util.Arrays;
 public class MainMenu extends Menu {
     private static MainMenu instance;
 
-    private static final String[] START_GAME = {"1", "1.", "start game",
+    protected static final String[] START_GAME = {"1", "1.", "start game",
             "start", "s"};
-    private static final String[] HOW_TO_PLAY = {"2", "2.", "how to play", "how", "h"};
-    private static final String[] ABOUT_GAME = {"3", "3.", "about this game",
+    protected static final String[] HOW_TO_PLAY = {"2", "2.", "how to play", "how", "h"};
+    protected static final String[] ABOUT_GAME = {"3", "3.", "about this game",
             "about", "about game", "a"};
-    private static final String[] QUIT = {"4", "4.", "quit", "q"};
+    protected static final String[] QUIT = {"4", "4.", "quit", "q"};
     /**
      * ASCII text: http://patorjk.com/software/taag/ Title Font: Doom Character
      * Width: Default Character Height: Default Subtitle Font: Small Character

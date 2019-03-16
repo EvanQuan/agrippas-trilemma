@@ -1,7 +1,5 @@
 package game.menu;
 
-import game.system.input.PlayerCommand;
-
 /**
  * Test menu for menu manager to transfer between menuss
  */
@@ -20,6 +18,14 @@ public class TestMenu extends Menu {
 //        println("You are now in the Test menu.");
 //        println("Valid receiveInput: " + Arrays.asList(VALID_INPUT));
 //        println("To go to the main menu, type \"" + Arrays.asList(BACK) + "\"");
+    }
+
+    /**
+     * Prints a message signifying that the user can inputted invalid input.
+     */
+    @Override
+    protected void printInvalidInput() {
+
     }
 
     @Override
@@ -57,6 +63,25 @@ public class TestMenu extends Menu {
     @Override
     public void initializeCommands() {
         // TODO
+    }
+
+    /**
+     * Input has already been validated. Do stuff before processing valid
+     * input.
+     */
+    @Override
+    protected void preProcessInput() {
+
+    }
+
+    /**
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future commands are processed. This is only ran if
+     * isValidInput() is successful.
+     */
+    @Override
+    protected void postProcessInput() {
+
     }
 
     /**

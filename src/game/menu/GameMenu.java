@@ -47,6 +47,25 @@ public class GameMenu extends Menu {
     }
 
     /**
+     * Input has already been validated. Do stuff before processing valid
+     * input.
+     */
+    @Override
+    protected void preProcessInput() {
+
+    }
+
+    /**
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future commands are processed. This is only ran if
+     * isValidInput() is successful.
+     */
+    @Override
+    protected void postProcessInput() {
+
+    }
+
+    /**
      * Allows children to extend basic processInput stringCommands
      */
     public void enableExtendInput() {
@@ -76,6 +95,14 @@ public class GameMenu extends Menu {
     public void printMainPrompt() {
 //        println("room: " + room);
         playerLook();
+    }
+
+    /**
+     * Prints a message signifying that the user can inputted invalid input.
+     */
+    @Override
+    protected void printInvalidInput() {
+
     }
 
     /**

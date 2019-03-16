@@ -1,6 +1,5 @@
 package game.menu;
 
-import game.system.input.PlayerCommand;
 import game.system.save.InvalidSaveNameException;
 import game.system.save.Save;
 import game.system.save.SaveManager;
@@ -27,6 +26,14 @@ public class CreateGameMenu extends Menu {
 
     public void printMainPrompt() {
 //        println("Enter the name of your new game.");
+    }
+
+    /**
+     * Prints a message signifying that the user can inputted invalid input.
+     */
+    @Override
+    protected void printInvalidInput() {
+
     }
 
     @Override
@@ -87,6 +94,25 @@ public class CreateGameMenu extends Menu {
     @Override
     public void initializeCommands() {
         // TODO
+    }
+
+    /**
+     * Input has already been validated. Do stuff before processing valid
+     * input.
+     */
+    @Override
+    protected void preProcessInput() {
+
+    }
+
+    /**
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future commands are processed. This is only ran if
+     * isValidInput() is successful.
+     */
+    @Override
+    protected void postProcessInput() {
+
     }
 
 }

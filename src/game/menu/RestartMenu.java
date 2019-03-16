@@ -29,6 +29,25 @@ public class RestartMenu extends Menu {
     }
 
     /**
+     * Input has already been validated. Do stuff before processing valid
+     * input.
+     */
+    @Override
+    protected void preProcessInput() {
+
+    }
+
+    /**
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future commands are processed. This is only ran if
+     * isValidInput() is successful.
+     */
+    @Override
+    protected void postProcessInput() {
+
+    }
+
+    /**
      * Appends prompt to output {@link IPrintBuffer}. This should be called
      * every time a {@link Menu}is changed in {@link MenuManager} to signify to
      * the user that the menu has changed, and what input is appropriate for the
@@ -36,6 +55,14 @@ public class RestartMenu extends Menu {
      */
     @Override
     public void printMainPrompt() {
+
+    }
+
+    /**
+     * Prints a message signifying that the user can inputted invalid input.
+     */
+    @Override
+    protected void printInvalidInput() {
 
     }
 

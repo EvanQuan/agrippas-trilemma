@@ -33,9 +33,27 @@ public class GameOverMenu extends Menu {
     /**
      * Create all valid stringCommands for this menu. Use addStringCommand().
      */
-    @Override
     protected void initializeCommands() {
         // TODO
+    }
+
+    /**
+     * Input has already been validated. Do stuff before processing valid
+     * input.
+     */
+    @Override
+    protected void preProcessInput() {
+
+    }
+
+    /**
+     * Retrieves information about the playerCommand after it has been process.
+     * This may influence how future commands are processed. This is only ran if
+     * isValidInput() is successful.
+     */
+    @Override
+    protected void postProcessInput() {
+
     }
 
     public static GameOverMenu getInstance() {
@@ -56,6 +74,14 @@ public class GameOverMenu extends Menu {
 //        print(" to the ");
 //        printLocation(" Main Menu");
 //        println(".");
+    }
+
+    /**
+     * Prints a message signifying that the user can inputted invalid input.
+     */
+    @Override
+    protected void printInvalidInput() {
+
     }
 
     /**
